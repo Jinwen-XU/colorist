@@ -17,12 +17,12 @@
 \definecolor{lightergray}{gray}{0.99}
 \lstset{language=[LaTeX]TeX,
     keywordstyle=\color{RoyalBlue},
-    basicstyle=\small\ttfamily,
+    basicstyle=\ttfamily,
     commentstyle=\color{ForestGreen}\ttfamily,
     stringstyle=\rmfamily,
     showstringspaces=false,
     breaklines=true,
-    frame=leftline,
+    frame=lines,
     backgroundcolor=\color{lightergray},
     flexiblecolumns=true,
     escapeinside={(*}{*)},
@@ -39,35 +39,43 @@
 \lstnewenvironment{code}% 
 {\setkeys{lst}{columns=fullflexible,keepspaces=true}}{}
 
+\providecommand{\colorist}{\textsf{colorist}}
+\providecommand{\lebhart}{\textsf{lebhart}}
+\providecommand{\lebhartfast}{\textsf{lebhartfast}}
+\providecommand{\beaulivre}{\textsf{beaulivre}}
+\providecommand{\beaulivrefast}{\textsf{beaulivrefast}}
+
 %%================================
 %% 正文
 %%================================
 \begin{document}
 
-\title{colorist，多彩风格的文档类系列\thanks{对应版本. \texttt{colorist 2021/03/10}}}
+\title{\colorist{}，多彩风格的文档类系列\thanks{对应版本. \texttt{\colorist{} 2021/03/11}}}
 \author{锦文}
 \date{2021年3月，北京}
 
 \maketitle
 
 \begin{abstract}
-    colorist文档类系列包含用于排版文章的lebhart、用于排版书的beaulivre，以及对应的两个fast版本。我设计这一系列的初衷是为了撰写草稿与笔记，使之多彩而不缭乱。
+    \colorist{}文档类系列包含用于排版文章的\lebhart{}、用于排版书的\beaulivre{}，以及对应的两个fast版本。我设计这一系列的初衷是为了撰写草稿与笔记，使之多彩而不缭乱。
 
     这些文档类支持英文、法文、中文三种语言，并且同一篇文档中三种语言可以很好地协调。由于采用了自定义字体，需要采用 \hologo{XeLaTeX} 或 \hologo{LuaLaTeX} 进行编译。
     
-    最后，这篇说明文档是用lebhart排版的，你可以把它看作一份简短的说明与演示。
+    最后，这篇说明文档是用\lebhart{}排版的，你可以把它看作一份简短的说明与演示。
 \end{abstract}
 
-\noindent\plainBox[orange]{由于colorist主体是从minimalist系列修改而来的，因而一些页面元素还未完全重新设计}
+\begin{tcolorbox}[enhanced jigsaw,pad at break*=1mm,breakable,colback=yellow!25!paper,boxrule=0pt,frame hidden]
+    由于\colorist{}主体是从\textsf{minimalist}系列修改而来的，因而一些页面元素还未完全重新设计，特别是目录、part和chapter的样式。这些内容会在将来逐渐加入。
+\end{tcolorbox}
 
 \tableofcontents
 
 \section{关于这些文档类的名称与区别}
-lebhart取自于德文的lebhaft (活泼)，并取了artikel (文章)的前三个字母组合而成。
+\lebhart{}取自于德文的lebhaft (活泼)，并取了artikel (文章)的前三个字母组合而成。
 
-beaulivre取自于法文的beau (美丽)，以及livre (书)，由二者组合而成。
+\beaulivre{}取自于法文的beau (美丽)，以及livre (书)，由二者组合而成。
 
-lebhartfast与beaulivrefast是更快速但略微粗糙的lebhart与beaulivre。主要区别是：
+\lebhartfast{}与\beaulivrefast{}是更快速但略微粗糙的\lebhart{}与\beaulivre{}。主要区别是：
 \begin{itemize}
     \item 使用较为简单的数学字体设置；
     \item 不使用hyperref；
@@ -96,28 +104,27 @@ lebhartfast与beaulivrefast是更快速但略微粗糙的lebhart与beaulivre。�
 
 引用时，可以直接使用智能引用 \lstinline|\cref{标签名称}|，例如：\lstinline|\cref{def: strange}| 会显示为：\cref{def: strange}。
 
+\bigskip
+下面是定理类环境的其他几种样式：
+
+\begin{theorem}
+    Theorem style: theorem, proposition, lemma, corollary
+\end{theorem}
+
 \begin{remark}
-    Some text
+    Remark style
 \end{remark}
 
-\begin{proposition}
-    Some text
-\end{proposition}
-
 \begin{conjecture}
-    Some text 
+    Conjecture style
 \end{conjecture}
 
-\begin{fact}
-    Some text 
-\end{fact}
-
 \begin{example*}
-    Some text
+    Example style: example, fact
 \end{example*}
 
 \begin{problem}
-    Some text
+    Problem style
 \end{problem}
 
 \subsection{定义新的定理型环境}
@@ -175,7 +182,7 @@ lebhartfast与beaulivrefast是更快速但略微粗糙的lebhart与beaulivre。�
 % 行号可以随时开启和关闭。\lstinline|\linenumbers| 用来开启行号，\lstinline|\nolinenumbers| 用来关闭行号。标题、目录、索引等位置为了美观，不进行编号。
 
 \subsection{关于字体}
-lebhart与beaulivre使用Palatino Linotype作为英文字体，方正悠宋、悠黑简体作为中文字体，并部分使用了Neo Euler作为数学字体：
+\lebhart{}与\beaulivre{}使用Palatino Linotype作为英文字体，方正悠宋、悠黑简体作为中文字体，并部分使用了Neo Euler作为数学字体：
 \begin{itemize}
     \item English main font. \textsf{English sans serif font}.
     \item 中文主要字体，\textsf{中文无衬线字体}
@@ -207,7 +214,6 @@ lebhart与beaulivre使用Palatino Linotype作为英文字体，方正悠宋、�
 
 %% Texte ici
 
-
 \end{document}
 \end{code}
 \end{minipage}
@@ -231,13 +237,12 @@ lebhart与beaulivre使用Palatino Linotype作为英文字体，方正悠宋、�
 
 %% 正文部分
 
-
 \end{document}
 \end{code}
 \end{minipage}
 \par
 
 \bigskip
-(\lstinline|\UseLanguage| 既可以放在preamble中，也可以放在正文部分，并且可以按照需要反复使用)
+(\lstinline|\UseLanguage| 既可以放在导言中，也可以放在正文部分，并且可以按照需要反复使用)
 
 \end{document}
