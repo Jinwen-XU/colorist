@@ -57,6 +57,7 @@
 %<beaulivre|beaulivrefast>\newcommand{\chapfont}{\sffamily}
 \newcommand{\secfont}{\sffamily}
 \newcommand{\subsecfont}{}
+\newcommand{\subsubsecfont}{}
 %<*lebhartfast|beaulivrefast>
 
 %% Math fonts
@@ -337,6 +338,12 @@
 \titleformat{name=\subsection,numberless}
     {\subsecfont}{}{0em}
     {#1}
+
+%% Subsubsection
+\titleformat{\subsubsection}
+    {\subsubsecfont}{\sffamily\thesubsubsection}{.5em}
+    {#1}
+\titlespacing{\subsubsection}{0pt}{.8\baselineskip}{.5\baselineskip}
 
 %%================================
 %% TOC format
@@ -665,69 +672,76 @@
 
 \theoremstyle{simple}% as the default style for user-defined environments
 
+\let\proof\relax
+\let\endproof\relax
+\def\proofnameCN{\proofname}
+\def\proofnameEN{\proofname}
+\def\proofnameFR{\proofname}
+\CreateTheorem*{proof}
+
 \RequirePackage[many]{tcolorbox}
 %<lebhartfast|beaulivrefast>\tcbstartdraftmode
 \tcolorboxenvironment{theorem}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
-    colframe=orange}
+    opacityframe=0.9,colframe=orange,arc=.7mm}
 \tcolorboxenvironment{theorem*}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
-    colframe=orange}
+    opacityframe=0.9,colframe=orange,arc=.7mm}
 \tcolorboxenvironment{lemma}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
-    colframe=orange}
+    opacityframe=0.9,colframe=orange,arc=.7mm}
 \tcolorboxenvironment{lemma*}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
-    colframe=orange}
+    opacityframe=0.9,colframe=orange,arc=.7mm}
 \tcolorboxenvironment{proposition}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
-    colframe=orange}
+    opacityframe=0.9,colframe=orange,arc=.7mm}
 \tcolorboxenvironment{proposition*}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
-    colframe=orange}
+    opacityframe=0.9,colframe=orange,arc=.7mm}
 \tcolorboxenvironment{corollary}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
-    colframe=orange}
+    opacityframe=0.9,colframe=orange,arc=.7mm}
 \tcolorboxenvironment{corollary*}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
-    colframe=orange}
+    opacityframe=0.9,colframe=orange,arc=.7mm}
 
 \tcolorboxenvironment{fact}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=gray!10!paper,
-    boxrule=0pt,frame hidden}
+    boxrule=0pt,frame hidden,arc=.7mm}
 \tcolorboxenvironment{fact*}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=gray!10!paper,
-    boxrule=0pt,frame hidden}
+    boxrule=0pt,frame hidden,arc=.7mm}
 
 \tcolorboxenvironment{conjecture}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
-    colframe=purple}
+    opacityframe=0.7,colframe=purple,arc=.7mm}
 \tcolorboxenvironment{conjecture*}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
-    colframe=purple}
+    opacityframe=0.7,colframe=purple,arc=.7mm}
 
 \tcolorboxenvironment{definition}
     {enhanced jigsaw,pad at break*=1mm,breakable,
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{-1mm}{forestgreen}}
+    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
 \tcolorboxenvironment{definition*}
     {enhanced jigsaw,pad at break*=1mm,breakable,
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{-1mm}{forestgreen}}
+    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
     
 \tcolorboxenvironment{example}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=gray!10!paper,
-    boxrule=0pt,frame hidden}
+    boxrule=0pt,frame hidden,arc=.7mm}
 \tcolorboxenvironment{example*}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=gray!10!paper,
-    boxrule=0pt,frame hidden}
+    boxrule=0pt,frame hidden,arc=.7mm}
 
 \tcolorboxenvironment{problem}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=yellow!25!paper,
-    boxrule=0pt,frame hidden}
+    boxrule=0pt,frame hidden,arc=.7mm}
 \tcolorboxenvironment{problem*}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=yellow!25!paper,
-    boxrule=0pt,frame hidden}
+    boxrule=0pt,frame hidden,arc=.7mm}
 
 %%================================
 %% Language configuration
@@ -857,9 +871,17 @@
     \vspace{-\parskip}%
     \vspace{-.5\baselineskip}%
     {\textcolor{gray!55!paper}{\rule{\textwidth}{0.75pt}}\par}%
+    \medskip%
 }
+
+%%================================
+%% Abstract style
+%%================================
 \apptocmd{\maketitle}{\thispagestyle{fancy}}{}{\FAIL}
-\apptocmd{\abstract}{\color{black!80!paper}}{}{\FAIL}
+\renewenvironment{abstract}
+{\small\centerline{\textsc{\abstractname}\vspace{-0.3\baselineskip}}
+    \color{black!80!paper}\begin{quotation}}
+{\end{quotation}\medskip}
 %</lebhart|lebhartfast>
 
 \endinput
