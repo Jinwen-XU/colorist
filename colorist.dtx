@@ -17,19 +17,19 @@
 \NeedsTeXFormat{LaTeX2e}[2020-10-01]
 %<*lebhart>
 \ProvidesClass{lebhart}
-    [2021/03/11 A colorful article style]
+    [2021/03/12 A colorful article style]
 %</lebhart>
 %<*lebhartfast>
 \ProvidesClass{lebhartfast}
-    [2021/03/11 A faster but rougher version of lebhart]
+    [2021/03/12 A faster but rougher version of lebhart]
 %</lebhartfast>
 %<*beaulivre>
 \ProvidesClass{beaulivre}
-    [2021/03/11 A colorful book style]
+    [2021/03/12 A colorful book style]
 %</beaulivre>
 %<*beaulivrefast>
 \ProvidesClass{beaulivrefast}
-    [2021/03/11 A faster but rougher version of beaulivre]
+    [2021/03/12 A faster but rougher version of beaulivre]
 %</beaulivrefast>
 
 %<*lebhart|lebhartfast>
@@ -176,8 +176,9 @@
 %%================================
 \RequirePackage[heightrounded]{geometry}
 \geometry{
-    papersize={7in,10in},
-    total={40em,60em},
+    % papersize={8in,11in},
+    a4paper,
+    total={47em,70em},
     hmarginratio=1:1,
     vmarginratio=1:1,
     footnotesep=2em plus 2pt minus 2pt,
@@ -227,16 +228,16 @@
 
 %<*lebhart|lebhartfast>
 \if@twoside
-    \renewcommand*{\sectionmark}[1]{\markboth{\uppercase{#1}}{}}
+    \renewcommand*{\sectionmark}[1]{\markboth{\textsc{#1}}{}}
 \else
-    \renewcommand*{\sectionmark}[1]{\markboth{\uppercase{#1}}{\uppercase{#1}}}
+    \renewcommand*{\sectionmark}[1]{\markboth{\textsc{#1}}{\textsc{#1}}}
 \fi
 %</lebhart|lebhartfast>
 %<*beaulivre|beaulivrefast>
 \if@twoside
-    \renewcommand{\chaptermark}[1]{\markboth{\uppercase{#1}}{}}
+    \renewcommand{\chaptermark}[1]{\markboth{\textsc{#1}}{}}
 \else
-    \renewcommand{\chaptermark}[1]{\markboth{\uppercase{#1}}{\uppercase{#1}}}
+    \renewcommand{\chaptermark}[1]{\markboth{\textsc{#1}}{\textsc{#1}}}
 \fi
 \renewcommand*{\sectionmark}[1]{%
     \markright{\raisebox{.03em}{\footnotesize/}%
@@ -325,7 +326,7 @@
 
 %% Section
 \titleformat{\section}
-    {\secfont\color{steelblue}}
+    {\secfont\large\color{steelblue}}
     {\thesection}{1em}{#1}
     [{\titlerule[.75pt]}]
 
@@ -351,13 +352,13 @@
 %<*lebhart|lebhartfast>
 \titlecontents{section}
     [2em] % i.e., 0em (part) + 2em
-    {\secfont}
+    {\normalfont}
     {\contentslabel{1.75em}}
     {\hspace*{-1.75em}}
     {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
 \titlecontents{subsection}
     [5em] % i.e., 2em (section) + 3em
-    {\subsecfont}
+    {\normalfont}
     {\contentslabel{2.75em}}
     {\hspace*{-2.75em}}
     {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
@@ -371,13 +372,13 @@
     {\normalfont\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
 \titlecontents{section}
     [4em] % i.e., 2em (chapter) + 2em
-    {\secfont}
+    {\normalfont}
     {\contentslabel{1.75em}}
     {\hspace*{-1.75em}}
     {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
 \titlecontents{subsection}
     [7em] % i.e., 4em (section) + 3em
-    {\subsecfont}
+    {\normalfont}
     {\contentslabel{2.75em}}
     {\hspace*{-2.75em}}
     {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
@@ -627,8 +628,8 @@
 
 \RequirePackage{marginnote}
 \newcommand{\mparadjust}[1]{\renewcommand*{\marginnotevadjust}{#1}}
-\apptocmd{\remark}{\reversemarginpar\mparadjust{-.3em}\marginnote{\ideabulb[0.3]{orange}}\normalmarginpar}{}{\FAIL}
-\apptocmd{\conjecture}{\reversemarginpar\mparadjust{-.3em}\marginnote{\questionmark[0.3]{purple}}\normalmarginpar}{}{\FAIL}
+\apptocmd{\remark}{\reversemarginpar\mparadjust{-.25em}\marginnote{\ideabulb[0.3]{orange}\hspace*{-.5em}}\normalmarginpar}{}{\FAIL}
+\apptocmd{\conjecture}{\reversemarginpar\mparadjust{-.25em}\marginnote{\questionmark[0.3]{purple}\hspace*{-.5em}}\normalmarginpar}{}{\FAIL}
 
 \RequirePackage{iftex}
 \ifXeTeX
@@ -765,12 +766,12 @@
 }
 
 \newcommand{\UseLanguageCORE}[1]{%
-    \ifstrequal{#1}{chinese}{\colorist@langconfig@chinese}{}%
-    \ifstrequal{#1}{Chinese}{\colorist@langconfig@chinese}{}%
-    \ifstrequal{#1}{english}{\colorist@langconfig@english}{}%
-    \ifstrequal{#1}{English}{\colorist@langconfig@english}{}%
-    \ifstrequal{#1}{french}{\colorist@langconfig@french}{}
-    \ifstrequal{#1}{French}{\colorist@langconfig@french}{}
+    \ifstrequal{#1}{chinese}{\onehalfspacing\colorist@langconfig@chinese}{}%
+    \ifstrequal{#1}{Chinese}{\onehalfspacing\colorist@langconfig@chinese}{}%
+    \ifstrequal{#1}{english}{\setstretch{1.07}\colorist@langconfig@english}{}%
+    \ifstrequal{#1}{English}{\setstretch{1.07}\colorist@langconfig@english}{}%
+    \ifstrequal{#1}{french}{\setstretch{1.07}\colorist@langconfig@french}{}%
+    \ifstrequal{#1}{French}{\setstretch{1.07}\colorist@langconfig@french}{}%
 }
 \newcommand{\UseLanguage}[1]{%
     \ifx\@onlypreamble\@notprerr%
@@ -778,6 +779,17 @@
     \else%
         \AfterEndPreamble{\UseLanguageCORE{#1}}%
     \fi%
+}
+\newcommand{\UseOtherLanguage}[2]{%
+\begingroup%
+    \ifstrequal{#1}{chinese}{\colorist@langconfig@chinese}{}%
+    \ifstrequal{#1}{Chinese}{\colorist@langconfig@chinese}{}%
+    \ifstrequal{#1}{english}{\colorist@langconfig@english}{}%
+    \ifstrequal{#1}{English}{\colorist@langconfig@english}{}%
+    \ifstrequal{#1}{french}{\colorist@langconfig@french}{}%
+    \ifstrequal{#1}{French}{\colorist@langconfig@french}{}%
+    #2%
+\endgroup%
 }
 
 %%================================
