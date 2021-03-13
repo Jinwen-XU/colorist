@@ -89,17 +89,17 @@ During the writing stage of your document, it is recommended to use the ``fast''
 \subsection{Theorems and how to reference them}
 
 Environments such as definitions and theorems have been pre-defined and can be used directly, for example:
-
 \begin{code}
   \begin{definition}[Strange things] \label{def: strange} ...
 \end{code}
-
 will produce
 \begin{definition}[Strange things]\label{def: strange}
     This is the definition of some strange objects.
 \end{definition}
 
-There is approximately an one-line space before and after the theorem environment. There will be a symbol to mark the end of the environment.
+\begin{definition}[Another definition]
+    Different definitions are automatically glued together, and there will be no gaps in between.
+\end{definition}
 
 When referencing, you can directly use clever reference \lstinline|\cref{(label name)}|. For example, \lstinline|\cref{def: strange}| will be displayed as: \cref{def: strange}.
 

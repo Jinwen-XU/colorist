@@ -90,17 +90,17 @@
 \subsection{定理，以及引用}
 
 定义、定理等环境已经被预定义，可以直接使用，例如：
-
 \begin{code}
   \begin{definition}[奇异物品] \label{def: strange} ...
 \end{code}
-
 将会生成
 \begin{definition}[奇异物品]\label{def: strange}
     这是奇异物品的定义。
 \end{definition}
 
-定理类环境的前后有一行左右的间距。在定义结束的时候会有一个符号来标记。
+\begin{definition}[另一个定义]
+    不同的定义会自动粘结在一起，中间不会有空隙。
+\end{definition}
 
 引用时，可以直接使用智能引用 \lstinline|\cref{标签名称}|，例如：\lstinline|\cref{def: strange}| 会显示为：\cref{def: strange}。
 

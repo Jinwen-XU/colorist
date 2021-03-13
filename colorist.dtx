@@ -17,19 +17,19 @@
 \NeedsTeXFormat{LaTeX2e}[2020-10-01]
 %<*lebhart>
 \ProvidesClass{lebhart}
-    [2021/03/12 A colorful article style]
+    [2021/03/13 A colorful article style]
 %</lebhart>
 %<*lebhartfast>
 \ProvidesClass{lebhartfast}
-    [2021/03/12 A faster but rougher version of lebhart]
+    [2021/03/13 A faster but rougher version of lebhart]
 %</lebhartfast>
 %<*beaulivre>
 \ProvidesClass{beaulivre}
-    [2021/03/12 A colorful book style]
+    [2021/03/13 A colorful book style]
 %</beaulivre>
 %<*beaulivrefast>
 \ProvidesClass{beaulivrefast}
-    [2021/03/12 A faster but rougher version of beaulivre]
+    [2021/03/13 A faster but rougher version of beaulivre]
 %</beaulivrefast>
 
 %<*lebhart|lebhartfast>
@@ -139,7 +139,8 @@
 \unimathsetup{math-style=ISO}
 \setmathfont{Asana-Math.otf}
 \IfFontExistsTF{Neo Euler}{%
-\setmathfont{Neo Euler} % From https://tex.stackexchange.com/a/425887
+\setmathfont{Neo Euler}
+% From https://tex.stackexchange.com/a/425887
     [range={"0000-"0001,"0020-"007E,
             "00A0,"00A7-"00A8,"00AC,"00AF,"00B1,"00B4-"00B5,"00B7,
             "00D7,"00F7,
@@ -732,13 +733,11 @@
 \tcolorboxenvironment{definition}
     {enhanced jigsaw,pad at break*=1mm,breakable,
     left=4mm,right=4mm,top=1mm,bottom=1mm,
-    beforeafter skip balanced=0pt,
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
     borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
 \tcolorboxenvironment{definition*}
     {enhanced jigsaw,pad at break*=1mm,breakable,
     left=4mm,right=4mm,top=1mm,bottom=1mm,
-    beforeafter skip balanced=0pt,
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
     borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
     
@@ -755,6 +754,73 @@
 \tcolorboxenvironment{problem*}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=yellow!25!paper,
     boxrule=0pt,frame hidden,arc=.7mm}
+
+% Connect definitions
+% From https://tex.stackexchange.com/a/587023
+\ExplSyntaxOn
+\NewDocumentCommand \AfterEnvEnd { +m }
+  { \colorist_after_env_end:nw {#1} }
+\cs_new_protected:Npn \colorist_after_env_end:nw #1 #2
+       \if@ignore\@ignorefalse\ignorespaces\fi
+  { #2 \if@ignore\@ignorefalse\ignorespaces\fi #1 }
+  \NewDocumentCommand \ScanEnv { s m +m+m }
+  {
+    \IfBooleanTF {#1}
+      { \jinwen_scan_env_ignore_par:nTF }
+      { \jinwen_scan_env:nTF }
+          {#2} {#3} {#4}
+  }
+\cs_new_protected:Npn \jinwen_scan_env:nTF
+  { \__jinwen_scan_env:NnTF \c_false_bool }
+\cs_new_protected:Npn \jinwen_scan_env_ignore_par:nTF
+  { \__jinwen_scan_env:NnTF \c_true_bool }
+\tl_new:N \l__jinwen_collected_tl
+\cs_new_protected:Npn \__jinwen_scan_env:NnTF #1 #2 #3 #4
+  {
+    \tl_clear:N \l__jinwen_collected_tl
+    \peek_analysis_map_inline:n
+      {
+        \tl_put_right:Nn \l__jinwen_collected_tl {##1}
+        \int_compare:nNnTF { "##3 } = { 0 }
+          {
+            \exp_args:No \token_if_eq_meaning:NNTF {##1} \begin
+              { \peek_analysis_map_break:n { \__jinwen_chk_env:nTFn {#2} {#3} {#4} } }
+              {
+                \bool_lazy_and:nnF {#1}
+                    { \exp_args:No \token_if_eq_meaning_p:NN {##1} \par }
+                  { \__jinwen_scan_env_end:n {#4} }
+              }
+          }
+          { \int_compare:nNnF { "##3 } = { 10 } { \__jinwen_scan_env_end:n {#4} } }
+      }
+  }
+\cs_new_protected:Npn \__jinwen_scan_env_end:n #1
+  { \peek_analysis_map_break:n { \__jinwen_reinsert_tokens:nn {#1} { } } }
+\cs_new_protected:Npn \__jinwen_reinsert_tokens:nn #1 #2
+  {
+    \use:x
+      {
+        \tl_clear:N \exp_not:N \l__jinwen_collected_tl
+        \exp_not:n {#1} \l__jinwen_collected_tl #2
+      }
+  }
+\cs_new_protected:Npn \__jinwen_chk_env:nTFn #1 #2 #3 #4
+  {
+    \exp_args:Nx \__jinwen_reinsert_tokens:nn
+      { \str_if_eq:nnTF {#1} {#4} { \exp_not:n {#2} } { \exp_not:n {#3} } } { {#4} }
+  }
+\ExplSyntaxOff
+
+\def\scandefinitionenv{%
+  \AfterEnvEnd{%
+    \ScanEnv*{definition}%
+      {\vspace{-1.05\baselineskip}}%
+      {\ScanEnv*{definition*}%
+        {\vspace{-1.05\baselineskip}}%
+        {}}}}
+
+\AddToHook{env/definition/end}{\scandefinitionenv}%
+\AddToHook{env/definition*/end}{\scandefinitionenv}%
 
 %%================================
 %% Language configuration
