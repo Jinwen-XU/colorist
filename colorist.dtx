@@ -15,54 +15,90 @@
 \ProvidesFile{colorist.dtx}
 %</driver>
 \NeedsTeXFormat{LaTeX2e}[2020-10-01]
+%
+%<*colorart>
+\ProvidesClass{colorart}
+    [2021/03/15 A colorful article style]
+\def\colorclass@baseclass{article}
+%</colorart>
+%
+%<*colorbook>
+\ProvidesClass{colorbook}
+    [2021/03/15 A colorful book style]
+\def\colorclass@baseclass{book}
+%</colorbook>
+%
 %<*lebhart>
 \ProvidesClass{lebhart}
-    [2021/03/13 A colorful article style]
+    [2021/03/15 A colorful article style]
+\def\colorclass@baseclass{article}
 %</lebhart>
-%<*lebhartfast>
-\ProvidesClass{lebhartfast}
-    [2021/03/13 A faster but rougher version of lebhart]
-%</lebhartfast>
+%
 %<*beaulivre>
 \ProvidesClass{beaulivre}
-    [2021/03/13 A colorful book style]
+    [2021/03/15 A colorful book style]
+\def\colorclass@baseclass{book}
 %</beaulivre>
-%<*beaulivrefast>
-\ProvidesClass{beaulivrefast}
-    [2021/03/13 A faster but rougher version of beaulivre]
-%</beaulivrefast>
-
-%<*lebhart|lebhartfast>
-\DeclareOption*{%
-    \PassOptionsToClass{\CurrentOption}{article}}
-\ProcessOptions\relax
-\LoadClass{article}
-%</lebhart|lebhartfast>
-%<*beaulivre|beaulivrefast>
-\DeclareOption*{%
-    \PassOptionsToClass{\CurrentOption}{book}}
-\ProcessOptions\relax
-\LoadClass{book}
-%</beaulivre|beaulivrefast>
-
+%
+%<*class>
+\RequirePackage{kvoptions}
 \RequirePackage{etoolbox}
+\SetupKeyvalOptions{
+    family = @colorclass,
+    prefix = @colorclass@,
+}
+\DeclareBoolOption[false]{draft}
+\DeclareBoolOption[false]{fast}
+\DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{\colorclass@baseclass}}
+\ProcessKeyvalOptions*\relax
+\LoadClass{\colorclass@baseclass}
+\if@colorclass@draft
+    \@colorclass@fasttrue
+\fi
+
+%%================================
+%% Page layout
+%%================================
+\RequirePackage[heightrounded]{geometry}
+\geometry{
+    % papersize={8in,11in},
+    a4paper,
+    total={47em,70em},
+    hmarginratio=1:1,
+    vmarginratio=1:1,
+    footnotesep=2em plus 2pt minus 2pt,
+}
+
+\RequirePackage{indentfirst}
+
+\if@colorclass@fast
+    \PassOptionsToPackage{fast}{colorist}
+\fi
+%<*lebhart|beaulivre>
+\if@colorclass@fast
+    \PassOptionsToPackage{polyglossia}{colorist}
+\fi
+%</lebhart|beaulivre>
+\RequirePackage{colorist}
 
 %%================================
 %% Fonts
 %%================================
-\RequirePackage{anyfontsize}
-
-%% Title fonts
-\newcommand{\partfont}{\sffamily}
-%<beaulivre|beaulivrefast>\newcommand{\chapfont}{\sffamily}
-\newcommand{\secfont}{\sffamily}
-\newcommand{\subsecfont}{}
-\newcommand{\subsubsecfont}{}
-%<*lebhartfast|beaulivrefast>
-
-%% Math fonts
+%<*colorart|colorbook>
+\RequirePackage{iftex}
+\ifPDFTeX
+\RequirePackage[T1]{fontenc}
+\RequirePackage{inputenc}
+\fi
 \RequirePackage{mathpazo}
-%</lebhartfast|beaulivrefast>
+\RequirePackage{newpxtext}
+%</colorart|colorbook>
+%
+%<*lebhart|beaulivre>
+%% Math fonts in fast mode
+\if@colorclass@fast
+    \RequirePackage{mathpazo}
+\fi
 
 %% English fonts
 \PassOptionsToPackage{no-math}{fontspec}
@@ -100,13 +136,13 @@
         BoldItalicFeatures = {FakeBold=4} ,
         SmallCapsFont  = * ]
 }
-\IfFontExistsTF{FZFSJW--GB1-0}{%
-    \setCJKmonofont{FZFSJW--GB1-0}[
-        BoldFont       = * ,
-        BoldFeatures   = {FakeBold=4} ,
+\IfFontExistsTF{FZYouSongS 507R}{%
+    \setCJKmonofont{FZYouSongS 507R}[
+        BoldFont       = FZYouSongS 509R ,
+        BoldFeatures   = {FakeBold=2} ,
         ItalicFont     = * ,
-        BoldItalicFont = * ,
-        BoldItalicFeatures = {FakeBold=4} ,
+        BoldItalicFont = FZYouSongS 509R ,
+        BoldItalicFeatures = {FakeBold=2} ,
         SmallCapsFont  = * ]
 }{
     \setCJKmonofont{FandolFang-Regular.otf}[
@@ -130,17 +166,16 @@
         BoldItalicFont = FandolHei-Bold.otf ,
         SmallCapsFont  = * ]
 }
-%<*lebhart|beaulivre>
 
-%% Math fonts
+%% Math font
+\if@colorclass@fast\else
 \PassOptionsToPackage
     {warnings-off={mathtools-colon,mathtools-overbracket}}{unicode-math}
 \RequirePackage{unicode-math}
 \unimathsetup{math-style=ISO}
 \setmathfont{Asana-Math.otf}
 \IfFontExistsTF{Neo Euler}{%
-\setmathfont{Neo Euler}
-% From https://tex.stackexchange.com/a/425887
+\setmathfont{Neo Euler} % From https://tex.stackexchange.com/a/425887
     [range={"0000-"0001,"0020-"007E,
             "00A0,"00A7-"00A8,"00AC,"00AF,"00B1,"00B4-"00B5,"00B7,
             "00D7,"00F7,
@@ -168,26 +203,107 @@
             "1D56C-"1D59F,"1D6A8-"1D6B8,"1D6BA-"1D6D2,"1D6D4-"1D6DD,
             "1D6DF,"1D6E1,"1D7CE-"1D7D7 }]
 }{}
+\fi
 %</lebhart|beaulivre>
 
-\RequirePackage{mathtools}
 \RequirePackage[verbose=silent]{microtype}
 
 %%================================
-%% Page layout
+%% Graphics
 %%================================
-\RequirePackage[heightrounded]{geometry}
-\geometry{
-    % papersize={8in,11in},
-    a4paper,
-    total={47em,70em},
-    hmarginratio=1:1,
-    vmarginratio=1:1,
-    footnotesep=2em plus 2pt minus 2pt,
+\RequirePackage{graphicx}
+\graphicspath{{images/}}
+\RequirePackage{wrapfig}
+\RequirePackage{caption}
+
+%%================================
+%% Index
+%%================================
+\RequirePackage{imakeidx}
+
+%%================================
+%% Draft mark
+%%================================
+\def\dnfFont{\ttfamily}
+\def\needgraphFont{\ttfamily}
+
+\def\dnfTextEN{To be finished here}
+\def\needgraphTextEN{A graph is needed here}
+\def\dnfTextFR{À terminer ici}
+\def\needgraphTextFR{Il manque encore un graphique ici}
+\def\dnfTextCN{这里的内容尚未完成}
+\def\needgraphTextCN{这里需要一张图片}
+
+\definecolor{dnfColor}{RGB}{21,122,20}
+\definecolor{needgraphColor}{RGB}{70,130,180}
+
+\if@colorclass@fast
+    \newcommand{\plainBox}[2][-paper]{\textcolor{#1}{%
+    \setlength{\fboxsep}{1.5pt}%
+    \setlength{\fboxrule}{1.2pt}%
+    \fbox{#2}}}
+\else
+    \PassOptionsToPackage{many}{tcolorbox}
+    \RequirePackage{tcolorbox}
+    \newtcbox{\plainBox}[1][-paper]{enhanced jigsaw,%
+        on line, arc = 1.2pt, outer arc = 1pt,breakable,%
+        colframe = #1,colupper=#1,opacityback=0,%
+        boxsep = 1pt,boxrule = 1.2pt,%
+        left = 1pt, right = 1pt, top = 0pt, bottom = 0pt,%
+    }
+\fi
+
+\NewDocumentCommand{\dnf}{d<>}{%
+    \noindent\plainBox[dnfColor]%
+    {\normalfont\dnfFont\bfseries\small%
+    \csname dnfText\csname\languagename ABBR\endcsname\endcsname%
+    \IfNoValueF{#1}{ : #1}}%
 }
+\NewDocumentCommand{\needgraph}{d<>}{%
+    \par%
+    \centerline{\plainBox[needgraphColor]%
+    {\normalfont\needgraphFont\bfseries\small%
+    \csname needgraphText\csname\languagename ABBR\endcsname\endcsname%
+    \IfNoValueF{#1}{ : #1}}}%
+    \par%
+}
+%</class>
+%
+%
+%<*colorist>
+\ProvidesPackage{colorist}
+    [2021/03/15 A colorful style for articles and books]
+\RequirePackage{etoolbox}
+\RequirePackage{kvoptions}
+\SetupKeyvalOptions{%
+    family = @colorist,
+    prefix = @colorist@
+}
+\DeclareBoolOption[false]{draft}
+\DeclareBoolOption[false]{fast}
+\DeclareBoolOption[false]{polyglossia}
+\ProcessKeyvalOptions*\relax
 
-\RequirePackage{indentfirst}
+\if@colorist@draft
+  \@colorist@fasttrue
+\fi
 
+\newif\ifIsBook
+\ifdefined\chapter\IsBooktrue\else\IsBookfalse\fi
+
+%%================================
+%% Title fonts
+%%================================
+\RequirePackage{anyfontsize}
+\newcommand{\partfont}{\sffamily}
+\newcommand{\chapfont}{\sffamily}
+\newcommand{\secfont}{\sffamily}
+\newcommand{\subsecfont}{}
+\newcommand{\subsubsecfont}{}
+
+%%================================
+%% Color
+%%================================
 \RequirePackage{xcolor}
 \definecolor{paper}{RGB}{255,255,255}
 \definecolor{skyblue}{RGB}{60,120,234}
@@ -196,6 +312,10 @@
 \definecolor{lightorange}{RGB}{255,185,88}
 \definecolor{lightskyblue}{RGB}{35,198,255}
 
+%%================================
+%% Footer
+%%================================
+\RequirePackage{geometry}
 \RequirePackage{fancyhdr}
 \RequirePackage{extramarks}
 \fancypagestyle{fancy}{
@@ -213,7 +333,6 @@
     \renewcommand{\headrulewidth}{0pt}
 }
 \pagestyle{fancy}
-
 \fancypagestyle{plain}{
     \fancyhf{}
     \if@twoside
@@ -227,30 +346,29 @@
     \fi
     \renewcommand{\headrulewidth}{0pt}
 }
-
-%<*lebhart|lebhartfast>
-\if@twoside
-    \renewcommand*{\sectionmark}[1]{\markboth{\textsc{#1}}{}}
-\else
-    \renewcommand*{\sectionmark}[1]{\markboth{\textsc{#1}}{\textsc{#1}}}
-\fi
-%</lebhart|lebhartfast>
-%<*beaulivre|beaulivrefast>
-\if@twoside
-    \renewcommand{\chaptermark}[1]{\markboth{\textsc{#1}}{}}
-\else
-    \renewcommand{\chaptermark}[1]{\markboth{\textsc{#1}}{\textsc{#1}}}
-\fi
-\renewcommand*{\sectionmark}[1]{%
-    \markright{\raisebox{.03em}{\footnotesize/}%
-    ~\thesection~\raisebox{.03em}{\footnotesize/}~~~#1}}
-%</beaulivre|beaulivrefast>
-
+\ifbool{IsBook}{
+% For book
+    \if@twoside
+        \renewcommand{\chaptermark}[1]{\markboth{\textsc{#1}}{}}
+    \else
+        \renewcommand{\chaptermark}[1]{\markboth{\textsc{#1}}{\textsc{#1}}}
+    \fi
+    \renewcommand*{\sectionmark}[1]{%
+        \markright{\thesection~~#1}}
+}{
+% For article
+    \if@twoside
+        \renewcommand*{\sectionmark}[1]{\markboth{\textsc{#1}}{}}
+    \else
+        \renewcommand*{\sectionmark}[1]{\markboth{\textsc{#1}}{\textsc{#1}}}
+    \fi
+}
+%
 %%================================
 %% Line spacing
 %%================================
 \RequirePackage{setspace}
-\linespread{1.07}
+\setstretch{1.07}
 % To avoid `Underfull \vbox (badness 10000)`
 \raggedbottom
 
@@ -261,76 +379,81 @@
 \PassOptionsToPackage{normalem}{ulem}
 \RequirePackage{ulem}
 
-%<*lebhart|lebhartfast>
-%% Part
-\titleformat{\part}[display]
-    {%
-    \partfont\filleft}
-    {\MakeUppercase{\partname~\protect\thepart}}
-    {.3em}
-    {\fontsize{16}{0}\selectfont\MakeUppercase{#1}}
-\titleformat{name=\part,numberless}[display]
-    {% \phantomsection\addcontentsline{toc}{part}{#1}%
-    \partfont\filleft}
-    {\phantom{\MakeUppercase{\partname}}}
-    {.3em}
-    {\fontsize{16}{0}\selectfont\MakeUppercase{#1}}
-%% Text after part
-\newcommand{\parttext}[1]{%
-    \begin{flushright}%
-        \begin{minipage}{0.833\textwidth}%
-            \color{black!80!paper}\raggedleft#1%
-        \end{minipage}%
-    \end{flushright}%
-}
-%</lebhart|lebhartfast>
-%<*beaulivre|beaulivrefast>
-%% Part
-\titleclass{\part}{top} % make part like a chapter
-\titleformat{\part}[display]
-    {\partfont\filleft}
-    {\MakeUppercase{\partname~\protect\thepart}}
-    {1em}
-    {\fontsize{20}{0}\selectfont\MakeUppercase{#1}}
-\titleformat{name=\part,numberless}[display]
-    {% \phantomsection\addcontentsline{toc}{part}{#1}%
-    \partfont\filleft}
-    {\phantom{\MakeUppercase{\partname}}}
-    {1em}
-    {\fontsize{20}{0}\selectfont\MakeUppercase{#1}}
-\titlespacing*{\part}{0pt}{5em}{6em}
-%% Text after part
-\newcommand{\parttext}[1]{%
-\vfill%
-%
-\begin{flushright}%
-    \begin{minipage}{0.833\textwidth}%
-        \color{black!80!paper}\raggedleft#1%
-    \end{minipage}%
-\end{flushright}%
-%
-\vfill\vfill%
-\cleardoublepage%
-}
+\ifbool{IsBook}{
+% For book
+    %% Part
+    \titleclass{\part}{top} % make part like a chapter
+    \titleformat{\part}[display]
+        {\partfont\filleft}
+        {\MakeUppercase{\partname~\protect\thepart}}
+        {1em}
+        {\fontsize{20}{0}\selectfont\MakeUppercase{#1}}
+    \titleformat{name=\part,numberless}[display]
+        {% \phantomsection\addcontentsline{toc}{part}{#1}%
+        \partfont\filleft}
+        {\phantom{\MakeUppercase{\partname}}}
+        {1em}
+        {\fontsize{20}{0}\selectfont\MakeUppercase{#1}}
+    \titlespacing*{\part}{0pt}{5em}{6em}
+    %% Text after part
+    \newcommand{\parttext}[1]{%
+        \vfill%
+        \begin{flushright}%
+            \begin{minipage}{0.833\textwidth}%
+                \color{black!80!paper}\raggedleft#1%
+            \end{minipage}%
+        \end{flushright}%
+        \vfill\vfill%
+        \cleardoublepage%
+    }
 
-%% Chapter
-\titleformat{\chapter}
-    {\thispagestyle{fancy}%
-    \color{black!80!paper}\chapfont\fontsize{16}{0}\selectfont}{}{0em}
-    {\rlap{\hspace*{-.5em}{\color{gray!25!paper}%
-        \fontsize{80}{0}\selectfont\raisebox{-7pt}{\thechapter}}}#1}
-\titleformat{name=\chapter,numberless}
-    {\thispagestyle{fancy}% \phantomsection\addcontentsline{toc}{chapter}{#1}%
-    \color{black!80!paper}\chapfont\fontsize{16}{0}\selectfont}{}{0em}
-    {\rlap{\hspace*{-.5em}{\color{gray!25!paper}%
-        \fontsize{80}{0}\selectfont\normalfont\raisebox{-7pt}{*}}}#1}
-%</beaulivre|beaulivrefast>
+    %% Chapter
+    \titleformat{\chapter}
+        {\thispagestyle{fancy}%
+        \color{black!80!paper}\chapfont\fontsize{16}{0}\selectfont}{}{0em}
+        {\rlap{\hspace*{-.5em}{\color{gray!25!paper}%
+            \fontsize{80}{0}\selectfont\raisebox{-7pt}{\thechapter}}}#1}
+    \titleformat{name=\chapter,numberless}
+        {\thispagestyle{fancy}% \phantomsection\addcontentsline{toc}{chapter}{#1}%
+        \color{black!80!paper}\chapfont\fontsize{16}{0}\selectfont}{}{0em}
+        {\rlap{\hspace*{-.5em}{\color{gray!25!paper}%
+            \fontsize{80}{0}\selectfont\normalfont\raisebox{-7pt}{*}}}#1}
 
-%% Section
-\titleformat{\section}
+    %% Section
+    \titleformat{\section}
     {\secfont\large\color{steelblue}}
-    {\thesection}{1em}{#1}
+    {\thesection}{.75em}{#1}
     [{\titlerule[.75pt]}]
+}{
+% For article
+    %% Part
+    \titleformat{\part}[display]
+        {%
+        \partfont\filleft}
+        {\MakeUppercase{\partname~\protect\thepart}}
+        {.3em}
+        {\fontsize{16}{0}\selectfont\MakeUppercase{#1}}
+    \titleformat{name=\part,numberless}[display]
+        {% \phantomsection\addcontentsline{toc}{part}{#1}%
+        \partfont\filleft}
+        {\phantom{\MakeUppercase{\partname}}}
+        {.3em}
+        {\fontsize{16}{0}\selectfont\MakeUppercase{#1}}
+    %% Text after part
+    \newcommand{\parttext}[1]{%
+        \begin{flushright}%
+            \begin{minipage}{0.833\textwidth}%
+                \color{black!80!paper}\raggedleft#1%
+            \end{minipage}%
+        \end{flushright}%
+    }
+
+    %% Section
+    \titleformat{\section}
+    {\secfont\large\color{steelblue}}
+    {\thesection}{.75em}{\scshape #1}
+    [{\titlerule[.75pt]}]
+}
 
 %% Subsection
 \titleformat{\subsection}
@@ -357,48 +480,41 @@
     {}
     {} % without page number
     [\addvspace{.5pc}]
-%<*lebhart|lebhartfast>
-\titlecontents{section}
-    [2em] % i.e., 0em (part) + 2em
-    {\normalfont}
-    {\contentslabel{1.75em}}
-    {\hspace*{-1.75em}}
-    {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
-\titlecontents{subsection}
-    [5em] % i.e., 2em (section) + 3em
-    {\normalfont}
-    {\contentslabel{2.75em}}
-    {\hspace*{-2.75em}}
-    {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
-%</lebhart|lebhartfast>
-%<*beaulivre|beaulivrefast>
-\titlecontents{chapter}
-    [2em] % i.e., 0em (part) + 2em
-    {\addvspace{.5pc}\chapfont}
-    {\contentslabel{2em}}
-    {\hspace*{-2em}}
-    {\normalfont\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
-\titlecontents{section}
-    [4em] % i.e., 2em (chapter) + 2em
-    {\normalfont}
-    {\contentslabel{1.75em}}
-    {\hspace*{-1.75em}}
-    {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
-\titlecontents{subsection}
-    [7em] % i.e., 4em (section) + 3em
-    {\normalfont}
-    {\contentslabel{2.75em}}
-    {\hspace*{-2.75em}}
-    {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
-%</beaulivre|beaulivrefast>
-
-%%================================
-%% Graphics
-%%================================
-\RequirePackage{graphicx}
-\graphicspath{{images/}}
-\RequirePackage{wrapfig}
-\RequirePackage{caption}
+\ifbool{IsBook}{
+% For book
+    \titlecontents{chapter}
+        [2em] % i.e., 0em (part) + 2em
+        {\addvspace{.5pc}\chapfont}
+        {\contentslabel{2em}}
+        {\hspace*{-2em}}
+        {\normalfont\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
+    \titlecontents{section}
+        [4em] % i.e., 2em (chapter) + 2em
+        {\secfont}
+        {\contentslabel{1.75em}}
+        {\hspace*{-1.75em}}
+        {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
+    \titlecontents{subsection}
+        [7em] % i.e., 4em (section) + 3em
+        {\subsecfont}
+        {\contentslabel{2.75em}}
+        {\hspace*{-2.75em}}
+        {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
+}{
+% For article
+    \titlecontents{section}
+        [2em] % i.e., 0em (part) + 2em
+        {\secfont}
+        {\contentslabel{1.75em}}
+        {\hspace*{-1.75em}}
+        {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
+    \titlecontents{subsection}
+        [5em] % i.e., 2em (section) + 3em
+        {\subsecfont}
+        {\contentslabel{2.75em}}
+        {\hspace*{-2.75em}}
+        {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
+}
 
 %%================================
 %% Lists
@@ -415,55 +531,49 @@
     \clearpage
     \if@twoside\ifodd\c@page\relax\else
     \thispagestyle{empty}
-    \newgeometry{centering}
-    \null\vfill
-    \centerline{\large\color{gray!20!paper}\blinkpagetext}
-    \vfill\restoregeometry\newpage\fi\fi}
-
-%%================================
-%% Index
-%%================================
-\RequirePackage{imakeidx}
-% switch off the line numbers of index
-\pretocmd{\printindex}{}{}{\FAIL}
-\apptocmd{\printindex}{}{}{\FAIL}
+    \AddToHookNext{shipout/background}
+      {% 
+       \put(0.5\paperwidth,-0.5\paperheight){%
+       \makebox[0pt]{\large\color{gray!20!paper}\blinkpagetext}}}
+    \null\newpage\fi\fi}
 
 %%================================
 %% Icons
 %%================================
 \RequirePackage{tikz}
 \newcommand{\ideabulb}[2][0.15]{%
-  \scalebox{#1}{%
-  \begin{tikzpicture}
-    \filldraw[draw=#2,fill=#2] (0,0) circle [radius=1cm];
-    \filldraw[draw=paper,fill=paper,rounded corners=0.8pt]
-        [rotate=20] (-0.26,-0.66) rectangle (-0.06,-0.6)
-        [xshift=-0.4mm,yshift=1mm] (-0.26,-0.66) rectangle (0.02,-0.6)
-        [xshift=0.4mm,yshift=1mm] (-0.26,-0.66) rectangle (-0.06,-0.6);
-    \draw[draw=paper,line width=0.7mm] (-0.18,-0.46)
-        .. controls (-0.18,-0.28) and (-0.28,-0.12) ..(-0.4,0.1)
-        .. controls (-0.55,0.4) and (-0.3,0.64) ..(0,0.64)
-        .. controls (0.3,0.64) and (0.55,0.4) ..(0.4,0.1)
-        .. controls (0.28,-0.12) and (0.18,-0.28) ..(0.18,-0.46);
-  \end{tikzpicture}}}
+    \scalebox{#1}{%
+    \begin{tikzpicture}
+        \filldraw[draw=#2,fill=#2] (0,0) circle [radius=1cm];
+        \filldraw[draw=paper,fill=paper,rounded corners=0.8pt]
+            [rotate=20] (-0.26,-0.66) rectangle (-0.06,-0.6)
+            [xshift=-0.4mm,yshift=1mm] (-0.26,-0.66) rectangle (0.02,-0.6)
+            [xshift=0.4mm,yshift=1mm] (-0.26,-0.66) rectangle (-0.06,-0.6);
+        \draw[draw=paper,line width=0.7mm] (-0.18,-0.46)
+            .. controls (-0.18,-0.28) and (-0.28,-0.12) ..(-0.4,0.1)
+            .. controls (-0.55,0.4) and (-0.3,0.64) ..(0,0.64)
+            .. controls (0.3,0.64) and (0.55,0.4) ..(0.4,0.1)
+            .. controls (0.28,-0.12) and (0.18,-0.28) ..(0.18,-0.46);
+    \end{tikzpicture}}}
 
 \newcommand{\questionmark}[2][0.15]{%
-  \scalebox{#1}{%
-  \begin{tikzpicture}
-    \filldraw[draw=#2,fill=#2] (0,0) circle [radius=1cm];
-    \filldraw[paper,yshift=0.5mm,scale=0.9] (-0.4,0.1) circle [radius=0.77mm];
-    \draw[draw=paper,line width=1.5mm,yshift=0.5mm,scale=0.9] (-0.4,0.1)
-        .. controls (-0.55,0.4) and (-0.3,0.64) ..(0,0.64)
-        .. controls (0.3,0.64) and (0.55,0.4) ..(0.4,0.1)
-        .. controls (0.28,-0.12) and (0.05,-0.28) ..(0.05,-0.3)
-        .. controls (0,-0.36) and (0.0,-0.45) ..(0.0,-0.5);
-    \fill[fill=paper,rounded corners=0.6mm]
-          (-0.09,-0.75) rectangle (0.09,-0.53);
-  \end{tikzpicture}}}
+    \scalebox{#1}{%
+    \begin{tikzpicture}
+        \filldraw[draw=#2,fill=#2] (0,0) circle [radius=1cm];
+        \filldraw[paper,yshift=0.5mm,scale=0.9] (-0.4,0.1) circle [radius=0.77mm];
+        \draw[draw=paper,line width=1.5mm,yshift=0.5mm,scale=0.9] (-0.4,0.1)
+            .. controls (-0.55,0.4) and (-0.3,0.64) ..(0,0.64)
+            .. controls (0.3,0.64) and (0.55,0.4) ..(0.4,0.1)
+            .. controls (0.28,-0.12) and (0.05,-0.28) ..(0.05,-0.3)
+            .. controls (0,-0.36) and (0.0,-0.45) ..(0.0,-0.5);
+        \fill[fill=paper,rounded corners=0.6mm]
+            (-0.09,-0.75) rectangle (0.09,-0.53);
+    \end{tikzpicture}}}
 
 %%================================
 %% Theorems
 %%================================
+\RequirePackage{mathtools}
 \RequirePackage{amsthm}
 \newtheoremstyle{simple}%
     {}{}%
@@ -488,11 +598,13 @@
     {0pt}{0pt}{\itshape}{0pt}{}{}{0pt}
     {\thmnote{\normalfont\sffamily\color{black}#3\hspace*{0.25em}}}
 
-%<lebhart|beaulivre>\PassOptionsToPackage{hidelinks,linktoc=all}{hyperref}
-\RequirePackage{aliascnt}
+\if@colorist@fast\else
+    \PassOptionsToPackage{hidelinks,linktoc=all}{hyperref}
 % To solve `Difference between bookmark levels is greater than one`
-%<lebhart|beaulivre>\RequirePackage{bookmark}
-%<lebhart|beaulivre>\RequirePackage{hyperref}
+    \RequirePackage{bookmark}
+    \RequirePackage{hyperref}
+\fi
+\RequirePackage{aliascnt}
 \PassOptionsToPackage{nameinlink}{cleveref}
 \RequirePackage{cleveref}
 
@@ -500,7 +612,7 @@
 \newcommand\frenchABBR{FR}
 \newcommand\chineseABBR{CN}
 
-%% Macro for creating theorems
+% Macro for creating theorems
 \RequirePackage{xstring}
 \newcommand\PassFirstToSecond[2]{#2{#1}}%
 \NewDocumentCommand{\CreateTheorem}{sm}{%
@@ -515,7 +627,12 @@
     {\expandafter\PassFirstToSecond%
         \expandafter{\temp}{\endgroup\InnerCreateTheorem{#1}}}%
 }%
-\NewDocumentCommand{\InnerCreateTheorem}{mmmod<>}{% #1 = star or no star #2 = name of environment #3 = emptiness or star to append to name of environment #4 = numbered like #5 = numbered within
+\NewDocumentCommand{\InnerCreateTheorem}{mmmod<>}{%
+% #1 = star or no star
+% #2 = name of environment
+% #3 = emptiness or star to append to name of environment
+% #4 = numbered like
+% #5 = numbered within
     \IfBooleanTF{#1}{%
         \IfValueTF{#4}
             {\@firstoftwo}
@@ -605,14 +722,17 @@
 
 %% Theorem environments
 \theoremstyle{basic}
-%<lebhart|lebhartfast>\CreateTheorem{theorem}<section>
-%<beaulivre|beaulivrefast>\CreateTheorem{theorem}<chapter>
+\ifbool{IsBook}{
+    \newaliascnt{highest}{chapter}
+}{
+    \newaliascnt{highest}{section}
+}
+\CreateTheorem{theorem}<highest>
 \CreateTheorem{lemma}[theorem]
 \CreateTheorem{proposition}[theorem]
 \CreateTheorem{corollary}[theorem]
 \CreateTheorem{fact}[theorem]
-%<lebhart|lebhartfast>\CreateTheorem{conjecture}<section>
-%<beaulivre|beaulivrefast>\CreateTheorem{conjecture}<chapter>
+\CreateTheorem{conjecture}<highest>
 \CreateTheorem*{theorem*}
 \CreateTheorem*{lemma*}
 \CreateTheorem*{proposition*}
@@ -620,17 +740,14 @@
 \CreateTheorem*{fact*}
 \CreateTheorem*{conjecture*}
 \CreateTheorem{definition}[theorem]
-%<lebhart|lebhartfast>\CreateTheorem{example}<section>
-%<beaulivre|beaulivrefast>\CreateTheorem{example}<chapter>
-%<lebhart|lebhartfast>\CreateTheorem{problem}<section>
-%<beaulivre|beaulivrefast>\CreateTheorem{problem}<chapter>
+\CreateTheorem{example}<highest>
+\CreateTheorem{problem}<highest>
 \CreateTheorem*{definition*}
 \CreateTheorem*{example*}
 \CreateTheorem*{problem*}
 
 \theoremstyle{emphasis}
-%<lebhart|lebhartfast>\CreateTheorem{remark}<section>
-%<beaulivre|beaulivrefast>\CreateTheorem{remark}<chapter>
+\CreateTheorem{remark}<highest>
 \CreateTheorem*{remark*}
 
 \RequirePackage{marginnote}
@@ -680,7 +797,9 @@
 \CreateTheorem*{proof}
 
 \RequirePackage[many]{tcolorbox}
-%<lebhartfast|beaulivrefast>\tcbstartdraftmode
+\if@colorclass@fast
+    \tcbstartdraftmode
+\fi
 \tcolorboxenvironment{theorem}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
     left=3.5mm,right=3.5mm,
@@ -825,17 +944,16 @@
 %%================================
 %% Language configuration
 %%================================
-%<*lebhart|beaulivre>
-\PassOptionsToPackage{french,english}{babel}
-\RequirePackage{babel}
-\frenchsetup{PartNameFull=false}
-%</lebhart|beaulivre>
-%<*lebhartfast|beaulivrefast>
-\RequirePackage{polyglossia}
-\setdefaultlanguage{english}
-\setotherlanguage[frenchpart=false]{french}
-%</lebhartfast|beaulivrefast>
-
+\if@colorist@polyglossia
+    \RequirePackage{polyglossia}
+    \setdefaultlanguage{english}
+    \setotherlanguage[frenchpart=false]{french}
+\else
+    \PassOptionsToPackage{french,english}{babel}
+    \RequirePackage{babel}
+    \frenchsetup{PartNameFull=false}
+\fi
+%
 \newcommand{\colorist@langconfig@chinese}{%
     \def\abstractname{摘要}%
     \def\proofname{证明}%
@@ -854,10 +972,10 @@
 }
 \newcommand{\colorist@langconfig@french}{%
     \selectlanguage{french}%
-% The line below is only needed for 'babel'
-%<lebhart|beaulivre>    \def\frenchpartname{Partie}%
+% The line below is currently only needed for 'babel', but also works with 'polyglossia'
+    \def\frenchpartname{Partie}%
 }
-
+%
 \newcommand{\UseLanguageCORE}[1]{%
     \ifstrequal{#1}{chinese}{\onehalfspacing\colorist@langconfig@chinese}{}%
     \ifstrequal{#1}{Chinese}{\onehalfspacing\colorist@langconfig@chinese}{}%
@@ -885,54 +1003,7 @@
 \endgroup%
 }
 
-%%================================
-%% Draft mark
-%%================================
-\def\dnfFont{\ttfamily}
-\def\needgraphFont{\ttfamily}
-
-\def\dnfTextEN{To be finished here}
-\def\needgraphTextEN{A graph is needed here}
-\def\dnfTextFR{À terminer ici}
-\def\needgraphTextFR{Il manque encore un graphique ici}
-\def\dnfTextCN{这里的内容尚未完成}
-\def\needgraphTextCN{这里需要一张图片}
-
-\definecolor{dnfColor}{RGB}{21,122,20}
-\definecolor{needgraphColor}{RGB}{70,130,180}
-
-%<*lebhart|beaulivre>
-\PassOptionsToPackage{many}{tcolorbox}
-\RequirePackage{tcolorbox}
-\newtcbox{\plainBox}[1][-paper]{enhanced jigsaw,%
-    on line, arc = 1.2pt, outer arc = 1pt,breakable,%
-    colframe = #1,colupper=#1,opacityback=0,%
-    boxsep = 1pt,boxrule = 1.2pt,%
-    left = 1pt, right = 1pt, top = 0pt, bottom = 0pt,%
-}
-%</lebhart|beaulivre>
-%<*lebhartfast|beaulivrefast>
-\newcommand{\plainBox}[2][-paper]{\textcolor{#1}{%
-    \setlength{\fboxsep}{1.5pt}%
-    \setlength{\fboxrule}{1.2pt}%
-    \fbox{#2}}}
-%</lebhartfast|beaulivrefast>
-
-\NewDocumentCommand{\dnf}{d<>}{%
-    \noindent\plainBox[dnfColor]%
-    {\normalfont\dnfFont\small%
-    \csname dnfText\csname\languagename ABBR\endcsname\endcsname%
-    \IfNoValueF{#1}{ : #1}}%
-}
-\NewDocumentCommand{\needgraph}{d<>}{%
-    \par%
-    \centerline{\plainBox[needgraphColor]%
-    {\normalfont\needgraphFont\small%
-    \csname needgraphText\csname\languagename ABBR\endcsname\endcsname%
-    \IfNoValueF{#1}{ : #1}}}%
-    \par%
-}
-%<*lebhart|lebhartfast>
+\ifbool{IsBook}{}{
 
 %%================================
 %% Title block style
@@ -952,15 +1023,17 @@
     {\textcolor{gray!55!paper}{\rule{\textwidth}{0.75pt}}\par}%
     \medskip%
 }
+\apptocmd{\maketitle}{\thispagestyle{fancy}}{}{\FAIL}
 
 %%================================
 %% Abstract style
 %%================================
-\apptocmd{\maketitle}{\thispagestyle{fancy}}{}{\FAIL}
 \renewenvironment{abstract}
 {\small\centerline{\textsc{\abstractname}\vspace{-0.3\baselineskip}}
     \color{black!80!paper}\begin{quotation}}
 {\end{quotation}\medskip}
-%</lebhart|lebhartfast>
+
+}
+%</colorist>
 
 \endinput

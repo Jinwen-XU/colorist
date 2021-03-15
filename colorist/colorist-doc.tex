@@ -1,0 +1,222 @@
+%! TEX program = xelatex
+\PassOptionsToPackage{dvipsnames}{xcolor}
+\documentclass{colorart}
+
+%%================================
+%% TeX logo and URL
+%%================================
+\usepackage{hologo}
+\usepackage{url}
+
+%%================================
+%% For typestting code
+%%================================
+\usepackage{listings}
+\definecolor{lightergray}{gray}{0.99}
+\lstset{language=[LaTeX]TeX,
+    keywordstyle=\color{RoyalBlue},
+    basicstyle=\ttfamily,
+    commentstyle=\color{ForestGreen}\ttfamily,
+    stringstyle=\rmfamily,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{lightergray},
+    flexiblecolumns=true,
+    escapeinside={(*}{*)},
+    % numbers=left,
+    numberstyle=\scriptsize, stepnumber=1, numbersep=5pt,
+    firstnumber=last,
+} 
+\providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
+\lstset{morekeywords=%
+    {CreateTheorem,proofideanameEN,cref,dnf,needgraph,UseLanguage,
+    linenumbers,nolinenumbers,subsection,maketitle
+    }
+}
+\lstnewenvironment{code}% 
+{\setkeys{lst}{columns=fullflexible,keepspaces=true}}{}
+
+\providecommand{\colorist}{\textsf{colorist}}
+\providecommand{\colorart}{\textsf{colorart}}
+\providecommand{\colorbook}{\textsf{colorbook}}
+\providecommand{\lebhart}{\textsf{lebhart}}
+\providecommand{\beaulivre}{\textsf{beaulivre}}
+
+%%================================
+%% Main text
+%%================================
+\begin{document}
+
+\title{\colorist{}, write your articles or books in a colorful way\thanks{Corresponding to: \texttt{\colorist{} 2021/03/15}}}
+\author{Jinwen}
+\date{March 2021, Beijing}
+
+\maketitle
+
+\begin{abstract}
+    The \colorist{} is a series of styles and classes for you to typeset your articles or books in a colorful manner. My original intention in designing this series is to write drafts and notes that look colorful yet not dazzling.
+
+    The entire collection includes \verb|colorist.sty|, which is the main style shared by all the following classes; \verb|colorart.cls| for typesetting articles and \verb|colorbook.cls| for typesetting books. They compile with any major \TeX{} engine, with native support to English and French typesetting via \lstinline|\UseLanguage| (see the instruction below for detail).
+
+    You can also found \lebhart{} and \beaulivre{} on CTAN. They are the enhanced version of \colorart{} and \colorbook{} with unicode support. With this, they can access to more beautiful fonts, and also have native support for Chinese typesetting. On the other hand, they need to be compiled with \hologo{XeLaTeX} or \hologo{LuaLaTeX} (not pdf\LaTeX).
+    
+    This documentation is typeset using \colorart{}. You can think of it as a short introduction and demonstration.
+\end{abstract}
+
+\begin{tcolorbox}[enhanced jigsaw,pad at break*=1mm,breakable,colback=yellow!25!paper,boxrule=0pt,frame hidden]
+    Since the main body of \colorist{} is modified from the \textsf{minimalist} series, some elements have not been completely redesigned yet, especially the TOC, part and chapter style. These will be added gradually in the future versions.
+\end{tcolorbox}
+
+\tableofcontents
+
+\section{How to load it}
+You can directly use \colorart{} or \colorbook{} as your document class. In this way, you can directly begin writing your document, without having to worry about the configurations.
+
+\begin{code}
+  \documentclass{colorart} (*{\normalfont or}*) \documentclass{colorbook}
+\end{code}
+
+And of course, you can also use the default classes \textsf{article} or \textsf{book}, and load the \colorist{} package. This way, only the basic styles are set, and you can thus use your preferred fonts and page layout. All the features mentioned in this article (except for draft marks) are provided.
+\begin{code}
+  \usepackage{colorist}
+\end{code}
+
+\subsection{A useful switch: the option \textsf{fast} or \textsf{draft}}
+You can use the option \verb|fast| or \verb|draft| to typeset in a fast but slightly rough manner. The main differences are:
+\begin{itemize}
+    \item Do not use hyperref; 
+    \item Use draft mode for all tcolorboxes.
+\end{itemize}
+
+During the writing stage of your document, it is recommended to use the \verb|fast| option to speed up compilation and improve the smoothness of your writing experience. At the end, you can remove the ``fast'' mark to get the final version.
+
+\section{Some instructions}
+
+\subsection{Theorems and how to reference them}
+
+Environments such as definitions and theorems have been pre-defined and can be used directly, for example:
+\begin{code}
+  \begin{definition}[Strange things] \label{def: strange} ...
+\end{code}
+will produce
+\begin{definition}[Strange things]\label{def: strange}
+    This is the definition of some strange objects.
+\end{definition}
+
+\begin{definition}[Another definition]
+    Different definitions are automatically glued together, and there will be no gaps in between.
+\end{definition}
+
+When referencing, you can directly use clever reference \lstinline|\cref{(label name)}|. For example, \lstinline|\cref{def: strange}| will be displayed as: \cref{def: strange}.
+
+\bigskip
+The following are several other styles of theorem-like environments:
+
+\begin{theorem}
+    Theorem style: theorem, proposition, lemma, corollary
+\end{theorem}
+
+\begin{proof}
+    Proof style
+\end{proof}
+
+\begin{remark}
+    Remark style
+\end{remark}
+
+\begin{conjecture}
+    Conjecture style
+\end{conjecture}
+
+\begin{example*}
+    Example style: example, fact
+\end{example*}
+
+\begin{problem}
+    Problem style
+\end{problem}
+
+\subsection{Define a new theorem-like environment}
+
+First define the name of this environment in the language used: \lstinline|\(name of environment)(language name)|. Where \lstinline|(language name)| can be \lstinline|EN|, \lstinline|FR|, \lstinline|CN|, etc., and then define this environment in one of the following four ways:
+\begin{itemize}
+    \item \lstinline|\CreateTheorem*{(name of environment)}|
+    \item \lstinline|\CreateTheorem{(name of environment)}[(numbered like)]|
+    \item \lstinline|\CreateTheorem{(name of environment)}<(numbered within)>|
+    \item \lstinline|\CreateTheorem{(name of environment)}|
+\end{itemize}
+
+\def\proofideanameEN{Idea}
+\CreateTheorem*{proofidea}
+
+For example,
+\begin{code}
+  \def\proofideanameEN{Idea}
+  \CreateTheorem*{proofidea}
+\end{code}
+defines an unnumbered environment \lstinline|proofidea|, which supports using in the English context, and the effect is as follows:
+
+\begin{proofidea}
+    ...
+\end{proofidea}
+
+\subsection{Draft mark}
+
+You can use \lstinline|\dnf| to mark the unfinished part. For example:
+\begin{itemize}
+    \item \lstinline|\dnf|: \quad \dnf
+    \item \lstinline|\dnf<Still need ...>|: \quad \dnf<Still need ...>
+\end{itemize}
+
+Similarly, there is \lstinline|\needgraph| ：
+\begin{itemize}
+    \item \lstinline|\needgraph|: \needgraph
+    \item \lstinline|\needgraph<About ...>|: \needgraph<About ...>
+\end{itemize}
+
+\subsection{Language configuration}
+You can use \lstinline|\UseLanguage{(name of language))}| at any time to change the language, Language names include Chinese, English, French (the case of the first letter is arbitrary, for example, ``chinese'' is also acceptable). With this, the effects of various commands and environments will also change accordingly.
+
+For example, after using \lstinline|\UseLanguage{French}|, the theorem and the draft mark will be displayed as:
+
+\UseLanguage{French}
+\begin{theorem}[Inutile]\label{thm}
+    Un théorème en français. \dnf
+\end{theorem}
+
+When referenced, the name of the theorem always matches the language of the region in which the theorem is located, for example, the definition of the beginning is still displayed in English in the current French mode: \cref{def: strange} and \cref{thm}。
+
+\UseLanguage{English}
+
+\clearpage
+
+\section{Document templates}
+
+\begin{center}
+\begin{minipage}{0.4\textwidth}
+\begin{code}
+%! TEX program = xelatex
+\documentclass{lebhartfast}
+
+\UseLanguage{French}
+
+\begin{document}
+
+\title{Titre}
+\author{Nom}
+\date{03 / 2021, Lieu}
+
+\maketitle
+
+%% Texte ici
+
+\end{document}
+\end{code}
+\end{minipage} 
+\end{center}
+
+\bigskip
+(\lstinline|\UseLanguage| can be placed either in the preamble or in the body part, and can be used repeatedly as needed)
+
+\end{document}

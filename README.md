@@ -1,25 +1,28 @@
 <!-- Copyright (C) 2021 by Jinwen XU -->
 
-[Github](https://github.com/Jinwen-XU/colorist) | [CTAN](https://ctan.org/pkg/colorist) | [Download](https://github.com/Jinwen-XU/colorist/releases)
+# `colorist` bundle: write you documents in a colorful way
 
-![License](https://img.shields.io/ctan/l/colorist.svg) ![CTAN Version](https://img.shields.io/ctan/v/colorist.svg) ![Github Version](https://img.shields.io/github/release/Jinwen-XU/colorist.svg) ![Repo Size](https://img.shields.io/github/repo-size/Jinwen-XU/colorist.svg)
+This is collection of styles and classes for typesetting articles and books in a
+colorful design. It mainly consists of two parts.
 
----
+- Main part:
+    - colorist.sty : the main style
+    - colorart.cls : class for typesetting articles
+    - colorbook.cls : class for typesetting books
 
-# The colorist class series
+    They can be used with any major TeX engine. Currently they have native
+    support to English and French typesetting. (I have planed to add more
+    language support)
 
-> Currently it needs to be heavily modified in order to get imported
-> into TeX Live. This will be done in the next few days.
 
-This is a series of classes to typeset articles or books, with a colorful
-design. It contains:
-- lebhart.cls
-- lebhartfast.cls
-- beaulivre.cls
-- beaulivrefast.cls
+- Derivative part (they have separate pages on CTAN):
+    - lebhart.cls : more advanced class for typesetting articles
+    - beaulivre.cls : more advanced class for typesetting books
 
-They have native support to English, French and Chinese typesetting. And they
-may compile with either XeLaTeX or LuaLaTeX.
+    They are similar to the main classes, but have unicode support, thus can
+    only be used with either XeLaTeX or LuaLaTeX. Currently they have native
+    support to English, French and Chinese typesetting, and also use more
+    beautiful fonts. (I have planed to add more language support)
 
 # License
 

@@ -1,6 +1,6 @@
 %! TEX program = xelatex
 \PassOptionsToPackage{dvipsnames}{xcolor}
-\documentclass{lebhart}
+\documentclass{beaulivre}
 
 %%================================
 %% TeX logo and URL
@@ -38,29 +38,30 @@
 {\setkeys{lst}{columns=fullflexible,keepspaces=true}}{}
 
 \providecommand{\colorist}{\textsf{colorist}}
-\providecommand{\lebhart}{\textsf{lebh\-art}}
-\providecommand{\lebhartfast}{\textsf{lebh\-art\-fast}}
-\providecommand{\beaulivre}{\textsf{beau\-livre}}
-\providecommand{\beaulivrefast}{\textsf{beau\-livre\-fast}}
+\providecommand{\colorart}{\textsf{colorart}}
+\providecommand{\colorbook}{\textsf{colorbook}}
+\providecommand{\lebhart}{\textsf{lebhart}}
+\providecommand{\beaulivre}{\textsf{beaulivre}}
 
 %%================================
 %% Main text
 %%================================
 \begin{document}
 
-\title{\colorist{}, document-class series with colorful design\thanks{Corresponding to: \texttt{\colorist{} 2021/03/12}}}
+\title{\beaulivre{}, write your books in a colorful way\thanks{Corresponding to: \texttt{\beaulivre{} 2021/03/15}}}
 \author{Jinwen}
 \date{March 2021, Beijing}
 
 \maketitle
 
-\begin{abstract}
-    The \colorist{} class series currently includes \lebhart{} for typesetting articles, \beaulivre{} for typesetting books, and two corresponding fast versions. My original intention in designing this series is to write drafts and notes that look colorful yet not dazzling.
+\frontmatter
+\chapter*{Preface}
 
-    These document-classes support three languages: English, French, and Chinese, and these three languages can be switched seamlessly in a single document. Due to the usage of custom fonts, they need to be compiled with \hologo{XeLaTeX} or \hologo{LuaLaTeX}.
-    
-    Finally, this documentation is typeset using \lebhart{}. You can think of it as a short introduction and demonstration.
-\end{abstract}
+\beaulivre{} is a member of the \colorist{} class series. The entire collection includes \colorart{} and \lebhart{} for typesetting articles and \colorbook{} and \beaulivre{} for typesetting books. My original intention in designing this series was to write drafts and notes that look colorful yet not dazzling.
+
+Among them, \lebhart{} and \beaulivre{} support three languages: English, French, and Chinese, and these three languages can be switched seamlessly in a single document. Due to the usage of custom fonts, they need to be compiled with \hologo{XeLaTeX} or \hologo{LuaLaTeX}.
+
+This documentation is typeset using \beaulivre{}. You can think of it as a short introduction and demonstration.
 
 \begin{tcolorbox}[enhanced jigsaw,pad at break*=1mm,breakable,colback=yellow!25!paper,boxrule=0pt,frame hidden]
     Since the main body of \colorist{} is modified from the \textsf{minimalist} series, some elements have not been completely redesigned yet, especially the TOC, part and chapter style. These will be added gradually in the future versions.
@@ -68,25 +69,27 @@
 
 \tableofcontents
 
-\section{On the naming and differences of these document-classes}
+\mainmatter
+
+\chapter{On the naming and options}
 \begin{itemize}
     \item \lebhart{} is taken from German word ``lebhaft'' (``vividly''), combined with the first three letters of ``artikel'' (``article'').
     \item \beaulivre{} is taken from French words ``beau'' (for ``beautiful'') and ``livre'' (for ``book'').
 \end{itemize}
 
-\lebhartfast{} and \beaulivrefast{} are faster but slightly rougher version of \lebhart{} and \beaulivre{}. The main differences are:
+You can use the option \verb|fast| to enable a fast but slightly rough version. The main differences are:
 \begin{itemize}
     \item Use simpler math font configuration; 
     \item Do not use hyperref; 
-    \item All color boxes use draft mode; 
+    \item Use draft mode for all tcolorboxes; 
     \item Use polyglossia instead of babel to support multiple languages. (Using polyglossia will increase the compilation speed slightly, but the current compatibility with Chinese is not perfect. When it becomes more stable, I will consider fully switching to polyglossia)
 \end{itemize}
 
-During the writing stage of your document, it is recommended to use the ``fast'' version to speed up compilation and improve the smoothness of your writing experience. At the end, you can remove the ``fast'' mark to get the final version.
+During the writing stage of your document, it is recommended to use the \verb|fast| option to speed up compilation and improve the smoothness of your writing experience. At the end, you can remove the ``fast'' mark to get the final version.
 
-\section{Some instructions}
+\chapter{Some instructions}
 
-\subsection{Theorems and how to reference them}
+\section{Theorems and how to reference them}
 
 Environments such as definitions and theorems have been pre-defined and can be used directly, for example:
 \begin{code}
@@ -130,7 +133,7 @@ The following are several other styles of theorem-like environments:
     Problem style
 \end{problem}
 
-\subsection{Define a new theorem-like environment}
+\section{Define a new theorem-like environment}
 
 First define the name of this environment in the language used: \lstinline|\(name of environment)(language name)|. Where \lstinline|(language name)| can be \lstinline|EN|, \lstinline|FR|, \lstinline|CN|, etc., and then define this environment in one of the following four ways:
 \begin{itemize}
@@ -154,7 +157,7 @@ defines an unnumbered environment \lstinline|proofidea|, which supports using in
     ...
 \end{proofidea}
 
-\subsection{Draft mark}
+\section{Draft mark}
 
 You can use \lstinline|\dnf| to mark the unfinished part. For example:
 \begin{itemize}
@@ -168,28 +171,25 @@ Similarly, there is \lstinline|\needgraph| ：
     \item \lstinline|\needgraph<About ...>|: \needgraph<About ...>
 \end{itemize}
 
-\subsection{Language configuration}
+\section{Language configuration}
 You can use \lstinline|\UseLanguage{(name of language))}| at any time to change the language, Language names include Chinese, English, French (the case of the first letter is arbitrary, for example, ``chinese'' is also acceptable). With this, the effects of various commands and environments will also change accordingly.
 
 For example, after using \lstinline|\UseLanguage{French}|, the theorem and the draft mark will be displayed as:
 
 \UseLanguage{French}
 \begin{theorem}[Inutile]\label{thm}
-    Un théorem en Français. \dnf
+    Un théorème en français. \dnf
 \end{theorem}
 
-When referenced, the name of the theorem always matches the language of the region in which the theorem is located, for example, the definition of the beginning is still displayed in English in the current French mode: \cref{def: strange} and \cref{thm}。
+When referenced, the name of the theorem always matches the language of the region in which the theorem is located, for example, the definition of the beginning is still displayed in English in the current French mode: \cref{def: strange} and \cref{thm}. 
 
 \UseLanguage{English}
 
-% \subsection{On the line numbers}
-% Line numbers can be turned on and off at any time. \lstinline|\linenumbers| is used to enable the line numbers, and \lstinline|\nolinenumbers| is used to disable them. For the sake of beauty, the title, table of contents, index and some other elements are not numbered.
-
-\subsection{On the fonts}
+\section{On the fonts}
 \lebhart{} and \beaulivre{} use Palatino Linotype as the English font, FounderType's YouSong and YouHei Simplified as the Chinese fonts, and partially use Neo Euler as the mathematical font:
 \begin{itemize}
     \item English main font. \textsf{English sans serif font}.
-    \item 中文主要字体，\textsf{中文无衬线字体}
+    \item 中文主要字体, \textsf{中文无衬线字体}
     \item Math demonstration: \( \alpha, \beta, \gamma, \delta, 1,2,3,4, a,b,c,d \), \[\mathrm{li}(x)\coloneqq \int_2^{\infty} \frac{1}{\log t}\,\mathrm{d}t \]
 \end{itemize}
 
@@ -197,13 +197,16 @@ Among them, Neo Euler can be downloaded at \url{https://github.com/khaledhosny/e
 
 When the corresponding font is not installed, the font that comes with TeX Live will be used instead, and the experience might be reduced.
 
-\section{Document templates}
+\chapter{Document templates}
 
-\begin{minipage}{0.4\textwidth}
+\singlespacing
+
+\begin{minipage}{0.45\textwidth}
 \begin{code}
 %! TEX program = xelatex
-\documentclass{lebhartfast}
+\documentclass[fast]{lebhart}
 
+\linenumbers
 \UseLanguage{French}
 
 \begin{document}
@@ -222,11 +225,12 @@ When the corresponding font is not installed, the font that comes with TeX Live 
 %
 \hfill
 %
-\begin{minipage}{0.4\textwidth}
+\begin{minipage}{0.45\textwidth}
 \begin{code}
 %! TEX program = xelatex
-\documentclass{lebhartfast}
+\documentclass[fast]{lebhart}
 
+\linenumbers
 \UseLanguage{Chinese}
 
 \begin{document}

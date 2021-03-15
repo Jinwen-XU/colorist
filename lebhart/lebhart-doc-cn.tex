@@ -40,28 +40,28 @@
 {\setkeys{lst}{columns=fullflexible,keepspaces=true}}{}
 
 \providecommand{\colorist}{\textsf{colorist}}
-\providecommand{\lebhart}{\textsf{lebh\-art}}
-\providecommand{\lebhartfast}{\textsf{lebh\-art\-fast}}
-\providecommand{\beaulivre}{\textsf{beau\-livre}}
-\providecommand{\beaulivrefast}{\textsf{beau\-livre\-fast}}
+\providecommand{\colorart}{\textsf{colorart}}
+\providecommand{\colorbook}{\textsf{colorbook}}
+\providecommand{\lebhart}{\textsf{lebhart}}
+\providecommand{\beaulivre}{\textsf{beaulivre}}
 
 %%================================
 %% 正文
 %%================================
 \begin{document}
 
-\title{\colorist{}，多彩风格的文档类系列\thanks{对应版本. \texttt{\colorist{} 2021/03/12}}}
+\title{\lebhart{}，以多彩的方式排版你的文章\thanks{对应版本. \texttt{\lebhart{} 2021/03/15}}}
 \author{锦文}
 \date{2021年3月，北京}
 
 \maketitle
 
 \begin{abstract}
-    \colorist{}文档类系列包含用于排版文章的\lebhart{}、用于排版书的\beaulivre{}，以及对应的两个fast版本。我设计这一系列的初衷是为了撰写草稿与笔记，使之多彩而不缭乱。
+    \lebhart{}是\colorist{}文档类系列的成员之一，整个系列包含用于排版文章的\colorart{}、\lebhart{}以及用于排版书的\colorbook{}、\beaulivre{}。我设计这一系列的初衷是为了撰写草稿与笔记，使之多彩而不缭乱。
 
-    这些文档类支持英文、法文、中文三种语言，并且同一篇文档中三种语言可以很好地协调。由于采用了自定义字体，需要采用 \hologo{XeLaTeX} 或 \hologo{LuaLaTeX} 进行编译。
+    其中，\lebhart{}与\beaulivre{}支持英文、法文、中文三种语言，并且同一篇文档中三种语言可以很好地协调。由于采用了自定义字体，需要采用 \hologo{XeLaTeX} 或 \hologo{LuaLaTeX} 进行编译。
     
-    最后，这篇说明文档是用\lebhart{}排版的，你可以把它看作一份简短的说明与演示。
+    这篇说明文档是用\lebhart{}排版的，你可以把它看作一份简短的说明与演示。
 \end{abstract}
 
 \begin{tcolorbox}[enhanced jigsaw,pad at break*=1mm,breakable,colback=yellow!25!paper,boxrule=0pt,frame hidden]
@@ -70,12 +70,14 @@
 
 \tableofcontents
 
-\section{关于这些文档类的名称与区别}
+\section{关于文档类的名称与选项}
+
 \lebhart{}取自于德文的lebhaft (活泼)，并取了artikel (文章)的前三个字母组合而成。
 
 \beaulivre{}取自于法文的beau (美丽)，以及livre (书)，由二者组合而成。
 
-\lebhartfast{}与\beaulivrefast{}是更快速但略微粗糙的\lebhart{}与\beaulivre{}。主要区别是：
+\medskip
+你可以使用选项 \verb|fast| 来启用快速但略微粗糙的样式，主要区别是：
 \begin{itemize}
     \item 使用较为简单的数学字体设置；
     \item 不使用hyperref；
@@ -83,7 +85,7 @@
     \item 使用polyglossia而不是babel来支持多语言。(使用polyglossia编译速度会略有提高，但目前对于中文的兼容不太完善，在它更加稳定后，将会考虑全面切换到polyglossia)
 \end{itemize}
 
-在文章的撰写阶段，建议使用fast版本以加快编译速度，改善写作时的流畅程度。在最后，可以把fast标记去除，从而得到正式的版本。
+在文章的撰写阶段，建议使用 \verb|fast| 选项以加快编译速度，改善写作时的流畅程度。在最后，可以把 \verb|fast| 标记去除，从而得到正式的版本。
 
 \section{一些使用说明}
 
@@ -182,8 +184,7 @@
 
 引用时，定理的名称总是与定理所在区域的语言匹配，例如，开头的定义在现在的英文模式下依然显示为中文：\cref{def: strange} 和 \cref{thm}。
 
-% \subsection{关于行号}
-% 行号可以随时开启和关闭。\lstinline|\linenumbers| 用来开启行号，\lstinline|\nolinenumbers| 用来关闭行号。标题、目录、索引等位置为了美观，不进行编号。
+\UseLanguage{Chinese}
 
 \subsection{关于字体}
 \lebhart{}与\beaulivre{}使用Palatino Linotype作为英文字体，方正悠宋、悠黑简体作为中文字体，并部分使用了Neo Euler作为数学字体：
@@ -201,11 +202,14 @@
 
 \section{文档示例}
 
-\begin{minipage}{0.4\textwidth}
+\singlespacing
+
+\begin{minipage}{0.45\textwidth}
 \begin{code}
 %! TEX program = xelatex
-\documentclass{lebhartfast}
+\documentclass[fast]{lebhart}
 
+\linenumbers
 \UseLanguage{French}
 
 \begin{document}
@@ -224,11 +228,12 @@
 %
 \hfill
 %
-\begin{minipage}{0.4\textwidth}
+\begin{minipage}{0.45\textwidth}
 \begin{code}
 %! TEX program = xelatex
-\documentclass{lebhartfast}
+\documentclass[fast]{lebhart}
 
+\linenumbers
 \UseLanguage{Chinese}
 
 \begin{document}
