@@ -18,25 +18,25 @@
 %
 %<*colorart>
 \ProvidesClass{colorart}
-    [2021/03/15 A colorful article style]
+    [2021/03/19 A colorful article style]
 \def\colorclass@baseclass{article}
 %</colorart>
 %
 %<*colorbook>
 \ProvidesClass{colorbook}
-    [2021/03/15 A colorful book style]
+    [2021/03/19 A colorful book style]
 \def\colorclass@baseclass{book}
 %</colorbook>
 %
 %<*lebhart>
 \ProvidesClass{lebhart}
-    [2021/03/15 A colorful article style]
+    [2021/03/19 A colorful article style]
 \def\colorclass@baseclass{article}
 %</lebhart>
 %
 %<*beaulivre>
 \ProvidesClass{beaulivre}
-    [2021/03/15 A colorful book style]
+    [2021/03/19 A colorful book style]
 \def\colorclass@baseclass{book}
 %</beaulivre>
 %
@@ -59,6 +59,8 @@
 %%================================
 %% Page layout
 %%================================
+\RequirePackage{silence}
+\WarningFilter{geometry}{Over-specification in}
 \RequirePackage[heightrounded]{geometry}
 \geometry{
     % papersize={8in,11in},
@@ -260,19 +262,19 @@
     \IfNoValueF{#1}{ : #1}}%
 }
 \NewDocumentCommand{\needgraph}{d<>}{%
-    \par%
-    \centerline{\plainBox[needgraphColor]%
-    {\normalfont\needgraphFont\bfseries\small%
-    \csname needgraphText\csname\languagename ABBR\endcsname\endcsname%
-    \IfNoValueF{#1}{ : #1}}}%
-    \par%
+    \begin{center}%
+        \plainBox[needgraphColor]%
+        {\normalfont\needgraphFont\bfseries\small%
+        \csname needgraphText\csname\languagename ABBR\endcsname\endcsname%
+        \IfNoValueF{#1}{ : #1}}%
+    \end{center}%
 }
 %</class>
 %
 %
 %<*colorist>
 \ProvidesPackage{colorist}
-    [2021/03/15 A colorful style for articles and books]
+    [2021/03/19 A colorful style for articles and books]
 \RequirePackage{etoolbox}
 \RequirePackage{kvoptions}
 \SetupKeyvalOptions{%
@@ -318,6 +320,7 @@
 \RequirePackage{geometry}
 \RequirePackage{fancyhdr}
 \RequirePackage{extramarks}
+\AtEndPreamble{\fancyhfoffset{0pt}}
 \fancypagestyle{fancy}{
     \fancyhf{}
     \if@twoside
@@ -598,7 +601,9 @@
     {0pt}{0pt}{\itshape}{0pt}{}{}{0pt}
     {\thmnote{\normalfont\sffamily\color{black}#3\hspace*{0.25em}}}
 
-\if@colorist@fast\else
+\if@colorist@fast
+    \providecommand{\phantomsection}{}
+\else
     \PassOptionsToPackage{hidelinks,linktoc=all}{hyperref}
 % To solve `Difference between bookmark levels is greater than one`
     \RequirePackage{bookmark}
@@ -964,6 +969,7 @@
     \def\tablename{表}%
     \def\indexname{索引}%
     \def\appendixname{附录}%
+    \def\refname{参考文献}%
     \def\bibname{参考文献}%
     \renewcommand{\languagename}{chinese}%
 }
@@ -1029,7 +1035,7 @@
 %% Abstract style
 %%================================
 \renewenvironment{abstract}
-{\small\centerline{\textsc{\abstractname}\vspace{-0.3\baselineskip}}
+{\small{\centering\textsc{\abstractname}\vspace{-0.3\baselineskip}}
     \color{black!80!paper}\begin{quotation}}
 {\end{quotation}\medskip}
 
