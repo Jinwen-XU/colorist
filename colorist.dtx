@@ -125,7 +125,7 @@
         ItalicFont     = SourceSansPro-RegularIt.otf ,
         BoldItalicFont = SourceSansPro-BoldIt.otf ]
     \setmonofont{cmuntt.otf}[
-        Scale          = MatchLowercase,
+        Scale          = MatchUppercase,
         BoldFont       = cmuntb.otf ,
         ItalicFont     = cmunst.otf ,
         BoldItalicFont = cmuntb.otf ]
@@ -638,6 +638,20 @@
 \def\problemnameFR{\sffamily\color{black}\textsc{Problème}}
 \def\remarknameFR{\sffamily\color{black}\textsc{Remarque}}
 
+%% Redefine German theorems names
+\def\theoremnameDE{\sffamily\color{orange}\textsc{Satz}}
+\def\lemmanameDE{\sffamily\color{orange}\textsc{Lemma}}
+\def\propositionnameDE{\sffamily\color{orange}\textsc{Proposition}}
+\def\corollarynameDE{\sffamily\color{orange}\textsc{Korollar}}
+\def\factnameDE{\sffamily\color{black}\textsc{Fakt}}
+\def\conjecturenameDE{\sffamily\color{purple}\textsc{Vermutung}}
+\def\definitionnameDE{\sffamily\color{forestgreen}\textsc{Definition}}
+\def\axiomnameDE{\sffamily\color{orange}\textsc{Axiom}}
+\def\assumptionnameDE{\sffamily\color{forestgreen}\textsc{Annahme}}
+\def\examplenameDE{\sffamily\color{black}\textsc{Beispiel}}
+\def\problemnameDE{\sffamily\color{black}\textsc{Problem}}
+\def\remarknameDE{\sffamily\color{black}\textsc{Bemerkung}}
+
 %% Redefine Chinese theorems names
 \def\theoremnameCN{\sffamily\color{orange}定理}
 \def\lemmanameCN{\sffamily\color{orange}引理}
@@ -671,13 +685,13 @@
 \def\propositionnameJP{\sffamily\color{orange}命題}
 \def\corollarynameJP{\sffamily\color{orange}推論}
 \def\factnameJP{\sffamily\color{black}事実}
-\def\conjecturenameJP{\sffamily\color{purple}推測}
+\def\conjecturenameJP{\sffamily\color{purple}予想}
 \def\definitionnameJP{\sffamily\color{forestgreen}定義}
 \def\axiomnameJP{\sffamily\color{orange}公理}
 \def\assumptionnameJP{\sffamily\color{forestgreen}仮定}
 \def\examplenameJP{\sffamily\color{black}例}
 \def\problemnameJP{\sffamily\color{black}問題}
-\def\remarknameJP{\sffamily\color{black}備考}
+\def\remarknameJP{\sffamily\color{black}注釈}
 
 %% Redefine Russian theorems names
 \def\theoremnameRU{\sffamily\color{orange}Теорема}
