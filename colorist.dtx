@@ -82,11 +82,6 @@
 \if@colorclass@fast
     \PassOptionsToPackage{fast}{colorist}
 \fi
-%<*lebhart|beaulivre>
-\if@colorclass@fast
-    \PassOptionsToPackage{polyglossia}{colorist}
-\fi
-%</lebhart|beaulivre>
 \RequirePackage{colorist}
 
 %%================================
@@ -276,19 +271,22 @@
 \newcommand{\partfont}{\sffamily}
 \newcommand{\chapfont}{\sffamily}
 \newcommand{\secfont}{\sffamily}
-\newcommand{\subsecfont}{}
-\newcommand{\subsubsecfont}{}
+\newcommand{\subsecfont}{\sffamily}
+\newcommand{\subsubsecfont}{\sffamily}
+
+%%================================
+%% Paper configuration
+%%================================
+\RequirePackage{PLpaper}
 
 %%================================
 %% Color
 %%================================
-\RequirePackage{xcolor}
-\definecolor{paper}{RGB}{255,255,255}
-\definecolor{skyblue}{RGB}{60,120,234}
-\definecolor{steelblue}{RGB}{70,130,180}
+% \definecolor{skyblue}{RGB}{60,120,234}
+\definecolor{maintheme}{RGB}{70,130,180}
 \definecolor{forestgreen}{RGB}{21,122,81}
 \definecolor{lightorange}{RGB}{255,185,88}
-\definecolor{lightskyblue}{RGB}{35,198,255}
+% \definecolor{lightskyblue}{RGB}{35,198,255}
 
 %%================================
 %% Footer
@@ -415,9 +413,9 @@
 
     %% Section
     \titleformat{\section}
-    {\secfont\large\color{steelblue}}
+    {\secfont\large\color{maintheme}}
     {\thesection}{.75em}{#1}
-    [{\titlerule[.75pt]}]
+    % [{\titlerule[.75pt]}]
 }{
 % For article
     %% Part
@@ -444,23 +442,23 @@
 
     %% Section
     \titleformat{\section}
-    {\secfont\large\color{steelblue}}
+    {\secfont\large\color{maintheme}}
     {\thesection}{.75em}{\scshape #1}
-    [{\titlerule[.75pt]}]
+    % [{\titlerule[.75pt]}]
 }
 
 %% Subsection
 \titleformat{\subsection}
-    {\subsecfont}{}{0em}
-    {\textsf{\thesubsection}~~\textcolor{gray!55!paper}{$|$}~~#1}
-\titleformat{name=\subsection,numberless}
-    {\subsecfont}{}{0em}
+    {\subsecfont}{\thesubsection}{.75em}
     {#1}
 
 %% Subsubsection
 \titleformat{\subsubsection}
-    {\subsubsecfont}{\sffamily\thesubsubsection}{.5em}
+    {\color{paper!40!-paper}\subsubsecfont}{\thesubsubsection}{.5em}
     {#1}
+
+\titlespacing{\section}{0pt}{\baselineskip}{.5\baselineskip}
+\titlespacing{\subsection}{0pt}{.8\baselineskip}{.3\baselineskip}
 \titlespacing{\subsubsection}{0pt}{.8\baselineskip}{.5\baselineskip}
 
 %%================================
@@ -469,7 +467,7 @@
 \RequirePackage{titletoc}
 \titlecontents{part}
     [0em]
-    {\addvspace{1.5pc}\filcenter\partfont}
+    {\addvspace{1.5pc}\filcenter\sffamily}
     {\thecontentslabel\\\uppercase}
     {}
     {} % without page number
@@ -478,19 +476,19 @@
 % For book
     \titlecontents{chapter}
         [2em] % i.e., 0em (part) + 2em
-        {\addvspace{.5pc}\chapfont}
+        {\addvspace{.5pc}\normalfont}
         {\contentslabel{2em}}
         {\hspace*{-2em}}
         {\normalfont\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
     \titlecontents{section}
         [4em] % i.e., 2em (chapter) + 2em
-        {\secfont}
+        {\normalfont}
         {\contentslabel{1.75em}}
         {\hspace*{-1.75em}}
         {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
     \titlecontents{subsection}
         [7em] % i.e., 4em (section) + 3em
-        {\subsecfont}
+        {\normalfont}
         {\contentslabel{2.75em}}
         {\hspace*{-2.75em}}
         {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
@@ -498,13 +496,13 @@
 % For article
     \titlecontents{section}
         [2em] % i.e., 0em (part) + 2em
-        {\secfont}
+        {\normalfont}
         {\contentslabel{1.75em}}
         {\hspace*{-1.75em}}
         {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
     \titlecontents{subsection}
         [5em] % i.e., 2em (section) + 3em
-        {\subsecfont}
+        {\normalfont}
         {\contentslabel{2.75em}}
         {\hspace*{-2.75em}}
         {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
@@ -683,7 +681,7 @@
 \def\theoremnameJP{\sffamily\color{orange}定理}
 \def\lemmanameJP{\sffamily\color{orange}補題}
 \def\propositionnameJP{\sffamily\color{orange}命題}
-\def\corollarynameJP{\sffamily\color{orange}推論}
+\def\corollarynameJP{\sffamily\color{orange}系}
 \def\factnameJP{\sffamily\color{black}事実}
 \def\conjecturenameJP{\sffamily\color{purple}予想}
 \def\definitionnameJP{\sffamily\color{forestgreen}定義}
@@ -965,23 +963,24 @@
 %% Title block style
 %%================================
 \renewcommand{\@maketitle}{%
-    \noindent%
-    {\textcolor{gray!55!paper}{\rule{\textwidth}{0.75pt}}}%
-    \vspace{-\parskip}%
-    \begin{center}%
-        {\large\@title}\\\medskip%
-        \color{black!80!paper}%
-        {\scshape\@author}\\\smallskip%
-        {\@date}%
-    \end{center}%
-    \vspace{-\parskip}%
-    \ifx\@date\@empty%
-        \vspace{-\baselineskip}%
-    \else%
-        \vspace{-.8\baselineskip}%
-    \fi%
-    {\textcolor{gray!55!paper}{\rule{\textwidth}{0.75pt}}\par}%
-    \medskip%
+% \noindent%
+% {\textcolor{maintheme!55!paper}{\rule{\textwidth}{0.75pt}}}%
+% \vspace{-\parskip}%
+\begin{center}%
+    \color{maintheme}%
+    {\Large\sffamily\@title}\\\medskip%
+    \color{black!80!paper}%
+    {\scshape\@author}\\\smallskip%
+    {\@date}%
+\end{center}%
+% \vspace{-\parskip}%
+% \ifx\@date\@empty%
+%     \vspace{-\baselineskip}%
+% \else%
+%     \vspace{-.8\baselineskip}%
+% \fi%
+% {\textcolor{maintheme!55!paper}{\rule{\textwidth}{0.75pt}}\par}%
+\medskip%
 }
 \apptocmd{\maketitle}{\thispagestyle{fancy}}{}{\FAIL}
 
