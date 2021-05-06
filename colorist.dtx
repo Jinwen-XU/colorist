@@ -124,6 +124,11 @@
         BoldFont       = SourceSansPro-Bold.otf ,
         ItalicFont     = SourceSansPro-RegularIt.otf ,
         BoldItalicFont = SourceSansPro-BoldIt.otf ]
+    \setmonofont{cmuntt.otf}[
+        Scale          = MatchLowercase,
+        BoldFont       = cmuntb.otf ,
+        ItalicFont     = cmunst.otf ,
+        BoldItalicFont = cmuntb.otf ]
 
 %% Chinese fonts
 \PassOptionsToPackage{fontset=none,scheme=plain}{ctex}
@@ -673,6 +678,20 @@
 \def\examplenameJP{\sffamily\color{black}例}
 \def\problemnameJP{\sffamily\color{black}問題}
 \def\remarknameJP{\sffamily\color{black}備考}
+
+%% Redefine Russian theorems names
+\def\theoremnameRU{\sffamily\color{orange}Теорема}
+\def\lemmanameRU{\sffamily\color{orange}Лемма}
+\def\propositionnameRU{\sffamily\color{orange}Предложение}
+\def\corollarynameRU{\sffamily\color{orange}Следствие}
+\def\factnameRU{\sffamily\color{black}Факт}
+\def\conjecturenameRU{\sffamily\color{purple}Гипотеза}
+\def\definitionnameRU{\sffamily\color{forestgreen}Определение}
+\def\axiomnameRU{\sffamily\color{orange}Аксиома}
+\def\assumptionnameRU{\sffamily\color{forestgreen}Предположение}
+\def\examplenameRU{\sffamily\color{black}Пример}
+\def\problemnameRU{\sffamily\color{black}Вопрос}
+\def\remarknameRU{\sffamily\color{black}Замечание}
 
 %% Theorem environments
 \theoremstyle{basic}
