@@ -95,6 +95,7 @@
 \fi
 \RequirePackage{mathpazo}
 \RequirePackage{newpxtext}
+\RequirePackage{amssymb}
 %</colorart|colorbook>
 %
 %<*lebhart|beaulivre>
@@ -416,6 +417,11 @@
     {\secfont\large\color{maintheme}}
     {\thesection}{.75em}{#1}
     % [{\titlerule[.75pt]}]
+
+    %% Subsection
+    \titleformat{\subsection}
+    {\subsecfont}{\thesubsection}{.75em}
+    {#1}
 }{
 % For article
     %% Part
@@ -445,21 +451,21 @@
     {\secfont\large\color{maintheme}}
     {\thesection}{.75em}{\scshape #1}
     % [{\titlerule[.75pt]}]
-}
 
-%% Subsection
-\titleformat{\subsection}
+    %% Subsection
+    \titleformat{\subsection}
     {\subsecfont}{\thesubsection}{.75em}
-    {#1}
+    {\scshape #1}
+}
 
 %% Subsubsection
 \titleformat{\subsubsection}
-    {\color{paper!40!-paper}\subsubsecfont}{\thesubsubsection}{.5em}
+    {\color{paper!30!-paper}\subsubsecfont}{\thesubsubsection}{.5em}
     {#1}
 
-\titlespacing{\section}{0pt}{\baselineskip}{.5\baselineskip}
-\titlespacing{\subsection}{0pt}{.8\baselineskip}{.3\baselineskip}
-\titlespacing{\subsubsection}{0pt}{.8\baselineskip}{.5\baselineskip}
+\titlespacing{\section}{0pt}{\baselineskip}{.6\baselineskip}
+\titlespacing{\subsection}{0pt}{.8\baselineskip}{.45\baselineskip}
+\titlespacing{\subsubsection}{0pt}{.8\baselineskip}{.3\baselineskip}
 
 %%================================
 %% TOC format
@@ -609,101 +615,101 @@
 \RequirePackage[nothms]{PLthm}
 
 %% Redefine English theorems names
-\def\theoremnameEN{\sffamily\color{orange}\textsc{Theorem}}
-\def\lemmanameEN{\sffamily\color{orange}\textsc{Lemma}}
-\def\propositionnameEN{\sffamily\color{orange}\textsc{Proposition}}
-\def\corollarynameEN{\sffamily\color{orange}\textsc{Corollary}}
-\def\factnameEN{\sffamily\color{black}\textsc{Fact}}
-\def\conjecturenameEN{\sffamily\color{purple}\textsc{Conjecture}}
-\def\definitionnameEN{\sffamily\color{forestgreen}\textsc{Definition}}
-\def\axiomnameEN{\sffamily\color{orange}\textsc{Axiom}}
-\def\assumptionnameEN{\sffamily\color{forestgreen}\textsc{Assumption}}
-\def\examplenameEN{\sffamily\color{black}\textsc{Example}}
-\def\problemnameEN{\sffamily\color{black}\textsc{Problem}}
-\def\remarknameEN{\sffamily\color{black}\textsc{Remark}}
+\def\theoremnameEN{\normalfont\sffamily\color{orange}\textsc{Theorem}}
+\def\lemmanameEN{\normalfont\sffamily\color{orange}\textsc{Lemma}}
+\def\propositionnameEN{\normalfont\sffamily\color{orange}\textsc{Proposition}}
+\def\corollarynameEN{\normalfont\sffamily\color{orange}\textsc{Corollary}}
+\def\factnameEN{\normalfont\sffamily\color{black}\textsc{Fact}}
+\def\conjecturenameEN{\normalfont\sffamily\color{purple}\textsc{Conjecture}}
+\def\definitionnameEN{\normalfont\sffamily\color{forestgreen}\textsc{Definition}}
+\def\axiomnameEN{\normalfont\sffamily\color{orange}\textsc{Axiom}}
+\def\assumptionnameEN{\normalfont\sffamily\color{forestgreen}\textsc{Assumption}}
+\def\examplenameEN{\normalfont\sffamily\color{black}\textsc{Example}}
+\def\problemnameEN{\normalfont\sffamily\color{black}\textsc{Problem}}
+\def\remarknameEN{\normalfont\sffamily\color{black}\textsc{Remark}}
 
 %% Redefine French theorems names
-\def\theoremnameFR{\sffamily\color{orange}\textsc{Théorème}}
-\def\lemmanameFR{\sffamily\color{orange}\textsc{Lemme}}
-\def\propositionnameFR{\sffamily\color{orange}\textsc{Proposition}}
-\def\corollarynameFR{\sffamily\color{orange}\textsc{Corollaire}}
-\def\factnameFR{\sffamily\color{black}\textsc{Fait}}
-\def\conjecturenameFR{\sffamily\color{purple}\textsc{Conjecture}}
-\def\definitionnameFR{\sffamily\color{forestgreen}\textsc{Définition}}
-\def\axiomnameFR{\sffamily\color{orange}\textsc{Axiome}}
-\def\assumptionnameFR{\sffamily\color{forestgreen}\textsc{Supposition}}
-\def\examplenameFR{\sffamily\color{black}\textsc{Exemple}}
-\def\problemnameFR{\sffamily\color{black}\textsc{Problème}}
-\def\remarknameFR{\sffamily\color{black}\textsc{Remarque}}
+\def\theoremnameFR{\normalfont\sffamily\color{orange}\textsc{Théorème}}
+\def\lemmanameFR{\normalfont\sffamily\color{orange}\textsc{Lemme}}
+\def\propositionnameFR{\normalfont\sffamily\color{orange}\textsc{Proposition}}
+\def\corollarynameFR{\normalfont\sffamily\color{orange}\textsc{Corollaire}}
+\def\factnameFR{\normalfont\sffamily\color{black}\textsc{Fait}}
+\def\conjecturenameFR{\normalfont\sffamily\color{purple}\textsc{Conjecture}}
+\def\definitionnameFR{\normalfont\sffamily\color{forestgreen}\textsc{Définition}}
+\def\axiomnameFR{\normalfont\sffamily\color{orange}\textsc{Axiome}}
+\def\assumptionnameFR{\normalfont\sffamily\color{forestgreen}\textsc{Supposition}}
+\def\examplenameFR{\normalfont\sffamily\color{black}\textsc{Exemple}}
+\def\problemnameFR{\normalfont\sffamily\color{black}\textsc{Problème}}
+\def\remarknameFR{\normalfont\sffamily\color{black}\textsc{Remarque}}
 
 %% Redefine German theorems names
-\def\theoremnameDE{\sffamily\color{orange}\textsc{Satz}}
-\def\lemmanameDE{\sffamily\color{orange}\textsc{Lemma}}
-\def\propositionnameDE{\sffamily\color{orange}\textsc{Proposition}}
-\def\corollarynameDE{\sffamily\color{orange}\textsc{Korollar}}
-\def\factnameDE{\sffamily\color{black}\textsc{Fakt}}
-\def\conjecturenameDE{\sffamily\color{purple}\textsc{Vermutung}}
-\def\definitionnameDE{\sffamily\color{forestgreen}\textsc{Definition}}
-\def\axiomnameDE{\sffamily\color{orange}\textsc{Axiom}}
-\def\assumptionnameDE{\sffamily\color{forestgreen}\textsc{Annahme}}
-\def\examplenameDE{\sffamily\color{black}\textsc{Beispiel}}
-\def\problemnameDE{\sffamily\color{black}\textsc{Problem}}
-\def\remarknameDE{\sffamily\color{black}\textsc{Bemerkung}}
+\def\theoremnameDE{\normalfont\sffamily\color{orange}\textsc{Satz}}
+\def\lemmanameDE{\normalfont\sffamily\color{orange}\textsc{Lemma}}
+\def\propositionnameDE{\normalfont\sffamily\color{orange}\textsc{Proposition}}
+\def\corollarynameDE{\normalfont\sffamily\color{orange}\textsc{Korollar}}
+\def\factnameDE{\normalfont\sffamily\color{black}\textsc{Fakt}}
+\def\conjecturenameDE{\normalfont\sffamily\color{purple}\textsc{Vermutung}}
+\def\definitionnameDE{\normalfont\sffamily\color{forestgreen}\textsc{Definition}}
+\def\axiomnameDE{\normalfont\sffamily\color{orange}\textsc{Axiom}}
+\def\assumptionnameDE{\normalfont\sffamily\color{forestgreen}\textsc{Annahme}}
+\def\examplenameDE{\normalfont\sffamily\color{black}\textsc{Beispiel}}
+\def\problemnameDE{\normalfont\sffamily\color{black}\textsc{Problem}}
+\def\remarknameDE{\normalfont\sffamily\color{black}\textsc{Bemerkung}}
 
 %% Redefine Chinese theorems names
-\def\theoremnameCN{\sffamily\color{orange}定理}
-\def\lemmanameCN{\sffamily\color{orange}引理}
-\def\propositionnameCN{\sffamily\color{orange}命题}
-\def\corollarynameCN{\sffamily\color{orange}推论}
-\def\factnameCN{\sffamily\color{black}事实}
-\def\conjecturenameCN{\sffamily\color{purple}猜想}
-\def\definitionnameCN{\sffamily\color{forestgreen}定义}
-\def\axiomnameCN{\sffamily\color{orange}公理}
-\def\assumptionnameCN{\sffamily\color{forestgreen}假设}
-\def\examplenameCN{\sffamily\color{black}例}
-\def\problemnameCN{\sffamily\color{black}问题}
-\def\remarknameCN{\sffamily\color{black}备注}
+\def\theoremnameCN{\normalfont\sffamily\color{orange}定理}
+\def\lemmanameCN{\normalfont\sffamily\color{orange}引理}
+\def\propositionnameCN{\normalfont\sffamily\color{orange}命题}
+\def\corollarynameCN{\normalfont\sffamily\color{orange}推论}
+\def\factnameCN{\normalfont\sffamily\color{black}事实}
+\def\conjecturenameCN{\normalfont\sffamily\color{purple}猜想}
+\def\definitionnameCN{\normalfont\sffamily\color{forestgreen}定义}
+\def\axiomnameCN{\normalfont\sffamily\color{orange}公理}
+\def\assumptionnameCN{\normalfont\sffamily\color{forestgreen}假设}
+\def\examplenameCN{\normalfont\sffamily\color{black}例}
+\def\problemnameCN{\normalfont\sffamily\color{black}问题}
+\def\remarknameCN{\normalfont\sffamily\color{black}备注}
 
-\def\theoremnameTC{\sffamily\color{orange}定理}
-\def\lemmanameTC{\sffamily\color{orange}引理}
-\def\propositionnameTC{\sffamily\color{orange}命題}
-\def\corollarynameTC{\sffamily\color{orange}推論}
-\def\factnameTC{\sffamily\color{black}事實}
-\def\conjecturenameTC{\sffamily\color{purple}猜想}
-\def\definitionnameTC{\sffamily\color{forestgreen}定義}
-\def\axiomnameTC{\sffamily\color{orange}公理}
-\def\assumptionnameTC{\sffamily\color{forestgreen}假設}
-\def\examplenameTC{\sffamily\color{black}例}
-\def\problemnameTC{\sffamily\color{black}問題}
-\def\remarknameTC{\sffamily\color{black}備註}
+\def\theoremnameTC{\normalfont\sffamily\color{orange}定理}
+\def\lemmanameTC{\normalfont\sffamily\color{orange}引理}
+\def\propositionnameTC{\normalfont\sffamily\color{orange}命題}
+\def\corollarynameTC{\normalfont\sffamily\color{orange}推論}
+\def\factnameTC{\normalfont\sffamily\color{black}事實}
+\def\conjecturenameTC{\normalfont\sffamily\color{purple}猜想}
+\def\definitionnameTC{\normalfont\sffamily\color{forestgreen}定義}
+\def\axiomnameTC{\normalfont\sffamily\color{orange}公理}
+\def\assumptionnameTC{\normalfont\sffamily\color{forestgreen}假設}
+\def\examplenameTC{\normalfont\sffamily\color{black}例}
+\def\problemnameTC{\normalfont\sffamily\color{black}問題}
+\def\remarknameTC{\normalfont\sffamily\color{black}備註}
 
 %% Redefine Japanese theorems names
-\def\theoremnameJP{\sffamily\color{orange}定理}
-\def\lemmanameJP{\sffamily\color{orange}補題}
-\def\propositionnameJP{\sffamily\color{orange}命題}
-\def\corollarynameJP{\sffamily\color{orange}系}
-\def\factnameJP{\sffamily\color{black}事実}
-\def\conjecturenameJP{\sffamily\color{purple}予想}
-\def\definitionnameJP{\sffamily\color{forestgreen}定義}
-\def\axiomnameJP{\sffamily\color{orange}公理}
-\def\assumptionnameJP{\sffamily\color{forestgreen}仮定}
-\def\examplenameJP{\sffamily\color{black}例}
-\def\problemnameJP{\sffamily\color{black}問題}
-\def\remarknameJP{\sffamily\color{black}注釈}
+\def\theoremnameJP{\normalfont\sffamily\color{orange}定理}
+\def\lemmanameJP{\normalfont\sffamily\color{orange}補題}
+\def\propositionnameJP{\normalfont\sffamily\color{orange}命題}
+\def\corollarynameJP{\normalfont\sffamily\color{orange}系}
+\def\factnameJP{\normalfont\sffamily\color{black}事実}
+\def\conjecturenameJP{\normalfont\sffamily\color{purple}予想}
+\def\definitionnameJP{\normalfont\sffamily\color{forestgreen}定義}
+\def\axiomnameJP{\normalfont\sffamily\color{orange}公理}
+\def\assumptionnameJP{\normalfont\sffamily\color{forestgreen}仮定}
+\def\examplenameJP{\normalfont\sffamily\color{black}例}
+\def\problemnameJP{\normalfont\sffamily\color{black}問題}
+\def\remarknameJP{\normalfont\sffamily\color{black}注釈}
 
 %% Redefine Russian theorems names
-\def\theoremnameRU{\sffamily\color{orange}Теорема}
-\def\lemmanameRU{\sffamily\color{orange}Лемма}
-\def\propositionnameRU{\sffamily\color{orange}Предложение}
-\def\corollarynameRU{\sffamily\color{orange}Следствие}
-\def\factnameRU{\sffamily\color{black}Факт}
-\def\conjecturenameRU{\sffamily\color{purple}Гипотеза}
-\def\definitionnameRU{\sffamily\color{forestgreen}Определение}
-\def\axiomnameRU{\sffamily\color{orange}Аксиома}
-\def\assumptionnameRU{\sffamily\color{forestgreen}Предположение}
-\def\examplenameRU{\sffamily\color{black}Пример}
-\def\problemnameRU{\sffamily\color{black}Вопрос}
-\def\remarknameRU{\sffamily\color{black}Замечание}
+\def\theoremnameRU{\normalfont\sffamily\color{orange}Теорема}
+\def\lemmanameRU{\normalfont\sffamily\color{orange}Лемма}
+\def\propositionnameRU{\normalfont\sffamily\color{orange}Предложение}
+\def\corollarynameRU{\normalfont\sffamily\color{orange}Следствие}
+\def\factnameRU{\normalfont\sffamily\color{black}Факт}
+\def\conjecturenameRU{\normalfont\sffamily\color{purple}Гипотеза}
+\def\definitionnameRU{\normalfont\sffamily\color{forestgreen}Определение}
+\def\axiomnameRU{\normalfont\sffamily\color{orange}Аксиома}
+\def\assumptionnameRU{\normalfont\sffamily\color{forestgreen}Предположение}
+\def\examplenameRU{\normalfont\sffamily\color{black}Пример}
+\def\problemnameRU{\normalfont\sffamily\color{black}Вопрос}
+\def\remarknameRU{\normalfont\sffamily\color{black}Замечание}
 
 %% Theorem environments
 \theoremstyle{basic}
@@ -778,12 +784,17 @@
 
 \theoremstyle{simple}% as the default style for user-defined environments
 
-\let\proof\relax
-\let\endproof\relax
-\def\proofnameCN{\proofname}
-\def\proofnameEN{\proofname}
-\def\proofnameFR{\proofname}
-\CreateTheorem*{proof}
+\renewenvironment{proof}[1][\proofname]{\par
+  \pushQED{\qed}%
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \item[\hskip\labelsep
+        \itshape
+    #1\hspace{.4em}%
+    \textcolor{gray!55!paper}{$|$}]\ignorespaces
+}{%
+  \popQED\endtrivlist\@endpefalse
+}
 
 \RequirePackage[many]{tcolorbox}
 \if@colorclass@fast
@@ -937,25 +948,41 @@
   }
 \ExplSyntaxOff
 
+% \def\scandefinitionenv{%
+%   \AfterEnvEnd{%
+%     \ScanEnv*{definition}%
+%       {\vspace{-1.05\baselineskip}}%
+%       {\ScanEnv*{definition*}%
+%         {\vspace{-1.05\baselineskip}}%
+%         {}}}}
+% \AddToHook{env/definition/end}{\scandefinitionenv}%
+% \AddToHook{env/definition*/end}{\scandefinitionenv}%
+%
+% \def\scanassumptionenv{%
+%   \AfterEnvEnd{%
+%     \ScanEnv*{assumption}%
+%       {\vspace{-1.05\baselineskip}}%
+%       {\ScanEnv*{assumption*}%
+%         {\vspace{-1.05\baselineskip}}%
+%         {}}}}
+% \AddToHook{env/assumption/end}{\scanassumptionenv}%
+% \AddToHook{env/assumption*/end}{\scanassumptionenv}%
+%
 \def\scandefinitionenv{%
   \AfterEnvEnd{%
     \ScanEnv*{definition}%
       {\vspace{-1.05\baselineskip}}%
       {\ScanEnv*{definition*}%
         {\vspace{-1.05\baselineskip}}%
-        {}}}}
+        {\ScanEnv*{assumption}%
+          {\vspace{-1.05\baselineskip}}%
+          {\ScanEnv*{assumption*}%
+            {\vspace{-1.05\baselineskip}}%
+            {}}}}}}
 \AddToHook{env/definition/end}{\scandefinitionenv}%
 \AddToHook{env/definition*/end}{\scandefinitionenv}%
-
-\def\scanassumptionenv{%
-  \AfterEnvEnd{%
-    \ScanEnv*{assumption}%
-      {\vspace{-1.05\baselineskip}}%
-      {\ScanEnv*{assumption*}%
-        {\vspace{-1.05\baselineskip}}%
-        {}}}}
-\AddToHook{env/assumption/end}{\scanassumptionenv}%
-\AddToHook{env/assumption*/end}{\scanassumptionenv}%
+\AddToHook{env/assumption/end}{\scandefinitionenv}%
+\AddToHook{env/assumption*/end}{\scandefinitionenv}%
 
 \ifbool{IsBook}{}{%
 
@@ -968,7 +995,7 @@
 % \vspace{-\parskip}%
 \begin{center}%
     \color{maintheme}%
-    {\Large\sffamily\@title}\\\medskip%
+    {\Large\sffamily\scshape\@title}\\\bigskip%
     \color{black!80!paper}%
     {\scshape\@author}\\\smallskip%
     {\@date}%
