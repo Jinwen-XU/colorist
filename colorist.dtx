@@ -264,7 +264,7 @@
 \fi
 
 \if@colorist@allowbf
-    \newcommand{\conditionalbfseries}{\bfseries\colorlet{PLtempcolor}{.}\color{PLtempcolor!83!paper}}
+    \newcommand{\conditionalbfseries}{\bfseries\colorlet{PLtempcolor}{.}\color{PLtempcolor!90!paper}}
 \else
     \newcommand{\conditionalbfseries}{}
 \fi
@@ -421,7 +421,7 @@
 
     %% Section
     \titleformat{\section}
-    {\secfont\large\color{maintheme}}
+    {\color{maintheme}\secfont\large}
     {\thesection}{.75em}{#1}
     % [{\titlerule[.75pt]}]
 
@@ -455,7 +455,7 @@
 
     %% Section
     \titleformat{\section}
-    {\secfont\large\color{maintheme}}
+    {\color{maintheme}\secfont\large}
     {\thesection}{.75em}{\scshape #1}
     % [{\titlerule[.75pt]}]
 
@@ -471,8 +471,8 @@
     {#1}
 
 \titlespacing{\section}{0pt}{\baselineskip}{.6\baselineskip}
-\titlespacing{\subsection}{0pt}{.8\baselineskip}{.45\baselineskip}
-\titlespacing{\subsubsection}{0pt}{.8\baselineskip}{.3\baselineskip}
+\titlespacing{\subsection}{0pt}{.75\baselineskip}{.4\baselineskip}
+\titlespacing{\subsubsection}{0pt}{.5\baselineskip}{.2\baselineskip}
 
 %%================================
 %% TOC format
@@ -601,7 +601,7 @@
 \newtheoremstyle{basic}
     {0pt}{0pt}{\normalfont}{0pt}
     {}{\;}{0.25em}
-    {{\conditionalbfseries\thmname{#1}~\thmnumber{\textup{#2}}}
+    {{\thmname{#1}~\thmnumber{\textup{#2}}}
     \thmnote{\normalfont\sffamily\color{black}~(#3)}}
 
 \newtheoremstyle{emphasis}
@@ -622,101 +622,101 @@
 \RequirePackage[nothms]{PLthm}
 
 %% Redefine English theorems names
-\def\theoremnameEN{\normalfont\sffamily\color{orange}\textsc{Theorem}}
-\def\lemmanameEN{\normalfont\sffamily\color{orange}\textsc{Lemma}}
-\def\propositionnameEN{\normalfont\sffamily\color{orange}\textsc{Proposition}}
-\def\corollarynameEN{\normalfont\sffamily\color{orange}\textsc{Corollary}}
-\def\factnameEN{\normalfont\sffamily\color{black}\textsc{Fact}}
-\def\conjecturenameEN{\normalfont\sffamily\color{purple}\textsc{Conjecture}}
-\def\definitionnameEN{\normalfont\sffamily\color{forestgreen}\textsc{Definition}}
-\def\axiomnameEN{\normalfont\sffamily\color{orange}\textsc{Axiom}}
-\def\assumptionnameEN{\normalfont\sffamily\color{forestgreen}\textsc{Assumption}}
-\def\examplenameEN{\normalfont\sffamily\color{black}\textsc{Example}}
-\def\problemnameEN{\normalfont\sffamily\color{black}\textsc{Problem}}
-\def\remarknameEN{\normalfont\sffamily\color{black}\textsc{Remark}}
+\def\theoremnameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Theorem}}
+\def\lemmanameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Lemma}}
+\def\propositionnameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Proposition}}
+\def\corollarynameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Corollary}}
+\def\factnameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Fact}}
+\def\conjecturenameEN{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc{Conjecture}}
+\def\definitionnameEN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Definition}}
+\def\axiomnameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Axiom}}
+\def\assumptionnameEN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Assumption}}
+\def\examplenameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Example}}
+\def\problemnameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Problem}}
+\def\remarknameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Remark}}
 
 %% Redefine French theorems names
-\def\theoremnameFR{\normalfont\sffamily\color{orange}\textsc{Théorème}}
-\def\lemmanameFR{\normalfont\sffamily\color{orange}\textsc{Lemme}}
-\def\propositionnameFR{\normalfont\sffamily\color{orange}\textsc{Proposition}}
-\def\corollarynameFR{\normalfont\sffamily\color{orange}\textsc{Corollaire}}
-\def\factnameFR{\normalfont\sffamily\color{black}\textsc{Fait}}
-\def\conjecturenameFR{\normalfont\sffamily\color{purple}\textsc{Conjecture}}
-\def\definitionnameFR{\normalfont\sffamily\color{forestgreen}\textsc{Définition}}
-\def\axiomnameFR{\normalfont\sffamily\color{orange}\textsc{Axiome}}
-\def\assumptionnameFR{\normalfont\sffamily\color{forestgreen}\textsc{Supposition}}
-\def\examplenameFR{\normalfont\sffamily\color{black}\textsc{Exemple}}
-\def\problemnameFR{\normalfont\sffamily\color{black}\textsc{Problème}}
-\def\remarknameFR{\normalfont\sffamily\color{black}\textsc{Remarque}}
+\def\theoremnameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Théorème}}
+\def\lemmanameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Lemme}}
+\def\propositionnameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Proposition}}
+\def\corollarynameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Corollaire}}
+\def\factnameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Fait}}
+\def\conjecturenameFR{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc{Conjecture}}
+\def\definitionnameFR{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Définition}}
+\def\axiomnameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Axiome}}
+\def\assumptionnameFR{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Supposition}}
+\def\examplenameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Exemple}}
+\def\problemnameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Problème}}
+\def\remarknameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Remarque}}
 
 %% Redefine German theorems names
-\def\theoremnameDE{\normalfont\sffamily\color{orange}\textsc{Satz}}
-\def\lemmanameDE{\normalfont\sffamily\color{orange}\textsc{Lemma}}
-\def\propositionnameDE{\normalfont\sffamily\color{orange}\textsc{Proposition}}
-\def\corollarynameDE{\normalfont\sffamily\color{orange}\textsc{Korollar}}
-\def\factnameDE{\normalfont\sffamily\color{black}\textsc{Fakt}}
-\def\conjecturenameDE{\normalfont\sffamily\color{purple}\textsc{Vermutung}}
-\def\definitionnameDE{\normalfont\sffamily\color{forestgreen}\textsc{Definition}}
-\def\axiomnameDE{\normalfont\sffamily\color{orange}\textsc{Axiom}}
-\def\assumptionnameDE{\normalfont\sffamily\color{forestgreen}\textsc{Annahme}}
-\def\examplenameDE{\normalfont\sffamily\color{black}\textsc{Beispiel}}
-\def\problemnameDE{\normalfont\sffamily\color{black}\textsc{Problem}}
-\def\remarknameDE{\normalfont\sffamily\color{black}\textsc{Bemerkung}}
+\def\theoremnameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Satz}}
+\def\lemmanameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Lemma}}
+\def\propositionnameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Proposition}}
+\def\corollarynameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Korollar}}
+\def\factnameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Fakt}}
+\def\conjecturenameDE{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc{Vermutung}}
+\def\definitionnameDE{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Definition}}
+\def\axiomnameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Axiom}}
+\def\assumptionnameDE{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Annahme}}
+\def\examplenameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Beispiel}}
+\def\problemnameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Problem}}
+\def\remarknameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Bemerkung}}
 
 %% Redefine Chinese theorems names
-\def\theoremnameCN{\normalfont\sffamily\color{orange}定理}
-\def\lemmanameCN{\normalfont\sffamily\color{orange}引理}
-\def\propositionnameCN{\normalfont\sffamily\color{orange}命题}
-\def\corollarynameCN{\normalfont\sffamily\color{orange}推论}
-\def\factnameCN{\normalfont\sffamily\color{black}事实}
-\def\conjecturenameCN{\normalfont\sffamily\color{purple}猜想}
-\def\definitionnameCN{\normalfont\sffamily\color{forestgreen}定义}
-\def\axiomnameCN{\normalfont\sffamily\color{orange}公理}
-\def\assumptionnameCN{\normalfont\sffamily\color{forestgreen}假设}
-\def\examplenameCN{\normalfont\sffamily\color{black}例}
-\def\problemnameCN{\normalfont\sffamily\color{black}问题}
-\def\remarknameCN{\normalfont\sffamily\color{black}备注}
+\def\theoremnameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 定理}
+\def\lemmanameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 引理}
+\def\propositionnameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 命题}
+\def\corollarynameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 推论}
+\def\factnameCN{\normalfont\sffamily\color{black}\conditionalbfseries 事实}
+\def\conjecturenameCN{\normalfont\sffamily\color{purple}\conditionalbfseries 猜想}
+\def\definitionnameCN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 定义}
+\def\axiomnameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 公理}
+\def\assumptionnameCN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 假设}
+\def\examplenameCN{\normalfont\sffamily\color{black}\conditionalbfseries 例}
+\def\problemnameCN{\normalfont\sffamily\color{black}\conditionalbfseries 问题}
+\def\remarknameCN{\normalfont\sffamily\color{black}\conditionalbfseries 备注}
 
-\def\theoremnameTC{\normalfont\sffamily\color{orange}定理}
-\def\lemmanameTC{\normalfont\sffamily\color{orange}引理}
-\def\propositionnameTC{\normalfont\sffamily\color{orange}命題}
-\def\corollarynameTC{\normalfont\sffamily\color{orange}推論}
-\def\factnameTC{\normalfont\sffamily\color{black}事實}
-\def\conjecturenameTC{\normalfont\sffamily\color{purple}猜想}
-\def\definitionnameTC{\normalfont\sffamily\color{forestgreen}定義}
-\def\axiomnameTC{\normalfont\sffamily\color{orange}公理}
-\def\assumptionnameTC{\normalfont\sffamily\color{forestgreen}假設}
-\def\examplenameTC{\normalfont\sffamily\color{black}例}
-\def\problemnameTC{\normalfont\sffamily\color{black}問題}
-\def\remarknameTC{\normalfont\sffamily\color{black}備註}
+\def\theoremnameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 定理}
+\def\lemmanameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 引理}
+\def\propositionnameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 命題}
+\def\corollarynameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 推論}
+\def\factnameTC{\normalfont\sffamily\color{black}\conditionalbfseries 事實}
+\def\conjecturenameTC{\normalfont\sffamily\color{purple}\conditionalbfseries 猜想}
+\def\definitionnameTC{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 定義}
+\def\axiomnameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 公理}
+\def\assumptionnameTC{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 假設}
+\def\examplenameTC{\normalfont\sffamily\color{black}\conditionalbfseries 例}
+\def\problemnameTC{\normalfont\sffamily\color{black}\conditionalbfseries 問題}
+\def\remarknameTC{\normalfont\sffamily\color{black}\conditionalbfseries 備註}
 
 %% Redefine Japanese theorems names
-\def\theoremnameJP{\normalfont\sffamily\color{orange}定理}
-\def\lemmanameJP{\normalfont\sffamily\color{orange}補題}
-\def\propositionnameJP{\normalfont\sffamily\color{orange}命題}
-\def\corollarynameJP{\normalfont\sffamily\color{orange}系}
-\def\factnameJP{\normalfont\sffamily\color{black}事実}
-\def\conjecturenameJP{\normalfont\sffamily\color{purple}予想}
-\def\definitionnameJP{\normalfont\sffamily\color{forestgreen}定義}
-\def\axiomnameJP{\normalfont\sffamily\color{orange}公理}
-\def\assumptionnameJP{\normalfont\sffamily\color{forestgreen}仮定}
-\def\examplenameJP{\normalfont\sffamily\color{black}例}
-\def\problemnameJP{\normalfont\sffamily\color{black}問題}
-\def\remarknameJP{\normalfont\sffamily\color{black}注釈}
+\def\theoremnameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 定理}
+\def\lemmanameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 補題}
+\def\propositionnameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 命題}
+\def\corollarynameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 系}
+\def\factnameJP{\normalfont\sffamily\color{black}\conditionalbfseries 事実}
+\def\conjecturenameJP{\normalfont\sffamily\color{purple}\conditionalbfseries 予想}
+\def\definitionnameJP{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 定義}
+\def\axiomnameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 公理}
+\def\assumptionnameJP{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 仮定}
+\def\examplenameJP{\normalfont\sffamily\color{black}\conditionalbfseries 例}
+\def\problemnameJP{\normalfont\sffamily\color{black}\conditionalbfseries 問題}
+\def\remarknameJP{\normalfont\sffamily\color{black}\conditionalbfseries 注釈}
 
 %% Redefine Russian theorems names
-\def\theoremnameRU{\normalfont\sffamily\color{orange}Теорема}
-\def\lemmanameRU{\normalfont\sffamily\color{orange}Лемма}
-\def\propositionnameRU{\normalfont\sffamily\color{orange}Предложение}
-\def\corollarynameRU{\normalfont\sffamily\color{orange}Следствие}
-\def\factnameRU{\normalfont\sffamily\color{black}Факт}
-\def\conjecturenameRU{\normalfont\sffamily\color{purple}Гипотеза}
-\def\definitionnameRU{\normalfont\sffamily\color{forestgreen}Определение}
-\def\axiomnameRU{\normalfont\sffamily\color{orange}Аксиома}
-\def\assumptionnameRU{\normalfont\sffamily\color{forestgreen}Предположение}
-\def\examplenameRU{\normalfont\sffamily\color{black}Пример}
-\def\problemnameRU{\normalfont\sffamily\color{black}Вопрос}
-\def\remarknameRU{\normalfont\sffamily\color{black}Замечание}
+\def\theoremnameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Теорема}
+\def\lemmanameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Лемма}
+\def\propositionnameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Предложение}
+\def\corollarynameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Следствие}
+\def\factnameRU{\normalfont\sffamily\color{black}\conditionalbfseries Факт}
+\def\conjecturenameRU{\normalfont\sffamily\color{purple}\conditionalbfseries Гипотеза}
+\def\definitionnameRU{\normalfont\sffamily\color{forestgreen}\conditionalbfseries Определение}
+\def\axiomnameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Аксиома}
+\def\assumptionnameRU{\normalfont\sffamily\color{forestgreen}\conditionalbfseries Предположение}
+\def\examplenameRU{\normalfont\sffamily\color{black}\conditionalbfseries Пример}
+\def\problemnameRU{\normalfont\sffamily\color{black}\conditionalbfseries Вопрос}
+\def\remarknameRU{\normalfont\sffamily\color{black}\conditionalbfseries Замечание}
 
 %% Theorem environments
 \theoremstyle{basic}
@@ -1118,6 +1118,26 @@
 % \let\maketitle@PLoriginal=\maketitle
 % \renewcommand*{\maketitle}{{\let\newpage\relax\maketitle@PLoriginal}}
 }
+
+\newcommand*\subjclass[2][2020]{%
+    \def\@subjclass{#2}%
+    \@ifundefined{subjclassname@#1}{%
+        \ClassWarning{\@currname}{Unknown edition (#1) of Mathematics
+        Subject Classification; using '2020'}%
+        \expandafter\let\expandafter\subjclassname\csname subjclassname@2020\endcsname
+    }{%
+        \expandafter\let\expandafter\subjclassname\csname subjclassname@#1\endcsname
+    }%
+    \thanks{{\itshape\subjclassname.}\enspace\@subjclass{}.}
+}
+\@namedef{subjclassname@1991}{%
+  \textup{1991} Mathematics Subject Classification}
+\@namedef{subjclassname@2000}{%
+  \textup{2000} Mathematics Subject Classification}
+\@namedef{subjclassname@2010}{%
+  \textup{2010} Mathematics Subject Classification}
+\@namedef{subjclassname@2020}{%
+  \textup{2020} Mathematics Subject Classification}
 
 }
 %</colorist>
