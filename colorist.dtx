@@ -256,10 +256,17 @@
 }
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
+\DeclareBoolOption[false]{allowbf}
 \ProcessKeyvalOptions*\relax
 
 \if@colorist@draft
   \@colorist@fasttrue
+\fi
+
+\if@colorist@allowbf
+    \newcommand{\conditionalbfseries}{\bfseries\colorlet{PLtempcolor}{.}\color{PLtempcolor!83!paper}}
+\else
+    \newcommand{\conditionalbfseries}{}
 \fi
 
 \newif\ifIsBook
@@ -269,11 +276,11 @@
 %% Title fonts
 %%================================
 \RequirePackage{anyfontsize}
-\newcommand{\partfont}{\sffamily}
-\newcommand{\chapfont}{\sffamily}
-\newcommand{\secfont}{\sffamily}
-\newcommand{\subsecfont}{\sffamily}
-\newcommand{\subsubsecfont}{\sffamily}
+\newcommand{\partfont}{\conditionalbfseries\sffamily}
+\newcommand{\chapfont}{\conditionalbfseries\sffamily}
+\newcommand{\secfont}{\conditionalbfseries\sffamily}
+\newcommand{\subsecfont}{\conditionalbfseries\sffamily}
+\newcommand{\subsubsecfont}{\conditionalbfseries\sffamily}
 
 %%================================
 %% Paper configuration
@@ -583,7 +590,7 @@
     {\normalfont}{}%
     {\normalfont}{}%
     {0pt}%
-    {\thmname{\textsc{#1}}\thmnumber{ #2}\hspace{.4em}%
+    {\conditionalbfseries\thmname{#1}\thmnumber{ #2}\hspace{.4em}%
         \textcolor{gray!55!paper}{$|$}\hspace{.4em}%
         \color{gray}\thmnote{\ensuremath{(\text{#3})}~~}\pushQED{\qed}}
 \def\@endtheorem{\popQED\endtrivlist\@endpefalse }
@@ -594,7 +601,7 @@
 \newtheoremstyle{basic}
     {0pt}{0pt}{\normalfont}{0pt}
     {}{\;}{0.25em}
-    {\thmname{#1}~\thmnumber{\textup{#2}}
+    {{\conditionalbfseries\thmname{#1}~\thmnumber{\textup{#2}}}
     \thmnote{\normalfont\sffamily\color{black}~(#3)}}
 
 \newtheoremstyle{emphasis}
@@ -797,7 +804,7 @@
 }
 
 \RequirePackage[many]{tcolorbox}
-\if@colorclass@fast
+\if@colorist@fast
     \tcbstartdraftmode
 \fi
 \tcolorboxenvironment{theorem}
@@ -995,7 +1002,7 @@
 % \vspace{-\parskip}%
 \begin{center}%
     \color{maintheme}%
-    {\Large\sffamily\scshape\@title}\\\bigskip%
+    {\Large\sffamily\scshape\conditionalbfseries\@title}\\\bigskip%
     \color{black!80!paper}%
     {\scshape\@author}\\\smallskip%
     {\@date}%
@@ -1015,9 +1022,102 @@
 %% Abstract style
 %%================================
 \renewenvironment{abstract}
-{\small{\centerline{\textsc{\abstractname}}\vspace{-0.3\baselineskip}}
+{\small{\centerline{\textsc{\conditionalbfseries\abstractname}}\vspace{-0.3\baselineskip}}
     \color{black!80!paper}\begin{quotation}}
 {\end{quotation}\medskip}
+
+%%================================
+%% Simulate features of amsart
+%%================================
+% keywords
+\def\keywordsnameEN{\textsc{Key words and phrases}}
+\def\keywordsnameFR{\textsc{Mots et phrases clés}}
+\def\keywordsnameDE{\textsc{Schlüsselwörter und Phrasen}}
+\def\keywordsnameCN{关键词}
+\def\keywordsnameTC{關鍵詞}
+\def\keywordsnameJP{キーワード}
+\def\keywordsnameRU{Ключевые слова и фразы}
+
+\ifdefined\keywords\else
+    \def\PL@keywords{}
+    \newcommand*{\keywords}[1]{\def\PL@keywords{#1}}
+\fi
+
+% dedicatory
+\ifdefined\dedicatory\else
+    \def\PL@dedicatory{}
+    \newcommand*{\dedicatory}[1]{\def\PL@dedicatory{#1}}
+\fi
+
+% \thanks: behave like article-style when in \author, and ams-style (no marker) when outside
+\AtEndPreamble{
+% In case that \@author changes again
+\let\footnotemark@PLoriginal\footnotemark%
+\let\footnotemark\relax%
+\let\thanks@PLoriginal\thanks%
+\newlength\PL@templength
+\setlength{\PL@templength}{\widthof{*}}
+\def\FCtempstr{}
+\renewcommand*{\thanks}[1]{%
+    \def\FCtempstr{#1}%
+    \ifx\FCtempstr\@empty\else%
+        \thanks@PLoriginal{\hspace*{-\PL@templength}#1}%
+    \fi}
+\pretocmd{\@author}{\let\footnotemark\footnotemark@PLoriginal\let\thanks\thanks@PLoriginal}{}{}
+\apptocmd{\@author}{\let\footnotemark\relax}{}{}
+}
+
+%% Modify abstract to allow it before maketitle
+\let\abstract@PLoriginal\abstract%
+\let\endabstract@PLoriginal\endabstract%
+\RequirePackage{environ}
+\newtoggle{maketitle}
+\def\abstractContent{}
+\RenewEnviron{abstract}{%
+    \iftoggle{maketitle}{%
+        \begin{abstract@PLoriginal}%
+            \BODY%
+            % \ifx\PL@keywords\@empty\else%
+            %     \par\smallskip\noindent{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PL@keywords%
+            % \fi%
+        \end{abstract@PLoriginal}%
+    }%
+    {\global\let\abstractContent\BODY}%
+}
+
+%% Modify maketitle
+\AtEndPreamble{%
+% Add dedicatory to @maketitle
+\patchcmd{\@maketitle}{\@date}{%
+    \ifx\@date\@empty\vspace{-2\baselineskip}%
+    \else\@date\fi%
+    \ifx\PL@dedicatory\@empty\else%
+    \par\vspace{-\parskip}\bigskip%
+    {\itshape\PL@dedicatory}\fi}
+    {}{\FAIL}
+% Add keywords to maketitle
+\apptocmd{\maketitle}{\ifx\PL@keywords\@empty\else{\let\thefootnote\relax\footnote{{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PL@keywords}\par\vspace{-\parskip}\vspace{-\baselineskip}}\fi}{}{\FAIL}
+% Add abstract to maketitle
+\apptocmd{\maketitle}{%
+    \ifx\abstractContent\@empty\else%
+    \begin{abstract@PLoriginal}%
+        \abstractContent%
+        % \ifx\PL@keywords\@empty\else%
+        %         \par\smallskip\noindent{\conditionalbfseries\csname keywordsname\csname\languagename ABBR\endcsname\endcsname.}~\PL@keywords%
+        % \fi%
+    \end{abstract@PLoriginal}%
+    \fi%
+    \global\let\address\relax
+    \global\let\curraddr\relax
+    \global\let\email\relax
+    \global\let\dedicatory\relax
+    \global\let\keywords\relax
+    \global\toggletrue{maketitle}
+}{}{\FAIL}
+% Disbale the \newpage in maketitle
+% \let\maketitle@PLoriginal=\maketitle
+% \renewcommand*{\maketitle}{{\let\newpage\relax\maketitle@PLoriginal}}
+}
 
 }
 %</colorist>
