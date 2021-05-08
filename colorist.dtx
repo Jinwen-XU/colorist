@@ -55,6 +55,12 @@
 }
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
+
+\newif\if@colorclass@bfivepaper\@colorclass@bfivepaperfalse
+\DeclareVoidOption{b5paper}{\@colorclass@bfivepapertrue}
+\newif\if@colorclass@afourpaper\@colorclass@afourpaperfalse
+\DeclareVoidOption{a4paper}{\@colorclass@afourpapertrue}
+
 \DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{\colorclass@baseclass}}
 \ProcessKeyvalOptions*\relax
 \LoadClass{\colorclass@baseclass}
@@ -69,13 +75,30 @@
 \WarningFilter{geometry}{Over-specification in}
 \RequirePackage[heightrounded]{geometry}
 \geometry{
-    % papersize={8in,11in},
+    papersize={8.5in,11in},
+    total={47em,66em},
+    hmarginratio=1:1,
+    vmarginratio=1:1,
+    footnotesep=2em plus 2pt minus 2pt,
+}
+\if@colorclass@bfivepaper
+\geometry{
+    b5paper,
+    total={40em,59em},
+    hmarginratio=1:1,
+    vmarginratio=1:1,
+    footnotesep=2em plus 2pt minus 2pt,
+}
+\fi
+\if@colorclass@afourpaper
+\geometry{
     a4paper,
     total={47em,70em},
     hmarginratio=1:1,
     vmarginratio=1:1,
     footnotesep=2em plus 2pt minus 2pt,
 }
+\fi
 
 \RequirePackage{indentfirst}
 
@@ -606,7 +629,7 @@
 
 \newtheoremstyle{emphasis}
     {0pt}{0pt}{\itshape}{0pt}{}{}{0pt}
-    {\thmnote{\normalfont\sffamily\color{black}#3\hspace*{0.25em}}}
+    {\thmnote{\normalfont\sffamily\color{black}#3\hspace*{0.5em}}}
 
 \if@colorist@fast
     \providecommand{\phantomsection}{}
@@ -754,8 +777,8 @@
 
 \RequirePackage{marginnote}
 \newcommand{\mparadjust}[1]{\renewcommand*{\marginnotevadjust}{#1}}
-\apptocmd{\remark}{\reversemarginpar\mparadjust{-.25em}\marginnote{\ideabulb[0.3]{orange}\hspace*{-.5em}}\normalmarginpar}{}{\FAIL}
-\apptocmd{\conjecture}{\reversemarginpar\mparadjust{-.25em}\marginnote{\questionmark[0.3]{purple}\hspace*{-.5em}}\normalmarginpar}{}{\FAIL}
+\pretocmd{\remark}{\reversemarginpar\mparadjust{-.25em}\marginnote{\ideabulb[0.3]{orange}\hspace*{-.5em}}\normalmarginpar}{}{\FAIL}
+\pretocmd{\conjecture}{\reversemarginpar\mparadjust{-.25em}\marginnote{\questionmark[0.3]{purple}\hspace*{-.5em}}\normalmarginpar}{}{\FAIL}
 
 \RequirePackage{iftex}
 \ifXeTeX
@@ -899,7 +922,14 @@
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=yellow!25!paper,
     boxrule=0pt,frame hidden,arc=.7mm}
 
-% Connect definitions
+\tcolorboxenvironment{remark}
+    {enhanced jigsaw,pad at break*=1mm,breakable,oversize,
+    opacityframe=0,opacityback=0}
+\tcolorboxenvironment{remark*}
+    {enhanced jigsaw,pad at break*=1mm,breakable,oversize,
+    opacityframe=0,opacityback=0}
+
+% Connect definitions and assumptions
 % From https://tex.stackexchange.com/a/587023
 \ExplSyntaxOn
 \NewDocumentCommand \AfterEnvEnd { +m }
