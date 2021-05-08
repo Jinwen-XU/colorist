@@ -139,12 +139,12 @@
         BoldItalicFont = TeXGyrePagellaX-BoldItalic.otf ]
 }
     \setsansfont{SourceSansPro-Regular.otf}[
-        Scale          = MatchLowercase,
+        Scale          = MatchLowercase ,
         BoldFont       = SourceSansPro-Bold.otf ,
         ItalicFont     = SourceSansPro-RegularIt.otf ,
         BoldItalicFont = SourceSansPro-BoldIt.otf ]
     \setmonofont{cmuntt.otf}[
-        Scale          = MatchUppercase,
+        Scale          = 1.05 ,
         BoldFont       = cmuntb.otf ,
         ItalicFont     = cmunst.otf ,
         BoldItalicFont = cmuntb.otf ]
@@ -431,16 +431,63 @@
     }
 
     %% Chapter
-    \titleformat{\chapter}
-        {\thispagestyle{fancy}%
-        \color{black!80!paper}\chapfont\fontsize{16}{0}\selectfont}{}{0em}
-        {\rlap{\hspace*{-.5em}{\color{gray!25!paper}%
-            \fontsize{80}{0}\selectfont\raisebox{-7pt}{\thechapter}}}#1}
-    \titleformat{name=\chapter,numberless}
-        {\thispagestyle{fancy}% \phantomsection\addcontentsline{toc}{chapter}{#1}%
-        \color{black!80!paper}\chapfont\fontsize{16}{0}\selectfont}{}{0em}
-        {\rlap{\hspace*{-.5em}{\color{gray!25!paper}%
-            \fontsize{80}{0}\selectfont\normalfont\raisebox{-7pt}{*}}}#1}
+    \newlength{\colorist@chapboxwidth}
+
+% Numbered chapter title box: \MakeChapBox{<number>}{<title>}
+    \newcommand{\MakeChapBox}[2]{%
+        \settowidth{\colorist@chapboxwidth}{#1}
+        \begin{tcolorbox}[
+            enhanced jigsaw,
+            skin = bicolor,
+            frame engine = path,
+            sharp corners = all,
+            width = 0.9\textwidth,
+            top = 4mm, bottom = 4mm,
+            sidebyside,
+            frame hidden,
+            boxrule = 0mm,
+            lefthand width = 1.5\colorist@chapboxwidth,
+            colupper = white,
+            colback = maintheme!80!paper,
+            colbacklower = maintheme!10!paper,
+            sidebyside align=center,
+            halign=center]
+            \Huge #1%
+            \tcblower%
+            #2%
+        \end{tcolorbox}%
+    }
+    
+% Numberless chapter title box: \MakeChapBox{<title>}
+    \newcommand{\MakeChapBoxSingle}[1]{%
+        \begin{tcolorbox}[
+            enhanced,
+            width = 0.7\textwidth,
+            sharp corners = all,
+            top = 4mm, bottom = 4mm,
+            frame hidden,
+            boxrule = 0mm,
+            colback = maintheme!10!paper,
+            halign=center]
+            #1
+        \end{tcolorbox}
+    }
+    
+    \titleformat{name=\chapter}
+        {\filright\chapfont\huge} % Format
+        {} % Label
+        {0mm} % Sep
+        {\MakeChapBox{\thechapter}{#1}} % Before-code
+    \titlespacing*{name=\chapter}
+        {0em}{*2}{0em} % {left}{before-sep}{after-sep}
+    
+    \titleformat{name=\chapter, numberless}
+        {\filcenter\chapfont\huge} % Format
+        {} % Label
+        {0mm} % Sep
+        {\MakeChapBoxSingle{#1}} % Before-code
+    \titlespacing*{name=\chapter, numberless}
+        {0em}{*2}{0em} % {left}{before-sep}{after-sep}
 
     %% Section
     \titleformat{\section}
@@ -910,10 +957,10 @@
 
 \tcolorboxenvironment{example}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=gray!10!paper,
-    boxrule=0pt,frame hidden,arc=.7mm}
+    boxrule=0pt,frame hidden,arc=.7mm,lines before break=3}
 \tcolorboxenvironment{example*}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=gray!10!paper,
-    boxrule=0pt,frame hidden,arc=.7mm}
+    boxrule=0pt,frame hidden,arc=.7mm,lines before break=3}
 
 \tcolorboxenvironment{problem}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=yellow!25!paper,
@@ -924,10 +971,10 @@
 
 \tcolorboxenvironment{remark}
     {enhanced jigsaw,pad at break*=1mm,breakable,oversize,
-    opacityframe=0,opacityback=0}
+    opacityframe=0,opacityback=0,lines before break=3}
 \tcolorboxenvironment{remark*}
     {enhanced jigsaw,pad at break*=1mm,breakable,oversize,
-    opacityframe=0,opacityback=0}
+    opacityframe=0,opacityback=0,lines before break=3}
 
 % Connect definitions and assumptions
 % From https://tex.stackexchange.com/a/587023
