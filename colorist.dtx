@@ -704,6 +704,8 @@
 \def\examplenameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Example}}
 \def\problemnameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Problem}}
 \def\remarknameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Remark}}
+\expandafter\def\csname definition-propositionnameEN\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definition}-\propositionnameEN}
+\expandafter\def\csname definition-theoremnameEN\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definition}-\theoremnameEN}
 
 %% Redefine French theorems names
 \def\theoremnameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Théorème}}
@@ -718,6 +720,8 @@
 \def\examplenameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Exemple}}
 \def\problemnameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Problème}}
 \def\remarknameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Remarque}}
+\expandafter\def\csname definition-propositionnameFR\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Définition}-\propositionnameFR}
+\expandafter\def\csname definition-theoremnameFR\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Définition}-\theoremnameFR}
 
 %% Redefine German theorems names
 \def\theoremnameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Satz}}
@@ -732,6 +736,8 @@
 \def\examplenameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Beispiel}}
 \def\problemnameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Problem}}
 \def\remarknameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Bemerkung}}
+\expandafter\def\csname definition-propositionnameDE\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definition}-\propositionnameDE}
+\expandafter\def\csname definition-theoremnameDE\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definition}-\theoremnameDE}
 
 %% Redefine Chinese theorems names
 \def\theoremnameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 定理}
@@ -746,6 +752,8 @@
 \def\examplenameCN{\normalfont\sffamily\color{black}\conditionalbfseries 例}
 \def\problemnameCN{\normalfont\sffamily\color{black}\conditionalbfseries 问题}
 \def\remarknameCN{\normalfont\sffamily\color{black}\conditionalbfseries 备注}
+\expandafter\def\csname definition-propositionnameCN\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定义-\propositionnameCN}
+\expandafter\def\csname definition-theoremnameCN\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定义-\theoremnameCN}
 
 \def\theoremnameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 定理}
 \def\lemmanameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 引理}
@@ -759,6 +767,8 @@
 \def\examplenameTC{\normalfont\sffamily\color{black}\conditionalbfseries 例}
 \def\problemnameTC{\normalfont\sffamily\color{black}\conditionalbfseries 問題}
 \def\remarknameTC{\normalfont\sffamily\color{black}\conditionalbfseries 備註}
+\expandafter\def\csname definition-propositionnameTC\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定義-\propositionnameTC}
+\expandafter\def\csname definition-theoremnameTC\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定義-\theoremnameTC}
 
 %% Redefine Japanese theorems names
 \def\theoremnameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 定理}
@@ -773,6 +783,8 @@
 \def\examplenameJP{\normalfont\sffamily\color{black}\conditionalbfseries 例}
 \def\problemnameJP{\normalfont\sffamily\color{black}\conditionalbfseries 問題}
 \def\remarknameJP{\normalfont\sffamily\color{black}\conditionalbfseries 注釈}
+\expandafter\def\csname definition-propositionnameJP\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定義-\propositionnameJP}
+\expandafter\def\csname definition-theoremnameJP\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定義-\theoremnameJP}
 
 %% Redefine Russian theorems names
 \def\theoremnameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Теорема}
@@ -787,6 +799,8 @@
 \def\examplenameRU{\normalfont\sffamily\color{black}\conditionalbfseries Пример}
 \def\problemnameRU{\normalfont\sffamily\color{black}\conditionalbfseries Вопрос}
 \def\remarknameRU{\normalfont\sffamily\color{black}\conditionalbfseries Замечание}
+\expandafter\def\csname definition-propositionnameRU\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries Определение-\propositionnameRU}
+\expandafter\def\csname definition-theoremnameRU\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries Определение-\theoremnameRU}
 
 %% Theorem environments
 \theoremstyle{basic}
@@ -808,11 +822,15 @@
 \CreateTheorem*{fact*}
 \CreateTheorem*{conjecture*}
 \CreateTheorem{definition}[theorem]
+\CreateTheorem{definition-proposition}[theorem]
+\CreateTheorem{definition-theorem}[theorem]
 \CreateTheorem{axiom}[theorem]
 \CreateTheorem{assumption}[theorem]
 \CreateTheorem{example}<highest>
 \CreateTheorem{problem}<highest>
 \CreateTheorem*{definition*}
+\CreateTheorem*{definition-proposition*}
+\CreateTheorem*{definition-theorem*}
 \CreateTheorem*{axiom*}
 \CreateTheorem*{assumption*}
 \CreateTheorem*{example*}
@@ -914,6 +932,22 @@
     left=3.5mm,right=3.5mm,
     opacityframe=0.9,colframe=orange,arc=.7mm}
 \tcolorboxenvironment{axiom*}
+    {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
+    left=3.5mm,right=3.5mm,
+    opacityframe=0.9,colframe=orange,arc=.7mm}
+\tcolorboxenvironment{definition-proposition}
+    {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
+    left=3.5mm,right=3.5mm,
+    opacityframe=0.9,colframe=orange,arc=.7mm}
+\tcolorboxenvironment{definition-proposition*}
+    {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
+    left=3.5mm,right=3.5mm,
+    opacityframe=0.9,colframe=orange,arc=.7mm}
+\tcolorboxenvironment{definition-theorem}
+    {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
+    left=3.5mm,right=3.5mm,
+    opacityframe=0.9,colframe=orange,arc=.7mm}
+\tcolorboxenvironment{definition-theorem*}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
     left=3.5mm,right=3.5mm,
     opacityframe=0.9,colframe=orange,arc=.7mm}
