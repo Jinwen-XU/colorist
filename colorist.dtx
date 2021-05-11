@@ -375,8 +375,10 @@
 %%================================
 %% Line spacing
 %%================================
-\RequirePackage{setspace}
-\setstretch{1.07}
+% \RequirePackage{setspace}
+\RequirePackage{PLlang}
+\PLsetlinespacing{\setstretch{1.07}}
+\PLsetCJKlinespacing{\onehalfspacing}
 % To avoid `Underfull \vbox (badness 10000)`
 \raggedbottom
 
@@ -386,7 +388,6 @@
 \RequirePackage[explicit,newparttoc]{titlesec}
 \PassOptionsToPackage{normalem}{ulem}
 \RequirePackage{ulem}
-\RequirePackage{PLlang}
 
 \newcommand{\partstring}{\MakeUppercase{{\partname~\protect\thepart}}}
 \gappto{\PLlang@langconfig@common}{%
@@ -597,6 +598,7 @@
 \RequirePackage{enumitem}
 \setlist{noitemsep,leftmargin=2em}
 \renewcommand\labelitemi{\color{gray!50}$\bullet$} 
+\renewcommand\labelitemii{\color{gray!55}--}
 
 %%================================
 %% Blank page
@@ -696,13 +698,19 @@
 \def\lemmanameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Lemma}}
 \def\propositionnameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Proposition}}
 \def\corollarynameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Corollary}}
+\def\propertynameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Property}}
 \def\factnameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Fact}}
 \def\conjecturenameEN{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc{Conjecture}}
 \def\definitionnameEN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Definition}}
 \def\axiomnameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Axiom}}
 \def\assumptionnameEN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Assumption}}
+\def\conventionnameEN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Convention}}
+\def\hypothesisnameEN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Hypothesis}}
+\def\notationnameEN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Notation}}
 \def\examplenameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Example}}
 \def\problemnameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Problem}}
+\def\questionnameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Question}}
+\def\exercisenameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Exercise}}
 \def\remarknameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Remark}}
 \expandafter\def\csname definition-propositionnameEN\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definition}-\propositionnameEN}
 \expandafter\def\csname definition-theoremnameEN\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definition}-\theoremnameEN}
@@ -712,13 +720,19 @@
 \def\lemmanameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Lemme}}
 \def\propositionnameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Proposition}}
 \def\corollarynameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Corollaire}}
+\def\propertynameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Propriété}}
 \def\factnameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Fait}}
 \def\conjecturenameFR{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc{Conjecture}}
 \def\definitionnameFR{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Définition}}
 \def\axiomnameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Axiome}}
 \def\assumptionnameFR{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Supposition}}
+\def\conventionnameFR{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Convention}}
+\def\hypothesisnameFR{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Hypothèse}}
+\def\notationnameFR{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Notation}}
 \def\examplenameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Exemple}}
 \def\problemnameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Problème}}
+\def\questionnameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Question}}
+\def\exercisenameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Exercice}}
 \def\remarknameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Remarque}}
 \expandafter\def\csname definition-propositionnameFR\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Définition}-\propositionnameFR}
 \expandafter\def\csname definition-theoremnameFR\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Définition}-\theoremnameFR}
@@ -728,13 +742,19 @@
 \def\lemmanameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Lemma}}
 \def\propositionnameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Proposition}}
 \def\corollarynameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Korollar}}
+\def\propertynameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Eigenschaft}}
 \def\factnameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Fakt}}
 \def\conjecturenameDE{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc{Vermutung}}
 \def\definitionnameDE{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Definition}}
 \def\axiomnameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Axiom}}
 \def\assumptionnameDE{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Annahme}}
+\def\conventionnameDE{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Konvention}}
+\def\hypothesisnameDE{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Hypothese}}
+\def\notationnameDE{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Notation}}
 \def\examplenameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Beispiel}}
 \def\problemnameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Problem}}
+\def\questionnameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Frage}}
+\def\exercisenameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Übung}}
 \def\remarknameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Bemerkung}}
 \expandafter\def\csname definition-propositionnameDE\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definition}-\propositionnameDE}
 \expandafter\def\csname definition-theoremnameDE\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definition}-\theoremnameDE}
@@ -744,13 +764,19 @@
 \def\lemmanameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 引理}
 \def\propositionnameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 命题}
 \def\corollarynameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 推论}
+\def\propertynameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 性质}
 \def\factnameCN{\normalfont\sffamily\color{black}\conditionalbfseries 事实}
 \def\conjecturenameCN{\normalfont\sffamily\color{purple}\conditionalbfseries 猜想}
 \def\definitionnameCN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 定义}
 \def\axiomnameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 公理}
 \def\assumptionnameCN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 假设}
+\def\conventionnameCN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 约定}
+\def\hypothesisnameCN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 假设}
+\def\notationnameCN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 记号}
 \def\examplenameCN{\normalfont\sffamily\color{black}\conditionalbfseries 例}
 \def\problemnameCN{\normalfont\sffamily\color{black}\conditionalbfseries 问题}
+\def\questionnameCN{\normalfont\sffamily\color{black}\conditionalbfseries 问题}
+\def\exercisenameCN{\normalfont\sffamily\color{black}\conditionalbfseries 练习}
 \def\remarknameCN{\normalfont\sffamily\color{black}\conditionalbfseries 备注}
 \expandafter\def\csname definition-propositionnameCN\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定义-\propositionnameCN}
 \expandafter\def\csname definition-theoremnameCN\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定义-\theoremnameCN}
@@ -759,13 +785,19 @@
 \def\lemmanameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 引理}
 \def\propositionnameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 命題}
 \def\corollarynameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 推論}
+\def\propertynameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 性質}
 \def\factnameTC{\normalfont\sffamily\color{black}\conditionalbfseries 事實}
 \def\conjecturenameTC{\normalfont\sffamily\color{purple}\conditionalbfseries 猜想}
 \def\definitionnameTC{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 定義}
 \def\axiomnameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 公理}
 \def\assumptionnameTC{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 假設}
+\def\conventionnameTC{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 約定}
+\def\hypothesisnameTC{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 假設}
+\def\notationnameTC{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 記號}
 \def\examplenameTC{\normalfont\sffamily\color{black}\conditionalbfseries 例}
 \def\problemnameTC{\normalfont\sffamily\color{black}\conditionalbfseries 問題}
+\def\questionnameTC{\normalfont\sffamily\color{black}\conditionalbfseries 問題}
+\def\exercisenameTC{\normalfont\sffamily\color{black}\conditionalbfseries 練習}
 \def\remarknameTC{\normalfont\sffamily\color{black}\conditionalbfseries 備註}
 \expandafter\def\csname definition-propositionnameTC\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定義-\propositionnameTC}
 \expandafter\def\csname definition-theoremnameTC\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定義-\theoremnameTC}
@@ -775,13 +807,19 @@
 \def\lemmanameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 補題}
 \def\propositionnameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 命題}
 \def\corollarynameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 系}
+\def\propertynameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 性質}
 \def\factnameJP{\normalfont\sffamily\color{black}\conditionalbfseries 事実}
 \def\conjecturenameJP{\normalfont\sffamily\color{purple}\conditionalbfseries 予想}
 \def\definitionnameJP{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 定義}
 \def\axiomnameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 公理}
 \def\assumptionnameJP{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 仮定}
+\def\conventionnameJP{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 慣例}
+\def\hypothesisnameJP{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 仮設}
+\def\notationnameJP{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 記法}
 \def\examplenameJP{\normalfont\sffamily\color{black}\conditionalbfseries 例}
 \def\problemnameJP{\normalfont\sffamily\color{black}\conditionalbfseries 問題}
+\def\questionnameJP{\normalfont\sffamily\color{black}\conditionalbfseries 問題}
+\def\exercisenameJP{\normalfont\sffamily\color{black}\conditionalbfseries 練習}
 \def\remarknameJP{\normalfont\sffamily\color{black}\conditionalbfseries 注釈}
 \expandafter\def\csname definition-propositionnameJP\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定義-\propositionnameJP}
 \expandafter\def\csname definition-theoremnameJP\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定義-\theoremnameJP}
@@ -791,13 +829,19 @@
 \def\lemmanameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Лемма}
 \def\propositionnameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Предложение}
 \def\corollarynameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Следствие}
+\def\propertynameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Имущество}
 \def\factnameRU{\normalfont\sffamily\color{black}\conditionalbfseries Факт}
 \def\conjecturenameRU{\normalfont\sffamily\color{purple}\conditionalbfseries Гипотеза}
 \def\definitionnameRU{\normalfont\sffamily\color{forestgreen}\conditionalbfseries Определение}
 \def\axiomnameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Аксиома}
 \def\assumptionnameRU{\normalfont\sffamily\color{forestgreen}\conditionalbfseries Предположение}
+\def\conventionnameRU{\normalfont\sffamily\color{forestgreen}\conditionalbfseries Конвенция}
+\def\hypothesisnameRU{\normalfont\sffamily\color{forestgreen}\conditionalbfseries Гипотеза}
+\def\notationnameRU{\normalfont\sffamily\color{forestgreen}\conditionalbfseries Нотация}
 \def\examplenameRU{\normalfont\sffamily\color{black}\conditionalbfseries Пример}
-\def\problemnameRU{\normalfont\sffamily\color{black}\conditionalbfseries Вопрос}
+\def\problemnameRU{\normalfont\sffamily\color{black}\conditionalbfseries Проблема}
+\def\questionnameRU{\normalfont\sffamily\color{black}\conditionalbfseries Вопрос}
+\def\exercisenameRU{\normalfont\sffamily\color{black}\conditionalbfseries Упражнение}
 \def\remarknameRU{\normalfont\sffamily\color{black}\conditionalbfseries Замечание}
 \expandafter\def\csname definition-propositionnameRU\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries Определение-\propositionnameRU}
 \expandafter\def\csname definition-theoremnameRU\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries Определение-\theoremnameRU}
@@ -813,32 +857,47 @@
 \CreateTheorem{lemma}[theorem]
 \CreateTheorem{proposition}[theorem]
 \CreateTheorem{corollary}[theorem]
+\CreateTheorem{definition-proposition}[theorem]
+\CreateTheorem{definition-theorem}[theorem]
+\CreateTheorem{property}[theorem]
 \CreateTheorem{fact}[theorem]
-\CreateTheorem{conjecture}<highest>
+\CreateTheorem{conjecture}[theorem]
 \CreateTheorem*{theorem*}
 \CreateTheorem*{lemma*}
 \CreateTheorem*{proposition*}
 \CreateTheorem*{corollary*}
-\CreateTheorem*{fact*}
-\CreateTheorem*{conjecture*}
-\CreateTheorem{definition}[theorem]
-\CreateTheorem{definition-proposition}[theorem]
-\CreateTheorem{definition-theorem}[theorem]
-\CreateTheorem{axiom}[theorem]
-\CreateTheorem{assumption}[theorem]
-\CreateTheorem{example}<highest>
-\CreateTheorem{problem}<highest>
-\CreateTheorem*{definition*}
 \CreateTheorem*{definition-proposition*}
 \CreateTheorem*{definition-theorem*}
+\CreateTheorem*{property*}
+\CreateTheorem*{fact*}
+\CreateTheorem*{conjecture*}
+%
+\CreateTheorem{definition}[theorem]
+\CreateTheorem{axiom}[theorem]
+\CreateTheorem{assumption}[theorem]
+\CreateTheorem{convention}[theorem]
+\CreateTheorem{hypothesis}[theorem]
+\CreateTheorem{notation}[theorem]
+\CreateTheorem{example}[theorem]
+\CreateTheorem{problem}[theorem]
+\CreateTheorem{question}[theorem]
+\CreateTheorem{exercise}[theorem]
+\CreateTheorem*{definition*}
 \CreateTheorem*{axiom*}
 \CreateTheorem*{assumption*}
+\CreateTheorem*{convention*}
+\CreateTheorem*{hypothesis*}
+\CreateTheorem*{notation*}
 \CreateTheorem*{example*}
 \CreateTheorem*{problem*}
+\CreateTheorem*{question*}
+\CreateTheorem*{exercise*}
 
 \theoremstyle{emphasis}
 \CreateTheorem{remark}<highest>
 \CreateTheorem*{remark*}
+
+\numberwithin{equation}{highest}
 
 \RequirePackage{marginnote}
 \newcommand{\mparadjust}[1]{\renewcommand*{\marginnotevadjust}{#1}}
@@ -927,6 +986,14 @@
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
     left=3.5mm,right=3.5mm,
     opacityframe=0.9,colframe=orange,arc=.7mm}
+\tcolorboxenvironment{property}
+    {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
+    left=3.5mm,right=3.5mm,
+    opacityframe=0.9,colframe=orange,arc=.7mm}
+\tcolorboxenvironment{property*}
+    {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
+    left=3.5mm,right=3.5mm,
+    opacityframe=0.9,colframe=orange,arc=.7mm}
 \tcolorboxenvironment{axiom}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=black!3!paper,
     left=3.5mm,right=3.5mm,
@@ -984,6 +1051,36 @@
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
     borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
 \tcolorboxenvironment{assumption*}
+    {enhanced jigsaw,pad at break*=1mm,breakable,
+    left=4mm,right=4mm,top=1mm,bottom=1mm,
+    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
+    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+\tcolorboxenvironment{convention}
+    {enhanced jigsaw,pad at break*=1mm,breakable,
+    left=4mm,right=4mm,top=1mm,bottom=1mm,
+    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
+    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+\tcolorboxenvironment{convention*}
+    {enhanced jigsaw,pad at break*=1mm,breakable,
+    left=4mm,right=4mm,top=1mm,bottom=1mm,
+    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
+    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+\tcolorboxenvironment{hypothesis}
+    {enhanced jigsaw,pad at break*=1mm,breakable,
+    left=4mm,right=4mm,top=1mm,bottom=1mm,
+    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
+    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+\tcolorboxenvironment{hypothesis*}
+    {enhanced jigsaw,pad at break*=1mm,breakable,
+    left=4mm,right=4mm,top=1mm,bottom=1mm,
+    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
+    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+\tcolorboxenvironment{notation}
+    {enhanced jigsaw,pad at break*=1mm,breakable,
+    left=4mm,right=4mm,top=1mm,bottom=1mm,
+    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
+    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+\tcolorboxenvironment{notation*}
     {enhanced jigsaw,pad at break*=1mm,breakable,
     left=4mm,right=4mm,top=1mm,bottom=1mm,
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
