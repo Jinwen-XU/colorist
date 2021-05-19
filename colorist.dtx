@@ -1305,41 +1305,71 @@
   }
 \ExplSyntaxOff
 
-% \def\scandefinitionenv{%
-%   \AfterEnvEnd{%
-%     \ScanEnv*{definition}%
-%       {\vspace{-1.05\baselineskip}}%
-%       {\ScanEnv*{definition*}%
-%         {\vspace{-1.05\baselineskip}}%
-%         {}}}}
-% \AddToHook{env/definition/end}{\scandefinitionenv}%
-% \AddToHook{env/definition*/end}{\scandefinitionenv}%
-%
-% \def\scanassumptionenv{%
-%   \AfterEnvEnd{%
-%     \ScanEnv*{assumption}%
-%       {\vspace{-1.05\baselineskip}}%
-%       {\ScanEnv*{assumption*}%
-%         {\vspace{-1.05\baselineskip}}%
-%         {}}}}
-% \AddToHook{env/assumption/end}{\scanassumptionenv}%
-% \AddToHook{env/assumption*/end}{\scanassumptionenv}%
-%
 \def\scandefinitionenv{%
   \AfterEnvEnd{%
     \ScanEnv*{definition}%
       {\vspace{-1.05\baselineskip}}%
       {\ScanEnv*{definition*}%
         {\vspace{-1.05\baselineskip}}%
-        {\ScanEnv*{assumption}%
-          {\vspace{-1.05\baselineskip}}%
-          {\ScanEnv*{assumption*}%
-            {\vspace{-1.05\baselineskip}}%
-            {}}}}}}
+        {}}}}
 \AddToHook{env/definition/end}{\scandefinitionenv}%
 \AddToHook{env/definition*/end}{\scandefinitionenv}%
-\AddToHook{env/assumption/end}{\scandefinitionenv}%
-\AddToHook{env/assumption*/end}{\scandefinitionenv}%
+
+\def\scanassumptionenv{%
+  \AfterEnvEnd{%
+    \ScanEnv*{assumption}%
+      {\vspace{-1.05\baselineskip}}%
+      {\ScanEnv*{assumption*}%
+        {\vspace{-1.05\baselineskip}}%
+        {}}}}
+\AddToHook{env/assumption/end}{\scanassumptionenv}%
+\AddToHook{env/assumption*/end}{\scanassumptionenv}%
+
+\def\scanconventionenv{%
+  \AfterEnvEnd{%
+    \ScanEnv*{convention}%
+      {\vspace{-1.05\baselineskip}}%
+      {\ScanEnv*{convention*}%
+        {\vspace{-1.05\baselineskip}}%
+        {}}}}
+\AddToHook{env/convention/end}{\scanconventionenv}%
+\AddToHook{env/convention*/end}{\scanconventionenv}%
+
+\def\scanhypothesisenv{%
+  \AfterEnvEnd{%
+    \ScanEnv*{hypothesis}%
+      {\vspace{-1.05\baselineskip}}%
+      {\ScanEnv*{hypothesis*}%
+        {\vspace{-1.05\baselineskip}}%
+        {}}}}
+\AddToHook{env/hypothesis/end}{\scanhypothesisenv}%
+\AddToHook{env/hypothesis*/end}{\scanhypothesisenv}%
+
+\def\scannotationenv{%
+  \AfterEnvEnd{%
+    \ScanEnv*{notation}%
+      {\vspace{-1.05\baselineskip}}%
+      {\ScanEnv*{notation*}%
+        {\vspace{-1.05\baselineskip}}%
+        {}}}}
+\AddToHook{env/notation/end}{\scannotationenv}%
+\AddToHook{env/notation*/end}{\scannotationenv}%
+%
+% \def\scandefinitionenv{%
+%   \AfterEnvEnd{%
+%     \ScanEnv*{definition}%
+%       {\vspace{-1.05\baselineskip}}%
+%       {\ScanEnv*{definition*}%
+%         {\vspace{-1.05\baselineskip}}%
+%         {\ScanEnv*{assumption}%
+%           {\vspace{-1.05\baselineskip}}%
+%           {\ScanEnv*{assumption*}%
+%             {\vspace{-1.05\baselineskip}}%
+%             {}}}}}}
+% \AddToHook{env/definition/end}{\scandefinitionenv}%
+% \AddToHook{env/definition*/end}{\scandefinitionenv}%
+% \AddToHook{env/assumption/end}{\scandefinitionenv}%
+% \AddToHook{env/assumption*/end}{\scandefinitionenv}%
 
 \ifbool{IsBook}{}{%
 
@@ -1375,6 +1405,22 @@
 {\small{\centerline{\textsc{\conditionalbfseries\abstractname}}\vspace{-0.3\baselineskip}}
     \color{black!80!paper}\begin{quotation}}
 {\end{quotation}\medskip}
+
+%%================================
+%% Keyword
+%%================================
+\def\keywordnameEN{\textsc{Keywords}}
+\def\keywordnameFR{\textsc{Mots clés}}
+\def\keywordnameDE{\textsc{Schlüsselwörter}}
+\def\keywordnameCN{关键词}
+\def\keywordnameTC{關鍵詞}
+\def\keywordnameJP{キーワード}
+\def\keywordnameRU{Ключевые слова}
+
+\newenvironment{keyword}
+{\small{\centerline{{\conditionalbfseries\csname keywordname\csname\languagename ABBR\endcsname\endcsname}}\vspace{-0.3\baselineskip}}
+    \color{black!80!paper}\begin{center}}
+{\end{center}\medskip}
 
 %%================================
 %% Simulate features of amsart
