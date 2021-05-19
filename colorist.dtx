@@ -287,7 +287,7 @@
 \fi
 
 \if@colorist@allowbf
-    \newcommand{\conditionalbfseries}{\bfseries\colorlet{PLtempcolor}{.}\color{PLtempcolor!90!paper}}
+    \newcommand{\conditionalbfseries}{\bfseries\colorlet{PJLtempcolor}{.}\color{PJLtempcolor!90!paper}}
 \else
     \newcommand{\conditionalbfseries}{}
 \fi
@@ -308,7 +308,7 @@
 %%================================
 %% Paper configuration
 %%================================
-\RequirePackage{PLpaper}
+\RequirePackage{PJLpaper}
 
 %%================================
 %% Color
@@ -376,9 +376,9 @@
 %% Line spacing
 %%================================
 % \RequirePackage{setspace}
-\RequirePackage{PLlang}
-\PLsetlinespacing{\setstretch{1.07}}
-\PLsetCJKlinespacing{\onehalfspacing}
+\RequirePackage{PJLlang}
+\PJLsetlinespacing{\setstretch{1.07}}
+\PJLsetCJKlinespacing{\onehalfspacing}
 % To avoid `Underfull \vbox (badness 10000)`
 \raggedbottom
 
@@ -390,16 +390,16 @@
 \RequirePackage{ulem}
 
 \newcommand{\partstring}{\MakeUppercase{{\partname~\protect\thepart}}}
-\gappto{\PLlang@langconfig@common}{%
+\gappto{\PJLlang@langconfig@common}{%
 \renewcommand{\partstring}{\MakeUppercase{{\partname~\protect\thepart}}}%
 }
-\gappto{\PLlang@langconfig@chinese}{%
+\gappto{\PJLlang@langconfig@chinese}{%
 \renewcommand{\partstring}{第~\thepart~部分}%
 }
-\gappto{\PLlang@langconfig@tchinese}{%
+\gappto{\PJLlang@langconfig@tchinese}{%
 \renewcommand{\partstring}{第~\thepart~部分}%
 }
-\gappto{\PLlang@langconfig@japanese}{%
+\gappto{\PJLlang@langconfig@japanese}{%
 \renewcommand{\partstring}{第~\thepart~部}%
 }
 
@@ -617,7 +617,7 @@
 %%================================
 %% Draft mark
 %%================================
-\RequirePackage{PLdraft}
+\RequirePackage{PJLdraft}
 
 %%================================
 %% Icons
@@ -691,7 +691,7 @@
 \fi
 
 % Should be placed after "hyperref"
-\RequirePackage[nothms]{PLthm}
+\RequirePackage[nothms]{PJLthm}
 
 %% Redefine English theorems names
 \def\theoremnameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Theorem}}
@@ -1379,7 +1379,7 @@
 %%================================
 %% Simulate features of amsart
 %%================================
-\RequirePackage{PLamssim}
+\RequirePackage{PJLamssim}
 
 }
 %</colorist>
