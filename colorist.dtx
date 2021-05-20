@@ -104,6 +104,8 @@
 
 \if@colorclass@fast
     \PassOptionsToPackage{fast}{colorist}
+    \RequirePackage{draftwatermark}
+    \DraftwatermarkOptions{text={DRAFT},colorspec=0.9}
 \fi
 \RequirePackage{colorist}
 
@@ -599,6 +601,7 @@
 \setlist{noitemsep,leftmargin=2em}
 \renewcommand\labelitemi{\color{gray!50}$\bullet$} 
 \renewcommand\labelitemii{\color{gray!55}--}
+\renewcommand\labelitemiii{\color{gray!55}\texttt{*}}
 
 %%================================
 %% Blank page
@@ -683,6 +686,7 @@
 \if@colorist@fast
     \providecommand{\phantomsection}{}
     \RequirePackage{url}
+    \newcommand{\href}[2]{#2}
 \else
     \PassOptionsToPackage{hidelinks,linktoc=all}{hyperref}
 % To solve `Difference between bookmark levels is greater than one`
