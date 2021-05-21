@@ -105,7 +105,7 @@
 \if@colorclass@fast
     \PassOptionsToPackage{fast}{colorist}
     \RequirePackage{draftwatermark}
-    \DraftwatermarkOptions{text={DRAFT},colorspec=0.9}
+    \DraftwatermarkOptions{text={\normalfont DRAFT},colorspec=0.9}
 \fi
 \RequirePackage{colorist}
 
@@ -254,6 +254,8 @@
 }{}
 \fi
 %</lebhart|beaulivre>
+
+\def\PJL@font@alreadyset{}
 
 \RequirePackage[verbose=silent]{microtype}
 
@@ -562,36 +564,36 @@
 % For book
     \titlecontents{chapter}
         [2em] % i.e., 0em (part) + 2em
-        {\addvspace{.5pc}\normalfont}
+        {\addvspace{.5pc}\normalfont\color{maintheme}\sffamily\conditionalbfseries}
         {\contentslabel{2em}}
         {\hspace*{-2em}}
-        {\normalfont\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
+        {\normalfont\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\color{maintheme}\contentspage}
     \titlecontents{section}
         [4em] % i.e., 2em (chapter) + 2em
-        {\normalfont}
+        {\normalfont\color{maintheme}\sffamily}
         {\contentslabel{1.75em}}
         {\hspace*{-1.75em}}
-        {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
+        {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\color{maintheme}\contentspage}
     \titlecontents{subsection}
         [7em] % i.e., 4em (section) + 3em
-        {\normalfont}
+        {\normalfont\sffamily}
         {\contentslabel{2.75em}}
         {\hspace*{-2.75em}}
-        {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
+        {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\color{paper!55!-paper}\contentspage}
 }{
 % For article
     \titlecontents{section}
         [2em] % i.e., 0em (part) + 2em
-        {\normalfont}
+        {\normalfont\color{maintheme}\sffamily}
         {\contentslabel{1.75em}}
         {\hspace*{-1.75em}}
-        {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
+        {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\color{maintheme}\contentspage}
     \titlecontents{subsection}
         [5em] % i.e., 2em (section) + 3em
-        {\normalfont}
+        {\normalfont\sffamily}
         {\contentslabel{2.75em}}
         {\hspace*{-2.75em}}
-        {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\contentspage}
+        {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\color{paper!55!-paper}\contentspage}
 }
 
 %%================================
