@@ -5,10 +5,11 @@
 `beaulivre` is a LaTeX class for typesetting books, which has a colorful
 design.
 
-Currently, it has native support to English, French and Chinese typesetting. And
-it may compile with either XeLaTeX or LuaLaTeX.
+Currently, it has native support to Chinese (simplified and traditional),
+English, French, German, Japanese and Russian typesetting. And it may compile
+with either XeLaTeX or LuaLaTeX.
 
-This is part of the colorist class series.
+This is part of the `colorist` class series.
 
 # License
 

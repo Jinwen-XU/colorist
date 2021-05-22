@@ -105,7 +105,7 @@
 \if@colorclass@fast
     \PassOptionsToPackage{fast}{colorist}
     \RequirePackage{draftwatermark}
-    \DraftwatermarkOptions{text={\normalfont DRAFT},colorspec=0.9}
+    \DraftwatermarkOptions{text={\normalfont DRAFT},colorspec=0.95}
 \fi
 \RequirePackage{colorist}
 
@@ -442,7 +442,7 @@
     \newcommand{\MakeChapBox}[2]{%
         \settowidth{\colorist@chapboxwidth}{#1}
         \begin{tcolorbox}[
-            enhanced jigsaw,
+            enhanced,
             skin = bicolor,
             frame engine = path,
             sharp corners = all,
@@ -567,7 +567,7 @@
         {\addvspace{.5pc}\normalfont\color{maintheme}\sffamily\conditionalbfseries}
         {\contentslabel{2em}}
         {\hspace*{-2em}}
-        {\normalfont\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\color{maintheme}\contentspage}
+        {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\color{maintheme}\contentspage}
     \titlecontents{section}
         [4em] % i.e., 2em (chapter) + 2em
         {\normalfont\color{maintheme}\sffamily}
@@ -1048,9 +1048,10 @@
 
 %% Icons on the margin
 \RequirePackage{marginnote}
+\RequirePackage{ifoddpage}
 \newcommand{\mparadjust}[1]{\renewcommand*{\marginnotevadjust}{#1}}
-\pretocmd{\remark}{\reversemarginpar\mparadjust{-.25em}\marginnote{\ideabulb[0.3]{orange}\hspace*{-.5em}}\normalmarginpar}{}{\FAIL}
-\pretocmd{\conjecture}{\reversemarginpar\mparadjust{-.25em}\marginnote{\questionmark[0.3]{purple}\hspace*{-.5em}}\normalmarginpar}{}{\FAIL}
+\pretocmd{\remark}{\if@twoside\checkoddpage\ifoddpage\reversemarginpar\fi\else\reversemarginpar\fi\mparadjust{-.25em}\marginnote{\ideabulb[0.3]{orange}\hspace*{-.2em}}\normalmarginpar}{}{\FAIL}
+\pretocmd{\conjecture}{\if@twoside\checkoddpage\ifoddpage\reversemarginpar\fi\else\reversemarginpar\fi\mparadjust{-.25em}\marginnote{\questionmark[0.3]{purple}\hspace*{-.2em}}\normalmarginpar}{}{\FAIL}
 
 \RequirePackage{iftex}
 \ifXeTeX
