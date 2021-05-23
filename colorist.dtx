@@ -18,31 +18,31 @@
 %
 %<*colorart>
 \ProvidesClass{colorart}
-    [2021/05/06 A colorful article style]
+    [2021/05/24 A colorful article style]
 \def\colorclass@baseclass{article}
 %</colorart>
 %
 %<*colorbook>
 \ProvidesClass{colorbook}
-    [2021/05/06 A colorful book style]
+    [2021/05/24 A colorful book style]
 \def\colorclass@baseclass{book}
 %</colorbook>
 %
 %<*lebhart>
 \ProvidesClass{lebhart}
-    [2021/05/06 A colorful article style]
+    [2021/05/24 A colorful article style]
 \def\colorclass@baseclass{article}
 %</lebhart>
 %
 %<*beaulivre>
 \ProvidesClass{beaulivre}
-    [2021/05/06 A colorful book style]
+    [2021/05/24 A colorful book style]
 \def\colorclass@baseclass{book}
 %</beaulivre>
 %
 %<*colorist>
 \ProvidesPackage{colorist}
-    [2021/05/06 A colorful style for articles and books]
+    [2021/05/24 A colorful style for articles and books]
 %</colorist>
 %
 \RequirePackage{kvoptions}
@@ -454,7 +454,7 @@
             lefthand width = 1.5\colorist@chapboxwidth,
             colupper = white,
             colback = maintheme!80!paper,
-            colbacklower = maintheme!10!paper,
+            colbacklower = maintheme!20!paper,
             sidebyside align=center,
             halign=center]
             \Huge #1%
@@ -472,7 +472,7 @@
             top = 4mm, bottom = 4mm,
             frame hidden,
             boxrule = 0mm,
-            colback = maintheme!10!paper,
+            colback = maintheme!20!paper,
             halign=center]
             #1
         \end{tcolorbox}
@@ -564,19 +564,19 @@
 % For book
     \titlecontents{chapter}
         [2em] % i.e., 0em (part) + 2em
-        {\addvspace{.5pc}\normalfont\color{maintheme}\sffamily\conditionalbfseries}
+        {\addvspace{1pc}\normalfont\color{maintheme}\sffamily\conditionalbfseries}
         {\contentslabel{2em}}
         {\hspace*{-2em}}
         {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\color{maintheme}\contentspage}
     \titlecontents{section}
         [4em] % i.e., 2em (chapter) + 2em
-        {\normalfont\color{maintheme}\sffamily}
+        {\addvspace{.3pc}\normalfont\color{maintheme}\sffamily}
         {\contentslabel{1.75em}}
         {\hspace*{-1.75em}}
         {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\color{maintheme}\contentspage}
     \titlecontents{subsection}
         [7em] % i.e., 4em (section) + 3em
-        {\normalfont\sffamily}
+        {\addvspace{.15pc}\normalfont\sffamily}
         {\contentslabel{2.75em}}
         {\hspace*{-2.75em}}
         {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\color{paper!55!-paper}\contentspage}
@@ -584,13 +584,13 @@
 % For article
     \titlecontents{section}
         [2em] % i.e., 0em (part) + 2em
-        {\normalfont\color{maintheme}\sffamily}
+        {\addvspace{.3pc}\normalfont\color{maintheme}\sffamily}
         {\contentslabel{1.75em}}
         {\hspace*{-1.75em}}
         {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\color{maintheme}\contentspage}
     \titlecontents{subsection}
         [5em] % i.e., 2em (section) + 3em
-        {\normalfont\sffamily}
+        {\addvspace{.15pc}\normalfont\sffamily}
         {\contentslabel{2.75em}}
         {\hspace*{-2.75em}}
         {\titlerule*[1em]{\textcolor{gray!30!paper}{.}}\color{paper!55!-paper}\contentspage}
@@ -1050,8 +1050,36 @@
 \RequirePackage{marginnote}
 \RequirePackage{ifoddpage}
 \newcommand{\mparadjust}[1]{\renewcommand*{\marginnotevadjust}{#1}}
-\pretocmd{\remark}{\if@twoside\checkoddpage\ifoddpage\reversemarginpar\fi\else\reversemarginpar\fi\mparadjust{-.25em}\marginnote{\ideabulb[0.3]{orange}\hspace*{-.2em}}\normalmarginpar}{}{\FAIL}
-\pretocmd{\conjecture}{\if@twoside\checkoddpage\ifoddpage\reversemarginpar\fi\else\reversemarginpar\fi\mparadjust{-.25em}\marginnote{\questionmark[0.3]{purple}\hspace*{-.2em}}\normalmarginpar}{}{\FAIL}
+\pretocmd{\remark}{%
+    \if@twoside\checkoddpage%
+        \ifoddpage\reversemarginpar\fi%
+    \else%
+        \reversemarginpar%
+    \fi%
+    \mparadjust{-.25em}%
+    \marginnote{\ideabulb[0.3]{orange}%
+        \ifIsBook%
+            \hspace*{-.2em}%
+        \else%
+            \hspace*{-.5em}%
+        \fi%
+    }\normalmarginpar%
+}{}{\FAIL}
+\pretocmd{\conjecture}{%
+    \if@twoside\checkoddpage%
+        \ifoddpage\reversemarginpar\fi%
+    \else%
+        \reversemarginpar%
+    \fi%
+    \mparadjust{-.25em}%
+    \marginnote{\questionmark[0.3]{purple}%
+        \ifIsBook%
+            \hspace*{-.2em}%
+        \else%
+            \hspace*{-.5em}%
+        \fi%
+    }\normalmarginpar%
+}{}{\FAIL}
 
 \RequirePackage{iftex}
 \ifXeTeX

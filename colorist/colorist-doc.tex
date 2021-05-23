@@ -76,7 +76,7 @@
 \begin{document}
 
 \title{{\normalfont\textbf{\textsf{colorist}}}, write your articles or books in a colorful way}
-\author{Jinwen}
+\author{Jinwen XU}
 \thanks{Corresponding to: \texttt{\colorist{} 2021/05/24}}
 \date{May 2021, Beijing}
 
@@ -85,7 +85,7 @@
 \begin{abstract}
     \colorist{} is a series of styles and classes for you to typeset your articles or books in a colorful manner. My original intention in designing this series is to write drafts and notes that look colorful yet not dazzling.
 
-    The entire collection includes \verb|colorist.sty|, which is the main style shared by all the following classes; \verb|colorart.cls| for typesetting articles and \verb|colorbook.cls| for typesetting books. They compile with any major \TeX{} engine, with native support to English, French and German typesetting via \lstinline|\UseLanguage| (see the instruction below for detail).
+    The entire collection includes \verb|colorist.sty|, which is the main style shared by all of the following classes; \verb|colorart.cls| for typesetting articles and \verb|colorbook.cls| for typesetting books. They compile with any major \TeX{} engine, with native support to English, French and German typesetting via \lstinline|\UseLanguage| (see the instruction below for detail).
 
     You can also found \lebhart{} and \beaulivre{} on CTAN. They are the enhanced version of \colorart{} and \colorbook{} with unicode support. With this, they can access to more beautiful fonts, and also have native support for Chinese, Japanese and Russian typesetting. On the other hand, they need to be compiled with \hologo{XeLaTeX} or \hologo{LuaLaTeX} (not pdf\LaTeX).
     
@@ -197,6 +197,7 @@ Environments such as definitions and theorems have been pre-defined and can be u
 More specifically, preset environments include: 
 \texttt{assumption}, \texttt{axiom}, \texttt{conjecture}, \texttt{convention}, \texttt{corollary}, \texttt{definition}, \texttt{definition-proposition}, \texttt{definition-theorem}, \texttt{example}, \texttt{exercise}, \texttt{fact}, \texttt{hypothesis}, \texttt{lemma}, \texttt{notation}, \texttt{problem}, \texttt{property}, \texttt{proposition}, \texttt{question}, \texttt{remark}, \texttt{theorem}, and the corresponding unnumbered version with an asterisk \lstinline|*| in the name. The display of these environments will change according to the current language.
 
+\medskip
 When referencing a theorem-like environment, it is recommended to use clever reference \lstinline|\cref{|\meta{label}\texttt{\}}. In this way, there is no need to explicitly write down the name of the corresponding environment every time.
 
 \begin{remind}[Example]
@@ -206,11 +207,12 @@ When referencing a theorem-like environment, it is recommended to use clever ref
 
 will produce
 \begin{definition}[Strange things]\label{def: strange}
-    This is the definition of some strange objects. There is approximately an one-line space before and after the theorem environment, and there will be a symbol to mark the end of the environment.
+    This is the definition of some strange objects.
 \end{definition}
 
 \lstinline|\cref{def: strange}| will be displayed as: \cref{def: strange}.
 
+\medskip
 After using \lstinline|\UseLanguage{French}|, a theorem will be displayed as:
 
 \UseLanguage{French}
@@ -222,7 +224,7 @@ By default, when referenced, the name of the theorem always matches the language
 \end{remind}
 
 
-\bigskip
+\clearpage %\bigskip
 The following are the main styles of theorem-like environments:
 \begin{theorem}
     Theorem style: theorem, proposition, lemma, corollary, ...

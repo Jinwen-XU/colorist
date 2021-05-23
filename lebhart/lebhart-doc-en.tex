@@ -75,7 +75,7 @@
 \begin{document}
 
 \title{{\normalfont\textbf{\textsf{lebhart}}}, write your articles in a colorful way}
-\author{Jinwen}
+\author{Jinwen XU}
 \thanks{Corresponding to: \texttt{\lebhart{} 2021/05/24}}
 \date{May 2021, Beijing}
 
@@ -155,6 +155,7 @@ When the corresponding font is not installed, fonts that comes with TeX Live wil
 
 Many of the features described next are provided by the \ProjLib{} toolkit. Only the basic usage is mentioned here. For more details, please refer to its user documentation.
 
+\bigskip
 \subsection{Language configuration}
 
 \lebhart{} has multi-language support, including simplified Chinese, traditional Chinese, English, French, German, Japanese, and Russian. The language can be selected by the following macros:
@@ -189,7 +190,7 @@ In addition, you can also add new settings to selected language:
 \end{itemize}
 For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make all German text displayed in orange (of course, one then need to add \lstinline|\AddLanguageSetting{\color{black}}| in order to correct the color of the text in other languages).
 
-
+\bigskip
 \subsection{Theorems and how to reference them}
 
 Environments such as definitions and theorems have been pre-defined and can be used directly. 
@@ -208,11 +209,12 @@ When referencing a theorem-like environment, it is recommended to use clever ref
 
 will produce
 \begin{definition}[Strange things]\label{def: strange}
-    This is the definition of some strange objects. There is approximately an one-line space before and after the theorem environment, and there will be a symbol to mark the end of the environment.
+    This is the definition of some strange objects. 
 \end{definition}
 
 \lstinline|\cref{def: strange}| will be displayed as: \cref{def: strange}.
 
+\medskip
 After using \lstinline|\UseLanguage{French}|, a theorem will be displayed as:
 
 \UseLanguage{French}

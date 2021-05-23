@@ -76,7 +76,7 @@
 \begin{document}
 
 \title{{\normalfont\textbf{\textsf{lebhart}}}，以多彩的方式排版你的文章}
-\author{锦文}
+\author{许锦文}
 \thanks{对应版本. \texttt{\lebhart{} 2021/05/24}}
 \date{2021年5月，北京}
 
@@ -159,6 +159,7 @@
 
 接下来介绍的许多功能是由 \ProjLib{} 工具箱提供的。这里只介绍了基本使用方法，更多细节可以直接参阅其用户文档。
 
+\medskip
 \subsection{语言设置}
 
 \lebhart{} 提供了多语言支持，包括简体中文、繁体中文、英文、法文、德文、日文、俄文。可以通过下列命令来选定语言：
@@ -197,7 +198,7 @@
 \end{itemize}
 例如，\lstinline|\AddLanguageSetting(German){\color{orange}}| 可以让所有德语以橙色显示（当然，还需要再加上 \lstinline|\AddLanguageSetting{\color{black}}| 来修正其他语言的颜色）。
 
-
+\medskip
 \subsection{定理类环境及其引用}
 
 定义、定理等环境已经被预定义，可以直接使用。
@@ -205,6 +206,7 @@
 具体来说，预设的定理类环境包括：
 \texttt{assumption}、\texttt{axiom}、\texttt{conjecture}、\texttt{convention}、\texttt{corollary}、\texttt{definition}、\texttt{definition-proposition}、\texttt{definition-theorem}、\texttt{example}、\texttt{exercise}、\texttt{fact}、\texttt{hypothesis}、\texttt{lemma}、\texttt{notation}、\texttt{problem}、\texttt{property}、\texttt{proposition}、\texttt{question}、\texttt{remark}、\texttt{theorem}，以及相应的带有星号 \lstinline|*| 的无编号版本。
 
+\medskip
 在引用定理类环境时，建议使用智能引用 \lstinline|\cref{|\meta{label}\lstinline|}|。这样就不必每次都写上相应环境的名称了。
 
 \begin{remind}[例子]
@@ -213,11 +215,12 @@
 \end{code}
 将会生成
 \begin{definition}[奇异物品]\label{def: strange}
-    这是奇异物品的定义。定理类环境的前后有一行左右的间距。在定义结束的时候会有一个符号来标记。
+    这是奇异物品的定义。
 \end{definition}
 
 \lstinline|\cref{def: strange}| 会显示为：\cref{def: strange}。
 
+\medskip
 使用 \lstinline|\UseLanguage{English}| 后，定理会显示为：
 
 \UseLanguage{English}

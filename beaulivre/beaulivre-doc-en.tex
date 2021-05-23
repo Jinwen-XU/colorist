@@ -172,6 +172,7 @@ In addition, the commonly used \texttt{oneside} and \texttt{twoside} options are
 \chapter{On the fonts}
 By default, \beaulivre{} uses Palatino Linotype as the English font, FounderType's YouSong and YouHei GBK as the Chinese fonts, and partially uses Neo Euler as the math font. Among them, Neo Euler can be downloaded at \url{https://github.com/khaledhosny/euler-otf}. The other fonts are not free, you need to purchase and use them on your own. (For the Chinese fonts, visit FounderType's website for detail: \url{https://www.foundertype.com} ).
 
+\medskip
 \begin{remind}[Font demonstration]
     \begin{itemize}
         \item English main font. \textsf{English sans serif font}. \texttt{English typewriter font}.
@@ -240,7 +241,7 @@ When referencing a theorem-like environment, it is recommended to use clever ref
 
 will produce
 \begin{definition}[Strange things]\label{def: strange}
-    This is the definition of some strange objects. There is approximately an one-line space before and after the theorem environment, and there will be a symbol to mark the end of the environment.
+    This is the definition of some strange objects.
 \end{definition}
 
 \lstinline|\cref{def: strange}| will be displayed as: \cref{def: strange}.
@@ -254,6 +255,44 @@ After using \lstinline|\UseLanguage{French}|, a theorem will be displayed as:
 
 By default, when referenced, the name of the theorem always matches the language of the context in which the theorem is located. For example, the definition above is still displayed in English in the current French mode: \cref{def: strange} and \cref{thm}. If you want the name of the theorem to match the current context when referencing, you can add \texttt{regionalref} to the global options.
 \end{remind}
+
+\medskip
+The following are the main styles of theorem-like environments:
+\begin{theorem}
+    Theorem style: theorem, proposition, lemma, corollary, ...
+\end{theorem}
+
+\begin{proof}
+    Proof style
+\end{proof}
+
+\vspace{-\baselineskip}
+\begin{remark}
+    Remark style
+\end{remark}
+
+\vspace{-.5\baselineskip}
+\begin{conjecture}
+    Conjecture style
+\end{conjecture}
+
+\begin{example*}
+    Example style: example, fact, ...
+\end{example*}
+
+\begin{problem}
+    Problem style: problem, question, ...
+\end{problem}
+
+\medskip
+For aesthetics, adjacent definitions will be connected together automatically:
+\begin{definition}
+    First definition.
+\end{definition}
+
+\begin{definition}
+    Second definition.
+\end{definition}
 
 \UseLanguage{English}
 
@@ -274,7 +313,7 @@ If you need to define a new theorem-like environment, you must first define the 
     If you want to define an environment with an asterisk \lstinline|*| after the name, you don't need to write an asterisk in the \meta{name of environment} above. See the example below.
 \end{remind}
 
-\clearpage
+% \clearpage
 And then define this environment in one of following five ways:
 \begin{itemize}
     \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
