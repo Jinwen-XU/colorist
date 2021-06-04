@@ -154,6 +154,7 @@
 %% Chinese fonts
 \PassOptionsToPackage{fontset=none,scheme=plain}{ctex}
 \RequirePackage{ctex}
+\WarningFilter{everysel}{Everysel is no longer required}
 \IfFontExistsTF{FZYOUSK_507R--GBK1-0}{%
     \setCJKmainfont{FZYOUSK_507R--GBK1-0}[
         BoldFont       = FZYOUSK_509R--GBK1-0 ,
@@ -297,7 +298,7 @@
 \fi
 
 \newif\ifIsBook
-\ifdefined\chapter\IsBooktrue\else\IsBookfalse\fi
+\ifdefined\c@chapter\IsBooktrue\else\IsBookfalse\fi
 
 %%================================
 %% Title fonts
@@ -664,6 +665,7 @@
 %%================================
 \RequirePackage{mathtools}
 \RequirePackage{amsthm}
+\def\simpleqed{\null\nobreak\hfill\makebox[1em]{\rlap{\textcolor{gray!55!paper}{\rule[-0.1em]{.95em}{.95em}}}{\kern.07em\raisebox{.07em}{\textcolor{paper}{\rule[-0.1em]{.81em}{.81em}}}\kern.07em}}}
 \newtheoremstyle{simple}%
     {}{}%
     {\normalfont}{}%
@@ -671,7 +673,7 @@
     {0pt}%
     {\conditionalbfseries\thmname{#1}\thmnumber{ #2}\hspace{.4em}%
         \textcolor{gray!55!paper}{$|$}\hspace{.4em}%
-        \color{gray}\thmnote{\ensuremath{(\text{#3})}~~}\pushQED{\qed}}
+        \color{gray}\thmnote{\ensuremath{(\text{#3})}~~}\pushQED{\simpleqed}}
 \def\@endtheorem{\popQED\endtrivlist\@endpefalse }
 
 \renewcommand{\qedsymbol}{%
@@ -701,158 +703,257 @@
 % Should be placed after "hyperref"
 \RequirePackage[nothms]{PJLthm}
 
-%% Redefine English theorems names
-\def\theoremnameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Theorem}}
-\def\lemmanameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Lemma}}
-\def\propositionnameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Proposition}}
-\def\corollarynameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Corollary}}
-\def\propertynameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Property}}
-\def\factnameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Fact}}
-\def\conjecturenameEN{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc{Conjecture}}
-\def\definitionnameEN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Definition}}
-\def\axiomnameEN{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Axiom}}
-\def\assumptionnameEN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Assumption}}
-\def\conventionnameEN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Convention}}
-\def\hypothesisnameEN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Hypothesis}}
-\def\notationnameEN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Notation}}
-\def\examplenameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Example}}
-\def\problemnameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Problem}}
-\def\questionnameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Question}}
-\def\exercisenameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Exercise}}
-\def\remarknameEN{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Remark}}
+%% Adjust English theorems names
+\pretocmd{\theoremnameEN}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\lemmanameEN}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\propositionnameEN}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\corollarynameEN}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\propertynameEN}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\factnameEN}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\conjecturenameEN}{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\definitionnameEN}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\axiomnameEN}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\assumptionnameEN}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\conventionnameEN}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\hypothesisnameEN}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\notationnameEN}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\examplenameEN}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\problemnameEN}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\questionnameEN}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\exercisenameEN}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\remarknameEN}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\observationnameEN}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
 \expandafter\def\csname definition-propositionnameEN\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definition}-\propositionnameEN}
 \expandafter\def\csname definition-theoremnameEN\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definition}-\theoremnameEN}
 
-%% Redefine French theorems names
-\def\theoremnameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Théorème}}
-\def\lemmanameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Lemme}}
-\def\propositionnameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Proposition}}
-\def\corollarynameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Corollaire}}
-\def\propertynameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Propriété}}
-\def\factnameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Fait}}
-\def\conjecturenameFR{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc{Conjecture}}
-\def\definitionnameFR{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Définition}}
-\def\axiomnameFR{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Axiome}}
-\def\assumptionnameFR{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Supposition}}
-\def\conventionnameFR{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Convention}}
-\def\hypothesisnameFR{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Hypothèse}}
-\def\notationnameFR{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Notation}}
-\def\examplenameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Exemple}}
-\def\problemnameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Problème}}
-\def\questionnameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Question}}
-\def\exercisenameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Exercice}}
-\def\remarknameFR{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Remarque}}
+%% Adjust French theorems names
+\pretocmd{\theoremnameFR}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\lemmanameFR}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\propositionnameFR}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\corollarynameFR}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\propertynameFR}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\factnameFR}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\conjecturenameFR}{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\definitionnameFR}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\axiomnameFR}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\assumptionnameFR}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\conventionnameFR}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\hypothesisnameFR}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\notationnameFR}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\examplenameFR}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\problemnameFR}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\questionnameFR}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\exercisenameFR}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\remarknameFR}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\observationnameFR}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
 \expandafter\def\csname definition-propositionnameFR\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Définition}-\propositionnameFR}
 \expandafter\def\csname definition-theoremnameFR\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Définition}-\theoremnameFR}
 
-%% Redefine German theorems names
-\def\theoremnameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Satz}}
-\def\lemmanameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Lemma}}
-\def\propositionnameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Proposition}}
-\def\corollarynameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Korollar}}
-\def\propertynameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Eigenschaft}}
-\def\factnameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Fakt}}
-\def\conjecturenameDE{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc{Vermutung}}
-\def\definitionnameDE{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Definition}}
-\def\axiomnameDE{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Axiom}}
-\def\assumptionnameDE{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Annahme}}
-\def\conventionnameDE{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Konvention}}
-\def\hypothesisnameDE{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Hypothese}}
-\def\notationnameDE{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc{Notation}}
-\def\examplenameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Beispiel}}
-\def\problemnameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Problem}}
-\def\questionnameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Frage}}
-\def\exercisenameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Übung}}
-\def\remarknameDE{\normalfont\sffamily\color{black}\conditionalbfseries\textsc{Bemerkung}}
+%% Adjust German theorems names
+\pretocmd{\theoremnameDE}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\lemmanameDE}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\propositionnameDE}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\corollarynameDE}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\propertynameDE}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\factnameDE}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\conjecturenameDE}{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\definitionnameDE}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\axiomnameDE}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\assumptionnameDE}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\conventionnameDE}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\hypothesisnameDE}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\notationnameDE}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\examplenameDE}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\problemnameDE}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\questionnameDE}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\exercisenameDE}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\remarknameDE}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\observationnameDE}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
 \expandafter\def\csname definition-propositionnameDE\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definition}-\propositionnameDE}
 \expandafter\def\csname definition-theoremnameDE\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definition}-\theoremnameDE}
 
-%% Redefine Chinese theorems names
-\def\theoremnameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 定理}
-\def\lemmanameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 引理}
-\def\propositionnameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 命题}
-\def\corollarynameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 推论}
-\def\propertynameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 性质}
-\def\factnameCN{\normalfont\sffamily\color{black}\conditionalbfseries 事实}
-\def\conjecturenameCN{\normalfont\sffamily\color{purple}\conditionalbfseries 猜想}
-\def\definitionnameCN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 定义}
-\def\axiomnameCN{\normalfont\sffamily\color{orange}\conditionalbfseries 公理}
-\def\assumptionnameCN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 假设}
-\def\conventionnameCN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 约定}
-\def\hypothesisnameCN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 假设}
-\def\notationnameCN{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 记号}
-\def\examplenameCN{\normalfont\sffamily\color{black}\conditionalbfseries 例}
-\def\problemnameCN{\normalfont\sffamily\color{black}\conditionalbfseries 问题}
-\def\questionnameCN{\normalfont\sffamily\color{black}\conditionalbfseries 问题}
-\def\exercisenameCN{\normalfont\sffamily\color{black}\conditionalbfseries 练习}
-\def\remarknameCN{\normalfont\sffamily\color{black}\conditionalbfseries 备注}
-\expandafter\def\csname definition-propositionnameCN\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定义-\propositionnameCN}
-\expandafter\def\csname definition-theoremnameCN\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定义-\theoremnameCN}
+%% Adjust Italian theorems names
+\pretocmd{\theoremnameIT}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\lemmanameIT}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\propositionnameIT}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\corollarynameIT}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\propertynameIT}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\factnameIT}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\conjecturenameIT}{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\definitionnameIT}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\axiomnameIT}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\assumptionnameIT}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\conventionnameIT}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\hypothesisnameIT}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\notationnameIT}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\examplenameIT}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\problemnameIT}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\questionnameIT}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\exercisenameIT}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\remarknameIT}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\observationnameIT}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\expandafter\def\csname definition-propositionnameIT\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definizione}-\propositionnameIT}
+\expandafter\def\csname definition-theoremnameIT\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definizione}-\theoremnameIT}
 
-\def\theoremnameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 定理}
-\def\lemmanameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 引理}
-\def\propositionnameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 命題}
-\def\corollarynameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 推論}
-\def\propertynameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 性質}
-\def\factnameTC{\normalfont\sffamily\color{black}\conditionalbfseries 事實}
-\def\conjecturenameTC{\normalfont\sffamily\color{purple}\conditionalbfseries 猜想}
-\def\definitionnameTC{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 定義}
-\def\axiomnameTC{\normalfont\sffamily\color{orange}\conditionalbfseries 公理}
-\def\assumptionnameTC{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 假設}
-\def\conventionnameTC{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 約定}
-\def\hypothesisnameTC{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 假設}
-\def\notationnameTC{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 記號}
-\def\examplenameTC{\normalfont\sffamily\color{black}\conditionalbfseries 例}
-\def\problemnameTC{\normalfont\sffamily\color{black}\conditionalbfseries 問題}
-\def\questionnameTC{\normalfont\sffamily\color{black}\conditionalbfseries 問題}
-\def\exercisenameTC{\normalfont\sffamily\color{black}\conditionalbfseries 練習}
-\def\remarknameTC{\normalfont\sffamily\color{black}\conditionalbfseries 備註}
-\expandafter\def\csname definition-propositionnameTC\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定義-\propositionnameTC}
-\expandafter\def\csname definition-theoremnameTC\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定義-\theoremnameTC}
+%% Adjust Portuguese theorems names
+\pretocmd{\theoremnamePT}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\lemmanamePT}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\propositionnamePT}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\corollarynamePT}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\propertynamePT}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\factnamePT}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\conjecturenamePT}{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\definitionnamePT}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\axiomnamePT}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\assumptionnamePT}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\conventionnamePT}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\hypothesisnamePT}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\notationnamePT}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\examplenamePT}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\problemnamePT}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\questionnamePT}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\exercisenamePT}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\remarknamePT}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\observationnamePT}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\expandafter\def\csname definition-propositionnamePT\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definição}-\propositionnamePT}
+\expandafter\def\csname definition-theoremnamePT\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definição}-\theoremnamePT}
 
-%% Redefine Japanese theorems names
-\def\theoremnameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 定理}
-\def\lemmanameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 補題}
-\def\propositionnameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 命題}
-\def\corollarynameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 系}
-\def\propertynameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 性質}
-\def\factnameJP{\normalfont\sffamily\color{black}\conditionalbfseries 事実}
-\def\conjecturenameJP{\normalfont\sffamily\color{purple}\conditionalbfseries 予想}
-\def\definitionnameJP{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 定義}
-\def\axiomnameJP{\normalfont\sffamily\color{orange}\conditionalbfseries 公理}
-\def\assumptionnameJP{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 仮定}
-\def\conventionnameJP{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 慣例}
-\def\hypothesisnameJP{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 仮設}
-\def\notationnameJP{\normalfont\sffamily\color{forestgreen}\conditionalbfseries 記法}
-\def\examplenameJP{\normalfont\sffamily\color{black}\conditionalbfseries 例}
-\def\problemnameJP{\normalfont\sffamily\color{black}\conditionalbfseries 問題}
-\def\questionnameJP{\normalfont\sffamily\color{black}\conditionalbfseries 問題}
-\def\exercisenameJP{\normalfont\sffamily\color{black}\conditionalbfseries 練習}
-\def\remarknameJP{\normalfont\sffamily\color{black}\conditionalbfseries 注釈}
-\expandafter\def\csname definition-propositionnameJP\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定義-\propositionnameJP}
-\expandafter\def\csname definition-theoremnameJP\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries 定義-\theoremnameJP}
+%% Adjust Brazilian theorems names
+\pretocmd{\theoremnameBR}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\lemmanameBR}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\propositionnameBR}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\corollarynameBR}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\propertynameBR}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\factnameBR}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\conjecturenameBR}{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\definitionnameBR}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\axiomnameBR}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\assumptionnameBR}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\conventionnameBR}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\hypothesisnameBR}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\notationnameBR}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\examplenameBR}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\problemnameBR}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\questionnameBR}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\exercisenameBR}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\remarknameBR}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\observationnameBR}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\expandafter\def\csname definition-propositionnameBR\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definição}-\propositionnameBR}
+\expandafter\def\csname definition-theoremnameBR\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definição}-\theoremnameBR}
 
-%% Redefine Russian theorems names
-\def\theoremnameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Теорема}
-\def\lemmanameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Лемма}
-\def\propositionnameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Предложение}
-\def\corollarynameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Следствие}
-\def\propertynameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Имущество}
-\def\factnameRU{\normalfont\sffamily\color{black}\conditionalbfseries Факт}
-\def\conjecturenameRU{\normalfont\sffamily\color{purple}\conditionalbfseries Гипотеза}
-\def\definitionnameRU{\normalfont\sffamily\color{forestgreen}\conditionalbfseries Определение}
-\def\axiomnameRU{\normalfont\sffamily\color{orange}\conditionalbfseries Аксиома}
-\def\assumptionnameRU{\normalfont\sffamily\color{forestgreen}\conditionalbfseries Предположение}
-\def\conventionnameRU{\normalfont\sffamily\color{forestgreen}\conditionalbfseries Конвенция}
-\def\hypothesisnameRU{\normalfont\sffamily\color{forestgreen}\conditionalbfseries Гипотеза}
-\def\notationnameRU{\normalfont\sffamily\color{forestgreen}\conditionalbfseries Нотация}
-\def\examplenameRU{\normalfont\sffamily\color{black}\conditionalbfseries Пример}
-\def\problemnameRU{\normalfont\sffamily\color{black}\conditionalbfseries Проблема}
-\def\questionnameRU{\normalfont\sffamily\color{black}\conditionalbfseries Вопрос}
-\def\exercisenameRU{\normalfont\sffamily\color{black}\conditionalbfseries Упражнение}
-\def\remarknameRU{\normalfont\sffamily\color{black}\conditionalbfseries Замечание}
-\expandafter\def\csname definition-propositionnameRU\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries Определение-\propositionnameRU}
-\expandafter\def\csname definition-theoremnameRU\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries Определение-\theoremnameRU}
+%% Adjust Spanish theorems names
+\pretocmd{\theoremnameES}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\lemmanameES}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\propositionnameES}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\corollarynameES}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\propertynameES}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\factnameES}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\conjecturenameES}{\normalfont\sffamily\color{purple}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\definitionnameES}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\axiomnameES}{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\assumptionnameES}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\conventionnameES}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\hypothesisnameES}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\notationnameES}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\examplenameES}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\problemnameES}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\questionnameES}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\exercisenameES}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\remarknameES}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\pretocmd{\observationnameES}{\normalfont\sffamily\color{black}\conditionalbfseries\textsc}{}{\FAIL}
+\expandafter\def\csname definition-propositionnameES\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definição}-\propositionnameES}
+\expandafter\def\csname definition-theoremnameES\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries\textsc{Definição}-\theoremnameES}
+
+%% Adjust Chinese theorems names
+\pretocmd{\theoremnameCN}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\lemmanameCN}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\propositionnameCN}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\corollarynameCN}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\propertynameCN}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\factnameCN}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\conjecturenameCN}{\normalfont\sffamily\color{purple}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\definitionnameCN}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\axiomnameCN}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\assumptionnameCN}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\conventionnameCN}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\hypothesisnameCN}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\notationnameCN}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\examplenameCN}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\problemnameCN}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\questionnameCN}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\exercisenameCN}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\remarknameCN}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\observationnameCN}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\expandafter\def\csname definition-propositionnameCN\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries{定义}-\propositionnameCN}
+\expandafter\def\csname definition-theoremnameCN\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries{定义}-\theoremnameCN}
+
+\pretocmd{\theoremnameTC}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\lemmanameTC}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\propositionnameTC}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\corollarynameTC}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\propertynameTC}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\factnameTC}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\conjecturenameTC}{\normalfont\sffamily\color{purple}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\definitionnameTC}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\axiomnameTC}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\assumptionnameTC}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\conventionnameTC}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\hypothesisnameTC}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\notationnameTC}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\examplenameTC}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\problemnameTC}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\questionnameTC}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\exercisenameTC}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\remarknameTC}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\observationnameTC}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\expandafter\def\csname definition-propositionnameTC\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries{定義}-\propositionnameTC}
+\expandafter\def\csname definition-theoremnameTC\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries{定義}-\theoremnameTC}
+
+%% Adjust Japanese theorems names
+\pretocmd{\theoremnameJP}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\lemmanameJP}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\propositionnameJP}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\corollarynameJP}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\propertynameJP}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\factnameJP}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\conjecturenameJP}{\normalfont\sffamily\color{purple}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\definitionnameJP}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\axiomnameJP}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\assumptionnameJP}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\conventionnameJP}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\hypothesisnameJP}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\notationnameJP}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\examplenameJP}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\problemnameJP}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\questionnameJP}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\exercisenameJP}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\remarknameJP}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\observationnameJP}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\expandafter\def\csname definition-propositionnameJP\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries{定義}-\propositionnameJP}
+\expandafter\def\csname definition-theoremnameJP\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries{定義}-\theoremnameJP}
+
+%% Adjust Russian theorems names
+\pretocmd{\theoremnameRU}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\lemmanameRU}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\propositionnameRU}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\corollarynameRU}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\propertynameRU}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\factnameRU}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\conjecturenameRU}{\normalfont\sffamily\color{purple}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\definitionnameRU}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\axiomnameRU}{\normalfont\sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\assumptionnameRU}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\conventionnameRU}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\hypothesisnameRU}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\notationnameRU}{\normalfont\sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\examplenameRU}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\problemnameRU}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\questionnameRU}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\exercisenameRU}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\remarknameRU}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\pretocmd{\observationnameRU}{\normalfont\sffamily\color{black}\conditionalbfseries}{}{\FAIL}
+\expandafter\def\csname definition-propositionnameRU\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries{Определение}-\propositionnameRU}
+\expandafter\def\csname definition-theoremnameRU\endcsname{\normalfont\sffamily\color{orange}\conditionalbfseries{Определение}-\theoremnameRU}
 
 %% Theorem environments
 \theoremstyle{basic}
@@ -1218,52 +1319,52 @@
     {enhanced jigsaw,pad at break*=1mm,breakable,
     left=4mm,right=4mm,top=1mm,bottom=1mm,
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
 \tcolorboxenvironment{definition*}
     {enhanced jigsaw,pad at break*=1mm,breakable,
     left=4mm,right=4mm,top=1mm,bottom=1mm,
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
 \tcolorboxenvironment{assumption}
     {enhanced jigsaw,pad at break*=1mm,breakable,
     left=4mm,right=4mm,top=1mm,bottom=1mm,
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
 \tcolorboxenvironment{assumption*}
     {enhanced jigsaw,pad at break*=1mm,breakable,
     left=4mm,right=4mm,top=1mm,bottom=1mm,
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
 \tcolorboxenvironment{convention}
     {enhanced jigsaw,pad at break*=1mm,breakable,
     left=4mm,right=4mm,top=1mm,bottom=1mm,
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
 \tcolorboxenvironment{convention*}
     {enhanced jigsaw,pad at break*=1mm,breakable,
     left=4mm,right=4mm,top=1mm,bottom=1mm,
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
 \tcolorboxenvironment{hypothesis}
     {enhanced jigsaw,pad at break*=1mm,breakable,
     left=4mm,right=4mm,top=1mm,bottom=1mm,
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
 \tcolorboxenvironment{hypothesis*}
     {enhanced jigsaw,pad at break*=1mm,breakable,
     left=4mm,right=4mm,top=1mm,bottom=1mm,
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
 \tcolorboxenvironment{notation}
     {enhanced jigsaw,pad at break*=1mm,breakable,
     left=4mm,right=4mm,top=1mm,bottom=1mm,
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
 \tcolorboxenvironment{notation*}
     {enhanced jigsaw,pad at break*=1mm,breakable,
     left=4mm,right=4mm,top=1mm,bottom=1mm,
     colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{-1mm}{forestgreen},arc=.7mm}
+    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
 
 \tcolorboxenvironment{example}
     {enhanced jigsaw,pad at break*=1mm,breakable,colback=gray!10!paper,
