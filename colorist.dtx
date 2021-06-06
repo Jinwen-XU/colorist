@@ -18,31 +18,31 @@
 %
 %<*colorart>
 \ProvidesClass{colorart}
-    [2021/05/24 A colorful article style]
+    [2021/06/07 A colorful article style]
 \def\colorclass@baseclass{article}
 %</colorart>
 %
 %<*colorbook>
 \ProvidesClass{colorbook}
-    [2021/05/24 A colorful book style]
+    [2021/06/07 A colorful book style]
 \def\colorclass@baseclass{book}
 %</colorbook>
 %
 %<*lebhart>
 \ProvidesClass{lebhart}
-    [2021/05/24 A colorful article style]
+    [2021/06/07 A colorful article style]
 \def\colorclass@baseclass{article}
 %</lebhart>
 %
 %<*beaulivre>
 \ProvidesClass{beaulivre}
-    [2021/05/24 A colorful book style]
+    [2021/06/07 A colorful book style]
 \def\colorclass@baseclass{book}
 %</beaulivre>
 %
 %<*colorist>
 \ProvidesPackage{colorist}
-    [2021/05/24 A colorful style for articles and books]
+    [2021/06/07 A colorful style for articles and books]
 %</colorist>
 %
 \RequirePackage{kvoptions}
@@ -335,7 +335,8 @@
 
 \def\PJL@font@alreadyset{}
 
-\RequirePackage[verbose=silent]{microtype}
+\PassOptionsToPackage{verbose=silent}{microtype}
+\RequirePackage{microtype}
 
 %%================================
 %% Graphics
@@ -361,11 +362,16 @@
 }
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
+\DeclareBoolOption[false]{puretext}
+\DeclareBoolOption[false]{nothms}
 \DeclareBoolOption[false]{allowbf}
 \ProcessKeyvalOptions*\relax
 
 \if@colorist@draft
   \@colorist@fasttrue
+\fi
+\if@colorist@puretext
+  \@colorist@nothmstrue
 \fi
 
 \if@colorist@allowbf
@@ -778,7 +784,8 @@
 \fi
 
 % Should be placed after "hyperref"
-\RequirePackage[nothms]{PJLthm}
+\PassOptionsToPackage{nothms}{PJLthm}
+\RequirePackage{PJLthm}
 
 %% Adjust English theorems names
 \pretocmd{\theoremnameEN}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
@@ -1039,6 +1046,7 @@
 }{
     \newaliascnt{highest}{section}
 }
+\if@colorist@nothms\else
 \CreateTheorem{theorem}<highest>
 \CreateTheorem{lemma}[theorem]
 \CreateTheorem{proposition}[theorem]
@@ -1082,6 +1090,9 @@
 \theoremstyle{emphasis}
 \CreateTheorem{remark}<highest>
 \CreateTheorem*{remark*}
+\CreateTheorem{observation}<highest>
+\CreateTheorem*{observation*}
+\fi
 
 \numberwithin{equation}{highest}
 
@@ -1330,6 +1341,7 @@
 \RequirePackage{marginnote}
 \RequirePackage{ifoddpage}
 \newcommand{\mparadjust}[1]{\renewcommand*{\marginnotevadjust}{#1}}
+\AtEndPreamble{ % For puretext mode
 \pretocmd{\remark}{%
     \if@twoside\checkoddpage%
         \ifoddpage\reversemarginpar\fi%
@@ -1360,6 +1372,7 @@
         \fi%
     }\normalmarginpar%
 }{}{\FAIL}
+}
 
 \RequirePackage{iftex}
 \ifXeTeX

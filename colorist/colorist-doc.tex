@@ -1,5 +1,17 @@
 %! TEX program = xelatex
-\documentclass[allowbf]{colorart}
+\documentclass[allowbf,puretext]{colorart}
+
+\theoremstyle{basic}
+\CreateTheorem{definition}<highest>
+\CreateTheorem{theorem}<highest>
+\CreateTheorem{conjecture}<highest>
+\CreateTheorem*{example*}
+\CreateTheorem{problem}<highest>
+
+\theoremstyle{emphasis}
+\CreateTheorem{remark}<highest>
+
+\theoremstyle{simple}
 
 %%================================
 %% Import toolkit
