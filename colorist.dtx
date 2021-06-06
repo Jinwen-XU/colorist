@@ -1356,7 +1356,7 @@
             \hspace*{-.5em}%
         \fi%
     }\normalmarginpar%
-}{}{\FAIL}
+}{}{}
 \pretocmd{\conjecture}{%
     \if@twoside\checkoddpage%
         \ifoddpage\reversemarginpar\fi%
@@ -1371,7 +1371,7 @@
             \hspace*{-.5em}%
         \fi%
     }\normalmarginpar%
-}{}{\FAIL}
+}{}{}
 }
 
 \RequirePackage{iftex}
@@ -1715,6 +1715,7 @@
     {\scshape\@author}\\\smallskip%
     {\@date}%
 \end{center}%
+\ifx\@date\@empty\bigskip\fi%
 % \vspace{-\parskip}%
 % \ifx\@date\@empty%
 %     \vspace{-\baselineskip}%
