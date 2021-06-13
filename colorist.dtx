@@ -55,6 +55,7 @@
 }
 \DeclareBoolOption[false]{draft}
 \DeclareBoolOption[false]{fast}
+\DeclareBoolOption[false]{useosf}
 \DeclareBoolOption[false]{palatino}
 \DeclareBoolOption[false]{times}
 \DeclareBoolOption[false]{garamond}
@@ -155,11 +156,13 @@
 \RequirePackage{fontspec}
 \IfFontExistsTF{Palatino Linotype}{%
     \setmainfont{Palatino Linotype}
+        [\if@colorclass@useosf Numbers = OldStyle\fi]
 }{
     \setmainfont{TeXGyrePagellaX-Regular.otf}[
         BoldFont       = TeXGyrePagellaX-Bold.otf ,
         ItalicFont     = TeXGyrePagellaX-Italic.otf ,
-        BoldItalicFont = TeXGyrePagellaX-BoldItalic.otf ]
+        BoldItalicFont = TeXGyrePagellaX-BoldItalic.otf,
+        \if@colorclass@useosf Numbers = OldStyle\fi ]
 }
     \setsansfont{SourceSansPro-Regular.otf}[
         Scale          = MatchLowercase ,
@@ -290,6 +293,7 @@
     \RequirePackage{newpxmath}
     \let\openbox\relax
     \PJLsetlinespacing{\setstretch{1.07}}
+    \if@colorclass@useosf\useosf\fi
 \fi
 
 \if@colorclass@times
@@ -299,13 +303,16 @@
     \RequirePackage{newtxmath}
     \let\openbox\relax
     \PJLsetlinespacing{\setstretch{1.00}}
+    \if@colorclass@useosf\useosf\fi
 %<colorart|colorbook>    \let\colorist@textsc\relax
 %<lebhart|beaulivre>    \let\colorist@sffamily\relax
 \fi
 
 \if@colorclass@garamond
     \RequirePackage{amssymb}
-    \PassOptionsToPackage{lining}{ebgaramond}
+    \if@colorclass@useosf\else
+        \PassOptionsToPackage{lining}{ebgaramond}
+    \fi
     \RequirePackage{ebgaramond-maths}
     \RequirePackage{ebgaramond}
     % \RequirePackage{garamondlibre}
@@ -319,6 +326,9 @@
     % \RequirePackage{mathpazo}
     % \RequirePackage[sansmath]{libertinust1math}
     \ifPDFTeX
+        \if@colorclass@useosf
+            \PassOptionsToPackage{osf}{biolinum}
+        \fi
         \RequirePackage{biolinum}
         \renewcommand*\familydefault{\biolinum@family}
     \else
@@ -327,7 +337,8 @@
         \setmainfont{LinBiolinum_R.otf}[
             BoldFont       = LinBiolinum_RB.otf ,
             ItalicFont     = LinBiolinum_RI.otf ,
-            BoldItalicFont = LinBiolinum_RBO.otf ]
+            BoldItalicFont = LinBiolinum_RBO.otf,
+            \if@colorclass@useosf Numbers = OldStyle\fi ]
     \fi
     \PJLsetlinespacing{\setstretch{1.05}}
     \RequirePackage[italic,defaultmathsizes]{mathastext}
