@@ -369,6 +369,7 @@
 \DeclareBoolOption[false]{puretext}
 \DeclareBoolOption[false]{nothms}
 \DeclareBoolOption[false]{allowbf}
+\DeclareBoolOption[false]{runin}
 \ProcessKeyvalOptions*\relax
 
 \if@colorist@draft
@@ -631,9 +632,19 @@
 }
 
 %% Subsubsection
+\if@colorist@runin
+\titleformat{\subsubsection}[runin]
+    {\color{maintext!70!paper}\subsubsecfont}{\thesubsubsection}{.5em}
+    {#1.}[\hspace*{.3em}]
+\else
 \titleformat{\subsubsection}
-    {\color{paper!30!-paper}\subsubsecfont}{\thesubsubsection}{.5em}
+    {\color{maintext!70!paper}\subsubsecfont}{\thesubsubsection}{.5em}
     {#1}
+\fi
+
+%% Paragraph
+\titleformat{\paragraph}[runin]
+    {\conditionalbfseries\scshape}{\theparagraph}{1em}{#1}
 
 \titlespacing{\section}{0pt}{\baselineskip}{.6\baselineskip}
 \titlespacing{\subsection}{0pt}{.75\baselineskip}{.4\baselineskip}
@@ -669,13 +680,13 @@
         {\addvspace{.15pc}\normalfont\colorist@sffamily}
         {\contentslabel{2.75em}}
         {\hspace*{-2.75em}}
-        {\titlerule*[1em]{\textcolor{maintext!15!paper}{.}}\color{paper!55!-paper}\contentspage}
+        {\titlerule*[1em]{\textcolor{maintext!15!paper}{.}}\color{maintext!45!paper}\contentspage}
     \titlecontents{subsubsection}
         [9em] % i.e., 7em (subsection) + 2em
         {\normalfont\colorist@sffamily}
         {\contentslabel{2.75em}}
         {\hspace*{-2.75em}}
-        {\titlerule*[1em]{\textcolor{maintext!15!paper}{.}}\contentspage}
+        {\titlerule*[1em]{\textcolor{maintext!15!paper}{.}}\color{maintext!45!paper}\contentspage}
 }{
 % For article
     \titlecontents{section}
@@ -689,13 +700,13 @@
         {\addvspace{.15pc}\normalfont\colorist@sffamily}
         {\contentslabel{2.75em}}
         {\hspace*{-2.75em}}
-        {\titlerule*[1em]{\textcolor{maintext!15!paper}{.}}\color{paper!55!-paper}\contentspage}
+        {\titlerule*[1em]{\textcolor{maintext!15!paper}{.}}\color{maintext!45!paper}\contentspage}
     \titlecontents{subsubsection}
         [7em] % i.e., 5em (subsection) + 2em
         {\normalfont\colorist@sffamily}
         {\contentslabel{2.75em}}
         {\hspace*{-2.75em}}
-        {\titlerule*[1em]{\textcolor{maintext!15!paper}{.}}\contentspage}
+        {\titlerule*[1em]{\textcolor{maintext!15!paper}{.}}\color{maintext!45!paper}\contentspage}
 }
 
 %%================================
