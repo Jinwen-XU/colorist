@@ -290,9 +290,6 @@
 \fi
 %</lebhart|beaulivre>
 
-\let\colorist@sffamily\sffamily
-\let\colorist@textsc\textsc
-
 \if@colorclass@palatino
     \RequirePackage{amssymb}
     \RequirePackage{mathpazo}
@@ -406,6 +403,9 @@
 
 \newif\ifIsBook
 \ifdefined\c@chapter\IsBooktrue\else\IsBookfalse\fi
+
+\let\colorist@sffamily\sffamily
+\let\colorist@textsc\textsc
 
 %%================================
 %% Title fonts
@@ -733,9 +733,10 @@
 %%================================
 \RequirePackage{enumitem}
 \setlist{noitemsep,leftmargin=2em}
-\renewcommand\labelitemi{\color{maintext!25}$\bullet$} 
-\renewcommand\labelitemii{\color{maintext!27}--}
-\renewcommand\labelitemiii{\color{maintext!27}\texttt{*}}
+\renewcommand\labelitemi{\textcolor{maintext!25}{$\bullet$}}
+% \renewcommand\labelitemi{\textcolor{maintext!50}{---}}
+\renewcommand\labelitemii{\textcolor{maintext!27}{--}}
+\renewcommand\labelitemiii{\textcolor{maintext!27}{\texttt{*}}}
 
 %%================================
 %% Blank page
