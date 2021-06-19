@@ -1,5 +1,5 @@
 %! TEX program = xelatex
-\documentclass[allowbf,puretext]{lebhart}
+\documentclass[Chinese,English,allowbf,puretext]{lebhart}
 
 \theoremstyle{basic}
 \CreateTheorem{definition}<highest>
@@ -16,7 +16,7 @@
 %%================================
 %% 引入工具集
 %%================================
-\usepackage{PJLtoolkit}
+\usepackage{ProjLib}
 \usepackage{longtable}  % breakable tables
 \usepackage{hologo}     % more TeX logo
 
@@ -46,7 +46,7 @@
 } 
 \providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
 \lstset{moretexcs=%
-    {href,color,NameTheorem,CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PJLdate,ProjLib
+    {subsubsection,href,color,NameTheorem,CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PJLdate,ProjLib
     }
 }
 \lstnewenvironment{code}% 
@@ -88,7 +88,7 @@
 
 \title{{\normalfont\textbf{\textsf{lebhart}}}，以多彩的方式排版你的文章}
 \author{许锦文}
-\thanks{对应版本. \texttt{\lebhart{} 2021/06/07}}
+\thanks{对应版本. \texttt{\lebhart{} 2021/06/23}}
 \date{2021年6月，北京}
 
 \maketitle
@@ -135,28 +135,42 @@
                 \item 启用 \ProjLib{} 工具箱的快速模式。
             \end{itemize}
         \end{itemize}
+\begin{tip}
+    在文章的撰写阶段，建议使用 \verb|fast| 选项以加快编译速度，改善写作时的流畅程度。在最后，可以把 \verb|fast| 标记去除，从而得到正式的版本。使用 \verb|fast| 模式时会有“DRAFT”字样的水印，以提示目前处于草稿阶段。
+\end{tip}
     \item \texttt{a4paper} 或 \texttt{b5paper}
         \begin{itemize}
             \item 可选的纸张大小。默认的纸张大小为 8.5in $\times$ 11in。
         \end{itemize}
-    \item \texttt{palatino}、\texttt{times}、\texttt{garamond}、\texttt{biolinum}
+    \item \texttt{palatino}、\texttt{times}、\texttt{garamond}、\texttt{biolinum} ~$|$~ \texttt{useosf}
         \begin{itemize}
             \item 字体选项。顾名思义，会加载相应名称的字体。
+            \item \texttt{useosf} 选项用来启用“旧式”数字。
         \end{itemize}
     \item \texttt{allowbf}
         \begin{itemize}
             \item 允许加粗。启用这一选项时，题目、各级标题、定理类环境名称会被加粗。
         \end{itemize}
+    \item \texttt{runin}
+        \begin{itemize}
+            \item \lstinline|\subsubsection| 采用 ``runin'' 风格。
+        \end{itemize}
+    \item \texttt{puretext} or \texttt{nothms}
+        \begin{itemize}
+            \item 纯文本模式，不加载定理类环境。
+        \end{itemize}
+    \item \texttt{nothmnum}
+        \begin{itemize}
+            \item 定理类环境不编号。
+        \end{itemize}
+    \item 语言选项 \texttt{EN} / \texttt{english} / \texttt{English}、\texttt{FR} / \texttt{french} / \texttt{French}，等等
+        \begin{itemize}
+            \item 具体选项名称可参见下一节的 \meta{language name}。第一个指定的语言将作为默认语言。
+        \end{itemize}
 \end{itemize}
 
-\begin{tip}
-    \begin{itemize}
-        \item 在文章的撰写阶段，建议使用 \verb|fast| 选项以加快编译速度，改善写作时的流畅程度。在最后，可以把 \verb|fast| 标记去除，从而得到正式的版本。使用 \verb|fast| 模式时会有“DRAFT”字样的水印，以提示目前处于草稿阶段。
-    \end{itemize}
-\end{tip}
 
-\medskip
-\section{关于文档类中使用的字体}
+\section{关于默认字体}
 \lebhart{} 默认使用 Palatino Linotype 作为英文字体，方正悠宋、悠黑GBK作为中文字体，并部分使用了 Neo Euler 作为数学字体。其中，Neo Euler可以在 \url{https://github.com/khaledhosny/euler-otf} 下载。其他字体不是免费的，需要自行购买使用，可在方正字库网站查询详细信息：\url{https://www.foundertype.com}。
 
 \begin{tip}[字体演示]
@@ -204,6 +218,7 @@
     \item 俄文：\texttt{RU} 或 \texttt{Russian}
 \end{itemize}
 
+\clearpage
 另外，还可以通过下面的方式来填加相应语言的设置：
 \begin{itemize}
     \item \lstinline|\AddLanguageSetting{|\meta{settings}\lstinline|}|
@@ -339,7 +354,8 @@
 \CreateTheorem*{proofidea*}
 \CreateTheorem{proofidea}<subsection>
 
-\bigskip
+% \bigskip
+\clearpage
 下面提供一个例子。这三行代码：
 
 \begin{code}
@@ -391,6 +407,7 @@
   \end{keyword}
 \end{code}
 
+\clearpage
 也可以按照 \AmS{} 文档类的方式来写：
 
 \begin{code}
@@ -446,7 +463,7 @@
 
 \begin{code}
 \documentclass{lebhart}
-\usepackage{PJLtoolkit} % Load ProjLib toolkit
+\usepackage{ProjLib} % Load ProjLib toolkit
 
 \UseLanguage{French} % Use French from here
 
@@ -484,7 +501,7 @@ Référence du théorème: \cref{thm:abc}
 \documentclass{article}
 \usepackage[a4paper,margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{PJLtoolkit} % Load ProjLib toolkit
+\usepackage[palatino]{ProjLib} % Load ProjLib toolkit
 \end{code}
 
 
@@ -495,7 +512,7 @@ Référence du théorème: \cref{thm:abc}
 
 \begin{code}
 \documentclass{lebhart}
-\usepackage{PJLtoolkit} % Load ProjLib toolkit
+\usepackage{ProjLib} % Load ProjLib toolkit
 
 \UseLanguage{French} % Use French from here
 
@@ -537,7 +554,7 @@ Référence du théorème: \cref{thm:abc}
 \documentclass{amsart}
 \usepackage[a4paper,margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{PJLtoolkit} % Load ProjLib toolkit
+\usepackage[palatino]{ProjLib} % Load ProjLib toolkit
 \end{code}
 
 \end{document}

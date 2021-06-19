@@ -1,5 +1,5 @@
 %! TEX program = xelatex
-\documentclass[allowbf,puretext]{lebhart}
+\documentclass[English,French,allowbf,puretext]{lebhart}
 
 \theoremstyle{basic}
 \CreateTheorem{definition}<highest>
@@ -16,7 +16,7 @@
 %%================================
 %% Import toolkit
 %%================================
-\usepackage{PJLtoolkit}
+\usepackage{ProjLib}
 \usepackage{longtable}  % breakable tables
 \usepackage{hologo}     % more TeX logo
 
@@ -44,7 +44,7 @@
 } 
 \providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
 \lstset{moretexcs=%
-    {href,color,NameTheorem,CreateTheorem,proofideanameEN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PJLdate,ProjLib
+    {subsubsection,href,color,NameTheorem,CreateTheorem,proofideanameEN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PJLdate,ProjLib
     }
 }
 \lstnewenvironment{code}% 
@@ -86,7 +86,7 @@
 
 \title{{\normalfont\textbf{\textsf{lebhart}}}, write your articles in a colorful way}
 \author{Jinwen XU}
-\thanks{Corresponding to: \texttt{\lebhart{} 2021/06/07}}
+\thanks{Corresponding to: \texttt{\lebhart{} 2021/06/23}}
 \date{June 2021, Beijing}
 
 \maketitle
@@ -132,27 +132,43 @@ as the first line to use the \lebhart{} class. Please note that you need to use 
                 \item Enable the fast mode of \ProjLib{} toolkit.
             \end{itemize}
         \end{itemize}
+\begin{tip}
+    During the draft stage, it is recommended to use the \verb|fast| option to speed up compilation. At the end, one should remove the ``fast'' option to get the final version. When in \verb|fast| mode, there will be a watermark ``DRAFT'' to indicate that you are currently in the draft mode.
+\end{tip}
+\medskip
     \item \texttt{a4paper} or \texttt{b5paper}
         \begin{itemize}
             \item Optional paper size. The default paper size is 8.5in $\times$ 11in.
         \end{itemize}
-    \item \texttt{palatino}, \texttt{times}, \texttt{garamond}, \texttt{biolinum}
+    \item \texttt{palatino}, \texttt{times}, \texttt{garamond}, \texttt{biolinum} ~$|$~ \texttt{useosf}
         \begin{itemize}
-            \item Font options. As the name suggest, font with corresponding name will be loaded.
+            \item Font options. As the name suggest, font with corresponding name will be loaded. 
+            \item The \texttt{useosf} option is used to enable the old-style figures.
         \end{itemize}
     \item \texttt{allowbf}
         \begin{itemize}
             \item Allow boldface. When this option is enabled, the title, titles of all levels and names of theorem-like environments will be bolded.
         \end{itemize}
+    \item \texttt{runin}
+        \begin{itemize}
+            \item Use the ``runin'' style for \lstinline|\subsubsection|
+        \end{itemize}
+    \item \texttt{puretext} or \texttt{nothms}
+        \begin{itemize}
+            \item Pure text mode. Does not load theorem-like environments.
+        \end{itemize}
+    \item \texttt{nothmnum}
+        \begin{itemize}
+            \item Theorem-like environments will not be numbered.
+        \end{itemize}
+    \item The language options \texttt{EN} / \texttt{english} / \texttt{English}, \texttt{FR} / \texttt{french} / \texttt{French}, etc.
+        \begin{itemize}
+            \item For the option names of a specific language, please refer to \meta{language name} in the next section. The first specified language will be used as the default language.
+        \end{itemize}
 \end{itemize}
 
-\begin{tip}
-    \begin{itemize}
-        \item During the draft stage, it is recommended to use the \verb|fast| option to speed up compilation. At the end, one should remove the ``fast'' option to get the final version. When in \verb|fast| mode, there will be a watermark ``DRAFT'' to indicate that you are currently in the draft mode.
-    \end{itemize}
-\end{tip}
-
-\section{On the fonts}
+\clearpage
+\section{On the default fonts}
 By default, \lebhart{} uses Palatino Linotype as the English font, FounderType's YouSong and YouHei GBK as the Chinese fonts, and partially uses Neo Euler as the math font. Among them, Neo Euler can be downloaded at \url{https://github.com/khaledhosny/euler-otf}. The other fonts are not free, you need to purchase and install them on your own. (For the Chinese fonts, visit FounderType's website for detail: \url{https://www.foundertype.com} ).
 
 \begin{tip}[Font demonstration]
@@ -194,7 +210,8 @@ Many of the features described next are provided by the \ProjLib{} toolkit. Only
     \item Russian: \texttt{RU} or \texttt{Russian}
 \end{itemize}
 
-\medskip
+% \medskip
+\clearpage
 In addition, you can also add new settings to selected language:
 \begin{itemize}
     \item \lstinline|\AddLanguageSetting{|\meta{settings}\lstinline|}|
@@ -330,7 +347,8 @@ And then define this environment in one of following five ways:
 \CreateTheorem*{proofidea*}
 \CreateTheorem{proofidea}<subsection>
 
-\bigskip
+% \bigskip
+\clearpage
 Here is an example. The following code:
 \begin{code}
   \NameTheorem[EN]{proofidea}{Idea}
@@ -347,6 +365,7 @@ defines an unnumbered environment \lstinline|proofidea*| and a numbered environm
     The \lstinline|proofidea| environment.
 \end{proofidea}
 
+\medskip
 \subsection{Draft mark}
 
 You can use \lstinline|\dnf| to mark the unfinished part. For example:
@@ -377,7 +396,7 @@ Therefore, the title part can either be written in the usual way, in accordance 
       (*\meta{keywords}*)
   \end{keyword}
 \end{code}
-
+\clearpage
 or written in the way of \AmS{} classes:
 
 \begin{code}
@@ -429,7 +448,7 @@ If you want to write in the standard way, you can refer to the following example
 
 \begin{code}
 \documentclass{lebhart}
-\usepackage{PJLtoolkit} % Load ProjLib toolkit
+\usepackage{ProjLib} % Load ProjLib toolkit
 
 \UseLanguage{French} % Use French from here
 
@@ -467,7 +486,7 @@ If you wish to switch to the standard class later, just replace the first two li
 \documentclass{article}
 \usepackage[a4paper,margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{PJLtoolkit} % Load ProjLib toolkit
+\usepackage[palatino]{ProjLib} % Load ProjLib toolkit
 \end{code}
 
 
@@ -478,7 +497,7 @@ If you intend to switch to the journal template in the future and thus want to u
 
 \begin{code}
 \documentclass{lebhart}
-\usepackage{PJLtoolkit} % Load ProjLib toolkit
+\usepackage{ProjLib} % Load ProjLib toolkit
 
 \UseLanguage{French} % Use French from here
 
@@ -520,7 +539,7 @@ In this way, if you wish to switch to \AmS{} class later, just replace the first
 \documentclass{amsart}
 \usepackage[a4paper,margin=1in]{geometry}
 \usepackage[hidelinks]{hyperref}
-\usepackage[palatino]{PJLtoolkit} % Load ProjLib toolkit
+\usepackage[palatino]{ProjLib} % Load ProjLib toolkit
 \end{code}
 
 \end{document}
