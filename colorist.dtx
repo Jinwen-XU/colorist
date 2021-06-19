@@ -384,6 +384,7 @@
 \DeclareBoolOption[false]{fast}
 \DeclareBoolOption[false]{puretext}
 \DeclareBoolOption[false]{nothms}
+\DeclareBoolOption[false]{nothmnum}
 \DeclareBoolOption[false]{allowbf}
 \DeclareBoolOption[false]{runin}
 \ProcessKeyvalOptions*\relax
@@ -1100,6 +1101,17 @@
     \newaliascnt{highest}{section}
 }
 \if@colorist@nothms\else
+\if@colorist@nothmnum
+\CreateTheorem*{theorem}
+\CreateTheorem*{lemma}
+\CreateTheorem*{proposition}
+\CreateTheorem*{corollary}
+\CreateTheorem*{definition-proposition}
+\CreateTheorem*{definition-theorem}
+\CreateTheorem*{property}
+\CreateTheorem*{fact}
+\CreateTheorem*{conjecture}
+\else
 \CreateTheorem{theorem}<highest>
 \CreateTheorem{lemma}[theorem]
 \CreateTheorem{proposition}[theorem]
@@ -1109,6 +1121,7 @@
 \CreateTheorem{property}[theorem]
 \CreateTheorem{fact}[theorem]
 \CreateTheorem{conjecture}[theorem]
+\fi
 \CreateTheorem*{theorem*}
 \CreateTheorem*{lemma*}
 \CreateTheorem*{proposition*}
@@ -1119,6 +1132,18 @@
 \CreateTheorem*{fact*}
 \CreateTheorem*{conjecture*}
 %
+\if@colorist@nothmnum
+\CreateTheorem*{definition}
+\CreateTheorem*{axiom}
+\CreateTheorem*{assumption}
+\CreateTheorem*{convention}
+\CreateTheorem*{hypothesis}
+\CreateTheorem*{notation}
+\CreateTheorem*{example}
+\CreateTheorem*{problem}
+\CreateTheorem*{question}
+\CreateTheorem*{exercise}
+\else
 \CreateTheorem{definition}[theorem]
 \CreateTheorem{axiom}[theorem]
 \CreateTheorem{assumption}[theorem]
@@ -1129,6 +1154,7 @@
 \CreateTheorem{problem}[theorem]
 \CreateTheorem{question}[theorem]
 \CreateTheorem{exercise}[theorem]
+\fi
 \CreateTheorem*{definition*}
 \CreateTheorem*{axiom*}
 \CreateTheorem*{assumption*}
@@ -1141,9 +1167,14 @@
 \CreateTheorem*{exercise*}
 
 \theoremstyle{emphasis}
+\if@colorist@nothmnum
+\CreateTheorem*{remark}
+\CreateTheorem*{observation}
+\else
 \CreateTheorem{remark}<highest>
-\CreateTheorem*{remark*}
 \CreateTheorem{observation}<highest>
+\fi
+\CreateTheorem*{remark*}
 \CreateTheorem*{observation*}
 \fi
 
