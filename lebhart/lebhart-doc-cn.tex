@@ -1,5 +1,5 @@
 %! TEX program = xelatex
-\documentclass[Chinese,English,allowbf,puretext]{lebhart}
+\documentclass[Chinese,English,French,allowbf,puretext]{lebhart}
 
 \theoremstyle{basic}
 \CreateTheorem{definition}<highest>
@@ -46,7 +46,7 @@
 } 
 \providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
 \lstset{moretexcs=%
-    {subsubsection,href,color,NameTheorem,CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PJLdate,ProjLib
+    {subsubsection,href,color,NameTheorem,CreateTheorem,proofideanameCN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,ProjLib
     }
 }
 \lstnewenvironment{code}% 
@@ -88,7 +88,7 @@
 
 \title{{\normalfont\textbf{\textsf{lebhart}}}，以多彩的方式排版你的文章}
 \author{许锦文}
-\thanks{对应版本. \texttt{\lebhart{} 2021/06/23}}
+\thanks{对应版本. \texttt{\lebhart{} 2021/06/30}}
 \date{2021年6月，北京}
 
 \maketitle
@@ -103,7 +103,7 @@
 
 \tableofcontents
 
-\bigskip\bigskip
+\vspace{2\baselineskip}
 \begin{tip}
     多语言支持、定理类环境、未完成标记等功能是由 \ProjLib{} 工具箱提供的，这里只给出了将其与本文档类搭配使用的要点。如需获取更详细的信息，可以参阅 \ProjLib{} 的说明文档。
 \end{tip}
@@ -126,6 +126,10 @@
 \lebhart{} 文档类有下面几个选项：
 
 \begin{itemize}
+    \item 语言选项 \texttt{EN} / \texttt{english} / \texttt{English}、\texttt{FR} / \texttt{french} / \texttt{French}，等等
+        \begin{itemize}
+            \item 具体选项名称可参见下一节的 \meta{language name}。第一个指定的语言将作为默认语言。
+        \end{itemize}
     \item \texttt{draft} 或 \texttt{fast}
         \begin{itemize}
             \item 你可以使用选项 \verb|fast| 来启用快速但略微粗糙的样式，主要区别是：
@@ -136,7 +140,7 @@
             \end{itemize}
         \end{itemize}
 \begin{tip}
-    在文章的撰写阶段，建议使用 \verb|fast| 选项以加快编译速度，改善写作时的流畅程度。在最后，可以把 \verb|fast| 标记去除，从而得到正式的版本。使用 \verb|fast| 模式时会有“DRAFT”字样的水印，以提示目前处于草稿阶段。
+    在文章的撰写阶段，建议使用 \verb|fast| 选项以加快编译速度，改善写作时的流畅度。使用 \verb|fast| 模式时会有“DRAFT”字样的水印，以提示目前处于草稿阶段。
 \end{tip}
     \item \texttt{a4paper} 或 \texttt{b5paper}
         \begin{itemize}
@@ -163,13 +167,9 @@
         \begin{itemize}
             \item 定理类环境不编号。
         \end{itemize}
-    \item 语言选项 \texttt{EN} / \texttt{english} / \texttt{English}、\texttt{FR} / \texttt{french} / \texttt{French}，等等
-        \begin{itemize}
-            \item 具体选项名称可参见下一节的 \meta{language name}。第一个指定的语言将作为默认语言。
-        \end{itemize}
 \end{itemize}
 
-
+\clearpage
 \section{关于默认字体}
 \lebhart{} 默认使用 Palatino Linotype 作为英文字体，方正悠宋、悠黑GBK作为中文字体，并部分使用了 Neo Euler 作为数学字体。其中，Neo Euler可以在 \url{https://github.com/khaledhosny/euler-otf} 下载。其他字体不是免费的，需要自行购买使用，可在方正字库网站查询详细信息：\url{https://www.foundertype.com}。
 
@@ -471,7 +471,7 @@
 
 \title{Le Titre}
 \author{Auteur}
-\date{\PJLdate{2022-04-01}}
+\date{\PLdate{2022-04-01}}
 
 \maketitle
 
@@ -525,7 +525,7 @@ Référence du théorème: \cref{thm:abc}
 \author{Auteur 1}
 \address{Adresse 1}
 \email{\href{Courriel 2}{Courriel 2}}
-\date{\PJLdate{2022-04-01}}
+\date{\PLdate{2022-04-01}}
 \subjclass{*****}
 \keywords{...}
 
