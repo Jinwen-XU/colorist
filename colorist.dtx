@@ -18,31 +18,31 @@
 %
 %<*colorart>
 \ProvidesClass{colorart}
-    [2021/06/23 A colorful article style]
+    [2021/06/30 A colorful article style]
 \def\colorclass@baseclass{article}
 %</colorart>
 %
 %<*colorbook>
 \ProvidesClass{colorbook}
-    [2021/06/23 A colorful book style]
+    [2021/06/30 A colorful book style]
 \def\colorclass@baseclass{book}
 %</colorbook>
 %
 %<*lebhart>
 \ProvidesClass{lebhart}
-    [2021/06/23 A colorful article style]
+    [2021/06/30 A colorful article style]
 \def\colorclass@baseclass{article}
 %</lebhart>
 %
 %<*beaulivre>
 \ProvidesClass{beaulivre}
-    [2021/06/23 A colorful book style]
+    [2021/06/30 A colorful book style]
 \def\colorclass@baseclass{book}
 %</beaulivre>
 %
 %<*colorist>
 \ProvidesPackage{colorist}
-    [2021/06/23 A colorful style for articles and books]
+    [2021/06/30 A colorful style for articles and books]
 %</colorist>
 %
 \RequirePackage{kvoptions}
@@ -273,7 +273,7 @@
 \setmathfont[range={up/{Latin,latin,Greek,greek},
                     bfup/{Latin,latin,Greek,greek},
                     cal, bfcal, frak, bffrak,
-                    `(,`),`[,`],`\{,`\},`:,`=,`/,\backslash,
+                    `(,`),`[,`],`\{,`\},`:,`=,\ne,\equiv,`/,\backslash,
                     \in,\notin,\ni,\subset,\supset,\subseteq,\supseteq,
                     \rightarrow,\leftarrow,\mapsto,\hookrightarrow,\hookleftarrow,
                     \sum,\prod,\coprod,
@@ -283,6 +283,9 @@
               Scale = 1.05,
             ]{Neo Euler}
 }{}
+\setmathfont[range={\leq,\geq,\ll,\gg,\lll,\ggg,\leqslant,\geqslant},
+              Scale = 0.95,
+            ]{latinmodern-math.otf}
 % \setmathfont[range={bfup/num, it, bfit, scr, bfscr,
 %                     sfup, sfit, bfsfup, bfsfit, tt, bfcal}
 %             ]{Asana-Math.otf}
