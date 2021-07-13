@@ -89,7 +89,6 @@
 
 %# 下面的代码设定了一些选项之间的关系
 %# The following code sets the relationship between some options
-\if@minimclass@draft
 \if@colorclass@draft
     \@colorclass@fasttrue
 \fi
@@ -374,6 +373,7 @@
 
 %# 接下来使用 tikz-cd 重定义可伸缩箭头，默认的箭头有些粗细不均
 %# The following uses tikz-cd to define retractable arrows to avoid problems with unicode-math.
+\RequirePackage{tikz-cd}
 \newbox\xratbelow
 \newbox\xratabove
 % Redefine \xrightarrow[below]{above}
@@ -904,7 +904,7 @@
 \titlecontents{part}
     [0em]
     {\addvspace{1.5pc}\filcenter\colorist@sffamily}
-    {\thecontentslabel\\\uppercase}
+    {\thecontentslabel\nopagebreak\\\nopagebreak\uppercase}
     {}
     {} % without page number
     [\addvspace{.5pc}]
