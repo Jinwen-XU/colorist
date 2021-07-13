@@ -1,3 +1,10 @@
 .DS_Store
 *.cls
 *.sty
+colorist/colorist-doc.tex
+lebhart/lebhart-doc-cn.tex
+beaulivre/beaulivre-doc-cn.tex
+lebhart/lebhart-doc-en.tex
+beaulivre/beaulivre-doc-en.tex
+lebhart/lebhart-doc-fr.tex
+beaulivre/beaulivre-doc-fr.tex
