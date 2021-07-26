@@ -18,31 +18,31 @@
 %
 %<*colorart>
 \ProvidesClass{colorart}
-    [2021/07/15 A colorful article style]
+    [2021/07/27 A colorful article style]
 \def\colorclass@baseclass{article}
 %</colorart>
 %
 %<*colorbook>
 \ProvidesClass{colorbook}
-    [2021/07/15 A colorful book style]
+    [2021/07/27 A colorful book style]
 \def\colorclass@baseclass{book}
 %</colorbook>
 %
 %<*lebhart>
 \ProvidesClass{lebhart}
-    [2021/07/15 A colorful article style]
+    [2021/07/27 A colorful article style]
 \def\colorclass@baseclass{article}
 %</lebhart>
 %
 %<*beaulivre>
 \ProvidesClass{beaulivre}
-    [2021/07/15 A colorful book style]
+    [2021/07/27 A colorful book style]
 \def\colorclass@baseclass{book}
 %</beaulivre>
 %
 %<*colorist>
 \ProvidesPackage{colorist}
-    [2021/07/15 A colorful style for articles and books]
+    [2021/07/27 A colorful style for articles and books]
 %</colorist>
 %
 %# 下面两行引入宏包的代码是所有文件共用的。
@@ -2142,7 +2142,8 @@
 %%================================
 %# 引入 ProjLib 中用于模拟 AMS 文档类写法的模块
 %# Introduce the module of ProjLib that emulates the writing style in AMS classes
-\RequirePackage{PJLamssim}
+\PassOptionsToPackage{amsfashion}{PJLauthor}
+\RequirePackage{PJLauthor}
 
 }
 %</colorist>
