@@ -18,31 +18,31 @@
 %
 %<*colorart>
 \ProvidesClass{colorart}
-    [2021/07/27 A colorful article style]
+    [2021/07/30 A colorful article style]
 \def\colorclass@baseclass{article}
 %</colorart>
 %
 %<*colorbook>
 \ProvidesClass{colorbook}
-    [2021/07/27 A colorful book style]
+    [2021/07/30 A colorful book style]
 \def\colorclass@baseclass{book}
 %</colorbook>
 %
 %<*lebhart>
 \ProvidesClass{lebhart}
-    [2021/07/27 A colorful article style]
+    [2021/07/30 A colorful article style]
 \def\colorclass@baseclass{article}
 %</lebhart>
 %
 %<*beaulivre>
 \ProvidesClass{beaulivre}
-    [2021/07/27 A colorful book style]
+    [2021/07/30 A colorful book style]
 \def\colorclass@baseclass{book}
 %</beaulivre>
 %
 %<*colorist>
 \ProvidesPackage{colorist}
-    [2021/07/27 A colorful style for articles and books]
+    [2021/07/30 A colorful style for articles and books]
 %</colorist>
 %
 %# 下面两行引入宏包的代码是所有文件共用的。
@@ -69,6 +69,7 @@
 \DeclareBoolOption[false]{palatino}
 \DeclareBoolOption[false]{times}
 \DeclareBoolOption[false]{garamond}
+\DeclareBoolOption[false]{noto}
 \DeclareBoolOption[false]{biolinum}
 %# 这一个选项用于表明要采用自定义的字体而不是默认字体
 %# This option is used to indicate that one uses a custom font instead of the default font
@@ -99,6 +100,9 @@
     \@colorclass@customfonttrue
 \fi
 \if@colorclass@garamond
+    \@colorclass@customfonttrue
+\fi
+\if@colorclass@noto
     \@colorclass@customfonttrue
 \fi
 \if@colorclass@biolinum
@@ -491,6 +495,16 @@
     \PJLsetlinespacing{\setstretch{1.00}}
 %<colorart|colorbook>    \let\colorist@textsc\relax
 %<lebhart|beaulivre>    \let\colorist@sffamily\relax
+\fi
+
+\if@colorclass@noto
+    \RequirePackage{amssymb}
+    \if@colorclass@useosf
+        \PassOptionsToPackage{oldstyle}{notomath}
+    \fi
+    \RequirePackage{anyfontsize}
+    \RequirePackage{notomath}
+    \PJLsetlinespacing{\setstretch{1.00}}
 \fi
 
 \if@colorclass@biolinum
