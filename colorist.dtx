@@ -583,6 +583,9 @@
 %# 定理类环境不编号
 %# No numbering for theorem-like environments
 \DeclareBoolOption[false]{nothmnum}
+%# 指定如何编号定理类环境
+%# Number theorem-like environments With ...
+\DeclareStringOption{thmnum}[colorist@thmnum@default]
 %# 允许标题中的粗体
 %# Allow bold faces in the titles
 \DeclareBoolOption[false]{allowbf}
@@ -1379,11 +1382,6 @@
 %# 建立定理类环境
 %# Set-up theorem-like environments
 \theoremstyle{basic}
-\ifbool{IsBook}{
-    \newaliascnt{highest}{chapter}
-}{
-    \newaliascnt{highest}{section}
-}
 \if@colorist@nothms\else
 \if@colorist@nothmnum
 \CreateTheorem*{theorem}
@@ -1396,7 +1394,7 @@
 \CreateTheorem*{fact}
 \CreateTheorem*{conjecture}
 \else
-\CreateTheorem{theorem}<highest>
+\CreateTheorem@thmnum{theorem}
 \CreateTheorem{lemma}[theorem]
 \CreateTheorem{proposition}[theorem]
 \CreateTheorem{corollary}[theorem]
@@ -1455,14 +1453,12 @@
 \CreateTheorem*{remark}
 \CreateTheorem*{observation}
 \else
-\CreateTheorem{remark}<highest>
-\CreateTheorem{observation}<highest>
+\CreateTheorem@thmnum{remark}
+\CreateTheorem@thmnum{observation}
 \fi
 \CreateTheorem*{remark*}
 \CreateTheorem*{observation*}
 \fi
-
-\numberwithin{equation}{highest}
 
 %# 设置 cref 的 label，这主要是为了在引用多个对象时，使每个对象的颜色都能正确显示
 %# Set the labels of cref, this is mainly to make the color of the name of each object be displayed correctly when multiple objects are referenced

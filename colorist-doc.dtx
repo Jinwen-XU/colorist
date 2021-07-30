@@ -15,21 +15,9 @@
 \ProvidesFile{colorist-doc.dtx}
 %</driver>
 %
-%<colorist-doc>\documentclass[English,Chinese,French,allowbf,puretext]{colorart}
-%<lebhart-doc-cn,lebhart-doc-en,lebhart-doc-fr>\documentclass[English,Chinese,French,allowbf,puretext]{lebhart}
-%<beaulivre-doc-cn,beaulivre-doc-en,beaulivre-doc-fr>\documentclass[English,Chinese,French,allowbf,puretext]{beaulivre}
-
-\theoremstyle{basic}
-\CreateTheorem{definition}<highest>
-\CreateTheorem{theorem}[definition]
-\CreateTheorem{conjecture}[definition]
-\CreateTheorem*{example*}
-\CreateTheorem{problem}[definition]
-
-\theoremstyle{emphasis}
-\CreateTheorem{remark}<highest>
-
-\theoremstyle{simple}
+%<colorist-doc>\documentclass[English,Chinese,French,allowbf]{colorart}
+%<lebhart-doc-cn,lebhart-doc-en,lebhart-doc-fr>\documentclass[English,Chinese,French,allowbf]{lebhart}
+%<beaulivre-doc-cn,beaulivre-doc-en,beaulivre-doc-fr>\documentclass[English,Chinese,French,allowbf]{beaulivre}
 
 %%================================
 %% Import toolkit
@@ -261,7 +249,7 @@
 %
 %<*lebhart-doc-fr>
 \begin{abstract}
-    \lebhart{} fait partie de la série de classes \colorist{}, dont le nom est tiré du mot allemand « lebhaft » (animé), combiné avec les trois premières lettres de « artikel » (article) . L'ensemble de la collection comprend \colorart{} et \lebhart{} pour la composition d'articles, et \colorbook{} et \beaulivre{} pour celle des livres. Mon intention initiale en les concevant était d'écrire des brouillons et des notes qui ont l'air coloré mais pas éblouissant.
+    \lebhart{} fait partie de la série de classes \colorist{}, dont le nom est tiré du mot allemand «~lebhaft~» (animé), combiné avec les trois premières lettres de «~artikel~» (article) . L'ensemble de la collection comprend \colorart{} et \lebhart{} pour la composition d'articles, et \colorbook{} et \beaulivre{} pour celle des livres. Mon intention initiale en les concevant était d'écrire des brouillons et des notes qui ont l'air coloré mais pas éblouissant.
 
     \lebhart{} prend en charge plusieurs langues, notamment le chinois (simplifié et traditionnel), l'anglais, le français, l'allemand, l'italien, le japonais, le portugais (européen et brésilien), le russe et l'espagnol. Ces langues peuvent être commutées de manière transparente dans un seul document. En raison de l'utilisation de polices personnalisées, \lebhart{} demande soit \hologo{XeLaTeX} soit \hologo{LuaLaTeX} pour la compilation.
 
@@ -304,7 +292,7 @@ This documentation is typeset using \beaulivre{} (with the option \texttt{allowb
 %<*beaulivre-doc-fr>
 \chapter*{Préface}
 
-\beaulivre{} fait partie de la série de classes \colorist{}, dont le nom est tiré des mots « beau » et « livre ». L'ensemble de la collection comprend \colorart{} et \lebhart{} pour la composition d'articles, et \colorbook{} et \beaulivre{} pour celle des livres. Mon intention initiale en les concevant était d'écrire des brouillons et des notes qui ont l'air coloré mais pas éblouissant.
+\beaulivre{} fait partie de la série de classes \colorist{}, dont le nom est tiré des mots «~beau~» et «~livre~». L'ensemble de la collection comprend \colorart{} et \lebhart{} pour la composition d'articles, et \colorbook{} et \beaulivre{} pour celle des livres. Mon intention initiale en les concevant était d'écrire des brouillons et des notes qui ont l'air coloré mais pas éblouissant.
 
 \beaulivre{} prend en charge plusieurs langues, notamment le chinois (simplifié et traditionnel), l'anglais, le français, l'allemand, l'italien, le japonais, le portugais (européen et brésilien), le russe et l'espagnol. Ces langues peuvent être commutées de manière transparente dans un seul document. En raison de l'utilisation de polices personnalisées, \beaulivre{} demande soit \hologo{XeLaTeX} soit \hologo{LuaLaTeX} pour la compilation.
 
@@ -675,7 +663,7 @@ Initialization is straightforward. The first line loads the document class \beau
 %</beaulivre-doc-en>
 %
 %<*lebhart-doc-cn>
-\clearpage
+\bigskip
 \LevelThreeTitle{初始化部分}
 
 \medskip
@@ -700,7 +688,7 @@ Initialization is straightforward. The first line loads the document class \beau
 %</beaulivre-doc-cn>
 %
 %<*lebhart-doc-fr>
-\clearpage
+\bigskip
 \LevelThreeTitle{Initialisation}
 
 \medskip
@@ -1099,7 +1087,7 @@ If you like the current document class, but want a more ``plain'' style, then yo
 %
 %<*lebhart-doc-fr>
 \begin{tip}
-Si vous aimez la classe de document actuelle, mais que vous souhaitez un style plus « simple », vous pouvez utiliser l'option \texttt{classical}, comme ceci :
+Si vous aimez la classe de document actuelle, mais que vous souhaitez un style plus «~simple~», vous pouvez utiliser l'option \texttt{classical}, comme ceci :
 
 \begin{code}
 %<colorist-doc>\documentclass[classical]{colorart}
@@ -1112,6 +1100,7 @@ Si vous aimez la classe de document actuelle, mais que vous souhaitez un style p
 
 
 %<*colorist-doc>
+\vspace{1.5\baselineskip}
 \LevelTwoTitle{Example - \colorbook}
 
 Now let's look at an example of \colorbook{} (the same works for \beaulivre{}).
@@ -1174,7 +1163,7 @@ When the corresponding font is not installed, fonts that comes with TeX Live wil
 %</lebhart-doc-en,beaulivre-doc-en>
 %
 %<*lebhart-doc-cn,beaulivre-doc-cn>
-%<lebhart-doc-cn>\clearpage
+%<lebhart-doc-cn>\bigskip
 \LevelOneTitle{关于默认字体}
 \lebhart{} 默认使用 Palatino Linotype 作为英文字体，方正悠宋、悠黑GBK作为中文字体，并部分使用了 Neo Euler 作为数学字体。其中，Neo Euler可以在 \url{https://github.com/khaledhosny/euler-otf} 下载。其他字体不是免费字体，需要自行购买使用。可以在方正字库网站查询详细资料：\url{https://www.foundertype.com}。
 
@@ -1207,6 +1196,7 @@ Lorsque la police correspondante n'est pas installée, les polices fournies avec
 
 
 %<*colorist-doc,lebhart-doc-en,beaulivre-doc-en>
+%<colorist-doc>\clearpage
 \LevelOneTitle{The options}
 
 %<colorist-doc>\colorist{} offers the following options: 
@@ -1254,9 +1244,15 @@ Lorsque la police correspondante n'est pas installée, les polices fournies avec
         \begin{itemize}
             \item Pure text mode. Does not load theorem-like environments.
         \end{itemize}
-    \item \texttt{nothmnum}
+    \item \texttt{nothmnum}, \texttt{thmnum} or \texttt{thmnum=}\meta{counter}
         \begin{itemize}
-            \item Theorem-like environments will not be numbered.
+            \item Theorem-like environments will not be numbered / numbered in order 1, 2, 3... / numbered within \meta{counter}. Here, \meta{counter} should be a built-in counter (such as \texttt{subsection}) or a custom counter defined in the preamble. If no option is used, they will be numbered within \texttt{chapter} (book) or \texttt{section} (article).
+        \end{itemize}
+%<beaulivre-doc-en>\clearpage
+    \item \texttt{regionalref}, \texttt{originalref}
+        \begin{itemize}
+            \item When referencing, whether the name of the theorem-like environment changes with the current language. The default is \texttt{regionalref}, \emph{i.e.}, the name corresponding to the current language is used; for example, when referencing a theorem-like environment in English context, the names "Theorem, Definition..." will be used no matter which language context the original environment is in. If \texttt{originalref} is enabled, then the name will always remain the same as the original place; for example, when referencing a theorem written in the French context, even if one is currently in the English context, it will still be displayed as ``Théorème''. 
+            \item In \texttt{fast} mode, the option \texttt{originalref} will have no effect.
         \end{itemize}
 \end{itemize}
 %</colorist-doc,lebhart-doc-en,beaulivre-doc-en>
@@ -1282,6 +1278,7 @@ In addition, the commonly used \texttt{oneside} and \texttt{twoside} options are
 %</beaulivre-doc-en>
 %
 %<*lebhart-doc-cn,beaulivre-doc-cn>
+%<lebhart-doc-cn>\clearpage
 \LevelOneTitle{选项}
 
 %<lebhart-doc-cn>\lebhart{} 文档类有下面几个选项：
@@ -1326,9 +1323,14 @@ In addition, the commonly used \texttt{oneside} and \texttt{twoside} options are
         \begin{itemize}
             \item 纯文本模式，不加载定理类环境。
         \end{itemize}
-    \item \texttt{nothmnum}
+    \item \texttt{nothmnum}、\texttt{thmnum} 或 \texttt{thmnum=}\meta{counter}
         \begin{itemize}
-            \item 定理类环境不编号。
+            \item 定理类环境均不编号 / 按照 1、2、3 顺序编号 / 在 \meta{counter} 内编号。其中 \meta{counter} 应该是自带的计数器 (如 \texttt{subsection}) 或在导言部分自定义的计数器。在没有使用任何选项的情况下将按照 \texttt{chapter} (书) 或 \texttt{section} (文章) 编号。
+        \end{itemize}
+    \item \texttt{regionalref}、\texttt{originalref}
+        \begin{itemize}
+            \item 在智能引用时，定理类环境的名称是否随当前语言而变化。默认为 \texttt{regionalref}，即引用时采用当前语言对应的名称；例如，在中文语境中引用定理类环境时，无论原环境处在什么语境中，都将使用名称“定理、定义……”。若启用 \texttt{originalref}，则引用时会始终采用定理类环境所处语境下的名称；例如，在英文语境中书写的定理，即使稍后在中文语境下引用时，仍将显示为 Theorem。
+            \item 在 \texttt{fast} 模式下，\texttt{originalref} 将不起作用。
         \end{itemize}
 \end{itemize}
 %</lebhart-doc-cn,beaulivre-doc-cn>
@@ -1377,15 +1379,20 @@ In addition, the commonly used \texttt{oneside} and \texttt{twoside} options are
         \end{itemize}
     \item \texttt{runin}
         \begin{itemize}
-            \item Utilisez le style « runin » pour \lstinline|\subsubsection|
+            \item Utilisez le style «~runin~» pour \lstinline|\subsubsection|
         \end{itemize}
     \item \texttt{puretext} ou \texttt{nothms}
         \begin{itemize}
             \item Mode texte pur. Ne pas définir les environnements de type théorème.
         \end{itemize}
-    \item \texttt{nothmnum}
+    \item \texttt{nothmnum}, \texttt{thmnum} ou \texttt{thmnum=}\meta{counter}
         \begin{itemize}
-            \item Ne pas numéroter les environnements de type théorème.
+            \item Les environnements de type théorème ne seront pas numérotés / numérotés dans l'ordre 1, 2, 3... / numérotés dans \meta{counter}. Ici, \meta{counter} doit être un compteur intégré (tel que \texttt{subsection}) ou un compteur défini dans le préambule. Si aucune option n'est utilisée, ils seront numérotés dans \texttt{chapter} (livre) ou \texttt{section} (article).
+        \end{itemize}
+    \item \texttt{regionalref}, \texttt{originalref}
+        \begin{itemize}
+            \item Lors du référencement, si le nom de l'environnement de type théorème change avec la langue actuelle. Par défaut \texttt{regionalref} est activé, c'est-à-dire que le nom correspondant à la langue courante est utilisé ; par exemple, lors du référencement d'un environnement de type théorème dans un contexte français, les noms «~Théorème, Définition ...~» seront utilisés quel que soit le contexte linguistique dans lequel se trouve l'environnement d'origine. Si \texttt{originalref} est activé, alors le nom restera toujours le même que l'environnement d'origine ; par exemple, lors du référencement d'un théorème écrit dans le contexte français, même si l'on est actuellement dans le contexte anglais, il sera toujours affiché comme «~Théorème~». 
+            \item En mode \texttt{fast}, l'option \texttt{originalref} n'aura aucun effet.
         \end{itemize}
 \end{itemize}
 %</lebhart-doc-fr,beaulivre-doc-fr>
@@ -1565,7 +1572,8 @@ After using \lstinline|\UseLanguage{French}|, a theorem will be displayed as:
     Un théorème en français.
 \end{theorem}
 
-By default, when referenced, the name of the theorem always matches the language of the context in which the theorem is located. For example, the definition above is still displayed in English in the current French mode: \cref{def: strange} and \cref{thm}. If you want the name of the theorem to match the current context when referencing, you can add \texttt{regionalref} to the global options.
+% By default, when referenced, the name of the theorem always matches the language of the context in which the theorem is located. For example, the definition above is still displayed in English in the current French mode: \cref{def: strange} and \cref{thm}. If you want the name of the theorem to match the current context when referencing, you can add \texttt{regionalref} to the global options.
+By default, when referenced, the name of the theorem matches the current context. For example, the definition above will be displayed in French in the current French context: \cref{def: strange,thm}. If you want the name of the theorem to always match the language of the context in which the theorem is located, you can add \texttt{originalref} to the global options.
 \end{tip}
 
 \UseLanguage{English}
@@ -1637,7 +1645,8 @@ For aesthetics, adjacent definitions will be connected together automatically:
     A theorem in English.
 \end{theorem}
 
-默认情况下，引用时，定理的名称总是与定理所在区域的语言匹配，例如，上面的定义在现在的英文模式下依然显示为中文：\cref{def: strange} 和 \cref{thm}。如果在引用时想让定理的名称与当前语境相匹配，可以在全局选项中加入 \texttt{regionalref}。
+% 默认情况下，引用时，定理的名称总是与定理所在区域的语言匹配，例如，上面的定义在现在的英文模式下依然显示为中文：\cref{def: strange} 和 \cref{thm}。如果在引用时想让定理的名称与当前语境相匹配，可以在全局选项中加入 \texttt{regionalref}。
+默认情况下，引用时，定理类环境的名称总是与当前语言相匹配，例如，上面的定义在现在的英文模式下将显示为英文：\cref{def: strange,thm}。如果在引用时想让定理的名称总是与原定理所在区域的语言匹配，即总是显示原始名称，可以在全局选项中加入 \texttt{originalref}。
 \end{tip}
 
 \UseLanguage{Chinese}
@@ -1685,7 +1694,7 @@ For aesthetics, adjacent definitions will be connected together automatically:
 
 Des environnements tels que \texttt{definition} et \texttt{theorem} ont été prédéfinis et peuvent être utilisés directement.
 
-Plus précisement, les environnements prédéfinis incluent : \texttt{assumption}, \texttt{axiom}, \texttt{conjecture}, \texttt{convention}, \texttt{corollary}, \texttt{definition}, \texttt{definition-proposition}, \texttt{definition-theorem}, \texttt{example}, \texttt{exercise}, \texttt{fact}, \texttt{hypothesis}, \texttt{lemma}, \texttt{notation}, \texttt{observation}, \texttt{problem}, \texttt{property}, \texttt{proposition}, \texttt{question}, \texttt{remark}, \texttt{theorem}, et la version non numérotée correspondante avec un astérisque \lstinline|*| dans le nom. Les titres changeront avec la langue actuelle. Par exemple, \texttt{theorem} sera affiché comme « Theorem » en mode anglais et « Théorème » en mode français.
+Plus précisement, les environnements prédéfinis incluent : \texttt{assumption}, \texttt{axiom}, \texttt{conjecture}, \texttt{convention}, \texttt{corollary}, \texttt{definition}, \texttt{definition-proposition}, \texttt{definition-theorem}, \texttt{example}, \texttt{exercise}, \texttt{fact}, \texttt{hypothesis}, \texttt{lemma}, \texttt{notation}, \texttt{observation}, \texttt{problem}, \texttt{property}, \texttt{proposition}, \texttt{question}, \texttt{remark}, \texttt{theorem}, et la version non numérotée correspondante avec un astérisque \lstinline|*| dans le nom. Les titres changeront avec la langue actuelle. Par exemple, \texttt{theorem} sera affiché comme «~Theorem~» en mode anglais et «~Théorème~» en mode français.
 
 Lors du référencement d'un environnement de type théorème, il est recommandé d'utiliser \lstinline|\cref{|\meta{label}\texttt{\}}. De cette façon, il n'est pas nécessaire d'écrire explicitement le nom de l'environnement correspondant à chaque fois.
 
@@ -1708,7 +1717,8 @@ Après avoir utilisé \lstinline|\UseLanguage{French}|, un théorème s'afficher
     A theorem in English.
 \end{theorem}
 
-Par défaut, lorsqu'il est référencé, le nom de l'environnement de type théorème correspond toujours à la langue du contexte dans lequel se trouve l'environnement. Par exemple, la définition ci-dessus est toujours affichée en français dans le mode anglais courant : \cref{def: strange} et \cref{thm}. Si vous voulez que le nom du théorème corresponde au contexte actuel lors du référencement, vous pouvez ajouter \texttt{regionalref} aux options globales.
+% Par défaut, lorsqu'il est référencé, le nom de l'environnement de type théorème correspond toujours à la langue du contexte dans lequel se trouve l'environnement. Par exemple, la définition ci-dessus est toujours affichée en français dans le mode anglais courant : \cref{def: strange} et \cref{thm}. Si vous voulez que le nom du théorème corresponde au contexte actuel lors du référencement, vous pouvez ajouter \texttt{regionalref} aux options globales.
+Par défaut, lors du référencement, le nom du théorème correspond au contexte courant. Par exemple, le nom de la définition ci-dessus sera en français dans le contexte français courant : \cref{def: strange,thm}. Si vous voulez que le nom du théorème corresponde toujours à la langue du contexte dans lequel se trouve le théorème, vous pouvez ajouter \texttt{originalref} aux options globales.
 \end{tip}
 
 \UseLanguage{French}
@@ -1760,7 +1770,7 @@ If you need to define a new theorem-like environment, you must first define the 
 \begin{itemize}
     \item \lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
 \end{itemize}
-%<lebhart-doc-en>\clearpage
+
 For \meta{language name}, please refer to the section on language configuration. When \meta{language name} is not specified, the name will be set for all supported languages. In addition, environments with or without asterisk share the same name, therefore, \lstinline|\NameTheorem{envname*}{...}| has the same effect as \lstinline|\NameTheorem{envname}{...}| .
 
 \medskip
@@ -2059,6 +2069,7 @@ or written in the way of \AmS{} classes:
   \maketitle
 \end{code}
 
+%<lebhart-doc-en>\clearpage
 The author information can contain multiple groups, written as:
 
 \begin{code}
@@ -2163,6 +2174,7 @@ ou écrit à la manière des classes \AmS{} :
   \maketitle
 \end{code}
 
+%<lebhart-doc-fr>\clearpage
 Les informations sur l'auteur peuvent contenir plusieurs groupes, écrits comme suit :
 
 \begin{code}
@@ -2207,7 +2219,7 @@ Parmi eux, l'ordre mutuel de \lstinline|\address|, \lstinline|\curraddr|, \lstin
 
 \begin{itemize}[itemsep=.6em]
     \item Les paramètres de police ne sont pas encore parfaits.
-    \item Comme de nombreuses fonctionnalités sont basées sur la boîte à outils \ProjLib{}, \colorist{} (et donc \colorart{}, \lebhart{} et \colorbook{}, \beaulivre{}) hérite de tous ses problèmes. Pour plus de détails, veuillez vous référer à la section « Problèmes connus » de la documentation de \ProjLib{}.
+    \item Comme de nombreuses fonctionnalités sont basées sur la boîte à outils \ProjLib{}, \colorist{} (et donc \colorart{}, \lebhart{} et \colorbook{}, \beaulivre{}) hérite de tous ses problèmes. Pour plus de détails, veuillez vous référer à la section «~Problèmes connus~» de la documentation de \ProjLib{}.
     \item Le mécanisme de gestion des erreurs est incomplet : pas de messages correspondants lorsque certains problèmes surviennent.
     \item Il y a encore beaucoup de choses qui peuvent être optimisées dans le code.
 \end{itemize}
