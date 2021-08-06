@@ -204,6 +204,10 @@
 %# The default English main font
 \PassOptionsToPackage{no-math}{fontspec}
 \RequirePackage{fontspec}
+
+\IfFileExists{colorist-font.tex}{
+    \input{colorist-font.tex}
+}{
 \IfFontExistsTF{Palatino Linotype}{%
     \setmainfont{Palatino Linotype}
         [\if@colorclass@useosf Numbers = OldStyle\fi]
@@ -228,12 +232,16 @@
         BoldFont       = NewCMMono10-Bold.otf ,
         ItalicFont     = NewCMMono10-Italic.otf ,
         BoldItalicFont = NewCMMono10-BoldOblique.otf ]
+}
 
 %# 默认中文字体
 %# The default CJK main font
 \PassOptionsToPackage{fontset=none,scheme=plain}{ctex}
 \RequirePackage{ctex}
 
+\IfFileExists{colorist-font.cjk.tex}{
+    \input{colorist-font.cjk.tex}
+}{
 \IfFontExistsTF{SourceHanSerifSC-Regular}{%
     \setCJKmainfont{SourceHanSerifSC-Regular}[
         BoldFont       = SourceHanSerifSC-Bold ,
@@ -434,6 +442,7 @@
     \CJKfamily{JPmain}%
 }
 \fi
+}
 
 %# 默认数学字体
 %# The default math font
