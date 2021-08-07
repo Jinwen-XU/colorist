@@ -632,7 +632,6 @@ Si vous trouvez cela un peu compliqué, ne vous inquiétez pas. Examinons mainte
 %<*colorist-doc>
 \LevelThreeTitle{Initialization}
 
-\medskip
 \begin{code}
 \documentclass{colorart}
 \usepackage{ProjLib}
@@ -645,7 +644,6 @@ Initialization is straightforward. The first line loads the document class \colo
 \clearpage
 \LevelThreeTitle{Initialization}
 
-\medskip
 \begin{code}
 \documentclass{lebhart}
 \usepackage{ProjLib}
@@ -657,7 +655,6 @@ Initialization is straightforward. The first line loads the document class \lebh
 %<*beaulivre-doc-en>
 \LevelThreeTitle{Initialization}
 
-\medskip
 \begin{code}
 \documentclass{beaulivre}
 \usepackage{ProjLib}
@@ -670,7 +667,6 @@ Initialization is straightforward. The first line loads the document class \beau
 \bigskip
 \LevelThreeTitle{初始化部分}
 
-\medskip
 \begin{code}
 \documentclass{lebhart}
 \usepackage{ProjLib}
@@ -682,7 +678,6 @@ Initialization is straightforward. The first line loads the document class \beau
 %<*beaulivre-doc-cn>
 \LevelThreeTitle{初始化部分}
 
-\medskip
 \begin{code}
 \documentclass{beaulivre}
 \usepackage{ProjLib}
@@ -695,7 +690,6 @@ Initialization is straightforward. The first line loads the document class \beau
 \bigskip
 \LevelThreeTitle{Initialisation}
 
-\medskip
 \begin{code}
 \documentclass{lebhart}
 \usepackage{ProjLib}
@@ -707,7 +701,6 @@ L'initialisation est simple. La première ligne ajoute la classe de document \le
 %<*beaulivre-doc-fr>
 \LevelThreeTitle{Initialisation}
 
-\medskip
 \begin{code}
 \documentclass{beaulivre}
 \usepackage{ProjLib}
@@ -721,7 +714,6 @@ L'initialisation est simple. La première ligne ajoute la classe de document \be
 %<*colorist-doc,lebhart-doc-en,beaulivre-doc-en>
 \LevelThreeTitle{Set the language}
 
-\medskip
 \begin{code}
 \UseLanguage{French}
 \end{code}
@@ -736,7 +728,6 @@ For detailed description of this command and more related commands, please refer
 %<*lebhart-doc-cn,beaulivre-doc-cn>
 \LevelThreeTitle{设定语言}
 
-\medskip
 \begin{code}
 \UseLanguage{French}
 \end{code}
@@ -749,7 +740,6 @@ For detailed description of this command and more related commands, please refer
 %<*lebhart-doc-fr,beaulivre-doc-fr>
 \LevelThreeTitle{Choisir la langue}
 
-\medskip
 \begin{code}
 \UseLanguage{French}
 \end{code}
@@ -764,7 +754,6 @@ Pour une description détaillée de cette commande et d'autres commandes associ�
 %<*colorist-doc,lebhart-doc-en>
 \LevelThreeTitle{Title, author information, abstract and keywords}
 
-\medskip
 \begin{code}
 \title{(*\meta{title}*)}
 \author{(*\meta{author}*)}
@@ -816,7 +805,6 @@ In addition, you may also write in the \AmS{} fashion, i.e.:
 %<*lebhart-doc-cn>
 \LevelThreeTitle{标题，作者信息，摘要与关键词}
 
-\medskip
 \begin{code}
 \title{(*\meta{title}*)}
 \author{(*\meta{author}*)}
@@ -868,7 +856,6 @@ In addition, you may also write in the \AmS{} fashion, i.e.:
 %<*lebhart-doc-fr>
 \LevelThreeTitle{Titre, informations sur l'auteur, résumé et mots-clés}
 
-\medskip
 \begin{code}
 \title{(*\meta{title}*)}
 \author{(*\meta{author}*)}
@@ -922,7 +909,6 @@ De plus, vous pouvez également écrire à la manière \AmS{}, c'est-à-dire :
 %<*colorist-doc,lebhart-doc-en,beaulivre-doc-en>
 \LevelThreeTitle{Draft marks}
 
-\medskip
 \begin{code}
 \dnf<(*\meta{some hint}*)>
 \end{code}
@@ -933,7 +919,6 @@ When you have some places that have not yet been finished yet, you can mark them
 %<*lebhart-doc-cn,beaulivre-doc-cn>
 \LevelThreeTitle{未完成标记}
 
-\medskip
 \begin{code}
 \dnf<(*\meta{some hint}*)>
 \end{code}
@@ -943,7 +928,6 @@ When you have some places that have not yet been finished yet, you can mark them
 %<*lebhart-doc-fr,beaulivre-doc-fr>
 \LevelThreeTitle{Marques de brouillon}
 
-\medskip
 \begin{code}
 \dnf<(*\meta{some hint}*)>
 \end{code}
@@ -955,7 +939,6 @@ Lorsque vous avez des endroits qui ne sont pas encore finis, vous pouvez les mar
 %<*colorist-doc,lebhart-doc-en,beaulivre-doc-en>
 \LevelThreeTitle{Theorem-like environments}
 
-\medskip
 \begin{code}
 \begin{theorem}\label{thm:abc}
     Ceci est un théorème.
@@ -969,7 +952,6 @@ Commonly used theorem-like environments have been pre-defined. Also, when refere
 %<*lebhart-doc-cn,beaulivre-doc-cn>
 \LevelThreeTitle{定理类环境}
 
-\medskip
 \begin{code}
 \begin{theorem}\label{thm:abc}
     Ceci est un théorème.
@@ -983,7 +965,6 @@ Référence du théorème: \cref{thm:abc}
 %<*lebhart-doc-fr,beaulivre-doc-fr>
 \LevelThreeTitle{Environnements de type théorème}
 
-\medskip
 \begin{code}
 \begin{theorem}\label{thm:abc}
     Ceci est un théorème.
@@ -1152,6 +1133,7 @@ In the next section, we will go through the options available.
 
 
 %<*lebhart-doc-en,beaulivre-doc-en>
+%<lebhart-doc-en>\clearpage
 \LevelOneTitle{On the default fonts}
 By default, this document class uses Palatino Linotype as the English main font; Source Han Serif, Source Han Sans and Source Han Mono as the Chinese main font, sans serif font and typewriter font; and partially uses Neo Euler as the math font. You need to download and install these fonts by yourself. The Source Han font series can be downloaded at \url{https://github.com/adobe-fonts} (It is recommended to download the Super-OTC version, so that the download size is smaller). Neo Euler can be downloaded at \url{https://github.com/khaledhosny/euler-otf}. When the corresponding font is not installed, the font that comes with TeX Live will be used instead, and the effect may be discounted.
 
