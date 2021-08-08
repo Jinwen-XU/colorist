@@ -803,6 +803,7 @@
 %# 由于有些字体不包括 sffamily 和 textsc 的组合，因此单独考虑这两种字形
 %# Since some fonts do not include a combination of sffamily and textsc, treat these two shapes separately
 \let\colorist@sffamily\sffamily
+\let\colorist@scshape\scshape
 \let\colorist@textsc\textsc
 
 %%================================
@@ -813,7 +814,7 @@
 %# 各级标题的字形
 %# The font shape of the titles
 \newcommand{\partfont}{\conditionalbfseries\colorist@sffamily}
-\newcommand{\chapfont}{\conditionalbfseries\colorist@sffamily}
+\newcommand{\chapfont}{\conditionalbfseries\colorist@sffamily\colorist@scshape}
 \newcommand{\secfont}{\conditionalbfseries\colorist@sffamily}
 \newcommand{\subsecfont}{\conditionalbfseries\colorist@sffamily}
 \newcommand{\subsubsecfont}{\conditionalbfseries\colorist@sffamily}
@@ -945,13 +946,25 @@
     \titleclass{\part}{top} % make part like a chapter
     \titleformat{\part}[display]
         {\partfont\filleft}
-        {\partstring}
+        {%
+            \thispagestyle{empty}%
+            \begin{tikzpicture}[remember picture,overlay]
+                \fill[maintheme!10!paper] (current page.north west) rectangle (current page.south east);
+                \node at ($(current page.north west)+(15em,-15em)$) {\normalfont\textcolor{maintheme}{\scalebox{12}{\thepart}}};
+            \end{tikzpicture}%
+        }
         {1em}
         {\fontsize{20}{0}\selectfont\MakeUppercase{#1}}
     \titleformat{name=\part,numberless}[display]
         {% \phantomsection\addcontentsline{toc}{part}{#1}%
         \partfont\filleft}
-        {\phantom{\MakeUppercase{\partname}}}
+        {%
+            \thispagestyle{empty}%
+            \begin{tikzpicture}[remember picture,overlay]
+                \fill[maintheme!10!paper] (current page.north west) rectangle (current page.south east);
+                \node at ($(current page.north west)+(15em,-15em)$) {\normalfont\textcolor{maintheme}{\scalebox{12}{$*$}}};
+            \end{tikzpicture}%
+        }
         {1em}
         {\fontsize{20}{0}\selectfont\MakeUppercase{#1}}
     \titlespacing*{\part}{0pt}{5em}{6em}
@@ -968,67 +981,52 @@
     }
 
     %% Chapter
-    \newlength{\colorist@chapboxwidth}
-
-%# 带编号的章节盒子：\MakeChapBox{<number>}{<title>}
-%# Numbered chapter title box: \MakeChapBox{<number>}{<title>}
-    \newcommand{\MakeChapBox}[2]{%
-        \settowidth{\colorist@chapboxwidth}{#1}
-        \begin{tcolorbox}[
-            enhanced,
-            skin = bicolor,
-            frame engine = path,
-            % sharp corners = all,
-            width = 0.9\textwidth,
-            top = 4mm, bottom = 4mm,
-            arc = .5mm,
-            sidebyside,
-            frame hidden,
-            boxrule = 0mm,
-            lefthand width = 1.5\colorist@chapboxwidth,
-            colupper = white,
-            colback = maintheme!80!paper,
-            colbacklower = maintheme!20!paper,
-            sidebyside align=center,
-            halign=center]
-            \Huge #1%
-            \tcblower%
-            #2%
-        \end{tcolorbox}%
+%# 带编号的章节：\TheChapter{<number>}{<title>}
+%# Numbered chapter title: \TheChapter{<number>}{<title>}
+    \newcommand{\TheChapter}[2]{%
+        \tcbsidebyside[enhanced,sidebyside adapt=right,sidebyside align=bottom,
+        colback=paper,frame hidden,
+        segmentation code={
+            \filldraw[maintheme] (segmentation.north) 
+                -- ($(segmentation.east)-(12pt,0)$) 
+                -- ($(segmentation.west)+(12pt,0)$) 
+                -- (segmentation.south);} 
+        ]{\filleft#2}{\normalfont\textcolor{maintheme}{\scalebox{4}{#1}}}
     }
 
-%# 不编号的章节盒子：\MakeChapBox{<title>}
-%# Numberless chapter title box: \MakeChapBox{<title>}
-    \newcommand{\MakeChapBoxSingle}[1]{%
+%# 不编号的章节：\TheChapterSingle{<title>}
+%# Numberless chapter title: \TheChapterSingle{<title>}
+    \newcommand{\TheChapterSingle}[1]{%
         \begin{tcolorbox}[
             enhanced,
-            width = 0.7\textwidth,
-            % sharp corners = all,
-            top = 4mm, bottom = 4mm,
-            arc = .5mm,
-            frame hidden,
-            boxrule = 0mm,
-            colback = maintheme!20!paper,
+            width = 0.67\textwidth,
+            colback=paper,frame hidden,
             halign=center]
             #1
+            \vspace{-.6em}
+            \begin{center}
+                \begin{tikzpicture}
+                    \filldraw[maintheme] (-4em,0) -- (4em,0) -- (0,-.1em) -- (0,.1em);
+                \end{tikzpicture}
+            \end{center}
         \end{tcolorbox}
     }
     
     \titleformat{name=\chapter}
-        {\filright\chapfont\huge} % Format
+        {\chapfont\huge} % Format
         {} % Label
         {0mm} % Sep
-        {\MakeChapBox{\thechapter}{#1}} % Before-code
+        {\TheChapter{\thechapter}{#1}} % Before-code
     \titlespacing*{name=\chapter}
         {0em}{*2}{0em} % {left}{before-sep}{after-sep}
-    
+
     \titleformat{name=\chapter, numberless}
-        {\filcenter\chapfont\huge} % Format
-        {} % Label
-        {0mm} % Sep
-        {\MakeChapBoxSingle{#1}} % Before-code
+        {\filcenter\chapfont\huge}
+        {}
+        {0mm}
+        {\TheChapterSingle{#1}}
     \titlespacing*{name=\chapter, numberless}
-        {0em}{*2}{0em} % {left}{before-sep}{after-sep}
+        {0em}{*2}{0em}
 
     %% Section
     \titleformat{\section}
@@ -1103,7 +1101,7 @@
 \titlecontents{part}
     [0em]
     {\addvspace{1.5pc}\filcenter\colorist@sffamily}
-    {\thecontentslabel\nopagebreak\\\nopagebreak\uppercase}
+    {{\normalfont\color{maintheme}\thecontentslabel}\nopagebreak\\\nopagebreak\uppercase}
     {}
     {} % without page number
     [\addvspace{.5pc}]

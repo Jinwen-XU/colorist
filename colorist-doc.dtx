@@ -1316,6 +1316,7 @@ In addition, the commonly used \texttt{oneside} and \texttt{twoside} options are
         \begin{itemize}
             \item 纯文本模式，不加载定理类环境。
         \end{itemize}
+\clearpage
     \item \texttt{nothmnum}、\texttt{thmnum} 或 \texttt{thmnum=}\meta{counter}
         \begin{itemize}
             \item 定理类环境均不编号 / 按照 1、2、3 顺序编号 / 在 \meta{counter} 内编号。其中 \meta{counter} 应该是自带的计数器 (如 \texttt{subsection}) 或在导言部分自定义的计数器。在没有使用任何选项的情况下将按照 \texttt{chapter} (书) 或 \texttt{section} (文章) 编号。
@@ -2191,7 +2192,7 @@ Parmi eux, l'ordre mutuel de \lstinline|\address|, \lstinline|\curraddr|, \lstin
 
 \begin{itemize}[itemsep=.6em]
     \item The font settings are still not perfect.
-    \item The design is not complete yet, including the TOC, part, and chapter.
+    \item The TOC design does not look very nice.
     \item Since many features are based on the \ProjLib{} toolkit, \colorist{} (and hence \colorart{}, \lebhart{} and \colorbook{}, \beaulivre{}) inherits all its problems. For details, please refer to the ``Known Issues'' section of the \ProjLib{} documentation.
     \item The error handling mechanism is incomplete: there is no corresponding error prompt when some problems occur.
     \item There are still many things that can be optimized in the code.
@@ -2203,7 +2204,7 @@ Parmi eux, l'ordre mutuel de \lstinline|\address|, \lstinline|\curraddr|, \lstin
 \LevelOneTitle{目前存在的问题}
 \begin{itemize}[itemsep=.6em]
     \item 对于字体的设置仍然不够完善。
-    \item 样式的设计还不够完整，包括目录、part以及chapter等。
+    \item 目录的设计还不够美观。
     \item 由于很多核心功能建立在 \ProjLib{} 工具箱的基础上，因此 \colorist{} (进而 \colorart{}、\lebhart{} 与 \colorbook{}、\beaulivre{}) 自然继承了其所有问题。详情可以参阅 \ProjLib{} 用户文档的“目前存在的问题”这一小节。
     \item 错误处理功能不完善，在出现一些问题时没有相应的错误提示。
     \item 代码中仍有许多可优化之处。
@@ -2216,7 +2217,7 @@ Parmi eux, l'ordre mutuel de \lstinline|\address|, \lstinline|\curraddr|, \lstin
 
 \begin{itemize}[itemsep=.6em]
     \item Les paramètres de police ne sont pas encore parfaits.
-    \item La conception n'est pas encore terminée, y compris la table des matières, les pièces et les chapitres.
+    \item La conception de la table des matières est pas si belle.
     \item Comme de nombreuses fonctionnalités sont basées sur la boîte à outils \ProjLib{}, \colorist{} (et donc \colorart{}, \lebhart{} et \colorbook{}, \beaulivre{}) hérite de tous ses problèmes. Pour plus de détails, veuillez vous référer à la section «~Problèmes connus~» de la documentation de \ProjLib{}.
     \item Le mécanisme de gestion des erreurs est incomplet : pas de messages correspondants lorsque certains problèmes surviennent.
     \item Il y a encore beaucoup de choses qui peuvent être optimisées dans le code.
