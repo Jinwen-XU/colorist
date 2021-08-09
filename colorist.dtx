@@ -853,14 +853,14 @@
 \fancypagestyle{fancy}{
     \fancyhf{}
     \if@twoside
-        \fancyfoot[RO]{\textcolor{maintext!30!paper}{\lastrightmark}%
-            \rlap{~~~~\textcolor{maintext!75!paper}{\textbf{\textsf{\thepage}}}}}
-        \fancyfoot[LE]{\leavevmode\llap{\textcolor{maintext!75!paper}{\textbf{\textsf{\thepage}}}%
+        \fancyfoot[RO]{\sffamily\textcolor{maintext!30!paper}{\small\lastrightmark}%
+            \rlap{~~~~\textcolor{maintext!75!paper}{\textbf{\thepage}}}}
+        \fancyfoot[LE]{\leavevmode\sffamily\llap{\textcolor{maintext!75!paper}{\textbf{\thepage}}%
             ~~~~}%
-            \textcolor{maintext!30!paper}{\lastleftmark}}
+            \textcolor{maintext!30!paper}{\small\lastleftmark}}
     \else
-        \fancyfoot[R]{\textcolor{maintext!30!paper}{\lastrightmark}%
-            \rlap{~~~~\textcolor{maintext!75!paper}{\textbf{\textsf{\thepage}}}}}
+        \fancyfoot[R]{\sffamily\textcolor{maintext!30!paper}{\small\lastrightmark}%
+            \rlap{~~~~\textcolor{maintext!75!paper}{\textbf{\thepage}}}}
     \fi
     \renewcommand{\headrulewidth}{0pt}
 }
@@ -872,12 +872,12 @@
     \fancyhf{}
     \if@twoside
         \fancyfoot[RO]{%
-            ~\rlap{~~~~\textcolor{maintext!75!paper}{\textbf{\textsf{\thepage}}}}}
-        \fancyfoot[LE]{\leavevmode\llap{\textcolor{maintext!75!paper}{\textbf{\textsf{\thepage}}}%
+            \sffamily~\rlap{~~~~\textcolor{maintext!75!paper}{\textbf{\thepage}}}}
+        \fancyfoot[LE]{\leavevmode\sffamily\llap{\textcolor{maintext!75!paper}{\textbf{\thepage}}%
             ~~~}}
     \else
         \fancyfoot[R]{%
-            ~\rlap{~~~~\textcolor{maintext!75!paper}{\textbf{\textsf{\thepage}}}}}
+            ~\rlap{~~~~\textcolor{maintext!75!paper}{\textbf{\thepage}}}}
     \fi
     \renewcommand{\headrulewidth}{0pt}
 }
@@ -1100,7 +1100,7 @@
 \RequirePackage{titletoc}
 \titlecontents{part}
     [0em]
-    {\addvspace{1.5pc}\large\filcenter\colorist@sffamily}
+    {\addvspace{1.5pc}\large\filcenter\colorist@sffamily\conditionalbfseries}
     {\textcolor{maintheme}{\bfseries\thecontentslabel}\nopagebreak\\\nopagebreak\uppercase}
     {}
     {} % without page number
@@ -1111,27 +1111,27 @@
     \titlecontents{chapter}
         [2em] % i.e., 0em (part) + 2em
         {\addvspace{1pc}\normalfont\color{maintheme}\colorist@sffamily\conditionalbfseries}
-        {\contentslabel{2em}\colorist@scshape}
-        {\hspace*{-2em}}
-        {\titlerule*[1em]{\textcolor{maintext!15!paper}{.}}\color{maintheme}\contentspage}
+        {\contentslabel{2em}}
+        {\colorist@scshape\hspace*{-2em}}
+        {\titlerule*[10pt]{\parbox{2pt}{\hspace*{-.25pt}\textcolor{maintext!15!paper}{.}}}\color{maintheme}\contentspage}
     \titlecontents{section}
         [4em] % i.e., 2em (chapter) + 2em
         {\addvspace{.3pc}\normalfont\color{maintheme}\colorist@sffamily}
         {\contentslabel{1.75em}}
         {\hspace*{-1.75em}}
-        {\titlerule*[1em]{\textcolor{maintext!15!paper}{.}}\color{maintheme}\contentspage}
+        {\titlerule*[10pt]{\parbox{2pt}{\textcolor{maintext!15!paper}{.}}}\color{maintheme}\contentspage}
     \titlecontents{subsection}
         [7em] % i.e., 4em (section) + 3em
         {\addvspace{.15pc}\normalfont\colorist@sffamily}
         {\contentslabel{2.75em}}
         {\hspace*{-2.75em}}
-        {\titlerule*[1em]{\textcolor{maintext!15!paper}{.}}\color{maintext!45!paper}\contentspage}
+        {\titlerule*[10pt]{\parbox{2pt}{\textcolor{maintext!15!paper}{.}}}\color{maintext!45!paper}\contentspage}
     \titlecontents{subsubsection}
         [10em] % i.e., 7em (subsection) + 3em
         {\normalfont\colorist@sffamily}
         {\contentslabel{3.25em}}
         {\hspace*{-3.25em}}
-        {\titlerule*[1em]{\textcolor{maintext!15!paper}{.}}\color{maintext!45!paper}\contentspage}
+        {\titlerule*[10pt]{\parbox{2pt}{\textcolor{maintext!15!paper}{.}}}\color{maintext!45!paper}\contentspage}
 }{
 %# 针对文章的目录样式设定
 %# Configure the TOC style for articles
@@ -1140,19 +1140,19 @@
         {\addvspace{.3pc}\normalfont\color{maintheme}\colorist@sffamily}
         {\contentslabel{1.75em}}
         {\hspace*{-1.75em}}
-        {\titlerule*[1em]{\textcolor{maintext!15!paper}{.}}\color{maintheme}\contentspage}
+        {\titlerule*[10pt]{\parbox{2pt}{\textcolor{maintext!15!paper}{.}}}\color{maintheme}\contentspage}
     \titlecontents{subsection}
         [4.5em] % i.e., 2em (section) + 2.5em
         {\addvspace{.15pc}\normalfont\colorist@sffamily}
         {\contentslabel{2.15em}}
         {\hspace*{-2.15em}}
-        {\titlerule*[1em]{\textcolor{maintext!15!paper}{.}}\color{maintext!45!paper}\contentspage}
+        {\titlerule*[10pt]{\parbox{2pt}{\textcolor{maintext!15!paper}{.}}}\color{maintext!45!paper}\contentspage}
     \titlecontents{subsubsection}
         [7.75em] % i.e., 5em (subsection) + 3.25em
         {\normalfont\colorist@sffamily}
         {\contentslabel{2.75em}}
         {\hspace*{-2.75em}}
-        {\titlerule*[1em]{\textcolor{maintext!15!paper}{.}}\color{maintext!45!paper}\contentspage}
+        {\titlerule*[10pt]{\parbox{2pt}{\textcolor{maintext!15!paper}{.}}}\color{maintext!45!paper}\contentspage}
 }
 
 %%================================
