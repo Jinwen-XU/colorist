@@ -74,6 +74,9 @@
 %# 这一个选项用于表明要采用自定义的字体而不是默认字体
 %# This option is used to indicate that one uses a custom font instead of the default font
 \DeclareBoolOption[false]{customfont}
+%# 指定如何编号定理类环境
+%# Number theorem-like environments With ...
+\DeclareStringOption{thmnum}[PJL@thmnum@default]
 
 %# 纸张尺寸选项 a4paper 和 b5paper
 %# Paper size options a4paper and b5paper
@@ -738,6 +741,9 @@
 %# Pure text mode (no theorem-like environments loaded)
 \DeclareBoolOption[false]{puretext}
 \DeclareBoolOption[false]{nothms}
+%# 推迟建立定理类环境
+%# Delay the setup of theorem-like environments to the end of the preamble
+\DeclareBoolOption[false]{delaythms}
 %# 定理类环境不编号
 %# No numbering for theorem-like environments
 \DeclareBoolOption[false]{nothmnum}
@@ -1561,7 +1567,7 @@
 
 %# 建立定理类环境
 %# Set-up theorem-like environments
-% \AtEndPreamble{
+\def\colorist@definethms{
 \if@colorist@nothms\else
 \theoremstyle{basic}
 \if@colorist@nothmnum
@@ -1642,7 +1648,13 @@
 
 \theoremstyle{simple}
 \fi
-% }
+}
+
+\if@colorist@delaythms
+    \AtEndPreamble{\colorist@definethms}
+\else
+    \colorist@definethms
+\fi
 
 %# 作为默认的定理样式
 %# As the default style for user-defined environments
