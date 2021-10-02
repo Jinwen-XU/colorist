@@ -66,6 +66,7 @@
 \DeclareBoolOption[false]{useosf}
 %# 几个字体选项
 %# Several font options
+\DeclareBoolOption[false]{lmodern}
 \DeclareBoolOption[false]{palatino}
 \DeclareBoolOption[false]{times}
 \DeclareBoolOption[false]{garamond}
@@ -95,6 +96,9 @@
 %# The following code sets the relationship between some options
 \if@colorclass@draft
     \@colorclass@fasttrue
+\fi
+\if@colorclass@lmodern
+    \@colorclass@customfonttrue
 \fi
 \if@colorclass@palatino
     \@colorclass@customfonttrue
@@ -637,6 +641,16 @@
 
 %# 下面配置字体选项
 %# Configure the font options below
+\if@colorclass@lmodern
+    \RequirePackage{amssymb}
+    \if@colorclass@useosf
+        \RequirePackage{cfr-lm}
+    \else
+        \RequirePackage{lmodern}
+    \fi
+    \PJLsetlinespacing{\setstretch{1.00}}
+\fi
+
 \if@colorclass@palatino
     \RequirePackage{amssymb}
     \RequirePackage{mathpazo}
