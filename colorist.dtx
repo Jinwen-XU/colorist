@@ -18,31 +18,31 @@
 %
 %<*colorart>
 \ProvidesClass{colorart}
-    [2021/08/11 A colorful article style]
+    [2021/10/23 A colorful article style]
 \def\colorclass@baseclass{article}
 %</colorart>
 %
 %<*colorbook>
 \ProvidesClass{colorbook}
-    [2021/08/11 A colorful book style]
+    [2021/10/23 A colorful book style]
 \def\colorclass@baseclass{book}
 %</colorbook>
 %
 %<*lebhart>
 \ProvidesClass{lebhart}
-    [2021/08/11 A colorful article style]
+    [2021/10/23 A colorful article style]
 \def\colorclass@baseclass{article}
 %</lebhart>
 %
 %<*beaulivre>
 \ProvidesClass{beaulivre}
-    [2021/08/11 A colorful book style]
+    [2021/10/23 A colorful book style]
 \def\colorclass@baseclass{book}
 %</beaulivre>
 %
 %<*colorist>
 \ProvidesPackage{colorist}
-    [2021/08/11 A colorful style for articles and books]
+    [2021/10/23 A colorful style for articles and books]
 %</colorist>
 %
 %# 下面两行引入宏包的代码是所有文件共用的。
@@ -130,7 +130,8 @@
 %# This is the default page size
 \geometry{
     papersize={8.5in,11in},
-    total={47em,66em},
+    % total={47em,66em},
+    total={6.500in,9.130in},
     hmarginratio=1:1,
     vmarginratio=1:1,
     footnotesep=2em plus 2pt minus 2pt,
@@ -140,7 +141,8 @@
 \if@colorclass@bfivepaper
 \geometry{
     b5paper,
-    total={40em,59em},
+    % total={40em,59em},
+    total={5.535in,8.160in},
     hmarginratio=1:1,
     vmarginratio=1:1,
     footnotesep=2em plus 2pt minus 2pt,
@@ -151,7 +153,8 @@
 \if@colorclass@afourpaper
 \geometry{
     a4paper,
-    total={47em,70em},
+    % total={47em,70em},
+    total={6.500in,9.685in},
     hmarginratio=1:1,
     vmarginratio=1:1,
     footnotesep=2em plus 2pt minus 2pt,
