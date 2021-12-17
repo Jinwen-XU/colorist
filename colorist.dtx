@@ -18,31 +18,31 @@
 %
 %<*colorart>
 \ProvidesClass{colorart}
-    [2021/11/09 A colorful article style]
+    [2021/12/16 A colorful article style]
 \def\colorclass@baseclass{article}
 %</colorart>
 %
 %<*colorbook>
 \ProvidesClass{colorbook}
-    [2021/11/09 A colorful book style]
+    [2021/12/16 A colorful book style]
 \def\colorclass@baseclass{book}
 %</colorbook>
 %
 %<*lebhart>
 \ProvidesClass{lebhart}
-    [2021/11/09 A colorful article style]
+    [2021/12/16 A colorful article style]
 \def\colorclass@baseclass{article}
 %</lebhart>
 %
 %<*beaulivre>
 \ProvidesClass{beaulivre}
-    [2021/11/09 A colorful book style]
+    [2021/12/16 A colorful book style]
 \def\colorclass@baseclass{book}
 %</beaulivre>
 %
 %<*colorist>
 \ProvidesPackage{colorist}
-    [2021/11/09 A colorful style for articles and books]
+    [2021/12/16 A colorful style for articles and books]
 %</colorist>
 %
 %# 下面两行引入宏包的代码是所有文件共用的。
@@ -731,10 +731,6 @@
 %# Use `microtype` to get details better
 \PassOptionsToPackage{verbose=silent}{microtype}
 \RequirePackage{microtype}
-\AtEndPreamble{\AtBeginDocument{\microtypesetup{deactivate}{\scshape}\microtypesetup{reactivate}}}
-\AtEndPreamble{\AtBeginDocument{\microtypesetup{deactivate}{\bfseries\scshape}\microtypesetup{reactivate}}}
-\AtEndPreamble{\AtBeginDocument{\microtypesetup{deactivate}{\sffamily\scshape}\microtypesetup{reactivate}}}
-\AtEndPreamble{\AtBeginDocument{\microtypesetup{deactivate}{\ttfamily\scshape}\microtypesetup{reactivate}}}
 %# 使用 nowidow 以减少换页时的单行
 %# Use `nowidow` to reduce single line near the edge
 \PassOptionsToPackage{all}{nowidow}
@@ -1215,10 +1211,10 @@
 \setlist[description]{font=\normalfont\conditionalbfseries}
 
 \setlist[itemize]{leftmargin=*}
-\gappto{\PJLlang@langconfig@common}{\setlist[itemize,1]{label=\textcolor{maintext!25}{$\bullet$}}}
-\gappto{\PJLlang@langconfig@FR}{\setlist[itemize,1]{label=\textcolor{maintext!50}{---}}}
-\setlist[itemize,2]{label=\textcolor{maintext!27}{--}}
-\setlist[itemize,3]{label=\textcolor{maintext!27}{\texttt{*}}}
+\gappto{\PJLlang@langconfig@common}{\setlist[itemize,1]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{$\bullet$}}}
+\gappto{\PJLlang@langconfig@FR}{\setlist[itemize,1]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!50!paper}{---}}}
+\setlist[itemize,2]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{--}}
+\setlist[itemize,3]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{\texttt{*}}}
 
 %%================================
 %% Blank page
