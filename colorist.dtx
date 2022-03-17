@@ -1,8 +1,8 @@
 % \iffalse meta-comment
 %
-% Copyright (C) 2021 by Jinwen XU 
-% -------------------------------
-% 
+% Copyright (C) 2021-2022 by Jinwen XU
+% ------------------------------------
+%
 % This file may be distributed and/or modified under the conditions of the LaTeX
 % Project Public License, either version 1.3c of this license or (at your option)
 % any later version. The latest version of this license is in:
@@ -15,1030 +15,1026 @@
 \ProvidesFile{colorist.dtx}
 %</driver>
 \NeedsTeXFormat{LaTeX2e}[2020-10-01]
+\RequirePackage{l3keys2e}
 %
 %<*colorart>
-\ProvidesClass{colorart}
-    [2021/12/16 A colorful article style]
-\def\colorclass@baseclass{article}
+\ProvidesExplClass
+  {colorart}
+  {2022/03/17} {}
+  {A colorful article style}
+
+\tl_const:Nn \l__colorclass_base_class_tl { article }
 %</colorart>
 %
 %<*colorbook>
-\ProvidesClass{colorbook}
-    [2021/12/16 A colorful book style]
-\def\colorclass@baseclass{book}
+\ProvidesExplClass
+  {colorbook}
+  {2022/03/17} {}
+  {A colorful book style}
+
+\tl_const:Nn \l__colorclass_base_class_tl { book }
 %</colorbook>
 %
 %<*lebhart>
-\ProvidesClass{lebhart}
-    [2021/12/16 A colorful article style]
-\def\colorclass@baseclass{article}
+\ProvidesExplClass
+  {lebhart}
+  {2022/03/17} {}
+  {A colorful article style}
+
+\tl_const:Nn \l__colorclass_base_class_tl { article }
 %</lebhart>
 %
 %<*beaulivre>
-\ProvidesClass{beaulivre}
-    [2021/12/16 A colorful book style]
-\def\colorclass@baseclass{book}
+\ProvidesExplClass
+  {beaulivre}
+  {2022/03/17} {}
+  {A colorful book style}
+
+\tl_const:Nn \l__colorclass_base_class_tl { book }
 %</beaulivre>
 %
 %<*colorist>
-\ProvidesPackage{colorist}
-    [2021/12/16 A colorful style for articles and books]
+\ProvidesExplPackage
+  {colorist}
+  {2022/03/17} {}
+  {A colorful style for articles and books}
 %</colorist>
 %
-%# 下面两行引入宏包的代码是所有文件共用的。
-%# The following two lines are common to all files.
-\RequirePackage{kvoptions}
-\RequirePackage{etoolbox}
-%
+%<*colorist-fancy>
+\ProvidesExplPackage
+  {colorist-fancy}
+  {2022/03/17} {}
+  {The fancy style of colorist}
+%</colorist-fancy>
+
 %<*class>
-%# 这段代码定义了文档类中的选项。
-%# This code defines the options in the document class.
-\SetupKeyvalOptions{
-    family = @colorclass,
-    prefix = @colorclass@,
-}
-%# 草稿模式或快速模式
-%# Draft mode or fast mode
-\DeclareBoolOption[false]{draft}
-\DeclareBoolOption[false]{fast}
-%# 启用 old-style 数字
-%# Enable old-style figures
-\DeclareBoolOption[false]{useosf}
-%# 几个字体选项
-%# Several font options
-\DeclareBoolOption[false]{lmodern}
-\DeclareBoolOption[false]{palatino}
-\DeclareBoolOption[false]{times}
-\DeclareBoolOption[false]{garamond}
-\DeclareBoolOption[false]{noto}
-\DeclareBoolOption[false]{biolinum}
-%# 这一个选项用于表明要采用自定义的字体而不是默认字体
-%# This option is used to indicate that one uses a custom font instead of the default font
-\DeclareBoolOption[false]{customfont}
-%# 指定如何编号定理类环境
-%# Number theorem-like environments With ...
-\DeclareStringOption{thmnum}[PJL@thmnum@default]
 
-%# 纸张尺寸选项 a4paper 和 b5paper
-%# Paper size options a4paper and b5paper
-\newif\if@colorclass@bfivepaper\@colorclass@bfivepaperfalse
-\DeclareVoidOption{b5paper}{\@colorclass@bfivepapertrue}
-\newif\if@colorclass@afourpaper\@colorclass@afourpaperfalse
-\DeclareVoidOption{a4paper}{\@colorclass@afourpapertrue}
+\bool_new:N \l__colorclass_load_custom_font_file_bool
+\bool_set_false:N \l__colorclass_load_custom_font_file_bool
 
-%# 处理选项并载入文档类
-%# Process options and load the base document class
-\DeclareDefaultOption{\PassOptionsToClass{\CurrentOption}{\colorclass@baseclass}}
-\ProcessKeyvalOptions*\relax
-\LoadClass{\colorclass@baseclass}
-
-%# 下面的代码设定了一些选项之间的关系
-%# The following code sets the relationship between some options
-\if@colorclass@draft
-    \@colorclass@fasttrue
-\fi
-\if@colorclass@lmodern
-    \@colorclass@customfonttrue
-\fi
-\if@colorclass@palatino
-    \@colorclass@customfonttrue
-\fi
-\if@colorclass@times
-    \@colorclass@customfonttrue
-\fi
-\if@colorclass@garamond
-    \@colorclass@customfonttrue
-\fi
-\if@colorclass@noto
-    \@colorclass@customfonttrue
-\fi
-\if@colorclass@biolinum
-    \@colorclass@customfonttrue
-\fi
-
-%%================================
-%% Page layout
-%%================================
-%# 使用 silence 去除一些警告，主要是这里采用了 total 而不是 margin 的设置方法，因此用户要自行设置页面尺寸时可能会导致此类冲突
-%# Use silence to remove some warnings. The main reason is that `total` instead of `margin` is used for setting, so conflict may occur when the user wants to reset the page size
-\RequirePackage{silence}
-\WarningFilter{geometry}{Over-specification in}
-%# 设定页面尺寸
-%# Set page size
-\RequirePackage[heightrounded]{geometry}
-%# 这是默认的尺寸
-%# This is the default page size
-\geometry{
-    papersize={8.5in,11in},
-    % total={47em,66em},
-    total={6.500in,9.130in},
-    hmarginratio=1:1,
-    vmarginratio=1:1,
-    footnotesep=2em plus 2pt minus 2pt,
-}
-%# B5 的尺寸
-%# B5 paper size
-\if@colorclass@bfivepaper
-\geometry{
-    b5paper,
-    % total={40em,59em},
-    total={5.535in,8.160in},
-    hmarginratio=1:1,
-    vmarginratio=1:1,
-    footnotesep=2em plus 2pt minus 2pt,
-}
-\fi
-%# A4 的尺寸
-%# A4 paper size
-\if@colorclass@afourpaper
-\geometry{
-    a4paper,
-    % total={47em,70em},
-    total={6.500in,9.685in},
-    hmarginratio=1:1,
-    vmarginratio=1:1,
-    footnotesep=2em plus 2pt minus 2pt,
-}
-\fi
-
-%# 首段缩进
-%# Indent the first paragraph
-\RequirePackage{indentfirst}
-
-%# 这几行代码用于生成快速模式下的 DRAFT 水印
-%# To generate DRAFT watermark in fast mode
-\if@colorclass@fast
-    \PassOptionsToPackage{fast}{colorist}
-    \RequirePackage{draftwatermark}
-    \DraftwatermarkOptions{text={\normalfont DRAFT},color=paper!95!-paper}
-\fi
-
-%# 载入主样式
-%# Load the main style
-\RequirePackage{colorist}
-
-%%================================
-%% Fonts
-%%================================
-%# 下面的字体设置代码用于 colorart 和 colorbook
-%# The font setting below is for `colorart` and `colorbook`
-%<*colorart|colorbook>
-%# 在 pdfLaTeX 编译时载入编码设置
-%# Load the encoding settings when pdfLaTeX is used
-\RequirePackage{iftex}
-\ifPDFTeX
-\RequirePackage[T1]{fontenc}
-\RequirePackage{inputenc}
-\fi
-%# 载入默认字体
-%# Load the default font
-\if@colorclass@customfont\else
-\RequirePackage{mathpazo}
-\RequirePackage{newpxtext}
-\fi
-\RequirePackage{amssymb}
-%</colorart|colorbook>
-%
-%# 下面的字体设置代码用于 lebhart 和 beaulivre
-%# The font setting below is for `lebhart` and `beaulivre`
 %<*lebhart|beaulivre>
-%# 快速模式下的默认数学字体采用 mathpazo，为了让其生效，要放在 fontspec 的前面
-%# The default math font in fast mode uses `mathpazo`, in order to make it effective, it must be placed in front of `fontspec`
-\if@colorclass@customfont\else
-    \if@colorclass@fast
-        \RequirePackage{mathpazo}
-    \fi
-\fi
+\bool_new:N \l__colorclass_load_custom_font_file_latin_bool
+\bool_set_false:N \l__colorclass_load_custom_font_file_latin_bool
 
-%# 默认英文字体
-%# The default English main font
-\PassOptionsToPackage{no-math,quiet}{fontspec}
-\RequirePackage{fontspec}
+\bool_new:N \l__colorclass_load_custom_font_file_cjk_bool
+\bool_set_false:N \l__colorclass_load_custom_font_file_cjk_bool
 
-\IfFileExists{colorist-font.tex}{
-    \input{colorist-font.tex}
-}{
-\IfFontExistsTF{Palatino Linotype}{%
-    \setmainfont{Palatino Linotype}
-        [\if@colorclass@useosf Numbers = OldStyle\fi]
-}{
-    \setmainfont{TeXGyrePagellaX-Regular.otf}[
-        BoldFont       = TeXGyrePagellaX-Bold.otf ,
-        ItalicFont     = TeXGyrePagellaX-Italic.otf ,
-        BoldItalicFont = TeXGyrePagellaX-BoldItalic.otf,
-        \if@colorclass@useosf Numbers = OldStyle\fi ]
-}
-%# 默认英文无衬线字体
-%# The default English sans font
-    \setsansfont{SourceSansPro-Regular.otf}[
-        Scale          = MatchLowercase ,
-        BoldFont       = SourceSansPro-Bold.otf ,
-        ItalicFont     = SourceSansPro-RegularIt.otf ,
-        BoldItalicFont = SourceSansPro-BoldIt.otf ]
-%# 默认英文等宽字体
-%# The default English mono font
-    \setmonofont{NewCMMono10-Regular.otf}[
-        Scale          = 1.05 ,
-        BoldFont       = NewCMMono10-Bold.otf ,
-        ItalicFont     = NewCMMono10-Italic.otf ,
-        BoldItalicFont = NewCMMono10-BoldOblique.otf ]
-}
-
-%# 默认中文字体
-%# The default CJK main font
-\PassOptionsToPackage{fontset=none,scheme=plain}{ctex}
-\RequirePackage{ctex}
-
-\IfFileExists{colorist-font.cjk.tex}{
-    \input{colorist-font.cjk.tex}
-}{
-\IfFontExistsTF{SourceHanSerifSC-Regular}{%
-    \setCJKmainfont{SourceHanSerifSC-Regular}[
-        BoldFont       = SourceHanSerifSC-Bold ,
-        ItalicFont     = * ,
-        BoldItalicFont = SourceHanSerifSC-Bold ]
-}{
-    \setCJKmainfont{FandolSong-Regular.otf}[
-        BoldFont       = FandolSong-Bold.otf ,
-        ItalicFont     = FandolKai-Regular.otf ,
-        BoldItalicFont = FandolKai-Regular.otf ,
-        BoldItalicFeatures = {FakeBold=4} ]
-}
-
-%# 默认中文无衬线字体
-%# The default CJK sans font
-\IfFontExistsTF{SourceHanSansSC-Regular}{%
-    \setCJKsansfont{SourceHanSansSC-Regular}[
-        BoldFont       = SourceHanSansSC-Bold ,
-        ItalicFont     = * ,
-        BoldItalicFont = SourceHanSansSC-Bold ]
-}{
-    \setCJKsansfont{FandolHei-Regular.otf}[
-        BoldFont       = FandolHei-Bold.otf ,
-        ItalicFont     = * ,
-        BoldItalicFont = FandolHei-Bold.otf ]
-}
-
-%# 默认中文等宽字体
-%# The default CJK mono font
-\IfFontExistsTF{SourceHanMonoSC-Regular}{%
-    \setCJKmonofont{SourceHanMonoSC-Regular}[
-        BoldFont       = SourceHanMonoSC-Medium ,
-        ItalicFont     = * ,
-        BoldItalicFont = SourceHanMonoSC-Medium ]
-}{
-    \setCJKmonofont{FandolFang-Regular.otf}[
-        BoldFont       = * ,
-        BoldFeatures   = {FakeBold=4} ,
-        ItalicFont     = * ,
-        BoldItalicFont = * ,
-        BoldItalicFeatures = {FakeBold=4} ]
-}
-
-%# 简体中文字体族
-%# SC font family
-\if@PJLlang@enable@CN
-\IfFontExistsTF{SourceHanSerifSC-Regular}{%
-    \setCJKfamilyfont{SCmain}{SourceHanSerifSC-Regular}[
-        BoldFont       = SourceHanSerifSC-Bold ,
-        ItalicFont     = * ,
-        BoldItalicFont = SourceHanSerifSC-Bold ]
-}{
-    \setCJKfamilyfont{SCmain}{FandolSong-Regular.otf}[
-        BoldFont       = FandolSong-Bold.otf ,
-        ItalicFont     = FandolKai-Regular.otf ,
-        BoldItalicFont = FandolKai-Regular.otf ,
-        BoldItalicFeatures = {FakeBold=4} ]
-}
-\IfFontExistsTF{SourceHanSansSC-Regular}{%
-    \setCJKfamilyfont{SCsans}{SourceHanSansSC-Regular}[
-        BoldFont       = SourceHanSansSC-Bold ,
-        ItalicFont     = * ,
-        BoldItalicFont = SourceHanSansSC-Bold ]
-}{
-    \setCJKfamilyfont{SCsans}{FandolHei-Regular.otf}[
-        BoldFont       = FandolHei-Bold.otf ,
-        ItalicFont     = * ,
-        BoldItalicFont = FandolHei-Bold.otf ]
-}
-\IfFontExistsTF{SourceHanMonoSC-Regular}{%
-    \setCJKfamilyfont{SCmono}{SourceHanMonoSC-Regular}[
-        BoldFont       = SourceHanMonoSC-Medium ,
-        ItalicFont     = * ,
-        BoldItalicFont = SourceHanMonoSC-Medium ]
-}{
-    \setCJKfamilyfont{SCmono}{FandolFang-Regular.otf}[
-        BoldFont       = * ,
-        BoldFeatures   = {FakeBold=4} ,
-        ItalicFont     = * ,
-        BoldItalicFont = * ,
-        BoldItalicFeatures = {FakeBold=4} ]
-}
-\fi
-
-%# 繁体中文字体族
-%# TC font family
-\if@PJLlang@enable@TC
-\IfFontExistsTF{SourceHanSerifTC-Regular}{%
-    \setCJKfamilyfont{TCmain}{SourceHanSerifTC-Regular}[
-        BoldFont       = SourceHanSerifTC-Bold ,
-        ItalicFont     = * ,
-        BoldItalicFont = SourceHanSerifTC-Bold ]
-}{
-    \setCJKfamilyfont{TCmain}{FandolSong-Regular.otf}[
-        BoldFont       = FandolSong-Bold.otf ,
-        ItalicFont     = FandolKai-Regular.otf ,
-        BoldItalicFont = FandolKai-Regular.otf ,
-        BoldItalicFeatures = {FakeBold=4} ]
-}
-\IfFontExistsTF{SourceHanSansTC-Regular}{%
-    \setCJKfamilyfont{TCsans}{SourceHanSansTC-Regular}[
-        BoldFont       = SourceHanSansTC-Bold ,
-        ItalicFont     = * ,
-        BoldItalicFont = SourceHanSansTC-Bold ]
-}{
-    \setCJKfamilyfont{TCsans}{FandolHei-Regular.otf}[
-        BoldFont       = FandolHei-Bold.otf ,
-        ItalicFont     = * ,
-        BoldItalicFont = FandolHei-Bold.otf ]
-}
-\IfFontExistsTF{SourceHanMonoTC-Regular}{%
-    \setCJKfamilyfont{TCmono}{SourceHanMonoTC-Regular}[
-        BoldFont       = SourceHanMonoTC-Medium ,
-        ItalicFont     = * ,
-        BoldItalicFont = SourceHanMonoTC-Medium ]
-}{
-    \setCJKfamilyfont{TCmono}{FandolFang-Regular.otf}[
-        BoldFont       = * ,
-        BoldFeatures   = {FakeBold=4} ,
-        ItalicFont     = * ,
-        BoldItalicFont = * ,
-        BoldItalicFeatures = {FakeBold=4} ]
-}
-\fi
-
-%# 日文字体族
-%# JP font family
-\if@PJLlang@enable@JP
-\IfFontExistsTF{SourceHanSerif-Regular}{%
-    \setCJKfamilyfont{JPmain}{SourceHanSerif-Regular}[
-        BoldFont       = SourceHanSerif-Bold ,
-        ItalicFont     = * ,
-        BoldItalicFont = SourceHanSerif-Bold ]
-}{
-    \setCJKfamilyfont{JPmain}{FandolSong-Regular.otf}[
-        BoldFont       = FandolSong-Bold.otf ,
-        ItalicFont     = FandolKai-Regular.otf ,
-        BoldItalicFont = FandolKai-Regular.otf ,
-        BoldItalicFeatures = {FakeBold=4} ]
-}
-\IfFontExistsTF{SourceHanSans-Regular}{%
-    \setCJKfamilyfont{JPsans}{SourceHanSans-Regular}[
-        BoldFont       = SourceHanSans-Bold ,
-        ItalicFont     = * ,
-        BoldItalicFont = SourceHanSans-Bold ]
-}{
-    \setCJKfamilyfont{JPsans}{FandolHei-Regular.otf}[
-        BoldFont       = FandolHei-Bold.otf ,
-        ItalicFont     = * ,
-        BoldItalicFont = FandolHei-Bold.otf ]
-}
-\IfFontExistsTF{SourceHanMono-Regular}{%
-    \setCJKfamilyfont{JPmono}{SourceHanMono-Regular}[
-        BoldFont       = SourceHanMono-Medium ,
-        ItalicFont     = * ,
-        BoldItalicFont = SourceHanMono-Medium ]
-}{
-    \setCJKfamilyfont{JPmono}{FandolFang-Regular.otf}[
-        BoldFont       = * ,
-        BoldFeatures   = {FakeBold=4} ,
-        ItalicFont     = * ,
-        BoldItalicFont = * ,
-        BoldItalicFeatures = {FakeBold=4} ]
-}
-\fi
-
-\WarningFilter{latexfont}{Font shape}
-\WarningFilter{latexfont}{Some font}
-
-%# 选定对应语言的 CJK 字体族
-%# Select the CJK font family of the corresponding language
-\def\CJKsffamily{}
-\def\CJKttfamily{}
-
-\apptocmd{\sffamily}{\CJKsffamily}{}{\FAIL}
-\apptocmd{\ttfamily}{\CJKttfamily}{}{\FAIL}
-
-\if@PJLlang@enable@CN
-\gappto{\PJLlang@langconfig@CN}{%
-    \def\CJKsffamily{\CJKfamily{SCsans}}%
-    \def\CJKttfamily{\CJKfamily{SCmono}}%
-    \CJKfamily{SCmain}%
-}
-\fi
-
-\if@PJLlang@enable@TC
-\gappto{\PJLlang@langconfig@TC}{%
-    \def\CJKsffamily{\CJKfamily{TCsans}}%
-    \def\CJKttfamily{\CJKfamily{TCmono}}%
-    \CJKfamily{TCmain}%
-}
-\fi
-
-\if@PJLlang@enable@JP
-\gappto{\PJLlang@langconfig@JP}{%
-    \def\CJKsffamily{\CJKfamily{JPsans}}%
-    \def\CJKttfamily{\CJKfamily{JPmono}}%
-    \CJKfamily{JPmain}%
-}
-\fi
-}
-
-%# 默认数学字体
-%# The default math font
-\if@colorclass@customfont\else
-%## 快速模式下只引用 amssymb 以提供 \mathbb 等字形的定义
-%## In fast mode, only load `amssymb` to provide definitions of \mathbb and other shapes
-\if@colorclass@fast
-\RequirePackage{amssymb}
-\else
-%## 正常模式下使用 unicode-math
-%## Use `unicode-math` in normal mode
-\PassOptionsToPackage
-    {warnings-off={mathtools-colon,mathtools-overbracket}}{unicode-math}
-\RequirePackage{unicode-math}
-\unimathsetup{math-style=ISO, partial=upright, nabla=upright}
-%### 主字体采用 Asana Math，与 Palatino 字体搭配
-%### The base font is Asana Math, which matches with the Palatino font
-\setmathfont{Asana-Math.otf}
-\IfFontExistsTF{Neo Euler}{%
-%###- 下面这段未被采用的代码记录了 Neo Euler 字体的全部支持范围，以供参考
-%###- The following unused code records the full range of Neo Euler for reference
-% See https://tex.stackexchange.com/a/425887
-% \setmathfont{Neo Euler}
-%     [range={"0000-"0001,"0020-"007E,
-%             "00A0,"00A7-"00A8,"00AC,"00AF,"00B1,"00B4-"00B5,"00B7,
-%             "00D7,"00F7,
-%             "0131,
-%             "0237,"02C6-"02C7,"02D8-"02DA,"02DC,
-%             "0300-"030C,"030F,"0311,"0323-"0325,"032E-"0332,"0338,
-%             "0391-"0393,"0395-"03A1,"03A3-"03A8,"03B1-"03BB,
-%             "03BD-"03C1,"03C3-"03C9,"03D1,"03D5-"03D6,"03F5,
-%             "2016,"2018-"2019,"2021,"2026-"202C,"2032-"2037,"2044,
-%             "2057,"20D6-"20D7,"20DB-"20DD,"20E1,"20EE-"20EF,
-%             "210B-"210C,"210E-"2113,"2118,"211B-"211C,"2126-"2128,
-%             "212C-"212D,"2130-"2131,"2133,"2135,"2190-"2199,
-%             "21A4,"21A6,"21A9-"21AA,"21BC-"21CC,"21D0-"21D5,
-%             "2200,"2202-"2209,"220B-"220C,"220F-"2213,"2215-"221E,
-%             "2223,"2225,"2227-"222E,"2234-"2235,"2237-"223D,
-%             "2240-"224C,"2260-"2269,"226E-"2279,"2282-"228B,"228E,
-%             "2291-"2292,"2295-"2299,"22A2-"22A5,"22C0-"22C5,
-%             "22DC-"22DD,"22EF,"22F0-"22F1,
-%             "2308-"230B,"2320-"2321,"2329-"232A,"239B-"23AE,
-%             "23DC-"23DF,
-%             "27E8-"27E9,"27F5-"27FE,"2A0C,"2B1A,
-%             "1D400-"1D433,"1D49C,"1D49E-"1D49F,"1D4A2,"1D4A5-"1D4A6,
-%             "1D4A9-"1D4AC,"1D4AE-"1D4B5,"1D4D0-"1D4E9,"1D504-"1D505,
-%             "1D507-"1D50A,"1D50D-"1D514,"1D516-"1D51C,"1D51E-"1D537,
-%             "1D56C-"1D59F,"1D6A8-"1D6B8,"1D6BA-"1D6D2,"1D6D4-"1D6DD,
-%             "1D6DF,"1D6E1,"1D7CE-"1D7D7 }]
-% \setmathfont[range={up/{latin, Latin, greek, Greek}, 
-%                     bfup/{latin, Latin, greek, Greek}, 
-%                     frak, bffrak, cal}
-%             ]{Neo Euler}
-%### 在主字体的基础上替换一些来自 Neo Euler 的符号和字母
-%### Replace some symbols and letters from Neo Euler on the basis of the base font
-\setmathfont[range={up/{Latin,latin,Greek,greek},
-                    bfup/{Latin,latin,Greek,greek},
-                    cal, bfcal, frak, bffrak,
-                    `(,`),`[,`],`\{,`\},`:,`=,\ne,\equiv,`/,\backslash,
-                    \in,\notin,\ni,\subset,\supset,\subseteq,\supseteq,
-                    \rightarrow,\leftarrow,\mapsto,\hookrightarrow,\hookleftarrow,
-                    \sum,\prod,\coprod,
-                    \sqrt,\int,\iint,\iiint,\oint},
-              script-features={},
-              sscript-features={},
-              Scale = 1.05,
-            ]{Neo Euler}
-}{}
-%### 再替换一些来自 Latin Modern 的符号，默认符号有些过粗
-%### Replace some symbols from Latin Modern, the default symbols are a bit too thick
-\setmathfont[range={\leq,\geq,\ll,\gg,\lll,\ggg,\leqslant,\geqslant},
-              Scale = 0.95,
-            ]{latinmodern-math.otf}
-% \setmathfont[range={bfup/num, it, bfit, scr, bfscr,
-%                     sfup, sfit, bfsfup, bfsfit, tt, bfcal}
-%             ]{Asana-Math.otf}
-%### 最后，使用 TeX Gyre Pagella 的数字，这样能得到更好看的分数线
-%### Finally, use numbers from TeX Gyre Pagella to get better fraction line
-\setmathfont[range={up/num, bfup/num}
-            ]{texgyrepagella-math.otf}
-
-\AtBeginDocument{
-%# 下面这段代码缩减 \mid 和 \nmid 前后的水平距离，默认距离过大
-%# The following code reduces the horizontal space before and after \mid and \nmid, the default space is too large
-\let\mid@original\mid
-\renewcommand{\mid}{\hspace{-.2em}\mid@original\hspace{-.2em}}
-\let\nmid@original\nmid
-\renewcommand{\nmid}{\hspace{-.2em}\nmid@original\hspace{-.2em}}
-%# 下面这段代码缩减 \frac 的竖直间距，默认距离过大
-%# The following code reduces the vertical space inside \frac, the default space is too large
-\renewcommand{\frac}[2]{\genfrac{}{}{}{}{
-    \mathchoice
-        {\raisebox{-.15em}{$\displaystyle #1$}}
-        {\raisebox{-.15em}{$\textstyle #1$}}
-        {\raisebox{-.08em}{$\scriptstyle #1$}}
-        {\scriptscriptstyle #1}
-}{
-    \mathchoice
-        {\raisebox{.08em}{$\displaystyle #2$}}
-        {\raisebox{.08em}{$\textstyle #2$}}
-        {\raisebox{.05em}{$\scriptstyle #2$}}
-        {\scriptscriptstyle #2}
-}}
-}
-
-%# 接下来使用 tikz-cd 重定义可伸缩箭头，默认的箭头有些粗细不均
-%# The following uses tikz-cd to define retractable arrows to avoid problems with unicode-math.
-\RequirePackage{tikz-cd}
-\newbox\xratbelow
-\newbox\xratabove
-% Redefine \xrightarrow[below]{above}
-\renewcommand{\xrightarrow}[2][]{%
-    \setbox\xratbelow=\hbox{\ensuremath{\scriptstyle #1}}%
-    \setbox\xratabove=\hbox{\ensuremath{\scriptstyle #2}}%
-    \pgfmathsetlengthmacro{\xratlen}{max(\wd\xratbelow, \wd\xratabove) + .8em}%
-    \mathrel{\tikz [->, baseline=-.55ex, every node/.style={inner sep=0pt}]
-        \draw (0,0) -- node[below=3pt] {\box\xratbelow}
-        node[above=2pt] {\box\xratabove}
-        (\xratlen,0) ;}}
-% Redefine \xlefttarrow[below]{above}
-\renewcommand{\xleftarrow}[2][]{%
-    \setbox\xratbelow=\hbox{\ensuremath{\scriptstyle #1}}%
-    \setbox\xratabove=\hbox{\ensuremath{\scriptstyle #2}}%
-    \pgfmathsetlengthmacro{\xratlen}{max(\wd\xratbelow, \wd\xratabove) + .8em}%
-    \mathrel{\tikz [<-, baseline=-.55ex, every node/.style={inner sep=0pt}]
-        \draw (0,0) -- node[below=3pt] {\box\xratbelow}
-        node[above=2pt] {\box\xratabove}
-        (\xratlen,0) ;}}
-% Redefine \xleftrightarrow[below]{above}
-\renewcommand{\xleftrightarrow}[2][]{%
-    \setbox\xratbelow=\hbox{\ensuremath{\scriptstyle #1}}%
-    \setbox\xratabove=\hbox{\ensuremath{\scriptstyle #2}}%
-    \pgfmathsetlengthmacro{\xratlen}{max(\wd\xratbelow, \wd\xratabove) + .8em}%
-    \mathrel{\tikz [<->, baseline=-.55ex, every node/.style={inner sep=0pt}]
-        \draw (0,0) -- node[below=3pt] {\box\xratbelow}
-        node[above=2pt] {\box\xratabove}
-        (\xratlen,0) ;}}
-% Redefine \xhookrightarrow[below]{above}, using the hookrightarrow from tikz-cd
-\renewcommand{\xhookrightarrow}[2][]{%
-    \setbox\xratbelow=\hbox{\ensuremath{\scriptstyle #1}}%
-    \setbox\xratabove=\hbox{\ensuremath{\scriptstyle #2}}%
-    \pgfmathsetlengthmacro{\xratlen}{max(\wd\xratbelow, \wd\xratabove) + .8em}%
-    \mathrel{\tikz [baseline=-.55ex, every node/.style={inner sep=0pt}]
-        \draw (0,0) edge[commutative diagrams/hookrightarrow] node[below=3pt] {\box\xratbelow}
-        node[above=2pt] {\box\xratabove}
-        (\xratlen,0) ;}}
-% Redefine \xhooklefttarrow[below]{above}, using the hookleftarrow from tikz-cd
-\renewcommand{\xhookleftarrow}[2][]{%
-    \setbox\xratbelow=\hbox{\ensuremath{\scriptstyle #1}}%
-    \setbox\xratabove=\hbox{\ensuremath{\scriptstyle #2}}%
-    \pgfmathsetlengthmacro{\xratlen}{max(\wd\xratbelow, \wd\xratabove) + .8em}%
-    \mathrel{\tikz [baseline=-.55ex, every node/.style={inner sep=0pt}]
-        \draw (0,0) edge[commutative diagrams/hookleftarrow] node[below=3pt] {\box\xratbelow}
-        node[above=2pt] {\box\xratabove}
-        (\xratlen,0) ;}}
-% Redefine \xmapsto[below]{above}, using the mapsto from tikz-cd
-\renewcommand{\xmapsto}[2][]{%
-    \setbox\xratbelow=\hbox{\ensuremath{\scriptstyle #1}}%
-    \setbox\xratabove=\hbox{\ensuremath{\scriptstyle #2}}%
-    \pgfmathsetlengthmacro{\xratlen}{max(\wd\xratbelow, \wd\xratabove) + .8em}%
-    \mathrel{\tikz [baseline=-.55ex, every node/.style={inner sep=0pt}]
-        \draw (0,0) edge[commutative diagrams/mapsto] node[below=3pt] {\box\xratbelow}
-        node[above=2pt] {\box\xratabove}
-        (\xratlen,0) ;}}
-% Define \xlongequal[below]{above}, using the equal from tikz-cd
-\newcommand{\xlongequal}[2][]{%
-    \setbox\xratbelow=\hbox{\ensuremath{\scriptstyle #1}}%
-    \setbox\xratabove=\hbox{\ensuremath{\scriptstyle #2}}%
-    \pgfmathsetlengthmacro{\xratlen}{max(\wd\xratbelow, \wd\xratabove) + .8em}%
-    \mathrel{\tikz [baseline=-.55ex, every node/.style={inner sep=0pt}]
-        \draw (0,0) edge[commutative diagrams/equal] node[below=3pt] {\box\xratbelow}
-        node[above=2pt] {\box\xratabove}
-        (\xratlen,0) ;}}
-
-%# 使用 tikz-cd 重新定义一些箭头，默认箭头过粗
-%# Redefine \twoheadrightarrow and \twoheadleftarrow, using those from tikz-cd
-\AtBeginDocument{
-\renewcommand{\twoheadrightarrow}{%
-    \mathrel{\tikz [baseline=-.55ex, every node/.style={inner sep=0pt}]
-        \draw (0,0) edge[commutative diagrams/twoheadrightarrow] (.8em,0) ;}}
-
-\renewcommand{\twoheadleftarrow}{%
-    \mathrel{\tikz [baseline=-.55ex, every node/.style={inner sep=0pt}]
-        \draw (0,0) edge[commutative diagrams/twoheadleftarrow] (.8em,0) ;}}
-}
-\fi
-\fi
+\bool_new:N \l__colorclass_load_custom_font_file_math_bool
+\bool_set_false:N \l__colorclass_load_custom_font_file_math_bool
 %</lebhart|beaulivre>
 
-%# 下面配置字体选项
-%# Configure the font options below
-\if@colorclass@lmodern
-    \RequirePackage{amssymb}
-    \if@colorclass@useosf
-        \RequirePackage{cfr-lm}
-    \else
-        \RequirePackage{lmodern}
-    \fi
-    \PJLsetlinespacing{\setstretch{1.00}}
-\fi
+\keys_define:nn { colorclass }
+  {
+    , draft                   .bool_set:N         = \l__colorclass_fast_bool
+    , draft                   .initial:n          = { false }
+    , fast                    .bool_set:N         = \l__colorclass_fast_bool
 
-\if@colorclass@palatino
-    \RequirePackage{amssymb}
-    \RequirePackage{mathpazo}
-    \PassOptionsToPackage{defaultsups}{newpxtext}
-    \RequirePackage{newpxtext}
-    % \RequirePackage{newpxmath}
-    \let\openbox\relax
-    \PJLsetlinespacing{\setstretch{1.07}}
-    \if@colorclass@useosf\useosf\fi
-\fi
+%<*none>
+    , fancy                   .bool_set:N         = \l__colorclass_fancy_bool
+    , fancy                   .initial:n          = { false }
+%</none>
 
-\if@colorclass@times
-    \RequirePackage{amssymb}
-    \PassOptionsToPackage{defaultsups}{newtxtext}
-    \RequirePackage{newtxtext}
-    \RequirePackage{newtxmath}
-    \let\openbox\relax
-    \PJLsetlinespacing{\setstretch{1.00}}
-    \if@colorclass@useosf\useosf\fi
-%<colorart|colorbook>    \let\colorist@textsc\relax
-%<lebhart|beaulivre>    \let\colorist@sffamily\relax
-\fi
+    , load custom font file   .code:n             = {
+                                                      \bool_set_true:N \l__colorclass_load_custom_font_file_bool
+                                                      \str_set:Nn \l__colorclass_custom_font_file_str { #1 }
+%<*lebhart|beaulivre>
+                                                      \bool_set_true:N \l__colorclass_load_custom_font_file_latin_bool
+                                                      \str_set:Nn \l__colorclass_custom_font_file_latin_str { colorist.font.latin }
+                                                      \bool_set_true:N \l__colorclass_load_custom_font_file_cjk_bool
+                                                      \str_set:Nn \l__colorclass_custom_font_file_cjk_str   { colorist.font.cjk }
+                                                      \bool_set_true:N \l__colorclass_load_custom_font_file_math_bool
+                                                      \str_set:Nn \l__colorclass_custom_font_file_math_str  { colorist.font.math }
+%</lebhart|beaulivre>
+                                                    }
+    , load custom font file   .default:n          = { colorist.font }
+    , load~custom~font~file   .code:n             = {
+                                                      \bool_set_true:N \l__colorclass_load_custom_font_file_bool
+                                                      \str_set:Nn \l__colorclass_custom_font_file_str { #1 }
+                                                    }
+    , load~custom~font~file   .default:n          = { colorist.font }
+    , load-custom-font-file   .code:n             = {
+                                                      \bool_set_true:N \l__colorclass_load_custom_font_file_bool
+                                                      \str_set:Nn \l__colorclass_custom_font_file_str { #1 }
+                                                    }
+    , load-custom-font-file   .default:n          = { colorist.font }
 
-\if@colorclass@garamond
-    \RequirePackage{amssymb}
-    \if@colorclass@useosf\else
-        \PassOptionsToPackage{lining}{ebgaramond}
-    \fi
-    \RequirePackage{ebgaramond-maths}
-    \RequirePackage{ebgaramond}
-    % \RequirePackage{garamondlibre}
-    \PJLsetlinespacing{\setstretch{1.00}}
-%<colorart|colorbook>    \let\colorist@textsc\relax
-%<lebhart|beaulivre>    \let\colorist@sffamily\relax
-\fi
+%<*lebhart|beaulivre>
+    , load custom latin font file   .code:n       = {
+                                                      \bool_set_true:N \l__colorclass_load_custom_font_file_latin_bool
+                                                      \str_set:Nn \l__colorclass_custom_font_file_latin_str { #1 }
+                                                    }
+    , load custom latin font file   .default:n    = { colorist.font.latin }
+    , load~custom~latin~font~file   .code:n       = {
+                                                      \bool_set_true:N \l__colorclass_load_custom_font_file_latin_bool
+                                                      \str_set:Nn \l__colorclass_custom_font_file_latin_str { #1 }
+                                                    }
+    , load~custom~latin~font~file   .default:n    = { colorist.font.latin }
+    , load-custom-latin-font-file   .code:n       = {
+                                                      \bool_set_true:N \l__colorclass_load_custom_font_file_latin_bool
+                                                      \str_set:Nn \l__colorclass_custom_font_file_latin_str { #1 }
+                                                    }
+    , load-custom-latin-font-file   .default:n    = { colorist.font.latin }
 
-\if@colorclass@noto
-    \RequirePackage{amssymb}
-    \if@colorclass@useosf
-        \PassOptionsToPackage{oldstyle}{notomath}
-    \fi
-    \RequirePackage{anyfontsize}
-    \RequirePackage{notomath}
-    \PJLsetlinespacing{\setstretch{1.00}}
-\fi
+    , load custom cjk font file     .code:n       = {
+                                                      \bool_set_true:N \l__colorclass_load_custom_font_file_cjk_bool
+                                                      \str_set:Nn \l__colorclass_custom_font_file_cjk_str { #1 }
+                                                    }
+    , load custom cjk font file     .default:n    = { colorist.font.cjk }
+    , load~custom~cjk~font~file     .code:n       = {
+                                                      \bool_set_true:N \l__colorclass_load_custom_font_file_cjk_bool
+                                                      \str_set:Nn \l__colorclass_custom_font_file_cjk_str { #1 }
+                                                    }
+    , load~custom~cjk~font~file     .default:n    = { colorist.font.cjk }
+    , load-custom-cjk-font-file     .code:n       = {
+                                                      \bool_set_true:N \l__colorclass_load_custom_font_file_cjk_bool
+                                                      \str_set:Nn \l__colorclass_custom_font_file_cjk_str { #1 }
+                                                    }
+    , load-custom-cjk-font-file     .default:n    = { colorist.font.cjk }
 
-\if@colorclass@biolinum
-    \RequirePackage{amssymb}
-    % \RequirePackage{mathpazo}
-    % \RequirePackage[sansmath]{libertinust1math}
-    \ifPDFTeX
-        \if@colorclass@useosf
-            \PassOptionsToPackage{osf}{biolinum}
-        \fi
-        \RequirePackage{biolinum}
-        \renewcommand*\familydefault{\biolinum@family}
-    \else
-        \PassOptionsToPackage{no-math}{fontspec}
-        \RequirePackage{fontspec}
-        \setmainfont{LinBiolinum_R.otf}[
-            BoldFont       = LinBiolinum_RB.otf ,
-            ItalicFont     = LinBiolinum_RI.otf ,
-            BoldItalicFont = LinBiolinum_RBO.otf,
-            \if@colorclass@useosf Numbers = OldStyle\fi ]
-    \fi
-    \PJLsetlinespacing{\setstretch{1.05}}
-    \RequirePackage[italic,defaultmathsizes]{mathastext}
-\fi
+    , load custom math font file    .code:n       = {
+                                                      \bool_set_true:N \l__colorclass_load_custom_font_file_math_bool
+                                                      \str_set:Nn \l__colorclass_custom_font_file_math_str { #1 }
+                                                    }
+    , load custom math font file    .default:n    = { colorist.font.math }
+    , load~custom~math~font~file    .code:n       = {
+                                                      \bool_set_true:N \l__colorclass_load_custom_font_file_math_bool
+                                                      \str_set:Nn \l__colorclass_custom_font_file_math_str { #1 }
+                                                    }
+    , load~custom~math~font~file    .default:n    = { colorist.font.math }
+    , load-custom-math-font-file    .code:n       = {
+                                                      \bool_set_true:N \l__colorclass_load_custom_font_file_math_bool
+                                                      \str_set:Nn \l__colorclass_custom_font_file_math_str { #1 }
+                                                    }
+    , load-custom-math-font-file    .default:n    = { colorist.font.math }
+%</lebhart|beaulivre>
 
-%# 这一行代码会让 ProjLib 中的字体选项失效
-%# The following line will invalidate the font options of ProjLib
-\def\PJL@font@alreadyset{}
+    , a4paper                 .bool_set:N         = \l__colorclass_a_four_paper_bool
+    , a4paper                 .initial:n          = { false }
+    , b5paper                 .bool_set:N         = \l__colorclass_b_five_paper_bool
+    , b5paper                 .initial:n          = { false }
 
-%# 使用 microtype 优化排版细节
-%# Use `microtype` to get details better
-\PassOptionsToPackage{verbose=silent}{microtype}
-\RequirePackage{microtype}
-%# 使用 nowidow 以减少换页时的单行
-%# Use `nowidow` to reduce single line near the edge
-\PassOptionsToPackage{all}{nowidow}
-\RequirePackage{nowidow}
-%# 使用 embrac 以在 \emph 中获得直立的括号
-%# Use `embrac` to get upright brackets in \emph
-\RequirePackage{embrac}
+    , 11pt                    .code:n             = { \PassOptionsToClass { \CurrentOption } { \l__colorclass_base_class_tl } }
+    , 12pt                    .code:n             = { \PassOptionsToClass { \CurrentOption } { \l__colorclass_base_class_tl } }
+
+    , unknown                 .code:n             = {
+                                                      \PassOptionsToPackage { \CurrentOption } { colorist }
+                                                    }
+  }
+\ProcessKeysOptions { colorclass }
+
+\LoadClass{\l__colorclass_base_class_tl}
+
 
 %%================================
-%% Graphics
+%%  Page layout
 %%================================
-%# 下面的代码提供了基本的图像和浮动体配置功能
-%# The code below provides basic graphic and float configuration
-\RequirePackage{graphicx}
-\graphicspath{{images/}}
-\RequirePackage{wrapfig}
-\RequirePackage{float}
-\RequirePackage{caption}
-\captionsetup{font=small}
-% 
-% %%================================
-% %% Index
-% %%================================
-% \RequirePackage{imakeidx}
+\RequirePackage { silence }
+\WarningFilter { geometry } { Over-specification }
+
+\PassOptionsToPackage { heightrounded } { geometry }
+\RequirePackage { geometry }
+
+\geometry
+  {
+    papersize = { 8.5in, 11in },
+    total = { 6.500in, 9.130in },
+    centering,
+    footnotesep = 2em plus 2pt minus 2pt,
+  }
+
+\bool_if:NT \l__colorclass_b_five_paper_bool
+  {
+    \geometry
+      {
+        b5paper,
+        total = { 5.535in, 8.160in },
+        centering,
+        footnotesep = 2em plus 2pt minus 2pt,
+      }
+  }
+
+\bool_if:NT \l__colorclass_a_four_paper_bool
+  {
+    \geometry
+      {
+        a4paper,
+        total = { 6.500in, 9.685in },
+        centering,
+        footnotesep = 2em plus 2pt minus 2pt,
+      }
+  }
+
+\bool_if:NT \l__colorclass_fast_bool
+  {
+    \PassOptionsToPackage { fast } { colorist }
+    \RequirePackage { draftwatermark }
+    \DraftwatermarkOptions { text = { \normalfont DRAFT }, color = paper!97!-paper }
+  }
+
+\RequirePackage { indentfirst }
+
+\RequirePackage { colorist }
+
+%%================================
+%%  Fonts
+%%================================
+\WarningFilter { latexfont } { Font~shape }
+\WarningFilter { latexfont } { Some~font  }
+
+\cs_new_protected:Nn \__colorclass_load_file_or_config:Nnn
+  {
+    \bool_if:NT #1
+      {
+        \exp_args:Nx \file_if_exist:nT { #2 }
+          {
+            \exp_args:Nx \file_input:n { #2 }
+            \use_none:nn
+          }
+      }
+    \use:n { #3 }
+  }
+
+%<*lebhart|beaulivre>
+\cs_new_protected:Nn \__colorclass_if_font_exist:nnn
+  {
+    \bool_if:NTF \l__colorclass_fast_bool
+      { #3 }
+      { \fontspec_font_if_exist:nTF { #1 } { #2 } { #3 } }
+  }
+%</lebhart|beaulivre>
+
+\__colorclass_load_file_or_config:Nnn \l__colorclass_load_custom_font_file_bool { \l__colorclass_custom_font_file_str }
+  {
+    \RequirePackage { projlib-font }
+
+%<*colorart|colorbook>
+    \bool_if:NF \g_projlib_font_already_set_bool
+      {
+        \RequirePackage { mathpazo }
+        \RequirePackage { newpxtext }
+        \RequirePackage { amssymb }
+      }
+%</colorart|colorbook>
+%
+%<*lebhart|beaulivre>
+    \bool_if:NF \g_projlib_font_already_set_bool
+      {
+        \bool_if:NT \l__colorclass_fast_bool
+          {
+            \RequirePackage { mathpazo }
+          }
+
+        \PassOptionsToPackage { no-math,quiet } { fontspec }
+        \RequirePackage { fontspec }
+
+        \__colorclass_load_file_or_config:Nnn \l__colorclass_load_custom_font_file_latin_bool { \l__colorclass_custom_font_file_latin_str }
+          {
+            \__colorclass_if_font_exist:nnn { Palatino~Linotype }
+              {
+                \bool_if:NTF \l__projlib_font_useosf_bool
+                  {
+                    \setmainfont { Palatino~Linotype } [ Numbers = OldStyle ]
+                  }
+                  {
+                    \setmainfont { Palatino~Linotype }
+                  }
+              }
+              {
+                \bool_if:NTF \l__projlib_font_useosf_bool
+                  {
+                    \setmainfont { TeXGyrePagellaX-Regular.otf }
+                      [
+                        BoldFont       = TeXGyrePagellaX-Bold.otf ,
+                        ItalicFont     = TeXGyrePagellaX-Italic.otf ,
+                        BoldItalicFont = TeXGyrePagellaX-BoldItalic.otf ,
+                        Numbers        = OldStyle ,
+                      ]
+                  }
+                  {
+                    \setmainfont { TeXGyrePagellaX-Regular.otf }
+                      [
+                        BoldFont       = TeXGyrePagellaX-Bold.otf ,
+                        ItalicFont     = TeXGyrePagellaX-Italic.otf ,
+                        BoldItalicFont = TeXGyrePagellaX-BoldItalic.otf ,
+                      ]
+                  }
+              }
+            \setsansfont { SourceSansPro-Regular.otf }
+              [
+                Scale          = MatchLowercase ,
+                BoldFont       = SourceSansPro-Bold.otf ,
+                ItalicFont     = SourceSansPro-RegularIt.otf ,
+                BoldItalicFont = SourceSansPro-BoldIt.otf ,
+              ]
+            \setmonofont { NewCMMono10-Regular.otf }
+              [
+                Scale          = 1.05 ,
+                BoldFont       = NewCMMono10-Bold.otf ,
+                ItalicFont     = NewCMMono10-Italic.otf ,
+                BoldItalicFont = NewCMMono10-BoldOblique.otf ,
+              ]
+
+            \projlib_language_set_linespacing_latin:n { \setstretch { 1.07 } }
+          }
+      }
+
+
+    \PassOptionsToPackage { fontset = none, scheme = plain } { ctex }
+    \RequirePackage { ctex }
+
+
+    \__colorclass_load_file_or_config:Nnn \l__colorclass_load_custom_font_file_cjk_bool { \l__colorclass_custom_font_file_cjk_str }
+      {
+        \__colorclass_if_font_exist:nnn { SourceHanSerifSC-Regular }
+          {
+            \setCJKmainfont { SourceHanSerifSC-Regular }
+              [
+                BoldFont       = SourceHanSerifSC-Bold ,
+                ItalicFont     = * ,
+                BoldItalicFont = SourceHanSerifSC-Bold ,
+              ]
+          }
+          {
+            \setCJKmainfont { FandolSong-Regular.otf }
+              [
+                BoldFont       = FandolSong-Bold.otf ,
+                ItalicFont     = FandolKai-Regular.otf ,
+                BoldItalicFont = FandolKai-Regular.otf ,
+                BoldItalicFeatures = { FakeBold = 4 } ,
+              ]
+          }
+
+        \__colorclass_if_font_exist:nnn { SourceHanSansSC-Regular }
+          {
+            \setCJKsansfont{SourceHanSansSC-Regular}
+              [
+                BoldFont       = SourceHanSansSC-Bold ,
+                ItalicFont     = * ,
+                BoldItalicFont = SourceHanSansSC-Bold ,
+              ]
+          }
+          {
+            \setCJKsansfont { FandolHei-Regular.otf }
+              [
+                BoldFont       = FandolHei-Bold.otf ,
+                ItalicFont     = * ,
+                BoldItalicFont = FandolHei-Bold.otf ,
+              ]
+          }
+
+        \__colorclass_if_font_exist:nnn { SourceHanMonoSC-Regular }
+          {
+            \setCJKmonofont { SourceHanMonoSC-Regular }
+              [
+                BoldFont       = SourceHanMonoSC-Medium ,
+                ItalicFont     = * ,
+                BoldItalicFont = SourceHanMonoSC-Medium ,
+              ]
+          }
+          {
+            \setCJKmonofont { FandolFang-Regular.otf }
+              [
+                BoldFont       = * ,
+                BoldFeatures   = { FakeBold = 4 } ,
+                ItalicFont     = * ,
+                BoldItalicFont = * ,
+                BoldItalicFeatures = { FakeBold = 4 } ,
+              ]
+          }
+
+        \bool_if:NT \g__projlib_language_enabled_schinese_bool
+          {
+            \__colorclass_if_font_exist:nnn { SourceHanSerifSC-Regular }
+              {
+                \setCJKfamilyfont { SCmain } { SourceHanSerifSC-Regular }
+                  [
+                    BoldFont       = SourceHanSerifSC-Bold ,
+                    ItalicFont     = * ,
+                    BoldItalicFont = SourceHanSerifSC-Bold ,
+                  ]
+              }
+              {
+                \setCJKfamilyfont { SCmain } { FandolSong-Regular.otf }
+                  [
+                    BoldFont       = FandolSong-Bold.otf ,
+                    ItalicFont     = FandolKai-Regular.otf ,
+                    BoldItalicFont = FandolKai-Regular.otf ,
+                    BoldItalicFeatures = { FakeBold = 4 } ,
+                  ]
+              }
+            \__colorclass_if_font_exist:nnn { SourceHanSansSC-Regular }
+              {
+                \setCJKfamilyfont { SCsans } { SourceHanSansSC-Regular }
+                  [
+                    BoldFont       = SourceHanSansSC-Bold ,
+                    ItalicFont     = * ,
+                    BoldItalicFont = SourceHanSansSC-Bold ,
+                  ]
+              }
+              {
+                \setCJKfamilyfont { SCsans } { FandolHei-Regular.otf }
+                  [
+                    BoldFont       = FandolHei-Bold.otf ,
+                    ItalicFont     = * ,
+                    BoldItalicFont = FandolHei-Bold.otf ,
+                  ]
+              }
+            \__colorclass_if_font_exist:nnn { SourceHanMonoSC-Regular }
+              {
+                \setCJKfamilyfont { SCmono } { SourceHanMonoSC-Regular }
+                  [
+                    BoldFont       = SourceHanMonoSC-Medium ,
+                    ItalicFont     = * ,
+                    BoldItalicFont = SourceHanMonoSC-Medium ,
+                  ]
+              }
+              {
+                \setCJKfamilyfont { SCmono } { FandolFang-Regular.otf }
+                  [
+                    BoldFont       = * ,
+                    BoldFeatures   = { FakeBold = 4 } ,
+                    ItalicFont     = * ,
+                    BoldItalicFont = * ,
+                    BoldItalicFeatures = { FakeBold = 4 } ,
+                  ]
+              }
+          }
+
+        \bool_if:NT \g__projlib_language_enabled_tchinese_bool
+          {
+            \__colorclass_if_font_exist:nnn { SourceHanSerifTC-Regular }
+              {
+                \setCJKfamilyfont { TCmain } { SourceHanSerifTC-Regular }
+                  [
+                    BoldFont       = SourceHanSerifTC-Bold ,
+                    ItalicFont     = * ,
+                    BoldItalicFont = SourceHanSerifTC-Bold ,
+                  ]
+              }
+              {
+                \setCJKfamilyfont { TCmain } { FandolSong-Regular.otf }
+                  [
+                    BoldFont       = FandolSong-Bold.otf ,
+                    ItalicFont     = FandolKai-Regular.otf ,
+                    BoldItalicFont = FandolKai-Regular.otf ,
+                    BoldItalicFeatures = { FakeBold = 4 } ,
+                  ]
+              }
+            \__colorclass_if_font_exist:nnn { SourceHanSansTC-Regular }
+              {
+                \setCJKfamilyfont { TCsans } { SourceHanSansTC-Regular }
+                  [
+                    BoldFont       = SourceHanSansTC-Bold ,
+                    ItalicFont     = * ,
+                    BoldItalicFont = SourceHanSansTC-Bold ,
+                  ]
+              }
+              {
+                \setCJKfamilyfont { TCsans } { FandolHei-Regular.otf }
+                  [
+                    BoldFont       = FandolHei-Bold.otf ,
+                    ItalicFont     = * ,
+                    BoldItalicFont = FandolHei-Bold.otf ,
+                  ]
+              }
+            \__colorclass_if_font_exist:nnn { SourceHanMonoTC-Regular }
+              {
+                \setCJKfamilyfont { TCmono } { SourceHanMonoTC-Regular }
+                  [
+                    BoldFont       = SourceHanMonoTC-Medium ,
+                    ItalicFont     = * ,
+                    BoldItalicFont = SourceHanMonoTC-Medium ,
+                  ]
+              }
+              {
+                \setCJKfamilyfont { TCmono } { FandolFang-Regular.otf }
+                  [
+                    BoldFont       = * ,
+                    BoldFeatures   = { FakeBold = 4 } ,
+                    ItalicFont     = * ,
+                    BoldItalicFont = * ,
+                    BoldItalicFeatures = { FakeBold = 4 } ,
+                  ]
+              }
+          }
+
+        \bool_if:NT \g__projlib_language_enabled_japanese_bool
+          {
+            \__colorclass_if_font_exist:nnn { SourceHanSerif-Regular }
+              {
+                \setCJKfamilyfont { JPmain } { SourceHanSerif-Regular }
+                  [
+                    BoldFont       = SourceHanSerif-Bold ,
+                    ItalicFont     = * ,
+                    BoldItalicFont = SourceHanSerif-Bold ,
+                  ]
+              }
+              {
+                \setCJKfamilyfont { JPmain } { FandolSong-Regular.otf }
+                  [
+                    BoldFont       = FandolSong-Bold.otf ,
+                    ItalicFont     = FandolKai-Regular.otf ,
+                    BoldItalicFont = FandolKai-Regular.otf ,
+                    BoldItalicFeatures = { FakeBold = 4 } ,
+                  ]
+              }
+            \__colorclass_if_font_exist:nnn { SourceHanSans-Regular }
+              {
+                \setCJKfamilyfont { JPsans } { SourceHanSans-Regular }
+                  [
+                    BoldFont       = SourceHanSans-Bold ,
+                    ItalicFont     = * ,
+                    BoldItalicFont = SourceHanSans-Bold ,
+                  ]
+              }
+              {
+                \setCJKfamilyfont { JPsans } { FandolHei-Regular.otf }
+                  [
+                    BoldFont       = FandolHei-Bold.otf ,
+                    ItalicFont     = * ,
+                    BoldItalicFont = FandolHei-Bold.otf ,
+                  ]
+              }
+            \__colorclass_if_font_exist:nnn { SourceHanMono-Regular }
+              {
+                \setCJKfamilyfont { JPmono } { SourceHanMono-Regular }
+                  [
+                    BoldFont       = SourceHanMono-Medium ,
+                    ItalicFont     = * ,
+                    BoldItalicFont = SourceHanMono-Medium ,
+                  ]
+              }
+              {
+                \setCJKfamilyfont { JPmono } { FandolFang-Regular.otf }
+                  [
+                    BoldFont       = * ,
+                    BoldFeatures   = { FakeBold = 4 } ,
+                    ItalicFont     = * ,
+                    BoldItalicFont = * ,
+                    BoldItalicFeatures = { FakeBold = 4 } ,
+                  ]
+              }
+          }
+
+        \cs_new:Nn \colorclass_cjk_sffamily: {}
+        \cs_new:Nn \colorclass_cjk_ttfamily: {}
+
+        \hook_gput_code:nnn { cmd/sffamily/after } { colorclass } { \colorclass_cjk_sffamily: }
+        \hook_gput_code:nnn { cmd/ttfamily/after } { colorclass } { \colorclass_cjk_ttfamily: }
+
+        \AddLanguageSetting [schinese]
+          {
+            \cs_set:Nn \colorclass_cjk_sffamily: { \CJKfamily { SCsans } }
+            \cs_set:Nn \colorclass_cjk_ttfamily: { \CJKfamily { SCmono } }
+            \CJKfamily { SCmain }
+          }
+        \AddLanguageSetting [tchinese]
+          {
+            \cs_set:Nn \colorclass_cjk_sffamily: { \CJKfamily { TCsans } }
+            \cs_set:Nn \colorclass_cjk_ttfamily: { \CJKfamily { TCmono } }
+            \CJKfamily { TCmain }
+          }
+        \AddLanguageSetting [japanese]
+          {
+            \cs_set:Nn \colorclass_cjk_sffamily: { \CJKfamily { JPsans } }
+            \cs_set:Nn \colorclass_cjk_ttfamily: { \CJKfamily { JPmono } }
+            \CJKfamily { JPmain }
+          }
+      }
+
+
+    \__colorclass_load_file_or_config:Nnn \l__colorclass_load_custom_font_file_math_bool { \l__colorclass_custom_font_file_math_str }
+      {
+        \bool_if:NF \g_projlib_font_already_set_bool
+          {
+            \bool_if:NTF \l__colorclass_fast_bool
+              {
+                \RequirePackage { amssymb }
+              }
+              {
+                \PassOptionsToPackage { warnings-off = { mathtools-colon, mathtools-overbracket } } { unicode-math }
+                \RequirePackage { unicode-math }
+                \unimathsetup { math-style = ISO, partial = upright, nabla = upright }
+                \setmathfont { Asana-Math.otf }
+                \__colorclass_if_font_exist:nnn { Neo~Euler }
+                  {
+                    \setmathfont { Neo~Euler }
+                      [
+                        range             = { up / { Latin, latin, Greek, greek },
+                                              bfup / { Latin, latin, Greek, greek },
+                                              cal, bfcal, frak, bffrak,
+                                              `(, `), `[, `], `\{, `\}, `:, `=, \ne, \equiv, `/, \backslash,
+                                              \in, \notin, \ni, \subset, \supset, \subseteq, \supseteq,
+                                              \rightarrow, \leftarrow, \leftrightarrow,
+                                              \longleftarrow, \longrightarrow, \longleftrightarrow,
+                                              \Leftarrow, \Rightarrow, \Leftrightarrow,
+                                              \Longleftarrow, \Longrightarrow, \Longleftrightarrow,
+                                              \nrightarrow, \nleftarrow, \nleftrightarrow,
+                                              \nLeftarrow, \nRightarrow, \nLeftrightarrow,
+                                              \mapsto, \hookrightarrow, \hookleftarrow,
+                                              \leftharpoonup, \rightharpoonup, \leftharpoondown, \rightharpoondown,
+                                              \rightleftharpoons, \leftrightharpoons,
+                                              \sum, \prod, \coprod,
+                                              \sqrt, \int, \iint, \iiint, \oint
+                                            },
+                        script-features   = {},
+                        sscript-features  = {},
+                        Scale             = 1.05,
+                      ]
+                  }{}
+                \setmathfont { latinmodern-math.otf }
+                  [
+                    range = { \leq, \geq, \ll, \gg, \lll, \ggg, \leqslant, \geqslant },
+                    Scale = 0.95,
+                  ]
+                \setmathfont { texgyrepagella-math.otf }
+                  [
+                    range = { up / num, bfup / num }
+                  ]
+
+                \hook_gput_code:nnn { begindocument } { colorclass }
+                  {
+                    \NewCommandCopy \colorclass_backup_mid: \mid
+                    \RenewDocumentCommand \mid {}
+                      { \skip_horizontal:n {-.15em} \colorclass_backup_mid: \skip_horizontal:n {-.15em} }
+                    \NewCommandCopy \colorclass_backup_nmid: \nmid
+                    \RenewDocumentCommand \nmid {}
+                      { \skip_horizontal:n {-.15em} \colorclass_backup_nmid: \skip_horizontal:n {-.15em} }
+                  }
+
+                \RequirePackage { tikz-cd }
+
+                \box_new:N \l__colorclass_xarrows_above_box
+                \box_new:N \l__colorclass_xarrows_below_box
+                \dim_new:N \l__colorclass_xarrows_length_dim
+                \cs_new_protected:Nn \colorclass_xarrows_generic:nnnn
+                  % #3 = option of \tikz
+                  % #4 = edge of \draw
+                  {
+                    \hbox_set:Nn \l__colorclass_xarrows_below_box { \ensuremath { \scriptstyle #1 } }
+                    \hbox_set:Nn \l__colorclass_xarrows_above_box { \ensuremath { \scriptstyle #2 } }
+                    \dim_set:Nn \l__colorclass_xarrows_length_dim
+                      { \dim_eval:n { \dim_max:nn { \box_wd:N \l__colorclass_xarrows_below_box } { \box_wd:N \l__colorclass_xarrows_above_box } + .8em } }
+                    \mathrel
+                      {
+                        \tikz [ #3, baseline = -.55ex, every~node/.style = { inner~sep = 0pt } ]
+                          \draw (0,0) #4
+                            node [ below = 3pt ] { \box_use:N \l__colorclass_xarrows_below_box }
+                            node [ above = 2pt ] { \box_use:N \l__colorclass_xarrows_above_box }
+                            ( \l__colorclass_xarrows_length_dim ,0) ;
+                      }
+                  }
+
+                \RenewDocumentCommand \xrightarrow { O{} m }
+                  {
+                    \colorclass_xarrows_generic:nnnn { #1 } { #2 } { -> } { -- }
+                  }
+                \RenewDocumentCommand \xleftarrow { O{} m }
+                  {
+                    \colorclass_xarrows_generic:nnnn { #1 } { #2 } { <- } { -- }
+                  }
+                \RenewDocumentCommand \xleftrightarrow { O{} m }
+                  {
+                    \colorclass_xarrows_generic:nnnn { #1 } { #2 } { <-> } { -- }
+                  }
+                \RenewDocumentCommand \xhookrightarrow { O{} m }
+                  {
+                    \colorclass_xarrows_generic:nnnn { #1 } { #2 } {} { edge [ commutative~diagrams/hookrightarrow ] }
+                  }
+                \RenewDocumentCommand \xhookleftarrow { O{} m }
+                  {
+                    \colorclass_xarrows_generic:nnnn { #1 } { #2 } {} { edge [ commutative~diagrams/hookleftarrow ] }
+                  }
+                \RenewDocumentCommand \xmapsto { O{} m }
+                  {
+                    \colorclass_xarrows_generic:nnnn { #1 } { #2 } {} { edge [ commutative~diagrams/mapsto ] }
+                  }
+                \NewDocumentCommand \xlongequal { O{} m }
+                  {
+                    \colorclass_xarrows_generic:nnnn { #1 } { #2 } {} { edge [ commutative~diagrams/equal ] }
+                  }
+                \hook_gput_code:nnn { begindocument/end } { colorclass }
+                  {
+                    \RenewDocumentCommand \twoheadrightarrow {}
+                      {
+                        \colorclass_xarrows_generic:nnnn { \,\, } {} {} { edge [ commutative~diagrams/twoheadrightarrow ] }
+                      }
+                    \RenewDocumentCommand \twoheadleftarrow {}
+                      {
+                        \colorclass_xarrows_generic:nnnn { \,\, } {} {} { edge [ commutative~diagrams/twoheadleftarrow ] }
+                      }
+                  }
+              }
+          }
+      }
+%</lebhart|beaulivre>
+  }
+
+\PassOptionsToPackage { all } { nowidow }
+\RequirePackage { nowidow }
+\RequirePackage { embrac }
+
+%%================================
+%%  Graphics
+%%================================
+\RequirePackage { graphicx }
+\graphicspath { { images/ } }
+\RequirePackage { wrapfig }
+\RequirePackage { float }
+\RequirePackage { caption }
+\captionsetup { font = small }
 %</class>
 %
 %
 %<*colorist>
-%# 这段代码定义了宏包中的选项。
-%# This code defines the options in the package.
-\SetupKeyvalOptions{%
-    family = @colorist,
-    prefix = @colorist@
-}
-%# 草稿模式或快速模式
-%# Draft mode or fast mode
-\DeclareBoolOption[false]{draft}
-\DeclareBoolOption[false]{fast}
-%# 纯文本模式 （不加载定理类环境）
-%# Pure text mode (no theorem-like environments loaded)
-\DeclareBoolOption[false]{puretext}
-\DeclareBoolOption[false]{nothms}
-%# 推迟建立定理类环境
-%# Delay the setup of theorem-like environments to the end of the preamble
-\DeclareBoolOption[false]{delaythms}
-%# 定理类环境不编号
-%# No numbering for theorem-like environments
-\DeclareBoolOption[false]{nothmnum}
-%# 指定如何编号定理类环境
-%# Number theorem-like environments With ...
-\DeclareStringOption{thmnum}[colorist@thmnum@default]
-%# 引用的名称是否将随当前语言的不同而改变
-%# Whether reference name will change with the current language
-\DeclareBoolOption[true]{regionalref}
-\DeclareBoolOption[false]{originalref}
-%# 允许标题中的粗体
-%# Allow bold faces in the titles
-\DeclareBoolOption[false]{allowbf}
-%# subsubsection 标题采用 runin 样式
-%# Use `runin` style for subsubsection
-\DeclareBoolOption[false]{runin}
-%# 处理选项
-%# Process options
-\ProcessKeyvalOptions*\relax
+\keys_define:nn { colorist }
+  {
+    , draft             .bool_set:N         = \l__colorist_fast_bool
+    , draft             .initial:n          = { false }
+    , fast              .bool_set:N         = \l__colorist_fast_bool
 
-%# 下面的代码设定了一些选项之间的关系
-%# The following code sets the relationship between some options
-\if@colorist@originalref
-    \@colorist@regionalreffalse
-\fi
-\if@colorist@draft
-  \@colorist@fasttrue
-\fi
-\if@colorist@puretext
-  \@colorist@nothmstrue
-\fi
+    , style             .str_set:N          = \l__colorist_style_str
+    , style             .initial:n          = { fancy }
+    , fancy             .meta:n             = { style = fancy }
 
-%# 向组件传递一些参数
-%# Pass some options to the components
-\if@colorist@fast
-    \PassOptionsToPackage{fast}{PJLdraft}
-    \PassOptionsToPackage{fast}{PJLthm}
-\fi
-\expandafter\ifstrempty\expandafter{\@colorist@thmnum}{}{
-    \expandafter\ifstrequal\expandafter{\@colorist@thmnum}{colorist@thmnum@default}{
-        \PassOptionsToPackage{thmnum}{PJLthm}
-    }{
-        \PassOptionsToPackage{thmnum=\@colorist@thmnum}{PJLthm}
-    }
-}
-\if@colorist@regionalref\else
-    \PassOptionsToPackage{originalref}{PJLthm}
-\fi
+    , use-boldface      .bool_set:N         = \l__colorist_use_boldface_bool
+    , use-boldface      .initial:n          = { false }
+    , use~boldface      .bool_set:N         = \l__colorist_use_boldface_bool
+    , use boldface      .bool_set:N         = \l__colorist_use_boldface_bool
+    , usebf             .bool_set:N         = \l__colorist_use_boldface_bool
+    , allow-boldface    .bool_set:N         = \l__colorist_use_boldface_bool
+    , allow~boldface    .bool_set:N         = \l__colorist_use_boldface_bool
+    , allow boldface    .bool_set:N         = \l__colorist_use_boldface_bool
+    , allowbf           .bool_set:N         = \l__colorist_use_boldface_bool
+    , runin             .bool_set:N         = \l__colorist_runin_bool
+    , runin             .initial:n          = { false }
 
-%# 设定带条件的加粗
-%# Set the conditional bold face
-\if@colorist@allowbf
-    \newcommand{\conditionalbfseries}{\bfseries\colorlet{PJLtempcolor}{.}\color{PJLtempcolor!90!paper}}
-\else
-    \newcommand{\conditionalbfseries}{}
-\fi
+    , theorem-in-new-line .bool_set:N       = \l__colorist_theorem_in_new_line_bool
+    , theorem-in-new-line .initial:n        = { false }
+    , theorem~in~new~line .bool_set:N       = \l__colorist_theorem_in_new_line_bool
+    , theorem in new line .bool_set:N       = \l__colorist_theorem_in_new_line_bool
 
-%# 判断是文章还是书
-%# Article or Book?
-\newif\ifIsBook
-\ifdefined\c@chapter\IsBooktrue\else\IsBookfalse\fi
+    , unknown           .code:n             = {
+                                                \PassOptionsToPackage { \CurrentOption } { projlib-language }
+                                                \PassOptionsToPackage { \CurrentOption } { projlib-author }
+                                                \PassOptionsToPackage { \CurrentOption } { projlib-datetime }
+                                                \PassOptionsToPackage { \CurrentOption } { projlib-draft }
+                                                \PassOptionsToPackage { \CurrentOption } { projlib-font }
+                                                \PassOptionsToPackage { \CurrentOption } { projlib-logo }
+                                                \PassOptionsToPackage { \CurrentOption } { projlib-math }
+                                                \PassOptionsToPackage { \CurrentOption } { projlib-paper }
+                                                \PassOptionsToPackage { \CurrentOption } { projlib-theorem }
+                                              }
+  }
+\ProcessKeysOptions { colorist }
 
-%# 由于有些字体不包括 sffamily 和 textsc 的组合，因此单独考虑这两种字形
-%# Since some fonts do not include a combination of sffamily and textsc, treat these two shapes separately
-\let\colorist@sffamily\sffamily
-\let\colorist@scshape\scshape
-\let\colorist@textsc\textsc
+\bool_new:N \l__colorist_is_book_bool
+\cs_if_exist:cTF { c@chapter }
+  {
+    \bool_set_true:N \l__colorist_is_book_bool
+  }
+  {
+    \bool_set_false:N \l__colorist_is_book_bool
+  }
 
 %%================================
-%% Title fonts
+%%  Paper configuration
 %%================================
-\RequirePackage{anyfontsize}
-
-%# 各级标题的字形
-%# The font shape of the titles
-\newcommand{\partfont}{\conditionalbfseries\colorist@sffamily}
-\newcommand{\chapfont}{\conditionalbfseries\colorist@sffamily\colorist@scshape}
-\newcommand{\secfont}{\conditionalbfseries\colorist@sffamily}
-\newcommand{\subsecfont}{\conditionalbfseries\colorist@sffamily}
-\newcommand{\subsubsecfont}{\conditionalbfseries\colorist@sffamily}
+\RequirePackage { projlib-paper }
 
 %%================================
-%% Paper configuration
+%%  Multi-language support
 %%================================
-%# 引入 ProjLib 中用于设置页面颜色等参数的模块
-%# Introduce the module of ProjLib used to set page color etc.
-\RequirePackage{PJLpaper}
+\RequirePackage { projlib-language }
+
+%%================================
+%%  Loading the style
+%%================================
+\exp_args:No \RequirePackage { colorist- \l__colorist_style_str }
+%</colorist>
+%
+%<*style>
+\@ifpackageloaded { colorist } {}
+  {
+    \msg_new:nnn { \@currname }
+      { colorist-not-loaded }
+      { "#1"~is~an~internal~style~of~"colorist".~To~use~it,~you~must~load~the~package~"colorist"~first. }
+    \msg_warning:nnx { \@currname } { colorist-not-loaded } { \@currname }
+    \endinput
+  }
+
+%%================================
+%%  Title fonts
+%%================================
+\RequirePackage { anyfontsize }
+
+\bool_if:NTF \l__colorist_use_boldface_bool
+  {
+    \cs_new:Nn \colorist_bfseries: { \bfseries \colorlet{colorist-temp-color}{.} \color{colorist-temp-color!90!paper} }
+  }
+  {
+    \cs_new:Nn \colorist_bfseries: {}
+  }
+
+\tl_new:N \g_colorist_title_font_common_tl
+
+\tl_new:N \g_colorist_title_font_part_tl
+\tl_new:N \g_colorist_title_font_chapter_tl
+\tl_new:N \g_colorist_title_font_section_tl
+\tl_new:N \g_colorist_title_font_subsection_tl
+\tl_new:N \g_colorist_title_font_subsubsection_tl
+\tl_new:N \g_colorist_title_font_paragraph_tl
+
+%<*colorist-fancy>
+\tl_gset:Nn \g_colorist_title_font_common_tl        { \sffamily }
+\tl_gset:Nn \g_colorist_title_font_part_tl          { \colorist_bfseries: \g_colorist_title_font_common_tl }
+\tl_gset:Nn \g_colorist_title_font_chapter_tl       { \colorist_bfseries: \g_colorist_title_font_common_tl }
+\tl_gset:Nn \g_colorist_title_font_section_tl       { \colorist_bfseries: \g_colorist_title_font_common_tl }
+\tl_gset:Nn \g_colorist_title_font_subsection_tl    { \colorist_bfseries: \g_colorist_title_font_common_tl }
+\tl_gset:Nn \g_colorist_title_font_subsubsection_tl { \colorist_bfseries: \g_colorist_title_font_common_tl }
+\tl_gset:Nn \g_colorist_title_font_paragraph_tl     { \colorist_bfseries: \g_colorist_title_font_common_tl }
+%</colorist-fancy>
 
 %%================================
 %% Color
 %%================================
-%# 设置一些接下来要使用的颜色
-%# Set some colors to be used next
-% \definecolor{skyblue}{RGB}{60,120,234}
+%<*colorist-fancy>
 \definecolor{maintheme}{RGB}{70,130,180}
 \definecolor{forestgreen}{RGB}{21,122,81}
 \definecolor{lightorange}{RGB}{255,185,88}
-% \definecolor{lightskyblue}{RGB}{35,198,255}
+%</colorist-fancy>
 
 %%================================
-%% Footer
+%%  Footer
 %%================================
-\RequirePackage{geometry}
-\RequirePackage{fancyhdr}
-\RequirePackage{extramarks}
+\RequirePackage { geometry }
+\RequirePackage { fancyhdr }
+\RequirePackage { extramarks }
 
-%# 下面这一行用来修复页面参数被修改时错误的页眉页脚位置
-%# The following line is used to fix the wrong header and footer position when the page parameters are modified
-\AtEndPreamble{\fancyhfoffset{0pt}}
+\hook_gput_code:nnn { begindocument/before } { colorist }
+  {
+    \fancyhfoffset { 0pt }
+  }
 
-%# 默认的页眉页脚设置
-%# Default header and footer settings
-\fancypagestyle{fancy}{
+\tl_new:N \l_colorist_leftmark_tl
+\tl_new:N \l_colorist_rightmark_tl
+
+\tl_set:Nn \l_colorist_leftmark_tl
+  {
+    \begin{minipage}[t]{.833\textwidth}
+      \lastleftmark
+    \end{minipage}
+  }
+\tl_set:Nn \l_colorist_rightmark_tl
+  {
+    \begin{minipage}[t]{.833\textwidth}
+      \filleft
+      \lastrightmark
+    \end{minipage}
+  }
+
+\fancypagestyle { fancy }
+  {
     \fancyhf{}
     \if@twoside
-        \fancyfoot[RO]{\sffamily\textcolor{maintext!30!paper}{\small\lastrightmark}%
-            \rlap{~~~~\textcolor{maintext!75!paper}{\textbf{\thepage}}}}
-        \fancyfoot[LE]{\leavevmode\sffamily\llap{\textcolor{maintext!75!paper}{\textbf{\thepage}}%
-            ~~~~}%
-            \textcolor{maintext!30!paper}{\small\lastleftmark}}
+      \fancyfoot[RO]{\sffamily\textcolor{main-text!30!paper}{ \small \l_colorist_rightmark_tl }
+        \rlap{\nobreakspace\nobreakspace\nobreakspace\nobreakspace\textcolor{main-text!75!paper}{\textbf{\thepage}}}}
+      \fancyfoot[LE]{\leavevmode\sffamily\llap{\textcolor{main-text!75!paper}{\textbf{\thepage}}
+        \nobreakspace\nobreakspace\nobreakspace\nobreakspace}
+        \textcolor{main-text!30!paper}{ \l_colorist_leftmark_tl }}
     \else
-        \fancyfoot[R]{\sffamily\textcolor{maintext!30!paper}{\small\lastrightmark}%
-            \rlap{~~~~\textcolor{maintext!75!paper}{\textbf{\thepage}}}}
+      \fancyfoot[R]{\textcolor{main-text!30!paper}{ \l_colorist_rightmark_tl }
+        \rlap{\nobreakspace\nobreakspace\nobreakspace\nobreakspace\textcolor{main-text!75!paper}{\textbf{\thepage}}}}
     \fi
     \renewcommand{\headrulewidth}{0pt}
-}
+  }
 \pagestyle{fancy}
 
-%# 第一页的页眉页脚设置
-%# First page's header and footer settings
-\fancypagestyle{plain}{
+\fancypagestyle { plain }
+  {
     \fancyhf{}
     \if@twoside
-        \fancyfoot[RO]{%
-            \sffamily~\rlap{~~~~\textcolor{maintext!75!paper}{\textbf{\thepage}}}}
-        \fancyfoot[LE]{\leavevmode\sffamily\llap{\textcolor{maintext!75!paper}{\textbf{\thepage}}%
-            ~~~}}
+      \fancyfoot[RO]{\sffamily
+        \nobreakspace\rlap{\nobreakspace\nobreakspace\nobreakspace\nobreakspace\textcolor{main-text!75!paper}{\textbf{\thepage}}}}
+      \fancyfoot[LE]{\leavevmode\sffamily\llap{\textcolor{main-text!75!paper}{\textbf{\thepage}}
+        \nobreakspace\nobreakspace}}
     \else
-        \fancyfoot[R]{%
-            ~\rlap{~~~~\textcolor{maintext!75!paper}{\textbf{\thepage}}}}
+      \fancyfoot[R]{\sffamily
+        \nobreakspace\nobreakspace\nobreakspace\rlap{\textcolor{main-text!75!paper}{\textbf{\thepage}}}}
     \fi
     \renewcommand{\headrulewidth}{0pt}
-}
+  }
 
-\ifbool{IsBook}{
-%# 针对书的 mark 的设定
-%# Configure the marks for books
+\bool_if:NTF \l__colorist_is_book_bool
+  {
     \if@twoside
         \renewcommand{\chaptermark}[1]{\markboth{\textsc{#1}}{}}
     \else
         \renewcommand{\chaptermark}[1]{\markboth{\textsc{#1}}{\textsc{#1}}}
     \fi
-    \renewcommand*{\sectionmark}[1]{%
-        \markright{\thesection~~#1}}
-}{
-%# 针对文章的 mark 的设定
-%# Configure the marks for articles
+    \renewcommand*{\sectionmark}[1]{
+      \markright{\thesection\nobreakspace\nobreakspace#1}}
+  }
+  {
     \if@twoside
         \renewcommand*{\sectionmark}[1]{\markboth{\textsc{#1}}{}}
     \else
         \renewcommand*{\sectionmark}[1]{\markboth{\textsc{#1}}{\textsc{#1}}}
     \fi
-}
-%
-%%================================
-%% Languages and line spacing
-%%================================
-%# 引入 ProjLib 中用于提供多语言设置的模块
-%# Introduce the module of ProjLib that offers language-specific configurations
-\RequirePackage{PJLlang}
-%# 行距设置，中文大约是 1.5 倍行距，英文大约是单倍行距，根据字体变化
-%# Line spacing configuration, CJK uses about one-half spacing, and English is single line spacing, depending on the font
-% \RequirePackage{setspace}
-\PJLsetlinespacing{\setstretch{1.07}}
-\PJLsetCJKlinespacing{\onehalfspacing}
-% To avoid `Underfull \vbox (badness 10000)`
-\raggedbottom
+  }
 
 %%================================
-%% Title format
+%%  Title format
 %%================================
-\RequirePackage[explicit,newparttoc]{titlesec}
-\PassOptionsToPackage{normalem}{ulem}
-\RequirePackage{ulem}
+\RequirePackage [ explicit, newparttoc ] { titlesec }
+\PassOptionsToPackage { normalem } { ulem }
+\RequirePackage { ulem }
 
-%# 设定 CJK 的 part 标题本地化（babel 目前不包含这个设置）
-%# Set CJK's part title localization (`babel` currently does not include this setting)
-\newcommand{\partstring}{\MakeUppercase{{\partname~\protect\thepart}}}
-\gappto{\PJLlang@langconfig@common}{%
-\renewcommand{\partstring}{\MakeUppercase{{\partname~\protect\thepart}}}%
-}
-\gappto{\PJLlang@langconfig@CN}{%
-\renewcommand{\partstring}{第~\thepart~部分}%
-}
-\gappto{\PJLlang@langconfig@TC}{%
-\renewcommand{\partstring}{第~\thepart~部分}%
-}
-\gappto{\PJLlang@langconfig@JP}{%
-\renewcommand{\partstring}{第~\thepart~部}%
-}
+\PassOptionsToPackage { many } { tcolorbox }
+\RequirePackage { tcolorbox }
+\bool_if:NT \l__colorist_fast_bool { \tcbstartdraftmode }
 
-\ifbool{IsBook}{
-%# 针对书的标题样式设定
-%# Configure the title formats for books
+\newcommand{\partstring}{\MakeUppercase{{\partname\nobreakspace\protect\thepart}}}
+
+\AddLanguageSetting
+  {
+    \renewcommand{\partstring}{\MakeUppercase{{\partname\nobreakspace\protect\thepart}}}
+  }
+\AddLanguageSetting [ schinese ]
+  {
+    \renewcommand{\partstring}{第 \nobreakspace\thepart\nobreakspace 部分}
+  }
+\AddLanguageSetting [ tchinese ]
+  {
+    \renewcommand{\partstring}{第 \nobreakspace\thepart\nobreakspace 部分}
+  }
+\AddLanguageSetting [ japanese ]
+  {
+    \renewcommand{\partstring}{第 \nobreakspace\thepart\nobreakspace 部}
+  }
+
+\bool_if:NTF \l__colorist_is_book_bool
+  {
+    \setcounter{secnumdepth}{3}
+
     %% Part
     \titleclass{\part}{top} % make part like a chapter
     \titleformat{\part}[display]
-        {\partfont\filleft}
-        {%
-            \thispagestyle{empty}%
-            \begin{tikzpicture}[remember picture,overlay]
-                \fill[maintheme!10!paper] (current page.north west) rectangle (current page.south east);
-                \node at ($(current page.north west)+(15em,-15em)$) {\normalfont\textcolor{maintheme}{\scalebox{12}{\thepart}}};
-            \end{tikzpicture}%
-        }
-        {1em}
-        {\fontsize{20}{0}\selectfont\MakeUppercase{#1}}
+      { \g_colorist_title_font_part_tl \filleft}
+      {
+        \thispagestyle{empty}
+        \begin{tikzpicture}[remember~picture,overlay]
+          \fill[maintheme!10!paper] (current~page.north~west) rectangle (current~page.south~east);
+          \node at ($(current~page.north~west)+(15em,-15em)$) {\normalfont\textcolor{maintheme}{\scalebox{12}{\thepart}}};
+        \end{tikzpicture}
+      }
+      {1em}
+      {\fontsize{20}{0}\selectfont\MakeUppercase{#1}}
     \titleformat{name=\part,numberless}[display]
-        {% \phantomsection\addcontentsline{toc}{part}{#1}%
-        \partfont\filleft}
-        {%
-            \thispagestyle{empty}%
-            \begin{tikzpicture}[remember picture,overlay]
-                \fill[maintheme!10!paper] (current page.north west) rectangle (current page.south east);
-                \node at ($(current page.north west)+(15em,-15em)$) {\normalfont\textcolor{maintheme}{\scalebox{12}{$*$}}};
-            \end{tikzpicture}%
-        }
-        {1em}
-        {\fontsize{20}{0}\selectfont\MakeUppercase{#1}}
+      {% \phantomsection\addcontentsline{toc}{part}{#1}%
+         \g_colorist_title_font_part_tl \filleft}
+      {
+        \thispagestyle{empty}
+        \begin{tikzpicture}[remember~picture,overlay]
+          \fill[maintheme!10!paper] (current~page.north~west) rectangle (current~page.south~east);
+          \node at ($(current~page.north~west)+(15em,-15em)$) {\normalfont\textcolor{maintheme}{\scalebox{12}{$*$}}};
+        \end{tikzpicture}
+      }
+      {1em}
+      {\fontsize{20}{0}\selectfont\MakeUppercase{#1}}
     \titlespacing*{\part}{0pt}{5em}{6em}
     %% Text after part
-    \newcommand{\parttext}[1]{%
-        \vfill%
-        \begin{flushright}%
-            \begin{minipage}{0.833\textwidth}%
-                \color{maintext!80!paper}\raggedleft#1%
-            \end{minipage}%
-        \end{flushright}%
-        \vfill\vfill%
-        \cleardoublepage%
+    \newcommand{\parttext}[1]{
+        \vfill
+        \begin{flushright}
+            \begin{minipage}{0.833\textwidth}
+                \color{main-text!80!paper}\raggedleft#1
+            \end{minipage}
+        \end{flushright}
+        \vfill\vfill
+        \cleardoublepage
     }
 
     %% Chapter
-%# 带编号的章节：\TheChapter{<number>}{<title>}
-%# Numbered chapter title: \TheChapter{<number>}{<title>}
-    \newcommand{\TheChapter}[2]{%
-        \tcbsidebyside[enhanced,sidebyside adapt=right,sidebyside align=bottom,
-        colback=paper,frame hidden,
-        segmentation code={
-            \filldraw[maintheme] (segmentation.north) 
-                -- ($(segmentation.east)-(12pt,0)$) 
-                -- ($(segmentation.west)+(12pt,0)$) 
-                -- (segmentation.south);} 
+    % Numbered chapter title: \TheChapter{<number>}{<title>}
+    \newcommand{\TheChapter}[2]
+      {
+        \tcbsidebyside[enhanced,sidebyside~adapt=right,sidebyside~align=bottom,
+        colback=paper,frame~hidden,
+        segmentation~code={
+            \filldraw[maintheme] (segmentation.north)
+                -- ($(segmentation.east)-(12pt,0)$)
+                -- ($(segmentation.west)+(12pt,0)$)
+                -- (segmentation.south);}
         ]{\filleft#2}{\normalfont\textcolor{maintheme}{\scalebox{4}{#1}}}
-    }
-
-%# 不编号的章节：\TheChapterSingle{<title>}
-%# Numberless chapter title: \TheChapterSingle{<title>}
-    \newcommand{\TheChapterSingle}[1]{%
+      }
+    % Numberless chapter title: \TheChapterSingle{<title>}
+    \newcommand{\TheChapterSingle}[1]
+      {
         \begin{tcolorbox}[
             enhanced,
             width = 0.67\textwidth,
-            colback=paper,frame hidden,
+            colback=paper,frame~hidden,
             halign=center]
             #1
             \vspace{-.6em}
@@ -1048,159 +1044,162 @@
                 \end{tikzpicture}
             \end{center}
         \end{tcolorbox}
-    }
+      }
     
     \titleformat{name=\chapter}
-        {\chapfont\huge} % Format
-        {} % Label
-        {0mm} % Sep
-        {\TheChapter{\thechapter}{#1}} % Before-code
+      { \g_colorist_title_font_chapter_tl \scshape\huge} % Format
+      {} % Label
+      {0mm} % Sep
+      {\TheChapter{\thechapter}{#1}} % Before-code
     \titlespacing*{name=\chapter}
-        {0em}{*2}{0em} % {left}{before-sep}{after-sep}
+      {0em}{*2}{0em} % {left}{before-sep}{after-sep}
 
     \titleformat{name=\chapter, numberless}
-        {\filcenter\chapfont\huge}
-        {}
-        {0mm}
-        {\TheChapterSingle{#1}}
+      {\filcenter \g_colorist_title_font_chapter_tl \scshape\huge}
+      {}
+      {0mm}
+      {\TheChapterSingle{#1}}
     \titlespacing*{name=\chapter, numberless}
-        {0em}{*2}{0em}
+      {0em}{*2}{0em}
 
     %% Section
     \titleformat{\section}
-    {\color{maintheme}\secfont\large}
-    {\thesection}{.75em}{#1}
-    % [{\titlerule[.75pt]}]
+      {\color{maintheme} \g_colorist_title_font_section_tl \large}
+      {\thesection}{.75em}{#1}
 
     %% Subsection
     \titleformat{\subsection}
-    {\subsecfont}{\thesubsection}{.75em}
-    {#1}
-}{
-%# 针对文章的标题样式设定
-%# Configure the title formats for articles
+      { \g_colorist_title_font_subsection_tl }{\thesubsection}{.75em}
+      {#1}
+  }
+  {
     %% Part
     \titleformat{\part}[display]
-        {%
-        \partfont\filleft}
-        {\partstring}
-        {.3em}
-        {\fontsize{16}{0}\selectfont\MakeUppercase{#1}}
+      { \g_colorist_title_font_part_tl \filleft}
+      {\partstring}
+      {.3em}
+      {\fontsize{16}{0}\selectfont\MakeUppercase{#1}}
     \titleformat{name=\part,numberless}[display]
-        {% \phantomsection\addcontentsline{toc}{part}{#1}%
-        \partfont\filleft}
-        {\phantom{\MakeUppercase{\partname}}}
-        {.3em}
-        {\fontsize{16}{0}\selectfont\MakeUppercase{#1}}
+      {% \phantomsection\addcontentsline{toc}{part}{#1}
+         \g_colorist_title_font_part_tl \filleft}
+      {\phantom{\MakeUppercase{\partname}}}
+      {.3em}
+      {\fontsize{16}{0}\selectfont\MakeUppercase{#1}}
     %% Text after part
-    \newcommand{\parttext}[1]{%
-        \begin{flushright}%
-            \begin{minipage}{0.833\textwidth}%
-                \color{maintext!80!paper}\raggedleft#1%
-            \end{minipage}%
-        \end{flushright}%
-    }
+    \newcommand{\parttext}[1]
+      {
+        \begin{flushright}
+            \begin{minipage}{0.833\textwidth}
+                \color{main-text!80!paper}\raggedleft#1
+            \end{minipage}
+        \end{flushright}
+      }
 
     %% Section
     \titleformat{\section}
-    {\color{maintheme}\secfont\large}
-    {\thesection}{.75em}{\scshape #1}
-    % [{\titlerule[.75pt]}]
+      {\color{maintheme} \g_colorist_title_font_section_tl \large}
+      {\thesection}{.75em}{\scshape #1}
 
     %% Subsection
     \titleformat{\subsection}
-    {\subsecfont}{\thesubsection}{.75em}
-    {\scshape #1}
-}
+      { \g_colorist_title_font_subsection_tl }{\thesubsection}{.75em}
+      {#1}
+  }
 
 %% Subsubsection
-\if@colorist@runin
-\titleformat{\subsubsection}[runin]
-    {\color{maintext!70!paper}\subsubsecfont}{\thesubsubsection}{.5em}
-    {#1.}[\hspace*{.3em}]
-\else
-\titleformat{\subsubsection}
-    {\color{maintext!70!paper}\subsubsecfont}{\thesubsubsection}{.5em}
-    {#1}
-\fi
+%<*colorist-fancy>
+\bool_if:NTF \l__colorist_runin_bool
+  {
+    \titleformat{\subsubsection}[runin]
+      {\color{main-text!70!paper} \g_colorist_title_font_subsubsection_tl }
+      {\thesubsubsection}
+      {.5em}
+      {#1.}
+      [\hspace*{.3em}]
+  }
+  {
+    \titleformat{\subsubsection}
+      {\color{main-text!70!paper} \g_colorist_title_font_subsubsection_tl }
+      {\thesubsubsection}
+      {.5em}
+      {#1}
+  }
+%</colorist-fancy>
 
 %% Paragraph
 \titleformat{\paragraph}[runin]
-    {\conditionalbfseries\scshape}{\theparagraph}{1em}{#1}
+  { \g_colorist_title_font_paragraph_tl }{\theparagraph}{1em}{#1}
 
 \titlespacing{\section}{0pt}{\baselineskip}{.6\baselineskip}
 \titlespacing{\subsection}{0pt}{.75\baselineskip}{.4\baselineskip}
-\titlespacing{\subsubsection}{0pt}{.6\baselineskip}{.3\baselineskip}
+\titlespacing{\subsubsection}{0pt}{.5\baselineskip}{.3\baselineskip}
 
 %%================================
-%% TOC format
+%%  ToC format
 %%================================
-\RequirePackage{titletoc}
+\RequirePackage { titletoc }
 \titlecontents{part}
-    [0em]
-    {\addvspace{1.5pc}\large\filcenter\colorist@sffamily\conditionalbfseries}
-    {\textcolor{maintheme}{\bfseries\thecontentslabel}\nopagebreak\\\nopagebreak\uppercase}
-    {}
-    {} % without page number
-    [\addvspace{.5pc}]
-\ifbool{IsBook}{
-%# 针对书的目录样式设定
-%# Configure the TOC style for books
+  [0em]
+  {\addvspace{1.5pc}\large\filcenter\sffamily \colorist_bfseries: }
+  {\textcolor{maintheme}{\bfseries\thecontentslabel}\nopagebreak\\\nopagebreak\uppercase}
+  {}
+  {} % without page number
+  [\addvspace{.5pc}]
+
+\bool_if:NTF \l__colorist_is_book_bool
+  {
     \titlecontents{chapter}
-        [2em] % i.e., 0em (part) + 2em
-        {\addvspace{1pc}\normalfont\color{maintheme}\colorist@sffamily\conditionalbfseries}
-        {\contentslabel{2em}}
-        {\colorist@scshape\hspace*{-2em}}
-        {\titlerule*[10pt]{\parbox{2pt}{\hspace*{-.25pt}\textcolor{maintext!15!paper}{.}}}\color{maintheme}\contentspage}
+      [2em] % i.e., 0em (part) + 2em
+      {\addvspace{1pc}\normalfont\color{maintheme}\sffamily \colorist_bfseries: }
+      {\contentslabel{2em}}
+      {\scshape\hspace*{-2em}}
+      {\titlerule*[10pt]{\parbox{2pt}{\hspace*{-.25pt}\textcolor{main-text!15!paper}{.}}}\color{maintheme}\contentspage}
     \titlecontents{section}
-        [4em] % i.e., 2em (chapter) + 2em
-        {\addvspace{.3pc}\normalfont\color{maintheme}\colorist@sffamily}
-        {\contentslabel{1.75em}}
-        {\hspace*{-1.75em}}
-        {\titlerule*[10pt]{\parbox{2pt}{\textcolor{maintext!15!paper}{.}}}\color{maintheme}\contentspage}
+      [4em] % i.e., 2em (chapter) + 2em
+      {\addvspace{.3pc}\normalfont\color{maintheme}\sffamily}
+      {\contentslabel{1.75em}}
+      {\hspace*{-1.75em}}
+      {\titlerule*[10pt]{\parbox{2pt}{\textcolor{main-text!15!paper}{.}}}\color{maintheme}\contentspage}
     \titlecontents{subsection}
-        [7em] % i.e., 4em (section) + 3em
-        {\addvspace{.15pc}\normalfont\colorist@sffamily}
-        {\contentslabel{2.75em}}
-        {\hspace*{-2.75em}}
-        {\titlerule*[10pt]{\parbox{2pt}{\textcolor{maintext!15!paper}{.}}}\color{maintext!45!paper}\contentspage}
+      [7em] % i.e., 4em (section) + 3em
+      {\addvspace{.15pc}\normalfont\sffamily}
+      {\contentslabel{2.75em}}
+      {\hspace*{-2.75em}}
+      {\titlerule*[10pt]{\parbox{2pt}{\textcolor{main-text!15!paper}{.}}}\color{main-text!45!paper}\contentspage}
     \titlecontents{subsubsection}
-        [10em] % i.e., 7em (subsection) + 3em
-        {\normalfont\colorist@sffamily}
-        {\contentslabel{3.25em}}
-        {\hspace*{-3.25em}}
-        {\titlerule*[10pt]{\parbox{2pt}{\textcolor{maintext!15!paper}{.}}}\color{maintext!45!paper}\contentspage}
-}{
-%# 针对文章的目录样式设定
-%# Configure the TOC style for articles
+      [10em] % i.e., 7em (subsection) + 3em
+      {\normalfont\sffamily}
+      {\contentslabel{3.25em}}
+      {\hspace*{-3.25em}}
+      {\titlerule*[10pt]{\parbox{2pt}{\textcolor{main-text!15!paper}{.}}}\color{main-text!45!paper}\contentspage}
+  }
+  {
     \titlecontents{section}
-        [2em] % i.e., 0em (part) + 2em
-        {\addvspace{.3pc}\normalfont\color{maintheme}\colorist@sffamily}
-        {\contentslabel{1.75em}}
-        {\hspace*{-1.75em}}
-        {\titlerule*[10pt]{\parbox{2pt}{\textcolor{maintext!15!paper}{.}}}\color{maintheme}\contentspage}
+      [2em] % i.e., 0em (part) + 2em
+      {\addvspace{.3pc}\normalfont\color{maintheme}\sffamily}
+      {\contentslabel{1.75em}}
+      {\hspace*{-1.75em}}
+      {\titlerule*[10pt]{\parbox{2pt}{\textcolor{main-text!15!paper}{.}}}\color{maintheme}\contentspage}
     \titlecontents{subsection}
-        [4.5em] % i.e., 2em (section) + 2.5em
-        {\addvspace{.15pc}\normalfont\colorist@sffamily}
-        {\contentslabel{2.15em}}
-        {\hspace*{-2.15em}}
-        {\titlerule*[10pt]{\parbox{2pt}{\textcolor{maintext!15!paper}{.}}}\color{maintext!45!paper}\contentspage}
+      [4.5em] % i.e., 2em (section) + 2.5em
+      {\addvspace{.15pc}\normalfont\sffamily}
+      {\contentslabel{2.15em}}
+      {\hspace*{-2.15em}}
+      {\titlerule*[10pt]{\parbox{2pt}{\textcolor{main-text!15!paper}{.}}}\color{main-text!45!paper}\contentspage}
     \titlecontents{subsubsection}
-        [7.75em] % i.e., 5em (subsection) + 3.25em
-        {\normalfont\colorist@sffamily}
-        {\contentslabel{2.75em}}
-        {\hspace*{-2.75em}}
-        {\titlerule*[10pt]{\parbox{2pt}{\textcolor{maintext!15!paper}{.}}}\color{maintext!45!paper}\contentspage}
-}
+      [7.75em] % i.e., 5em (subsection) + 3.25em
+      {\normalfont\sffamily}
+      {\contentslabel{2.75em}}
+      {\hspace*{-2.75em}}
+      {\titlerule*[10pt]{\parbox{2pt}{\textcolor{main-text!15!paper}{.}}}\color{main-text!45!paper}\contentspage}
+  }
 
 %%================================
-%% Lists
+%%  Lists
 %%================================
-%# 列表样式设定
-%# Configure the style of lists
-\RequirePackage{enumitem}
+\RequirePackage { enumitem }
 \setlist{noitemsep}
-% \setlist[1]{labelindent=\parindent} % < Usually a good idea
+% \setlist{topsep = .1\baselineskip, parsep=0pt, itemsep=.05\baselineskip}
 \setlist[enumerate]{labelsep=*, leftmargin=*}
 \setlist[enumerate,1]{label=\arabic*$)$,
     ref = \arabic*$)$}
@@ -1208,36 +1207,36 @@
     ref = \arabic{enumi}.\emph{\roman*}$)$}
 \setlist[enumerate,3]{label=\emph{\alph*}$)$,
     ref = \arabic{enumi}.\emph{\roman{enumii}}.\emph{\alph*}$)$}
-\setlist[description]{font=\normalfont\conditionalbfseries}
+\setlist[description]{font=\normalfont\colorist_bfseries:}
 
 \setlist[itemize]{leftmargin=*}
-\gappto{\PJLlang@langconfig@common}{\setlist[itemize,1]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{$\bullet$}}}
-\gappto{\PJLlang@langconfig@FR}{\setlist[itemize,1]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!50!paper}{---}}}
+\AddLanguageSetting { \setlist[itemize,1]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{$\bullet$}} }
+\AddLanguageSetting [french] { \setlist[itemize,1]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!55!paper}{---}} }
 \setlist[itemize,2]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{--}}
 \setlist[itemize,3]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{\texttt{*}}}
 
 %%================================
-%% Blank page
+%%  Blank page
 %%================================
-%# 空白页样式
-%# The blank page style
-\newcommand{\blinkpagetext}{This page is intentionally left blank}
-\renewcommand{\cleardoublepage}{\relax
-    \clearpage
-    \if@twoside\ifodd\c@page\relax\else
-    \thispagestyle{empty}
-    \AddToHookNext{shipout/background}
-      {% 
-       \put(0.5\paperwidth,-0.5\paperheight){%
-       \makebox[0pt]{\large\color{maintext!10!paper}\blinkpagetext}}}
-    \null\newpage\fi\fi}
+\newcommand{\blinkpagetext}{This~page~is~intentionally~left~blank}
+\renewcommand{\cleardoublepage}{
+  \relax
+  \clearpage
+  \if@twoside\ifodd\c@page\relax\else
+  \thispagestyle{empty}
+  \hook_gput_next_code:nn { shipout/background }
+    {
+      \put(0.5\paperwidth,-0.5\paperheight){
+      \makebox[0pt]{\large\color{main-text!10!paper}\blinkpagetext}}
+    }
+  \null\newpage\fi\fi
+}
 
 %%================================
-%% Draft mark
+%%  Draft mark
 %%================================
-%# 引入 ProjLib 中用于提供草稿阶段指令的模块
-%# Introduce the module of ProjLib that offers macros for draft stage
-\RequirePackage{PJLdraft}
+\RequirePackage { projlib-draft }
+
 
 %%================================
 %% Icons
@@ -1245,1155 +1244,455 @@
 %# 小灯泡和问号图案
 %# The ideabulb and questionmark icons
 \RequirePackage{tikz}
-\newcommand{\ideabulb}[2][0.15]{%
-    \scalebox{#1}{%
+\newcommand{\ideabulb}[2][0.15]
+  {
+    \scalebox{#1}{
     \begin{tikzpicture}
         \filldraw[draw=#2,fill=#2] (0,0) circle [radius=1cm];
-        \filldraw[draw=paper,fill=paper,rounded corners=0.8pt]
+        \filldraw[draw=paper,fill=paper,rounded~corners=0.8pt]
             [rotate=20] (-0.26,-0.66) rectangle (-0.06,-0.6)
             [xshift=-0.4mm,yshift=1mm] (-0.26,-0.66) rectangle (0.02,-0.6)
             [xshift=0.4mm,yshift=1mm] (-0.26,-0.66) rectangle (-0.06,-0.6);
-        \draw[draw=paper,line width=0.7mm] (-0.18,-0.46)
+        \draw[draw=paper,line~width=0.7mm] (-0.18,-0.46)
             .. controls (-0.18,-0.28) and (-0.28,-0.12) ..(-0.4,0.1)
             .. controls (-0.55,0.4) and (-0.3,0.64) ..(0,0.64)
             .. controls (0.3,0.64) and (0.55,0.4) ..(0.4,0.1)
             .. controls (0.28,-0.12) and (0.18,-0.28) ..(0.18,-0.46);
-    \end{tikzpicture}}}
+    \end{tikzpicture}}
+  }
 
-\newcommand{\questionmark}[2][0.15]{%
-    \scalebox{#1}{%
+\newcommand{\questionmark}[2][0.15]
+  {
+    \scalebox{#1}{
     \begin{tikzpicture}
         \filldraw[draw=#2,fill=#2] (0,0) circle [radius=1cm];
         \filldraw[paper,yshift=0.5mm,scale=0.9] (-0.4,0.1) circle [radius=0.77mm];
-        \draw[draw=paper,line width=1.5mm,yshift=0.5mm,scale=0.9] (-0.4,0.1)
+        \draw[draw=paper,line~width=1.5mm,yshift=0.5mm,scale=0.9] (-0.4,0.1)
             .. controls (-0.55,0.4) and (-0.3,0.64) ..(0,0.64)
             .. controls (0.3,0.64) and (0.55,0.4) ..(0.4,0.1)
             .. controls (0.28,-0.12) and (0.05,-0.28) ..(0.05,-0.3)
             .. controls (0,-0.36) and (0.0,-0.45) ..(0.0,-0.5);
-        \fill[fill=paper,rounded corners=0.6mm]
+        \fill[fill=paper,rounded~corners=0.6mm]
             (-0.09,-0.75) rectangle (0.09,-0.53);
-    \end{tikzpicture}}}
+    \end{tikzpicture}}
+  }
 
 %%================================
-%% Theorems
+%%  Theorems
 %%================================
-\RequirePackage{mathtools}
-\RequirePackage{amsthm}
-%# 默认的定理样式
-%# The default theorem style
-\def\simpleqedsymbol{%
-    \makebox[1em]{\rlap{\textcolor{maintext!12!paper}{\rule[-0.1em]{.95em}{.95em}}}{\kern.07em\raisebox{.07em}{\textcolor{paper}{\rule[-0.1em]{.81em}{.81em}}}\kern.07em}}}
-\newtheoremstyle{simple}%
-    {}{}%
-    {\normalfont}{}%
-    {\normalfont}{}%
-    {0pt}%
-    {\global\let\qedsymbol\simpleqedsymbol%
-        {\conditionalbfseries\thmname{#1}\thmnumber{ #2}}\hspace{.4em}%
-        \textcolor{maintext!27!paper}{$|$}\hspace{.4em}%
-        \color{maintext!50!paper}\thmnote{\ensuremath{(\text{#3})}~~}%
-        \pushQED{\qed}%
-    }
-\def\@endtheorem{\global\let\qedsymbol\simpleqedsymbol%
-    \popQED\endtrivlist\@endpefalse
-    \global\let\qedsymbol\qedsymbolOriginal}
+\RequirePackage { mathtools }
+\RequirePackage { amsthm }
 
-\renewcommand{\qedsymbol}{%
-    \makebox[1em]{\color{maintext!27!paper}\rule[-0.1em]{.95em}{.95em}}}
+\bool_if:NTF \l__colorist_theorem_in_new_line_bool
+  {
+    \newtheoremstyle{simple}
+      {}{}
+      {\normalfont}{}
+      {\normalfont}{}
+      {\newline}
+      {{\thmname{#1}\nobreakspace\thmnumber{#2}}
+        {\color{main-text!50!paper}\thmnote{\hspace{.4em}\ensuremath{(\text{#3})}}}\smallskip}
+  }
+  {
+    \newtheoremstyle{simple}
+      {}{}
+      {\normalfont}{}
+      {\normalfont}{}
+      {0pt}
+      {{\thmname{#1}\nobreakspace\thmnumber{#2}}
+        {\color{main-text!50!paper}\thmnote{\hspace{.4em}\ensuremath{(\text{#3})}}}\nobreakspace\nobreakspace{\normalfont\textcolor{main-text!27!paper}{---}}\nobreakspace\nobreakspace}
+  }
+
+\renewcommand{\qedsymbol}{
+  \makebox[1em]{\color{main-text!27!paper}\rule[-0.1em]{.95em}{.95em}}}
 \let\qedsymbolOriginal\qedsymbol
 
-%# 之后会被装入颜色盒子的定理类环境的样式
-%# The style of the theorem-like environment that will be wrapped into the color box
+% The style of the theorem-like environment that will be wrapped into the color box
 \newtheoremstyle{basic}
     {0pt}{0pt}{\normalfont}{0pt}
     {}{\;}{0.25em}
     {{\thmname{#1}~\thmnumber{\textup{#2}}}
-    \thmnote{\normalfont\colorist@sffamily\color{maintext}~(#3)}}
+    \thmnote{\normalfont\sffamily\color{main-text}~(#3)}}
 
-%# remark 类环境的样式
-%# The style of remark-like environments
+% The style of remark-like environments
 \newtheoremstyle{emphasis}
     {0pt}{0pt}{\itshape}{0pt}{}{}{0pt}
-    {\thmnote{\normalfont\colorist@sffamily\color{maintext}#3\hspace*{0.5em}}}
+    {\thmnote{\normalfont\sffamily\color{main-text}#3\hspace*{0.5em}}}
 
-%# 超链接的设置
-%# The configuration of hyperlinks
-\if@colorist@fast
-    \providecommand{\phantomsection}{}
-    \RequirePackage{url}
-    \newcommand{\href}[2]{#2}
-\else
-    \PassOptionsToPackage{hidelinks,linktoc=all}{hyperref}
-% To solve `Difference between bookmark levels is greater than one`
-    \RequirePackage{bookmark}
-    \RequirePackage{hyperref}
-\fi
-
-%# 引入 ProjLib 中用于设置定理类环境的模块
-%# Introduce the module of ProjLib that offers the configuration of theorem-like environments
-% Should be placed after "hyperref"
-\PassOptionsToPackage{nothms,simplename}{PJLthm}
-\RequirePackage{PJLthm}
-
-%# 英文定理标题的样式
-%# Adjust English theorems names
-\pretocmd{\theoremnameEN}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\lemmanameEN}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\propositionnameEN}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\corollarynameEN}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\propertynameEN}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\factnameEN}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\conjecturenameEN}{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\definitionnameEN}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\axiomnameEN}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\assumptionnameEN}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\conventionnameEN}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\hypothesisnameEN}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\notationnameEN}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\examplenameEN}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\problemnameEN}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\questionnameEN}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\exercisenameEN}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\remarknameEN}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\observationnameEN}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\expandafter\def\csname definition-propositionnameEN\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc{Definition}-\propositionnameEN}
-\expandafter\def\csname definition-theoremnameEN\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc{Definition}-\theoremnameEN}
-
-%# 法语定理标题的样式
-%# Adjust French theorems names
-\pretocmd{\theoremnameFR}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\lemmanameFR}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\propositionnameFR}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\corollarynameFR}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\propertynameFR}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\factnameFR}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\conjecturenameFR}{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\definitionnameFR}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\axiomnameFR}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\assumptionnameFR}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\conventionnameFR}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\hypothesisnameFR}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\notationnameFR}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\examplenameFR}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\problemnameFR}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\questionnameFR}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\exercisenameFR}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\remarknameFR}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\observationnameFR}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\expandafter\def\csname definition-propositionnameFR\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc{Définition}-\propositionnameFR}
-\expandafter\def\csname definition-theoremnameFR\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc{Définition}-\theoremnameFR}
-
-%# 德语定理标题的样式
-%# Adjust German theorems names
-\pretocmd{\theoremnameDE}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\lemmanameDE}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\propositionnameDE}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\corollarynameDE}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\propertynameDE}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\factnameDE}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\conjecturenameDE}{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\definitionnameDE}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\axiomnameDE}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\assumptionnameDE}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\conventionnameDE}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\hypothesisnameDE}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\notationnameDE}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\examplenameDE}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\problemnameDE}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\questionnameDE}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\exercisenameDE}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\remarknameDE}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\observationnameDE}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\expandafter\def\csname definition-propositionnameDE\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc{Definition}-\propositionnameDE}
-\expandafter\def\csname definition-theoremnameDE\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc{Definition}-\theoremnameDE}
-
-%# 意大利语定理标题的样式
-%# Adjust Italian theorems names
-\pretocmd{\theoremnameIT}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\lemmanameIT}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\propositionnameIT}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\corollarynameIT}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\propertynameIT}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\factnameIT}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\conjecturenameIT}{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\definitionnameIT}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\axiomnameIT}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\assumptionnameIT}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\conventionnameIT}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\hypothesisnameIT}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\notationnameIT}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\examplenameIT}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\problemnameIT}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\questionnameIT}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\exercisenameIT}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\remarknameIT}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\observationnameIT}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\expandafter\def\csname definition-propositionnameIT\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc{Definizione}-\propositionnameIT}
-\expandafter\def\csname definition-theoremnameIT\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc{Definizione}-\theoremnameIT}
-
-%# 葡萄牙语定理标题的样式
-%# Adjust Portuguese theorems names
-\pretocmd{\theoremnamePT}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\lemmanamePT}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\propositionnamePT}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\corollarynamePT}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\propertynamePT}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\factnamePT}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\conjecturenamePT}{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\definitionnamePT}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\axiomnamePT}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\assumptionnamePT}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\conventionnamePT}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\hypothesisnamePT}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\notationnamePT}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\examplenamePT}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\problemnamePT}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\questionnamePT}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\exercisenamePT}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\remarknamePT}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\observationnamePT}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\expandafter\def\csname definition-propositionnamePT\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc{Definição}-\propositionnamePT}
-\expandafter\def\csname definition-theoremnamePT\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc{Definição}-\theoremnamePT}
-
-%# 巴西葡萄牙语定理标题的样式
-%# Adjust Brazilian theorems names
-\pretocmd{\theoremnameBR}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\lemmanameBR}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\propositionnameBR}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\corollarynameBR}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\propertynameBR}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\factnameBR}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\conjecturenameBR}{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\definitionnameBR}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\axiomnameBR}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\assumptionnameBR}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\conventionnameBR}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\hypothesisnameBR}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\notationnameBR}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\examplenameBR}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\problemnameBR}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\questionnameBR}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\exercisenameBR}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\remarknameBR}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\observationnameBR}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\expandafter\def\csname definition-propositionnameBR\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc{Definição}-\propositionnameBR}
-\expandafter\def\csname definition-theoremnameBR\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc{Definição}-\theoremnameBR}
-
-%# 西班牙语定理标题的样式
-%# Adjust Spanish theorems names
-\pretocmd{\theoremnameES}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\lemmanameES}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\propositionnameES}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\corollarynameES}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\propertynameES}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\factnameES}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\conjecturenameES}{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\definitionnameES}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\axiomnameES}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\assumptionnameES}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\conventionnameES}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\hypothesisnameES}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\notationnameES}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\examplenameES}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\problemnameES}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\questionnameES}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\exercisenameES}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\remarknameES}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\pretocmd{\observationnameES}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries\colorist@textsc}{}{\FAIL}
-\expandafter\def\csname definition-propositionnameES\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc{Definição}-\propositionnameES}
-\expandafter\def\csname definition-theoremnameES\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries\colorist@textsc{Definição}-\theoremnameES}
-
-%# 中文定理标题的样式
-%# Adjust Chinese theorems names
-\pretocmd{\theoremnameCN}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\lemmanameCN}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\propositionnameCN}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\corollarynameCN}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\propertynameCN}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\factnameCN}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\conjecturenameCN}{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\definitionnameCN}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\axiomnameCN}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\assumptionnameCN}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\conventionnameCN}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\hypothesisnameCN}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\notationnameCN}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\examplenameCN}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\problemnameCN}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\questionnameCN}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\exercisenameCN}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\remarknameCN}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\observationnameCN}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\expandafter\def\csname definition-propositionnameCN\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries{定义}-\propositionnameCN}
-\expandafter\def\csname definition-theoremnameCN\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries{定义}-\theoremnameCN}
-
-\pretocmd{\theoremnameTC}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\lemmanameTC}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\propositionnameTC}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\corollarynameTC}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\propertynameTC}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\factnameTC}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\conjecturenameTC}{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\definitionnameTC}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\axiomnameTC}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\assumptionnameTC}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\conventionnameTC}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\hypothesisnameTC}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\notationnameTC}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\examplenameTC}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\problemnameTC}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\questionnameTC}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\exercisenameTC}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\remarknameTC}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\observationnameTC}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\expandafter\def\csname definition-propositionnameTC\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries{定義}-\propositionnameTC}
-\expandafter\def\csname definition-theoremnameTC\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries{定義}-\theoremnameTC}
-
-%# 日文定理标题的样式
-%# Adjust Japanese theorems names
-\pretocmd{\theoremnameJP}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\lemmanameJP}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\propositionnameJP}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\corollarynameJP}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\propertynameJP}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\factnameJP}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\conjecturenameJP}{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\definitionnameJP}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\axiomnameJP}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\assumptionnameJP}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\conventionnameJP}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\hypothesisnameJP}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\notationnameJP}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\examplenameJP}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\problemnameJP}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\questionnameJP}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\exercisenameJP}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\remarknameJP}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\observationnameJP}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\expandafter\def\csname definition-propositionnameJP\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries{定義}-\propositionnameJP}
-\expandafter\def\csname definition-theoremnameJP\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries{定義}-\theoremnameJP}
-
-%# 俄文定理标题的样式
-%# Adjust Russian theorems names
-\pretocmd{\theoremnameRU}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\lemmanameRU}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\propositionnameRU}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\corollarynameRU}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\propertynameRU}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\factnameRU}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\conjecturenameRU}{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\definitionnameRU}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\axiomnameRU}{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\assumptionnameRU}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\conventionnameRU}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\hypothesisnameRU}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\notationnameRU}{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\examplenameRU}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\problemnameRU}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\questionnameRU}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\exercisenameRU}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\remarknameRU}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\pretocmd{\observationnameRU}{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries}{}{\FAIL}
-\expandafter\def\csname definition-propositionnameRU\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries{Определение}-\propositionnameRU}
-\expandafter\def\csname definition-theoremnameRU\endcsname{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries{Определение}-\theoremnameRU}
-
-%# 建立定理类环境
-%# Set-up theorem-like environments
-\def\colorist@definethms{
-\if@colorist@nothms\else
-\theoremstyle{basic}
-\if@colorist@nothmnum
-\CreateTheorem*{theorem}
-\CreateTheorem*{lemma}
-\CreateTheorem*{proposition}
-\CreateTheorem*{corollary}
-\CreateTheorem*{definition-proposition}
-\CreateTheorem*{definition-theorem}
-\CreateTheorem*{property}
-\CreateTheorem*{fact}
-\CreateTheorem*{conjecture}
-\else
-\CreateTheorem@thmnum{theorem}
-\CreateTheorem{lemma}[theorem]
-\CreateTheorem{proposition}[theorem]
-\CreateTheorem{corollary}[theorem]
-\CreateTheorem{definition-proposition}[theorem]
-\CreateTheorem{definition-theorem}[theorem]
-\CreateTheorem{property}[theorem]
-\CreateTheorem{fact}[theorem]
-\CreateTheorem{conjecture}[theorem]
-\fi
-\CreateTheorem*{theorem*}
-\CreateTheorem*{lemma*}
-\CreateTheorem*{proposition*}
-\CreateTheorem*{corollary*}
-\CreateTheorem*{definition-proposition*}
-\CreateTheorem*{definition-theorem*}
-\CreateTheorem*{property*}
-\CreateTheorem*{fact*}
-\CreateTheorem*{conjecture*}
-%
-\if@colorist@nothmnum
-\CreateTheorem*{definition}
-\CreateTheorem*{axiom}
-\CreateTheorem*{assumption}
-\CreateTheorem*{convention}
-\CreateTheorem*{hypothesis}
-\CreateTheorem*{notation}
-\CreateTheorem*{example}
-\CreateTheorem*{problem}
-\CreateTheorem*{question}
-\CreateTheorem*{exercise}
-\else
-\CreateTheorem{definition}[theorem]
-\CreateTheorem{axiom}[theorem]
-\CreateTheorem{assumption}[theorem]
-\CreateTheorem{convention}[theorem]
-\CreateTheorem{hypothesis}[theorem]
-\CreateTheorem{notation}[theorem]
-\CreateTheorem{example}[theorem]
-\CreateTheorem{problem}[theorem]
-\CreateTheorem{question}[theorem]
-\CreateTheorem{exercise}[theorem]
-\fi
-\CreateTheorem*{definition*}
-\CreateTheorem*{axiom*}
-\CreateTheorem*{assumption*}
-\CreateTheorem*{convention*}
-\CreateTheorem*{hypothesis*}
-\CreateTheorem*{notation*}
-\CreateTheorem*{example*}
-\CreateTheorem*{problem*}
-\CreateTheorem*{question*}
-\CreateTheorem*{exercise*}
-
-\theoremstyle{emphasis}
-\if@colorist@nothmnum
-\CreateTheorem*{remark}
-\CreateTheorem*{observation}
-\else
-\CreateTheorem@thmnum{remark}
-\CreateTheorem@thmnum{observation}
-\fi
-\CreateTheorem*{remark*}
-\CreateTheorem*{observation*}
-
-\theoremstyle{simple}
-\fi
-}
-
-\if@colorist@delaythms
-    \AtEndPreamble{\colorist@definethms}
-\else
-    \colorist@definethms
-\fi
-
-%# 作为默认的定理样式
-%# As the default style for user-defined environments
-\theoremstyle{simple}
-
-%# 设置 cref 的 label，这主要是为了在引用多个对象时，使每个对象的颜色都能正确显示
-%# Set the labels of cref, this is mainly to make the color of the name of each object be displayed correctly when multiple objects are referenced
-\creflabelformat{PJLtheorem}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{PJLlemma}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{PJLproposition}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{PJLcorollary}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{PJLproperty}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{PJLfact}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{PJLconjecture}{#2{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries#1}#3}
-\creflabelformat{PJLdefinition}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{PJLaxiom}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{PJLassumption}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{PJLconvention}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{PJLhypothesis}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{PJLnotation}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{PJLexample}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{PJLproblem}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{PJLquestion}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{PJLexercise}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{PJLdefinition-theorem}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{PJLdefinition-proposition}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-
-\creflabelformat{theoremEN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{lemmaEN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propositionEN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{corollaryEN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propertyEN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{factEN}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{conjectureEN}{#2{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries#1}#3}
-\creflabelformat{definitionEN}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{axiomEN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{assumptionEN}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{conventionEN}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{hypothesisEN}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{notationEN}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{exampleEN}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{problemEN}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{questionEN}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{exerciseEN}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{definition-theoremEN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{definition-propositionEN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-
-\creflabelformat{theoremFR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{lemmaFR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propositionFR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{corollaryFR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propertyFR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{factFR}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{conjectureFR}{#2{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries#1}#3}
-\creflabelformat{definitionFR}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{axiomFR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{assumptionFR}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{conventionFR}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{hypothesisFR}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{notationFR}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{exampleFR}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{problemFR}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{questionFR}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{exerciseFR}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{definition-theoremFR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{definition-propositionFR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-
-\creflabelformat{theoremDE}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{lemmaDE}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propositionDE}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{corollaryDE}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propertyDE}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{factDE}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{conjectureDE}{#2{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries#1}#3}
-\creflabelformat{definitionDE}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{axiomDE}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{assumptionDE}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{conventionDE}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{hypothesisDE}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{notationDE}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{exampleDE}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{problemDE}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{questionDE}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{exerciseDE}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{definition-theoremDE}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{definition-propositionDE}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-
-\creflabelformat{theoremIT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{lemmaIT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propositionIT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{corollaryIT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propertyIT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{factIT}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{conjectureIT}{#2{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries#1}#3}
-\creflabelformat{definitionIT}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{axiomIT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{assumptionIT}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{conventionIT}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{hypothesisIT}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{notationIT}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{exampleIT}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{problemIT}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{questionIT}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{exerciseIT}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{definition-theoremIT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{definition-propositionIT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-
-\creflabelformat{theoremPT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{lemmaPT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propositionPT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{corollaryPT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propertyPT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{factPT}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{conjecturePT}{#2{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries#1}#3}
-\creflabelformat{definitionPT}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{axiomPT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{assumptionPT}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{conventionPT}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{hypothesisPT}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{notationPT}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{examplePT}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{problemPT}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{questionPT}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{exercisePT}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{definition-theoremPT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{definition-propositionPT}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-
-\creflabelformat{theoremBR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{lemmaBR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propositionBR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{corollaryBR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propertyBR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{factBR}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{conjectureBR}{#2{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries#1}#3}
-\creflabelformat{definitionBR}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{axiomBR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{assumptionBR}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{conventionBR}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{hypothesisBR}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{notationBR}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{exampleBR}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{problemBR}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{questionBR}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{exerciseBR}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{definition-theoremBR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{definition-propositionBR}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-
-\creflabelformat{theoremES}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{lemmaES}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propositionES}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{corollaryES}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propertyES}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{factES}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{conjectureES}{#2{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries#1}#3}
-\creflabelformat{definitionES}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{axiomES}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{assumptionES}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{conventionES}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{hypothesisES}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{notationES}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{exampleES}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{problemES}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{questionES}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{exerciseES}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{definition-theoremES}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{definition-propositionES}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-
-\creflabelformat{theoremCN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{lemmaCN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propositionCN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{corollaryCN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propertyCN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{factCN}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{conjectureCN}{#2{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries#1}#3}
-\creflabelformat{definitionCN}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{axiomCN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{assumptionCN}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{conventionCN}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{hypothesisCN}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{notationCN}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{exampleCN}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{problemCN}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{questionCN}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{exerciseCN}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{definition-theoremCN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{definition-propositionCN}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-
-\creflabelformat{theoremTC}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{lemmaTC}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propositionTC}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{corollaryTC}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propertyTC}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{factTC}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{conjectureTC}{#2{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries#1}#3}
-\creflabelformat{definitionTC}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{axiomTC}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{assumptionTC}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{conventionTC}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{hypothesisTC}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{notationTC}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{exampleTC}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{problemTC}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{questionTC}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{exerciseTC}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{definition-theoremTC}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{definition-propositionTC}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-
-\creflabelformat{theoremJP}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{lemmaJP}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propositionJP}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{corollaryJP}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propertyJP}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{factJP}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{conjectureJP}{#2{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries#1}#3}
-\creflabelformat{definitionJP}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{axiomJP}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{assumptionJP}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{conventionJP}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{hypothesisJP}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{notationJP}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{exampleJP}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{problemJP}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{questionJP}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{exerciseJP}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{definition-theoremJP}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{definition-propositionJP}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-
-\creflabelformat{theoremRU}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{lemmaRU}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propositionRU}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{corollaryRU}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{propertyRU}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{factRU}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{conjectureRU}{#2{\normalfont\colorist@sffamily\color{purple}\conditionalbfseries#1}#3}
-\creflabelformat{definitionRU}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{axiomRU}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{assumptionRU}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{conventionRU}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{hypothesisRU}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{notationRU}{#2{\normalfont\colorist@sffamily\color{forestgreen}\conditionalbfseries#1}#3}
-\creflabelformat{exampleRU}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{problemRU}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{questionRU}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{exerciseRU}{#2{\normalfont\colorist@sffamily\color{maintext}\conditionalbfseries#1}#3}
-\creflabelformat{definition-theoremRU}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-\creflabelformat{definition-propositionRU}{#2{\normalfont\colorist@sffamily\color{orange}\conditionalbfseries#1}#3}
-
-%# 在页边中的图标，主要针对 remark 和 conjecture
-%# Icons on the margin
-\RequirePackage{marginnote}
-\RequirePackage{ifoddpage}
-\newcommand{\mparadjust}[1]{\renewcommand*{\marginnotevadjust}{#1}}
-\AtEndPreamble{ % For puretext mode
-\pretocmd{\remark}{%
-    \if@twoside\checkoddpage%
-        \ifoddpage\reversemarginpar\fi%
-    \else%
-        \reversemarginpar%
-    \fi%
-    \mparadjust{-.25em}%
-    \marginnote{\ideabulb[0.3]{orange}%
-        \ifIsBook%
-            \hspace*{-.2em}%
-        \else%
-            \hspace*{-.5em}%
-        \fi%
-    }\normalmarginpar%
-}{}{}
-\pretocmd{\conjecture}{%
-    \if@twoside\checkoddpage%
-        \ifoddpage\reversemarginpar\fi%
-    \else%
-        \reversemarginpar%
-    \fi%
-    \mparadjust{-.25em}%
-    \marginnote{\questionmark[0.3]{purple}%
-        \ifIsBook%
-            \hspace*{-.2em}%
-        \else%
-            \hspace*{-.5em}%
-        \fi%
-    }\normalmarginpar%
-}{}{}
-}
-
-%## 在 xelatex 编译时修正图标的位置
-%## Fix the position of the icons when xelatex is used
-\RequirePackage{iftex}
-\ifXeTeX
-\def\pgfsys@hboxsynced#1{%
-{%
-    \pgfsys@beginscope%
-    \setbox\pgf@hbox=\hbox{%
-    \hskip\pgf@pt@x%
-    \raise\pgf@pt@y\hbox{%
-        \pgf@pt@x=0pt%
-        \pgf@pt@y=0pt%
-        \special{pdf: content q}%
-        \pgflowlevelsynccm%
-        \pgfsys@invoke{q -1 0 0 -1 0 0 cm}%
-        \special{pdf: content -1 0 0 -1 0 0 cm q}
-        % translate to original coordinate system
-        \pgfsys@invoke{0 J [] 0 d}% reset line cap and dash
-        \wd#1=0pt%
-        \ht#1=0pt%
-        \dp#1=0pt%
-        \box#1%
-        \pgfsys@invoke{n Q Q Q}%
-    }%
-    \hss%
-    }%
-    \wd\pgf@hbox=0pt%
-    \ht\pgf@hbox=0pt%
-    \dp\pgf@hbox=0pt%
-    \pgfsys@hbox\pgf@hbox%
-    \pgfsys@endscope%
-}}
-\fi
-
-%# 自定义 proof 的样式
-%# Custom proof style
+% Custom proof style
 \renewenvironment{proof}[1][\proofname]{\par
-  \pushQED{\qed}%
+  \pushQED{\qed}
   \normalfont \topsep6\p@\@plus6\p@\relax
   \trivlist
   \item[\hskip\labelsep
         \itshape
-    #1\hspace{.4em}%
-    \textcolor{maintext!27!paper}{$|$}]\ignorespaces
+    #1\hspace{.4em}
+    \textcolor{main-text!27!paper}{$|$}]\ignorespaces
 }{%
   \popQED\endtrivlist\@endpefalse
 }
 
-%# 给定理类环境增加颜色盒子
-%# Add color boxes to the theorem-like environments
-\RequirePackage[many]{tcolorbox}
-\if@colorist@fast
-    \tcbstartdraftmode
-\fi
-\tcolorboxenvironment{theorem}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
-\tcolorboxenvironment{theorem*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
-\tcolorboxenvironment{lemma}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
-\tcolorboxenvironment{lemma*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
-\tcolorboxenvironment{proposition}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
-\tcolorboxenvironment{proposition*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
-\tcolorboxenvironment{corollary}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
-\tcolorboxenvironment{corollary*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
-\tcolorboxenvironment{property}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
-\tcolorboxenvironment{property*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
-\tcolorboxenvironment{axiom}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
-\tcolorboxenvironment{axiom*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
-\tcolorboxenvironment{definition-proposition}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
-\tcolorboxenvironment{definition-proposition*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
-\tcolorboxenvironment{definition-theorem}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
-\tcolorboxenvironment{definition-theorem*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.9,colframe=orange,arc=.7mm}
+\bool_if:NTF \l__colorist_fast_bool
+  {
+    \providecommand{\phantomsection}{}
+    \RequirePackage { url }
+    \newcommand{\href}[2]{#2}
+  }
+  {
+    \PassOptionsToPackage { hidelinks,linktoc=all } { hyperref }
+    \RequirePackage { bookmark }
+    \RequirePackage { hyperref }
+  }
 
-\tcolorboxenvironment{fact}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!5!paper,
-    boxrule=0pt,frame hidden,arc=.7mm}
-\tcolorboxenvironment{fact*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!5!paper,
-    boxrule=0pt,frame hidden,arc=.7mm}
+% \PassOptionsToPackage { simplename } { projlib-theorem }
+\RequirePackage { projlib-theorem }
 
-\tcolorboxenvironment{conjecture}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.7,colframe=purple,arc=.7mm}
-\tcolorboxenvironment{conjecture*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!3!paper,
-    left=3.5mm,right=3.5mm,
-    opacityframe=0.7,colframe=purple,arc=.7mm}
+\exp_args:No \SetTheorem { \c_projlib_theorem_supported_clist }
+  {
+    name style = {
+      , heading style = {
+          , english = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+          , french = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+          , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+          , italian = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+          , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+          , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+          , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+          , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+          , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+          , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
+          , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
+        }
+    }
+  }
 
-\tcolorboxenvironment{definition}
-    {enhanced jigsaw,pad at break*=1mm,breakable,
-    left=4mm,right=4mm,top=1mm,bottom=1mm,
-    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
-\tcolorboxenvironment{definition*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,
-    left=4mm,right=4mm,top=1mm,bottom=1mm,
-    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
-\tcolorboxenvironment{assumption}
-    {enhanced jigsaw,pad at break*=1mm,breakable,
-    left=4mm,right=4mm,top=1mm,bottom=1mm,
-    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
-\tcolorboxenvironment{assumption*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,
-    left=4mm,right=4mm,top=1mm,bottom=1mm,
-    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
-\tcolorboxenvironment{convention}
-    {enhanced jigsaw,pad at break*=1mm,breakable,
-    left=4mm,right=4mm,top=1mm,bottom=1mm,
-    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
-\tcolorboxenvironment{convention*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,
-    left=4mm,right=4mm,top=1mm,bottom=1mm,
-    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
-\tcolorboxenvironment{hypothesis}
-    {enhanced jigsaw,pad at break*=1mm,breakable,
-    left=4mm,right=4mm,top=1mm,bottom=1mm,
-    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
-\tcolorboxenvironment{hypothesis*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,
-    left=4mm,right=4mm,top=1mm,bottom=1mm,
-    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
-\tcolorboxenvironment{notation}
-    {enhanced jigsaw,pad at break*=1mm,breakable,
-    left=4mm,right=4mm,top=1mm,bottom=1mm,
-    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
-\tcolorboxenvironment{notation*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,
-    left=4mm,right=4mm,top=1mm,bottom=1mm,
-    colback=lightorange!10!paper,boxrule=0pt,frame hidden,
-    borderline west={1.5mm}{0mm}{forestgreen},arc=.7mm}
+\SetTheorem { remark }
+  {
+    name style = {
+      , heading style = {
+          , english = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+          , french = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+          , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+          , italian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+          , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+          , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+          , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+          , russian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+          , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+          , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+          , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
+          , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
+        }
+    }
+  }
 
-\tcolorboxenvironment{example}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!5!paper,
-    boxrule=0pt,frame hidden,arc=.7mm,lines before break=3}
-\tcolorboxenvironment{example*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=maintext!5!paper,
-    boxrule=0pt,frame hidden,arc=.7mm,lines before break=3}
+\bool_if:NF \l__projlib_theorem_complexname_bool
+  {
+    \exp_args:No \SetTheorem { \c_projlib_theorem_supported_clist }
+      {
+        name style = {
+          , crefname style = {
+              , english = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+              , french = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+              , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+              , italian = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+              , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+              , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+              , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+              , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
+            }
+          , Crefname style = {
+              , english = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+              , french = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+              , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+              , italian = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+              , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+              , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+              , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
+              , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
+            }
+          , numbering style = {
+              , english = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , french = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , italian = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
+            }
+        }
+      }
 
-\tcolorboxenvironment{problem}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=yellow!25!paper,
-    boxrule=0pt,frame hidden,arc=.7mm}
-\tcolorboxenvironment{problem*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,colback=yellow!25!paper,
-    boxrule=0pt,frame hidden,arc=.7mm}
+    \SetTheorem { remark }
+      {
+        name style = {
+          , crefname style = {
+              , english = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , french = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , italian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
+            }
+          , Crefname style = {
+              , english = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , french = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , italian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
+              , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
+            }
+          , numbering style = {
+              , english = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , french = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , italian = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
+              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
+            }
+        }
+      }
+  }
 
-\tcolorboxenvironment{question}
-    {enhanced jigsaw,pad at break*=1mm,breakable,oversize,
-    top=0mm,bottom=0mm,
-    opacityframe=0,opacityback=0,lines before break=3}
-\tcolorboxenvironment{question*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,oversize,
-    top=0mm,bottom=0mm,
-    opacityframe=0,opacityback=0,lines before break=3}
-\tcolorboxenvironment{exercise}
-    {enhanced jigsaw,pad at break*=1mm,breakable,oversize,
-    top=0mm,bottom=0mm,
-    opacityframe=0,opacityback=0,lines before break=3}
-\tcolorboxenvironment{exercise*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,oversize,
-    top=0mm,bottom=0mm,
-    opacityframe=0,opacityback=0,lines before break=3}
-\tcolorboxenvironment{remark}
-    {enhanced jigsaw,pad at break*=1mm,breakable,oversize,
-    top=0mm,bottom=0mm,
-    opacityframe=0,opacityback=0,lines before break=3}
-\tcolorboxenvironment{remark*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,oversize,
-    top=0mm,bottom=0mm,
-    opacityframe=0,opacityback=0,lines before break=3}
-\tcolorboxenvironment{observation}
-    {enhanced jigsaw,pad at break*=1mm,breakable,oversize,
-    top=0mm,bottom=0mm,
-    opacityframe=0,opacityback=0,lines before break=3}
-\tcolorboxenvironment{observation*}
-    {enhanced jigsaw,pad at break*=1mm,breakable,oversize,
-    top=0mm,bottom=0mm,
-    opacityframe=0,opacityback=0,lines before break=3}
 
-%# 将紧邻的 definition 等环境连接起来
-%# Connect adjacent definition-like environments
+\cs_new_protected:Nn \colorist_add_colorbox:nn
+  % #1 = list of environments
+  % #2 = settings of tcolorbox
+  {
+    \clist_map_inline:nn { #1 }
+      {
+        \__colorist_add_colorbox_do:nn { ##1 } { #2 }
+        \__colorist_add_colorbox_do:nn { ##1* } { #2 }
+      }
+  }
+\cs_new_protected:Nn \__colorist_add_colorbox_do:nn
+  % #1 = name of environment
+  % #2 = settings of tcolorbox
+  {
+    \tcolorboxenvironment { #1 } { #2 }
+  }
+
+\colorist_add_colorbox:nn { theorem, lemma, proposition, corollary, property, axiom, definition-proposition, definition-theorem }
+  {
+    enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
+    left=3.5mm, right=3.5mm,
+    colback=main-text!3!paper,
+    opacityframe=0.9, colframe=orange, arc=.7mm
+  }
+
+\colorist_add_colorbox:nn { definition, assumption, convention, hypothesis, notation }
+  {
+    enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
+    left=4mm, right=4mm, top=1mm, bottom=1mm,
+    colback=lightorange!10!paper, boxrule=0pt, frame~hidden,
+    borderline~west={1.5mm}{0mm}{forestgreen}, arc=.7mm
+  }
+
+\colorist_add_colorbox:nn { fact, example }
+  {
+    enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
+    colback=main-text!5!paper,
+    boxrule=0pt, frame~hidden, arc=.7mm
+  }
+
+\colorist_add_colorbox:nn { conjecture }
+  {
+    enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
+    left=3.5mm, right=3.5mm,
+    colback=main-text!3!paper,
+    opacityframe=0.7, colframe=purple, arc=.7mm
+  }
+
+\colorist_add_colorbox:nn { problem }
+  {
+    enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
+    colback=yellow!25!paper,
+    boxrule=0pt, frame~hidden, arc=.7mm
+  }
+
+\colorist_add_colorbox:nn { question, exercise, remark, observation }
+  {
+    enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
+    oversize,
+    top=0mm, bottom=0mm,
+    opacityframe=0, opacityback=0
+  }
+
+% Connect adjacent definition-like environments
 % From https://tex.stackexchange.com/a/587023
-\ExplSyntaxOn
 \NewDocumentCommand \AfterEnvEnd { +m }
-  { \colorist_after_env_end:nw {#1} }
+  { \colorist_after_env_end:nw { #1 } }
 \cs_new_protected:Npn \colorist_after_env_end:nw #1 #2
        \if@ignore\@ignorefalse\ignorespaces\fi
   { #2 \if@ignore\@ignorefalse\ignorespaces\fi #1 }
-  \NewDocumentCommand \ScanEnv { s m +m+m }
+\NewDocumentCommand \ScanEnv { s m +m +m }
   {
-    \IfBooleanTF {#1}
-      { \jinwen_scan_env_ignore_par:nTF }
-      { \jinwen_scan_env:nTF }
-          {#2} {#3} {#4}
+    \IfBooleanTF { #1 }
+      { \colorist_scan_env_ignore_par:nTF }
+      { \colorist_scan_env:nTF }
+      { #2 } { #3 } { #4 }
   }
-\cs_new_protected:Npn \jinwen_scan_env:nTF
-  { \__jinwen_scan_env:NnTF \c_false_bool }
-\cs_new_protected:Npn \jinwen_scan_env_ignore_par:nTF
-  { \__jinwen_scan_env:NnTF \c_true_bool }
-\tl_new:N \l__jinwen_collected_tl
-\cs_new_protected:Npn \__jinwen_scan_env:NnTF #1 #2 #3 #4
+\cs_new_protected:Npn \colorist_scan_env:nTF
+  { \__colorist_scan_env:NnTF \c_false_bool }
+\cs_new_protected:Npn \colorist_scan_env_ignore_par:nTF
+  { \__colorist_scan_env:NnTF \c_true_bool }
+\tl_new:N \l__colorist_collected_tl
+\cs_new_protected:Npn \__colorist_scan_env:NnTF #1 #2 #3 #4
   {
-    \tl_clear:N \l__jinwen_collected_tl
+    \tl_clear:N \l__colorist_collected_tl
     \peek_analysis_map_inline:n
       {
-        \tl_put_right:Nn \l__jinwen_collected_tl {##1}
+        \tl_put_right:Nn \l__colorist_collected_tl { ##1 }
         \int_compare:nNnTF { "##3 } = { 0 }
           {
-            \exp_args:No \token_if_eq_meaning:NNTF {##1} \begin
-              { \peek_analysis_map_break:n { \__jinwen_chk_env:nTFn {#2} {#3} {#4} } }
+            \exp_args:No \token_if_eq_meaning:NNTF { ##1 } \begin
+              { \peek_analysis_map_break:n { \__colorist_chk_env:nTFn { #2 } { #3 } { #4 } } }
               {
-                \bool_lazy_and:nnF {#1}
-                    { \exp_args:No \token_if_eq_meaning_p:NN {##1} \par }
-                  { \__jinwen_scan_env_end:n {#4} }
+                \bool_lazy_and:nnF { #1 }
+                    { \exp_args:No \token_if_eq_meaning_p:NN { ##1 } \par }
+                  { \__colorist_scan_env_end:n { #4 } }
               }
           }
-          { \int_compare:nNnF { "##3 } = { 10 } { \__jinwen_scan_env_end:n {#4} } }
+          { \int_compare:nNnF { "##3 } = { 10 } { \__colorist_scan_env_end:n { #4 } } }
       }
   }
-\cs_new_protected:Npn \__jinwen_scan_env_end:n #1
-  { \peek_analysis_map_break:n { \__jinwen_reinsert_tokens:nn {#1} { } } }
-\cs_new_protected:Npn \__jinwen_reinsert_tokens:nn #1 #2
+\cs_new_protected:Npn \__colorist_scan_env_end:n #1
+  { \peek_analysis_map_break:n { \__colorist_reinsert_tokens:nn { #1 } { } } }
+\cs_new_protected:Npn \__colorist_reinsert_tokens:nn #1 #2
   {
     \use:x
       {
-        \tl_clear:N \exp_not:N \l__jinwen_collected_tl
-        \exp_not:n {#1} \l__jinwen_collected_tl #2
+        \tl_clear:N \exp_not:N \l__colorist_collected_tl
+        \exp_not:n { #1 } \l__colorist_collected_tl #2
       }
   }
-\cs_new_protected:Npn \__jinwen_chk_env:nTFn #1 #2 #3 #4
+\cs_new_protected:Npn \__colorist_chk_env:nTFn #1 #2 #3 #4
   {
-    \exp_args:Nx \__jinwen_reinsert_tokens:nn
-      { \str_if_eq:nnTF {#1} {#4} { \exp_not:n {#2} } { \exp_not:n {#3} } } { {#4} }
+    \exp_args:Nx \__colorist_reinsert_tokens:nn
+      { \str_if_eq:nnTF { #1 } { #4 } { \exp_not:n { #2 } } { \exp_not:n { #3 } } } { { #4 } }
   }
-\ExplSyntaxOff
 
-\def\scandefinitionenv{%
-  \AfterEnvEnd{%
-    \ScanEnv*{definition}%
-      {\vspace{-1.05\baselineskip}}%
-      {\ScanEnv*{definition*}%
-        {\vspace{-1.05\baselineskip}}%
-        {}}}}
-\AddToHook{env/definition/end}{\scandefinitionenv}%
-\AddToHook{env/definition*/end}{\scandefinitionenv}%
+\cs_new_protected:Nn \colorist_add_scan_env:n
+  {
+    \clist_map_inline:nn { #1 }
+      {
+        \__colorist_add_scan_env_do:n { ##1 }
+      }
+  }
+\cs_new_protected:Nn \__colorist_add_scan_env_do:n
+  {
+    \tl_const:cn { l__colorist_scan_env_ #1 }
+      {
+        \AfterEnvEnd
+          {
+            \ScanEnv* { #1 }
+              { \skip_vertical:n { -0.55\baselineskip } }
+              {
+                \ScanEnv* { #1* }
+                  { \skip_vertical:n { -0.55\baselineskip } }
+                  {}
+              }
+          }
+      }
+    \hook_gput_code:nnn { env/#1/end } { colorist } { \tl_use:c { l__colorist_scan_env_ #1 } }
+    \hook_gput_code:nnn { env/#1*/end } { colorist } { \tl_use:c { l__colorist_scan_env_ #1 } }
+  }
 
-\def\scanassumptionenv{%
-  \AfterEnvEnd{%
-    \ScanEnv*{assumption}%
-      {\vspace{-1.05\baselineskip}}%
-      {\ScanEnv*{assumption*}%
-        {\vspace{-1.05\baselineskip}}%
-        {}}}}
-\AddToHook{env/assumption/end}{\scanassumptionenv}%
-\AddToHook{env/assumption*/end}{\scanassumptionenv}%
+\colorist_add_scan_env:n { definition, assumption, convention, hypothesis, notation }
 
-\def\scanconventionenv{%
-  \AfterEnvEnd{%
-    \ScanEnv*{convention}%
-      {\vspace{-1.05\baselineskip}}%
-      {\ScanEnv*{convention*}%
-        {\vspace{-1.05\baselineskip}}%
-        {}}}}
-\AddToHook{env/convention/end}{\scanconventionenv}%
-\AddToHook{env/convention*/end}{\scanconventionenv}%
+\theoremstyle{simple}
 
-\def\scanhypothesisenv{%
-  \AfterEnvEnd{%
-    \ScanEnv*{hypothesis}%
-      {\vspace{-1.05\baselineskip}}%
-      {\ScanEnv*{hypothesis*}%
-        {\vspace{-1.05\baselineskip}}%
-        {}}}}
-\AddToHook{env/hypothesis/end}{\scanhypothesisenv}%
-\AddToHook{env/hypothesis*/end}{\scanhypothesisenv}%
 
-\def\scannotationenv{%
-  \AfterEnvEnd{%
-    \ScanEnv*{notation}%
-      {\vspace{-1.05\baselineskip}}%
-      {\ScanEnv*{notation*}%
-        {\vspace{-1.05\baselineskip}}%
-        {}}}}
-\AddToHook{env/notation/end}{\scannotationenv}%
-\AddToHook{env/notation*/end}{\scannotationenv}%
-%
-%#- 这段未被采用的代码可以连接不同种类的环境，但作者认为这样反而会显得不那么清晰
-%#- This piece of unused code can connect environments of different kind, but the author thinks that it will be less clear for the reader if one does so.
-% From https://tex.stackexchange.com/a/587023
-% \def\scandefinitionenv{%
-%   \AfterEnvEnd{%
-%     \ScanEnv*{definition}%
-%       {\vspace{-1.05\baselineskip}}%
-%       {\ScanEnv*{definition*}%
-%         {\vspace{-1.05\baselineskip}}%
-%         {\ScanEnv*{assumption}%
-%           {\vspace{-1.05\baselineskip}}%
-%           {\ScanEnv*{assumption*}%
-%             {\vspace{-1.05\baselineskip}}%
-%             {}}}}}}
-% \AddToHook{env/definition/end}{\scandefinitionenv}%
-% \AddToHook{env/definition*/end}{\scandefinitionenv}%
-% \AddToHook{env/assumption/end}{\scandefinitionenv}%
-% \AddToHook{env/assumption*/end}{\scandefinitionenv}%
-
-\ifbool{IsBook}{}{%
-%# 针对文章的一些设定
-%# Some configurations for articles
+\bool_if:NF \l__colorist_is_book_bool {
 
 %%================================
-%% Title block style
+%%  Title block style
 %%================================
-\renewcommand{\@maketitle}{%
-% \noindent%
-% {\textcolor{maintheme!55!paper}{\rule{\textwidth}{0.75pt}}}%
-% \vspace{-\parskip}%
-\begin{center}%
-    \color{maintheme}%
-    {\Large\colorist@sffamily\scshape\conditionalbfseries\@title}\\\bigskip%
-    \color{maintext!80!paper}%
-    {\scshape\@author}\\\smallskip%
-    {\@date}%
-\end{center}%
-\ifx\@date\@empty\bigskip\fi%
-% \vspace{-\parskip}%
-% \ifx\@date\@empty%
-%     \vspace{-\baselineskip}%
-% \else%
-%     \vspace{-.8\baselineskip}%
-% \fi%
-% {\textcolor{maintheme!55!paper}{\rule{\textwidth}{0.75pt}}\par}%
-\medskip%
+%<*colorist-fancy>
+\renewcommand{\@maketitle}{
+\begin{center}
+    \color{maintheme}
+    {\Large\sffamily\scshape \colorist_bfseries: \@title}\\\bigskip
+    \color{main-text!80!paper}
+    {\scshape\@author}\par\smallskip
+    {\@date}
+\end{center}
+\ifx\@date\@empty\bigskip\fi
+\medskip
 }
-\apptocmd{\maketitle}{\thispagestyle{fancy}}{}{\FAIL}
+%</colorist-fancy>
+
+\hook_gput_code:nnn { cmd/maketitle/after } { colorist } { \thispagestyle{fancy} }
 
 %%================================
-%% Abstract style
+%%  Abstract style
 %%================================
+%<*colorist-fancy>
 \renewenvironment{abstract}
-{\small{\centerline{\textsc{\conditionalbfseries\sffamily\abstractname}}\vspace{-0.3\baselineskip}}
-    \color{maintext!80!paper}\begin{quotation}}
+{\small{\centerline{\textsc{ \colorist_bfseries: \sffamily\abstractname}}\vspace{-0.3\baselineskip}}
+    \color{main-text!80!paper}\begin{quotation}}
 {\end{quotation}\medskip}
+%</colorist-fancy>
 
 %%================================
-%% Keyword
+%%  Keyword environment
 %%================================
-\def\keywordnameEN{\textsc{Keywords}}
-\def\keywordnameFR{\textsc{Mots clés}}
-\def\keywordnameDE{\textsc{Schlüsselwörter}}
-\def\keywordnameCN{关键词}
-\def\keywordnameTC{關鍵詞}
-\def\keywordnameJP{キーワード}
-\def\keywordnameRU{Ключевые слова}
+\DefineMultilingualText { \keywordname }
+  {
+    EN = Keywords                               ,
+    FR = Mots~clés                              ,
+    DE = Schlüsselwörter                        ,
+    IT = Parole~chiave                          ,
+    PT = Palavras~chave                         ,
+    BR = Palavras~chave                         ,
+    ES = Palabras~clave                         ,
+    CN = 关键词                                 ,
+    TC = 關鍵詞                                 ,
+    JP = キーワード                             ,
+    RU = Ключевые~слова                         ,
+  }
 
+%<*colorist-fancy>
 \newenvironment{keyword}
-{\small{\centerline{{\conditionalbfseries\csname keywordname\csname\languagename ABBR\endcsname\endcsname}}\vspace{-0.3\baselineskip}}
-    \color{maintext!80!paper}\begin{center}}
+{\small\centerline{{ \colorist_bfseries: \keywordname}}\vspace{-0.3\baselineskip}
+    \color{main-text!80!paper}\begin{center}}
 {\end{center}\medskip}
+%</colorist-fancy>
 
 %%================================
-%% Simulate features of amsart
+%%  Simulate features of amsart
 %%================================
-%# 引入 ProjLib 中用于模拟 AMS 文档类写法的模块
-%# Introduce the module of ProjLib that emulates the writing style in AMS classes
-\PassOptionsToPackage{amsfashion}{PJLauthor}
-\RequirePackage{PJLauthor}
+\PassOptionsToPackage { amsfashion } { projlib-author }
+\RequirePackage { projlib-author }
 
 }
-%</colorist>
+%</style>
 
 \endinput
