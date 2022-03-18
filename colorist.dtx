@@ -1067,12 +1067,12 @@
 
     %% Section
     \titleformat{\section}
-      {\color{maintheme} \g_colorist_title_font_section_tl \large}
+      {\color{maintheme} \g_colorist_title_font_section_tl \Large}
       {\thesection}{.75em}{#1}
 
     %% Subsection
     \titleformat{\subsection}
-      { \g_colorist_title_font_subsection_tl }{\thesubsection}{.75em}
+      { \g_colorist_title_font_subsection_tl \large}{\thesubsection}{.75em}
       {#1}
   }
   {
@@ -1100,12 +1100,12 @@
 
     %% Section
     \titleformat{\section}
-      {\color{maintheme} \g_colorist_title_font_section_tl \large}
+      {\color{maintheme} \g_colorist_title_font_section_tl \Large}
       {\thesection}{.75em}{\scshape #1}
 
     %% Subsection
     \titleformat{\subsection}
-      { \g_colorist_title_font_subsection_tl }{\thesubsection}{.75em}
+      { \g_colorist_title_font_subsection_tl \large}{\thesubsection}{.75em}
       {#1}
   }
 
@@ -1311,11 +1311,21 @@
 \let\qedsymbolOriginal\qedsymbol
 
 % The style of the theorem-like environment that will be wrapped into the color box
-\newtheoremstyle{basic}
-    {0pt}{0pt}{\normalfont}{0pt}
-    {}{\;}{0.25em}
-    {{\thmname{#1}\nobreakspace\thmnumber{\textup{#2}}}
-    \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace(#3)}}
+\bool_if:NTF \l__colorist_theorem_in_new_line_bool
+  {
+    \newtheoremstyle{basic}
+      {0pt}{0pt}{\normalfont}{0pt}
+      {}{\;}{\newline}
+      {{\thmname{#1}\nobreakspace\thmnumber{\textup{#2}}}
+      \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace(#3)}\smallskip}
+  }
+  {
+    \newtheoremstyle{basic}
+      {0pt}{0pt}{\normalfont}{0pt}
+      {}{\;}{0.25em}
+      {{\thmname{#1}\nobreakspace\thmnumber{\textup{#2}}}
+      \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace(#3)}}
+  }
 
 \theoremstyle{basic}
 
@@ -1635,6 +1645,7 @@
   {
     enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
     left=3.5mm, right=3.5mm,
+    before=\medskip,
     colback=main-text!3!paper,
     opacityframe=0.9, colframe=orange, arc=.7mm
   }
@@ -1643,6 +1654,7 @@
   {
     enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
     left=4mm, right=4mm, top=1mm, bottom=1mm,
+    before=\medskip,
     colback=lightorange!10!paper, boxrule=0pt, frame~hidden,
     borderline~west={1.5mm}{0mm}{forestgreen}, arc=.7mm
   }
@@ -1651,6 +1663,7 @@
   {
     enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
     colback=main-text!5!paper,
+    before=\medskip,
     boxrule=0pt, frame~hidden, arc=.7mm
   }
 
@@ -1658,6 +1671,7 @@
   {
     enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
     left=3.5mm, right=3.5mm,
+    before=\medskip,
     colback=main-text!3!paper,
     opacityframe=0.7, colframe=purple, arc=.7mm
   }
@@ -1666,6 +1680,7 @@
   {
     enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
     colback=yellow!25!paper,
+    before=\medskip,
     boxrule=0pt, frame~hidden, arc=.7mm
   }
 
@@ -1674,6 +1689,7 @@
     enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
     oversize,
     top=0mm, bottom=0mm,
+    before=\medskip,
     opacityframe=0, opacityback=0
   }
 
@@ -1745,10 +1761,10 @@
         \AfterEnvEnd
           {
             \ScanEnv* { #1 }
-              { \skip_vertical:n { -0.55\baselineskip } }
+              { \skip_vertical:n { -0.75\baselineskip } }
               {
                 \ScanEnv* { #1* }
-                  { \skip_vertical:n { -0.55\baselineskip } }
+                  { \skip_vertical:n { -0.75\baselineskip } }
                   {}
               }
           }
