@@ -1325,7 +1325,7 @@
   \normalfont \topsep6\p@\@plus6\p@\relax
   \trivlist
   \item[\hskip\labelsep
-        \itshape
+        \itshape \sffamily \colorist_bfseries:
     #1\hspace{.4em}
     \textcolor{main-text!27!paper}{$|$}]\ignorespaces
 }{%
@@ -1347,139 +1347,256 @@
 % \PassOptionsToPackage { simplename } { projlib-theorem }
 \RequirePackage { projlib-theorem }
 
-\exp_args:No \SetTheorem { \c_projlib_theorem_supported_clist }
+\SetTheorem { theorem, lemma, proposition, corollary, property, axiom, definition-theorem, definition-proposition }
   {
     name style = {
-      , heading style = {
-          , english = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-          , french = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-          , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-          , italian = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-          , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-          , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-          , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-          , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-          , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-          , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
-          , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
-        }
+      heading style = { \color{orange}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
     }
   }
 
-\SetTheorem { remark }
+\SetTheorem { definition, assumption, convention, hypothesis, notation }
   {
     name style = {
-      , heading style = {
-          , english = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-          , french = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-          , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-          , italian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-          , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-          , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-          , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-          , russian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-          , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-          , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-          , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
-          , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
-        }
+      heading style = { \color{forestgreen}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
     }
   }
+
+\SetTheorem { fact, example, problem, question, exercise }
+  {
+    name style = {
+      heading style = { \color{main-text}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
+    }
+  }
+
+\SetTheorem { conjecture }
+  {
+    name style = {
+      heading style = { \color{purple}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
+    }
+  }
+
+\SetTheorem { definition-proposition }
+  {
+    name = {
+      heading = {
+        , english     = \color{forestgreen}Definition\color{main-text}-\color{orange}Proposition
+        , french      = \color{forestgreen}Définition\color{main-text}-\color{orange}Proposition
+        , ngerman     = \color{forestgreen}Definition\color{main-text}-\color{orange}Proposition
+        , italian     = \color{forestgreen}Definizione\color{main-text}-\color{orange}Proposizione
+        , portuguese  = \color{forestgreen}Definição\color{main-text}-\color{orange}Proposição
+        , brazilian   = \color{forestgreen}Definição\color{main-text}-\color{orange}Proposição
+        , spanish     = \color{forestgreen}Definición\color{main-text}-\color{orange}Proposición
+        , schinese    = \color{forestgreen}定义\color{main-text}-\color{orange}命题
+        , tchinese    = \color{forestgreen}定義\color{main-text}-\color{orange}命題
+        , japanese    = \color{forestgreen}定義\color{main-text}-\color{orange}命題
+        , russian     = \color{forestgreen}Определение\color{main-text}-\color{orange}Предложение
+      }
+    }
+  }
+
+\SetTheorem { definition-theorem }
+  {
+    name = {
+      heading = {
+        , english     = \color{forestgreen}Definition\color{main-text}-\color{orange}Theorem
+        , french      = \color{forestgreen}Définition\color{main-text}-\color{orange}Théorème
+        , ngerman     = \color{forestgreen}Definition\color{main-text}-\color{orange}Satz
+        , italian     = \color{forestgreen}Definizione\color{main-text}-\color{orange}Teorema
+        , portuguese  = \color{forestgreen}Definição\color{main-text}-\color{orange}Teorema
+        , brazilian   = \color{forestgreen}Definição\color{main-text}-\color{orange}Teorema
+        , spanish     = \color{forestgreen}Definición\color{main-text}-\color{orange}Teorema
+        , schinese    = \color{forestgreen}定义\color{main-text}-\color{orange}定理
+        , tchinese    = \color{forestgreen}定義\color{main-text}-\color{orange}定理
+        , japanese    = \color{forestgreen}定義\color{main-text}-\color{orange}定理
+        , russian     = \color{forestgreen}Определение\color{main-text}-\color{orange}Теорема
+      }
+    }
+  }
+
 
 \bool_if:NF \l__projlib_theorem_complexname_bool
   {
-    \exp_args:No \SetTheorem { \c_projlib_theorem_supported_clist }
+    \SetTheorem { theorem, lemma, proposition, corollary, property, axiom, definition-theorem, definition-proposition }
       {
         name style = {
-          , crefname style = {
-              , english = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-              , french = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-              , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-              , italian = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-              , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-              , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-              , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-              , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
-            }
-          , Crefname style = {
-              , english = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-              , french = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-              , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-              , italian = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-              , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-              , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-              , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl\textsc
-              , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
-            }
-          , numbering style = {
-              , english = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , french = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , italian = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
-            }
+          , crefname style = { \color{orange}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
+          , Crefname style = { \color{orange}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
+          , numbering style = { \color{orange}\colorist_bfseries:\g_colorist_title_font_common_tl }
         }
       }
 
-    \SetTheorem { remark }
+    \SetTheorem { definition, assumption, convention, hypothesis, notation }
       {
         name style = {
-          , crefname style = {
-              , english = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , french = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , italian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
-            }
-          , Crefname style = {
-              , english = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , french = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , italian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl\textit
-              , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
-            }
-          , numbering style = {
-              , english = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , french = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , ngerman = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , italian = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , portuguese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , brazilian = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , spanish = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , schinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , tchinese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , japanese = \colorist_bfseries:\g_colorist_title_font_common_tl
-              , russian = \colorist_bfseries:\g_colorist_title_font_common_tl
-            }
+          , crefname style = { \color{forestgreen}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
+          , Crefname style = { \color{forestgreen}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
+          , numbering style = { \color{forestgreen}\colorist_bfseries:\g_colorist_title_font_common_tl }
+        }
+      }
+
+    \SetTheorem { fact, example, problem, question, exercise }
+      {
+        name style = {
+          , crefname style = { \color{main-text}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
+          , Crefname style = { \color{main-text}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
+          , numbering style = { \color{main-text}\colorist_bfseries:\g_colorist_title_font_common_tl }
+        }
+      }
+
+    \SetTheorem { conjecture }
+      {
+        name style = {
+          , crefname style = { \color{purple}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
+          , Crefname style = { \color{purple}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
+          , numbering style = { \color{purple}\colorist_bfseries:\g_colorist_title_font_common_tl }
+        }
+      }
+
+    \SetTheorem { definition-proposition }
+      {
+        name = {
+          , crefname =  {
+            , english     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}{\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}
+            , french      = [la]{\color{forestgreen}Définition\color{main-text}-\color{orange}Proposition}[les]{\color{forestgreen}Définition\color{main-text}-\color{orange}Proposition}
+            , ngerman     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}{\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}
+            , italian     = [la]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Proposizione}[le]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Proposizione}
+            , portuguese  = [a]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}[as]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}
+            , brazilian   = [a]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}[as]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}
+            , spanish     = [la]{\color{forestgreen}Definición\color{main-text}-\color{orange}Proposición}[las]{\color{forestgreen}Definición\color{main-text}-\color{orange}Proposición}
+            , schinese    = {\color{forestgreen}定义\color{main-text}-\color{orange}命题}{\color{forestgreen}定义\color{main-text}-\color{orange}命题}
+            , tchinese    = {\color{forestgreen}定義\color{main-text}-\color{orange}命題}{\color{forestgreen}定義\color{main-text}-\color{orange}命題}
+            , japanese    = {\color{forestgreen}定義\color{main-text}-\color{orange}命題}{\color{forestgreen}定義\color{main-text}-\color{orange}命題}
+            , russian     = {\color{forestgreen}Определение\color{main-text}-\color{orange}Предложение}{\color{forestgreen}Определение\color{main-text}-\color{orange}Предложение}
+          }
+          , Crefname =  {
+            , english     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}{\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}
+            , french      = [la]{\color{forestgreen}Définition\color{main-text}-\color{orange}Proposition}[les]{\color{forestgreen}Définition\color{main-text}-\color{orange}Proposition}
+            , ngerman     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}{\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}
+            , italian     = [la]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Proposizione}[le]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Proposizione}
+            , portuguese  = [a]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}[as]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}
+            , brazilian   = [a]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}[as]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}
+            , spanish     = [la]{\color{forestgreen}Definición\color{main-text}-\color{orange}Proposición}[las]{\color{forestgreen}Definición\color{main-text}-\color{orange}Proposición}
+            , schinese    = {\color{forestgreen}定义\color{main-text}-\color{orange}命题}{\color{forestgreen}定义\color{main-text}-\color{orange}命题}
+            , tchinese    = {\color{forestgreen}定義\color{main-text}-\color{orange}命題}{\color{forestgreen}定義\color{main-text}-\color{orange}命題}
+            , japanese    = {\color{forestgreen}定義\color{main-text}-\color{orange}命題}{\color{forestgreen}定義\color{main-text}-\color{orange}命題}
+            , russian     = {\color{forestgreen}Определение\color{main-text}-\color{orange}Предложение}{\color{forestgreen}Определение\color{main-text}-\color{orange}Предложение}
+          }
+        }
+      }
+
+    \SetTheorem { definition-theorem }
+      {
+        name = {
+          , crefname =  {
+            , english     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Theorem}{\color{forestgreen}Definition\color{main-text}-\color{orange}Theorem}
+            , french      = [la]{\color{forestgreen}Définition\color{main-text}-\color{orange}Théorème}[les]{\color{forestgreen}Définition\color{main-text}-\color{orange}Théorème}
+            , ngerman     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Satz}{\color{forestgreen}Definition\color{main-text}-\color{orange}Satz}
+            , italian     = [la]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Teorema}[le]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Teorema}
+            , portuguese  = [a]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}[as]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}
+            , brazilian   = [a]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}[as]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}
+            , spanish     = [la]{\color{forestgreen}Definición\color{main-text}-\color{orange}Teorema}[las]{\color{forestgreen}Definición\color{main-text}-\color{orange}Teorema}
+            , schinese    = {\color{forestgreen}定义\color{main-text}-\color{orange}定理}{\color{forestgreen}定义\color{main-text}-\color{orange}定理}
+            , tchinese    = {\color{forestgreen}定義\color{main-text}-\color{orange}定理}{\color{forestgreen}定義\color{main-text}-\color{orange}定理}
+            , japanese    = {\color{forestgreen}定義\color{main-text}-\color{orange}定理}{\color{forestgreen}定義\color{main-text}-\color{orange}定理}
+            , russian     = {\color{forestgreen}Определение\color{main-text}-\color{orange}Теорема}{\color{forestgreen}Определение\color{main-text}-\color{orange}Теорема}
+          }
+          , Crefname =  {
+            , english     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Theorem}{\color{forestgreen}Definition\color{main-text}-\color{orange}Theorem}
+            , french      = [La]{\color{forestgreen}Définition\color{main-text}-\color{orange}Théorème}[Les]{\color{forestgreen}Définition\color{main-text}-\color{orange}Théorème}
+            , ngerman     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Satz}{\color{forestgreen}Definition\color{main-text}-\color{orange}Satz}
+            , italian     = [La]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Teorema}[Le]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Teorema}
+            , portuguese  = [A]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}[As]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}
+            , brazilian   = [A]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}[As]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}
+            , spanish     = [La]{\color{forestgreen}Definición\color{main-text}-\color{orange}Teorema}[Las]{\color{forestgreen}Definición\color{main-text}-\color{orange}Teorema}
+            , schinese    = {\color{forestgreen}定义\color{main-text}-\color{orange}定理}{\color{forestgreen}定义\color{main-text}-\color{orange}定理}
+            , tchinese    = {\color{forestgreen}定義\color{main-text}-\color{orange}定理}{\color{forestgreen}定義\color{main-text}-\color{orange}定理}
+            , japanese    = {\color{forestgreen}定義\color{main-text}-\color{orange}定理}{\color{forestgreen}定義\color{main-text}-\color{orange}定理}
+            , russian     = {\color{forestgreen}Определение\color{main-text}-\color{orange}Теорема}{\color{forestgreen}Определение\color{main-text}-\color{orange}Теорема}
+          }
         }
       }
   }
+
+
+\RequirePackage { marginnote }
+\RequirePackage { ifoddpage }
+\newcommand{\mparadjust}[1]{\renewcommand*{\marginnotevadjust}{#1}}
+\hook_gput_code:nnn { begindocument/before } { colorist }
+{
+  %
+}
+\hook_gput_code:nnn { env/remark/begin } { colorist }
+  {
+    \if@twoside\checkoddpage
+        \ifoddpage\reversemarginpar\fi
+    \else
+        \reversemarginpar
+    \fi
+    \mparadjust{-.25em}
+    \marginnote{\ideabulb[0.3]{orange}
+      \bool_if:NTF \l__colorist_is_book_bool
+        {
+          \hspace*{-.2em}
+        }
+        {
+          \hspace*{-.5em}
+        }
+    }
+    \normalmarginpar
+  }
+\hook_gput_code:nnn { env/conjecture/begin } { colorist }
+  {
+    \if@twoside\checkoddpage
+        \ifoddpage\reversemarginpar\fi
+    \else
+        \reversemarginpar
+    \fi
+    \mparadjust{-.25em}
+    \marginnote{\questionmark[0.3]{purple}
+      \bool_if:NTF \l__colorist_is_book_bool
+        {
+          \hspace*{-.2em}
+        }
+        {
+          \hspace*{-.5em}
+        }
+    }
+    \normalmarginpar
+  }
+
+\ExplSyntaxOff
+\RequirePackage{iftex}
+\ifXeTeX
+\def\pgfsys@hboxsynced#1{%
+{%
+    \pgfsys@beginscope%
+    \setbox\pgf@hbox=\hbox{%
+    \hskip\pgf@pt@x%
+    \raise\pgf@pt@y\hbox{%
+        \pgf@pt@x=0pt%
+        \pgf@pt@y=0pt%
+        \special{pdf: content q}%
+        \pgflowlevelsynccm%
+        \pgfsys@invoke{q -1 0 0 -1 0 0 cm}%
+        \special{pdf: content -1 0 0 -1 0 0 cm q}
+        % translate to original coordinate system
+        \pgfsys@invoke{0 J [] 0 d}% reset line cap and dash
+        \wd#1=0pt%
+        \ht#1=0pt%
+        \dp#1=0pt%
+        \box#1%
+        \pgfsys@invoke{n Q Q Q}%
+    }%
+    \hss%
+    }%
+    \wd\pgf@hbox=0pt%
+    \ht\pgf@hbox=0pt%
+    \dp\pgf@hbox=0pt%
+    \pgfsys@hbox\pgf@hbox%
+    \pgfsys@endscope%
+}}
+\fi
+\ExplSyntaxOn
 
 
 \cs_new_protected:Nn \colorist_add_colorbox:nn
