@@ -1311,8 +1311,10 @@
 \newtheoremstyle{basic}
     {0pt}{0pt}{\normalfont}{0pt}
     {}{\;}{0.25em}
-    {{\thmname{#1}~\thmnumber{\textup{#2}}}
-    \thmnote{\normalfont\sffamily\color{main-text}~(#3)}}
+    {{\thmname{#1}\nobreakspace\thmnumber{\textup{#2}}}
+    \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace(#3)}}
+
+\theoremstyle{basic}
 
 % The style of remark-like environments
 \newtheoremstyle{emphasis}
@@ -1345,6 +1347,16 @@
   }
 
 % \PassOptionsToPackage { simplename } { projlib-theorem }
+
+\PassOptionsToPackage
+  {
+    theorem style = {
+      , remark = emphasis
+      , observation = emphasis
+    }
+  }
+  { projlib-theorem }
+
 \RequirePackage { projlib-theorem }
 
 \SetTheorem { theorem, lemma, proposition, corollary, property, axiom, definition-theorem, definition-proposition }
