@@ -1,8 +1,8 @@
 % \iffalse meta-comment
 %
-% Copyright (C) 2021 by Jinwen XU 
-% -------------------------------
-% 
+% Copyright (C) 2021-2022 by Jinwen XU
+% ------------------------------------
+%
 % This file may be distributed and/or modified under the conditions of the LaTeX
 % Project Public License, either version 1.3c of this license or (at your option)
 % any later version. The latest version of this license is in:
@@ -15,9 +15,19 @@
 \ProvidesFile{colorist-doc.dtx}
 %</driver>
 %
-%<colorist-doc>\documentclass[English,Chinese,French,allowbf]{colorart}
-%<lebhart-doc-cn,lebhart-doc-en,lebhart-doc-fr>\documentclass[English,Chinese,French,allowbf]{lebhart}
-%<beaulivre-doc-cn,beaulivre-doc-en,beaulivre-doc-fr>\documentclass[English,Chinese,French,JP,TC,allowbf]{beaulivre}
+%<colorist-doc>\documentclass[English,Chinese,French,use boldface,simple name]{colorart}
+%<lebhart-doc-cn,lebhart-doc-en,lebhart-doc-fr>\documentclass[English,Chinese,French,use boldface,simple name]{lebhart}
+%<beaulivre-doc-cn,beaulivre-doc-en,beaulivre-doc-fr>\documentclass[English,Chinese,French,JP,TC,use boldface,simple name]{beaulivre}
+
+%<*colorist-doc>
+\setsansfont{texgyreheros}[
+  Scale=MatchUppercase,
+  UprightFont=*-regular,
+  BoldFont=*-bold,
+  ItalicFont=*-italic,
+  BoldItalicFont=*-bolditalic,
+]
+%</colorist-doc>
 
 %%================================
 %% Import toolkit
@@ -54,18 +64,18 @@
     % numbers=left,
     numberstyle=\scriptsize, stepnumber=1, numbersep=5pt,
     % firstnumber=last,
-} 
+}
 \providecommand{\meta}[1]{$\langle${\normalfont\itshape#1}$\rangle$}
 \lstset{moretexcs=%
     {part,parttext,chapter,section,subsection,subsubsection,frontmatter,mainmatter,backmatter,tableofcontents,href,
-    color,NameTheorem,CreateTheorem,proofideanameEN,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,PLdate,ProjLib,qedhere
+    color,NameTheorem,CreateTheorem,cref,dnf,needgraph,UseLanguage,UseOtherLanguage,AddLanguageSetting,maketitle,address,curraddr,email,keywords,subjclass,thanks,dedicatory,TheDate,ProjLib,qedhere
     }
 }
-\lstnewenvironment{code}% 
+\lstnewenvironment{code}%
 {\setstretch{1.07}%
 \setkeys{lst}{columns=fullflexible,keepspaces=true}%
 }{}
-\lstnewenvironment{code*}% 
+\lstnewenvironment{code*}%
 {\setstretch{1.07}%
 \setkeys{lst}{numbers=left,columns=fullflexible,keepspaces=true}%
 }{}
@@ -122,34 +132,29 @@
 %%================================
 \begin{document}
 
+\def\PackageVersion{2022/03/19}
+
 %<*colorist-doc>
-\title{{\normalfont\bfseries\color{maintext}\colorist{}}\\write your articles or books in a colorful way}
+\title{{\normalfont\bfseries\color{main-text}\colorist{}}\\write your articles or books in a colorful way}
 \author{Jinwen XU}
-\thanks{Corresponding to: \texttt{\colorist{} 2021/12/16}}
+\thanks{Corresponding to: \texttt{\colorist{} \PackageVersion}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
-\date{December 2021, in Paris}
+\date{\TheDate{\PackageVersion}[only-year-month], in Paris}
 
 \maketitle
 %</colorist-doc>
 %
 %<*lebhart-doc-en>
-\title{{\normalfont\bfseries\color{maintext}\lebhart{}}\\write your articles in a colorful way}
+\title{{\normalfont\bfseries\color{main-text}\lebhart{}}\\write your articles in a colorful way}
 \author{Jinwen XU}
-\thanks{Corresponding to: \texttt{\lebhart{} 2021/12/16}}
+\thanks{Corresponding to: \texttt{\lebhart{} \PackageVersion}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
-\date{December 2021, in Paris}
+\date{\TheDate{\PackageVersion}[only-year-month], in Paris}
 
 \maketitle
 %</lebhart-doc-en>
 %
 %<*beaulivre-doc-en>
-% \title{\beaulivre{}, write your books in a colorful way}
-% \author{Jinwen XU}
-% \thanks{Corresponding to: \texttt{\beaulivre{} 2021/05/23}}
-% \date{May 2021, Beijing}
-% 
-% \maketitle
-
 \frontmatter
 
 \begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
@@ -157,20 +162,20 @@
     \fill [cyan!90!black] ($(current page.south west)+(0,7)$) rectangle ($(current page.north west)+(25,-7)$);
     \fill [yellow] (current page.south west) rectangle ($(current page.north west)+(3,0)$);
     \node[text width=10cm] at ($(current page.north west)+(8.5,-6)$) {\huge\ProjLib};
-    \node[text width=6cm,text height=3.5cm,scale=2.5] at ($(current page.north west)+(11,-10)$) {\textcolor{white}{\sffamily\beaulivre{}\\[5pt]\footnotesize\textsc{Write your books in \\a colorful way}\\[10pt]\tiny Corresponding to: \texttt{\beaulivre{} 2021/12/16}}};
+    \node[text width=6cm,text height=3.5cm,scale=2.5] at ($(current page.north west)+(11,-10)$) {\textcolor{white}{\sffamily\beaulivre{}\\[5pt]\footnotesize\textsc{Write your books in \\a colorful way}\\[10pt]\tiny Corresponding to: \texttt{\beaulivre{} \PackageVersion}}};
     \node at ($(current page.south)+(1.5,3)$) {\fontsize{16pt}{0pt}\selectfont\textcolor{gray}{\scshape Jinwen XU}};
-    \node at ($(current page.south)+(1.5,2)$) {\fontsize{12pt}{0pt}\selectfont\textcolor{gray}{December 2021, in Paris}};
+    \node at ($(current page.south)+(1.5,2)$) {\fontsize{12pt}{0pt}\selectfont\textcolor{gray}{\TheDate{\PackageVersion}[only-year-month], in Paris}};
 \end{tikzpicture}%
 \end{titlepage}%
 \cleardoublepage%
 %</beaulivre-doc-en>
 %
 %<*lebhart-doc-cn>
-\title{{\normalfont\bfseries\color{maintext}\lebhart{}}\\以多彩的方式排版你的文章}
+\title{{\normalfont\bfseries\color{main-text}\lebhart{}}\\以多彩的方式排版你的文章}
 \author{许锦文}
-\thanks{对应版本. \texttt{\lebhart{} 2021/12/16}}
+\thanks{对应版本. \texttt{\lebhart{} \PackageVersion}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
-\date{2021年12月，巴黎}
+\date{\TheDate{\PackageVersion}[only-year-month]，巴黎}
 
 \maketitle
 %</lebhart-doc-cn>
@@ -183,20 +188,20 @@
     \fill [cyan!90!black] ($(current page.south west)+(0,7)$) rectangle ($(current page.north west)+(25,-7)$);
     \fill [yellow] (current page.south west) rectangle ($(current page.north west)+(3,0)$);
     \node[text width=10cm] at ($(current page.north west)+(8.5,-6)$) {\huge\ProjLib};
-    \node[text width=6cm,text height=3.5cm,scale=2.5] at ($(current page.north west)+(11,-10)$) {\textcolor{white}{\sffamily\beaulivre{}\\[5pt]\footnotesize\hspace*{-.05em}以多彩的方式排版你的图书\\[10pt]\tiny 对应版本. \texttt{\beaulivre{} 2021/12/16}}};
+    \node[text width=6cm,text height=3.5cm,scale=2.5] at ($(current page.north west)+(11,-10)$) {\textcolor{white}{\sffamily\beaulivre{}\\[5pt]\footnotesize\hspace*{-.05em}以多彩的方式排版你的图书\\[10pt]\tiny 对应版本. \texttt{\beaulivre{} \PackageVersion}}};
     \node at ($(current page.south)+(1.5,3)$) {\fontsize{16pt}{0pt}\selectfont\textcolor{gray}{许锦文}};
-    \node at ($(current page.south)+(1.5,2)$) {\fontsize{12pt}{0pt}\selectfont\textcolor{gray}{2021年12月，巴黎}};
+    \node at ($(current page.south)+(1.5,2)$) {\fontsize{12pt}{0pt}\selectfont\textcolor{gray}{\TheDate{\PackageVersion}[only-year-month]，巴黎}};
 \end{tikzpicture}%
 \end{titlepage}%
 \cleardoublepage%
 %</beaulivre-doc-cn>
 %
 %<*lebhart-doc-fr>
-\title{{\normalfont\bfseries\color{maintext}\lebhart{}}\\écrivez vos articles de manière colorée}
+\title{{\normalfont\bfseries\color{main-text}\lebhart{}}\\écrivez vos articles de manière colorée}
 \author{Jinwen XU}
-\thanks{Correspondant à : \texttt{\lebhart{} 2021/12/16}}
+\thanks{Correspondant à : \texttt{\lebhart{} \PackageVersion}}
 \email{\href{mailto:ProjLib@outlook.com}{ProjLib@outlook.com}}
-\date{Décembre 2021, à Paris}
+\date{\TheDate{\PackageVersion}[only-year-month], à Paris}
 
 \maketitle
 %</lebhart-doc-fr>
@@ -209,9 +214,9 @@
     \fill [cyan!90!black] ($(current page.south west)+(0,7)$) rectangle ($(current page.north west)+(25,-7)$);
     \fill [yellow] (current page.south west) rectangle ($(current page.north west)+(3,0)$);
     \node[text width=10cm] at ($(current page.north west)+(8.5,-6)$) {\huge\ProjLib};
-    \node[text width=6cm,text height=3.5cm,scale=2.5] at ($(current page.north west)+(11,-10)$) {\textcolor{white}{\sffamily\beaulivre{}\\[5pt]\footnotesize\textsc{Écrivez vos livres \\de manière colorée}\\[10pt]\tiny Correspondant à : \texttt{\beaulivre{} 2021/12/16}}};
+    \node[text width=6cm,text height=3.5cm,scale=2.5] at ($(current page.north west)+(11,-10)$) {\textcolor{white}{\sffamily\beaulivre{}\\[5pt]\footnotesize\textsc{Écrivez vos livres \\de manière colorée}\\[10pt]\tiny Correspondant à : \texttt{\beaulivre{} \PackageVersion}}};
     \node at ($(current page.south)+(1.5,3)$) {\fontsize{16pt}{0pt}\selectfont\textcolor{gray}{\scshape Jinwen XU}};
-    \node at ($(current page.south)+(1.5,2)$) {\fontsize{12pt}{0pt}\selectfont\textcolor{gray}{Décembre 2021, à Paris}};
+    \node at ($(current page.south)+(1.5,2)$) {\fontsize{12pt}{0pt}\selectfont\textcolor{gray}{\TheDate{\PackageVersion}[only-year-month], à Paris}};
 \end{tikzpicture}%
 \end{titlepage}%
 \cleardoublepage%
@@ -222,7 +227,7 @@
 %<*colorist-doc>
 \begin{abstract}
     \colorist{} is a series of styles and classes for you to typeset your articles or books in a colorful manner. The original intention in designing this series was to write drafts and notes that look colorful yet not dazzling. With the help of the \ProjLib{} toolkit, also developed by the author, the classes provided here have multi-language support, preset theorem-like environments with clever reference support, and many other functionalities. Notably, using these classes, one can organize the author information in the \AmS{} fashion, makes it easy to switch to journal classes later for publication.
-    
+
     Finally, this documentation is typeset using the \colorart{} class (with the option \texttt{allowbf}). You can think of it as a short introduction and demonstration.
 \end{abstract}
 %</colorist-doc>
@@ -232,7 +237,7 @@
     \lebhart{} is a member of the \colorist{} class series. Its name is taken from German word ``lebhaft'' (``vividly''), combined with the first three letters of ``artikel'' (``article''). The entire collection includes \colorart{} and \lebhart{} for typesetting articles and \colorbook{} and \beaulivre{} for typesetting books. My original intention in designing this series was to write drafts and notes that look colorful yet not dazzling.
 
     \lebhart{} has multi-language support, including Chinese (simplified and traditional), English, French, German, Italian, Japanese, Portuguese (European and Brazilian), Russian and Spanish. These languages can be switched seamlessly in a single document. Due to the usage of custom fonts, \lebhart{} requires \hologo{XeLaTeX} or \hologo{LuaLaTeX} to compile.
-    
+
     This documentation is typeset using \lebhart{} (with the option \texttt{allowbf}). You can think of it as a short introduction and demonstration.
 \end{abstract}
 %</lebhart-doc-en>
@@ -242,7 +247,7 @@
     \lebhart{} 是 \colorist{} 文档类系列的成员之一，其名称取自于德文的lebhaft (活泼)，并取了artikel (文章)的前三个字母组合而成。整个 \colorist{} 系列包含用于排版文章的 \colorart{}、\lebhart{} 以及用于排版书的 \colorbook{}、\beaulivre{}。我设计这一系列的初衷是为了撰写草稿与笔记，使之多彩而不缭乱。
 
     \lebhart{} 支持英语、法语、德语、意大利语、葡萄牙语、巴西葡萄牙语、西班牙语、简体中文、繁体中文、日文、俄文，并且同一篇文档中这些语言可以很好地协调。由于采用了自定义字体，需要用 \hologo{XeLaTeX} 或 \hologo{LuaLaTeX} 引擎进行编译。
-    
+
     这篇说明文档即是用 \lebhart{} 排版的 (使用了参数 \texttt{allowbf})，你可以把它看作一份简短的说明与演示。
 \end{abstract}
 %</lebhart-doc-cn>
@@ -306,6 +311,12 @@ Cette documentation est composée à l'aide de \beaulivre{} (avec l'option \text
 
 
 
+\begin{tip}
+    This documentation has not been fully up-to-date with the new \texttt{expl3} version of this class series. Some options or commands introduced here might be obsolete.
+\end{tip}
+
+
+
 %<colorist-doc,lebhart-doc-cn,lebhart-doc-en,lebhart-doc-fr>\setcounter{tocdepth}{2}
 \tableofcontents
 
@@ -345,7 +356,7 @@ In order to use the package or classes described here, you need to:
     \item install TeX Live or MikTeX of the latest possible version, and make sure that \texttt{colorist} and \texttt{projlib} are correctly installed in your \TeX{} system.
 %<colorist-doc>    \item download and install the required fonts if needed.
 %<!colorist-doc>    \item download and install the required fonts, see the section "On the default fonts".
-    \item be familiar with the basic usage of \LaTeX{}, and knows how to compile your document with \hologo{pdfLaTeX}, \hologo{XeLaTeX} or \hologo{LuaLaTeX}.
+    \item be familiar with the basic usage of \LaTeX{}, and know how to compile your document with \hologo{pdfLaTeX}, \hologo{XeLaTeX} or \hologo{LuaLaTeX}.
 \end{itemize}
 %</colorist-doc,lebhart-doc-en,beaulivre-doc-en>
 %
@@ -548,7 +559,7 @@ Regardons d'abord un document complet.
 
 \title{(*\meta{title}*)}
 \author{(*\meta{author}*)}
-\date{\PLdate{2022-04-01}}
+\date{\TheDate{2022-04-01}}
 
 \maketitle
 
@@ -641,7 +652,7 @@ Initialization is straightforward. The first line loads the document class \colo
 %</colorist-doc>
 %
 %<*lebhart-doc-en>
-\clearpage
+% \clearpage
 \LevelThreeTitle{Initialization}
 
 \begin{code}
@@ -757,7 +768,7 @@ Pour une description détaillée de cette commande et d'autres commandes associ�
 \begin{code}
 \title{(*\meta{title}*)}
 \author{(*\meta{author}*)}
-\date{\PLdate{2022-04-01}}
+\date{\TheDate{2022-04-01}}
 \maketitle
 
 \begin{abstract}
@@ -790,7 +801,7 @@ In addition, you may also write in the \AmS{} fashion, i.e.:
 \author{(*\meta{author 2}*)}
 \address{(*\meta{address 2}*)}
 \email{(*\meta{email 2}*)}
-\date{\PLdate{2022-04-01}}
+\date{\TheDate{2022-04-01}}
 \subjclass{*****}
 \keywords{(*\meta{keywords}*)}
 
@@ -808,7 +819,7 @@ In addition, you may also write in the \AmS{} fashion, i.e.:
 \begin{code}
 \title{(*\meta{title}*)}
 \author{(*\meta{author}*)}
-\date{\PLdate{2022-04-01}}
+\date{\TheDate{2022-04-01}}
 \maketitle
 
 \begin{abstract}
@@ -841,7 +852,7 @@ In addition, you may also write in the \AmS{} fashion, i.e.:
 \author{(*\meta{author 2}*)}
 \address{(*\meta{address 2}*)}
 \email{(*\meta{email 2}*)}
-\date{\PLdate{2022-04-01}}
+\date{\TheDate{2022-04-01}}
 \subjclass{*****}
 \keywords{(*\meta{keywords}*)}
 
@@ -859,7 +870,7 @@ In addition, you may also write in the \AmS{} fashion, i.e.:
 \begin{code}
 \title{(*\meta{title}*)}
 \author{(*\meta{author}*)}
-\date{\PLdate{2022-04-01}}
+\date{\TheDate{2022-04-01}}
 \maketitle
 
 \begin{abstract}
@@ -892,7 +903,7 @@ De plus, vous pouvez également écrire à la manière \AmS{}, c'est-à-dire :
 \author{(*\meta{author 2}*)}
 \address{(*\meta{address 2}*)}
 \email{(*\meta{email 2}*)}
-\date{\PLdate{2022-04-01}}
+\date{\TheDate{2022-04-01}}
 \subjclass{*****}
 \keywords{(*\meta{keywords}*)}
 
@@ -1133,7 +1144,7 @@ In the next section, we will go through the options available.
 
 
 %<*lebhart-doc-en,beaulivre-doc-en>
-%<lebhart-doc-en>\clearpage
+%<lebhart-doc-en>% \clearpage
 \LevelOneTitle{On the default fonts}
 By default, this document class uses Palatino Linotype as the English main font; Source Han Serif, Source Han Sans and Source Han Mono as the Chinese main font, sans serif font and typewriter font; and partially uses Neo Euler as the math font. You need to download and install these fonts by yourself. The Source Han font series can be downloaded at \url{https://github.com/adobe-fonts} (It is recommended to download the Super-OTC version, so that the download size is smaller). Neo Euler can be downloaded at \url{https://github.com/khaledhosny/euler-otf}. When the corresponding font is not installed, the font that comes with TeX Live will be used instead, and the effect may be discounted.
 
@@ -1188,7 +1199,7 @@ De plus, Source Code Pro est utilisé comme police anglaise sans empattement, Ne
 
 
 %<*colorist-doc,lebhart-doc-en,beaulivre-doc-en>
-%<colorist-doc>\clearpage
+%<colorist-doc>% \clearpage
 \LevelOneTitle{The options}
 
 %<colorist-doc>\colorist{} offers the following options: 
@@ -1232,18 +1243,14 @@ De plus, Source Code Pro est utilisé comme police anglaise sans empattement, Ne
         \begin{itemize}
             \item Use the ``runin'' style for \lstinline|\subsubsection|
         \end{itemize}
-    \item \texttt{puretext} or \texttt{nothms}
+    \item \texttt{nothms}
         \begin{itemize}
             \item Pure text mode. Do not load theorem-like environments.
         \end{itemize}
-    \item \texttt{delaythms}
-        \begin{itemize}
-            \item Defer the definition of theorem-like environments to the end of the preamble. Use this option if you want the theorem-like environments to be numbered within a custom counter.
-        \end{itemize}
-%<lebhart-doc-en>\clearpage
+%<lebhart-doc-en>% \clearpage
     \item \texttt{nothmnum}, \texttt{thmnum} or \texttt{thmnum=}\meta{counter}
         \begin{itemize}
-            \item Theorem-like environments will not be numbered / numbered in order 1, 2, 3... / numbered within \meta{counter}. Here, \meta{counter} should be a built-in counter (such as \texttt{subsection}) or a custom counter defined in the preamble (with the option \texttt{delaythms} enabled). If no option is used, they will be numbered within \texttt{chapter} (book) or \texttt{section} (article).
+            \item Theorem-like environments will not be numbered / numbered in order 1, 2, 3... / numbered within \meta{counter}. If no option is used, they will be numbered within \texttt{chapter} (book) or \texttt{section} (article).
         \end{itemize}
     \item \texttt{regionalref}, \texttt{originalref}
         \begin{itemize}
@@ -1274,7 +1281,7 @@ In addition, the commonly used \texttt{oneside} and \texttt{twoside} options are
 %</beaulivre-doc-en>
 %
 %<*lebhart-doc-cn,beaulivre-doc-cn>
-%<lebhart-doc-cn>\clearpage
+%<lebhart-doc-cn>% \clearpage
 \LevelOneTitle{选项}
 
 %<lebhart-doc-cn>\lebhart{} 文档类有下面几个选项：
@@ -1315,18 +1322,14 @@ In addition, the commonly used \texttt{oneside} and \texttt{twoside} options are
         \begin{itemize}
             \item \lstinline|\subsubsection| 采用 ``runin'' 风格。
         \end{itemize}
-    \item \texttt{puretext} 或 \texttt{nothms}
+    \item \texttt{nothms}
         \begin{itemize}
             \item 纯文本模式，不加载定理类环境。
         \end{itemize}
-%<beaulivre-doc-cn>\clearpage
-    \item \texttt{delaythms}
-        \begin{itemize}
-            \item 将定理类环境设定推迟到导言结尾。如果你希望定理类环境跟随自定义计数器编号，则应考虑这一选项。
-        \end{itemize}
+%<beaulivre-doc-cn>% \clearpage
     \item \texttt{nothmnum}、\texttt{thmnum} 或 \texttt{thmnum=}\meta{counter}
         \begin{itemize}
-            \item 定理类环境均不编号 / 按照 1、2、3 顺序编号 / 在 \meta{counter} 内编号。其中 \meta{counter} 应该是自带的计数器 (如 \texttt{subsection}) 或在导言部分自定义的计数器 (在启用 \texttt{delaythms} 选项的情况下)。在没有使用任何选项的情况下将按照 \texttt{chapter} (书) 或 \texttt{section} (文章) 编号。
+            \item 定理类环境均不编号 / 按照 1、2、3 顺序编号 / 在 \meta{counter} 内编号。在没有使用任何选项的情况下将按照 \texttt{chapter} (书) 或 \texttt{section} (文章) 编号。
         \end{itemize}
     \item \texttt{regionalref}、\texttt{originalref}
         \begin{itemize}
@@ -1382,18 +1385,13 @@ In addition, the commonly used \texttt{oneside} and \texttt{twoside} options are
         \begin{itemize}
             \item Utilisez le style «~runin~» pour \lstinline|\subsubsection|
         \end{itemize}
-    \item \texttt{puretext} ou \texttt{nothms}
+    \item \texttt{nothms}
         \begin{itemize}
             \item Mode texte pur. Ne pas définir les environnements de type théorème.
         \end{itemize}
-%<beaulivre-doc-fr>\clearpage
-    \item \texttt{delaythms}
-        \begin{itemize}
-            \item Reportez la définition des environnements de type théorème à la fin du préambule. Utilisez cette option si vous souhaitez que les environnements soient numérotés dans un compteur personnalisé.
-        \end{itemize}
     \item \texttt{nothmnum}, \texttt{thmnum} ou \texttt{thmnum=}\meta{counter}
         \begin{itemize}
-            \item Les environnements de type théorème ne seront pas numérotés / numérotés dans l'ordre 1, 2, 3... / numérotés dans \meta{counter}. Ici, \meta{counter} doit être un compteur intégré (tel que \texttt{subsection}) ou un compteur défini dans le préambule (avec l'option \texttt{delaythms} activée). Si aucune option n'est utilisée, ils seront numérotés dans \texttt{chapter} (livre) ou \texttt{section} (article).
+            \item Les environnements de type théorème ne seront pas numérotés / numérotés dans l'ordre 1, 2, 3... / numérotés dans \meta{counter}. Si aucune option n'est utilisée, ils seront numérotés dans \texttt{chapter} (livre) ou \texttt{section} (article).
         \end{itemize}
     \item \texttt{regionalref}, \texttt{originalref}
         \begin{itemize}
@@ -1455,7 +1453,7 @@ For example, \lstinline|\AddLanguageSetting(German){\color{orange}}| can make al
 %</colorist-doc,lebhart-doc-en,beaulivre-doc-en>
 %
 %<*lebhart-doc-cn,beaulivre-doc-cn>
-%<lebhart-doc-cn>\clearpage
+%<lebhart-doc-cn>% \clearpage
 \LevelOneTitle{具体说明}
 
 \LevelTwoTitle{语言设置}
@@ -1610,7 +1608,7 @@ The following are the main styles of theorem-like environments:
 \end{problem}
 
 \medskip
-%<beaulivre-doc-en>\clearpage
+%<beaulivre-doc-en>% \clearpage
 For aesthetics, adjacent definitions will be connected together automatically:
 \begin{definition}
     First definition.
@@ -1619,6 +1617,11 @@ For aesthetics, adjacent definitions will be connected together automatically:
 \begin{definition}
     Second definition.
 \end{definition}
+
+
+\begin{tip}
+    Please refer to the documentation of the package \textsf{create-theorem} to see how to declare new theorem-like environments.
+\end{tip}
 %</colorist-doc,lebhart-doc-en,beaulivre-doc-en>
 %
 %<*lebhart-doc-cn,beaulivre-doc-cn>
@@ -1684,7 +1687,7 @@ For aesthetics, adjacent definitions will be connected together automatically:
 \end{problem}
 
 \medskip
-%<beaulivre-doc-cn>\clearpage
+%<beaulivre-doc-cn>% \clearpage
 为了美观，相邻的定义环境会自动连在一起：
 \begin{definition}
     First definition.
@@ -1693,6 +1696,11 @@ For aesthetics, adjacent definitions will be connected together automatically:
 \begin{definition}
     Second definition.
 \end{definition}
+
+
+\begin{tip}
+    请参阅 \textsf{create-theorem} 的说明文档以获知如何定义新的定理类环境。
+\end{tip}
 %</lebhart-doc-cn,beaulivre-doc-cn>
 %
 %<*lebhart-doc-fr,beaulivre-doc-fr>
@@ -1764,246 +1772,22 @@ Pour l'esthétique, les définitions adjacentes seront reliées entre elles auto
 \begin{definition}
     Deuxième définition.
 \end{definition}
+
+
+\begin{tip}
+    Veuillez consulter la documentation du paquet \textsf{create-theorem} pour voir comment déclarer de nouveaux environnements de type théorème.
+\end{tip}
 %</lebhart-doc-fr,beaulivre-doc-fr>
 
 
 
 %<*colorist-doc,lebhart-doc-en,beaulivre-doc-en>
-\LevelTwoTitle{Define a new theorem-like environment}
-
-If you need to define a new theorem-like environment, you must first define the name of the environment in the language to use:
-\begin{itemize}
-    \item \lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
-\end{itemize}
-
-For \meta{language name}, please refer to the section on language configuration. When \meta{language name} is not specified, the name will be set for all supported languages. In addition, environments with or without asterisk share the same name, therefore, \lstinline|\NameTheorem{envname*}{...}| has the same effect as \lstinline|\NameTheorem{envname}{...}| .
-
-\medskip
-And then define this environment in one of following five ways:
-\begin{itemize}
-    \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
-        \begin{itemize}
-            \item Define an unnumbered environment \meta{name of environment}
-        \end{itemize}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}|
-        \begin{itemize}
-            \item Define a numbered environment \meta{name of environment}, numbered in order 1,2,3,\dots
-        \end{itemize}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}[|\meta{numbered like}\lstinline|]|
-        \begin{itemize}
-            \item Define a numbered environment \meta{name of environment}, which shares the counter \meta{numbered like}
-        \end{itemize}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}<|\meta{numbered within}\lstinline|>|
-        \begin{itemize}
-            \item Define a numbered environment \meta{name of environment}, numbered within the counter \meta{numbered within}
-        \end{itemize}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|\\
-    \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|
-        \begin{itemize}
-            \item Identify \meta{name of environment} with \meta{existed environment} or \meta{existed environment}\lstinline|*|.
-            \item This method is usually useful in the following two situations:
-                \begin{enumerate}
-                    \item To use a more concise name. For example, with \lstinline|\CreateTheorem{thm}(theorem)|, one can then use the name \texttt{thm} to write theorem.
-                    \item To remove the numbering of some environments. For example, one can remove the numbering of the \texttt{remark} environment with \lstinline|\CreateTheorem{remark}(remark*)|.
-                \end{enumerate}
-        \end{itemize}
-\end{itemize}
-
-\begin{tip}
-    This macro utilizes the feature of \textsf{amsthm} internally, so the traditional \texttt{theoremstyle} is also applicable to it. One only needs declare the style before the relevant definitions.
-\end{tip}
-
-% \def\proofideanameEN{Idea}
-\NameTheorem[EN]{proofidea}{Idea}
-\CreateTheorem*{proofidea*}
-%<colorist-doc,lebhart-doc-en>\CreateTheorem{proofidea}<subsection>
-%<beaulivre-doc-en>\CreateTheorem{proofidea}<section>
-
-\bigskip
-Here is an example. The following code:
-
-\begin{code}
-\NameTheorem[EN]{proofidea}{Idea}
-\CreateTheorem*{proofidea*}
-%<colorist-doc,lebhart-doc-en>\CreateTheorem{proofidea}<subsection>
-%<beaulivre-doc-en>\CreateTheorem{proofidea}<section>
-\end{code}
-%<colorist-doc,lebhart-doc-en>defines an unnumbered environment \lstinline|proofidea*| and a numbered environment \lstinline|proofidea| (numbered within subsection) respectively. They can be used in English context. 
-%<beaulivre-doc-en>defines an unnumbered environment \lstinline|proofidea*| and a numbered environment \lstinline|proofidea| (numbered within section) respectively. They can be used in English context. 
-The effect is as follows:
-
-\vspace{-0.3\baselineskip}
-\begin{proofidea*}
-    The \lstinline|proofidea*| environment.
-\end{proofidea*}
-
-\vspace{-\baselineskip}
-\begin{proofidea}
-    The \lstinline|proofidea| environment.
-\end{proofidea}
-%</colorist-doc,lebhart-doc-en,beaulivre-doc-en>
-%
-%<*lebhart-doc-cn,beaulivre-doc-cn>
-\LevelTwoTitle{定义新的定理型环境}
-
-若需要定义新的定理类环境，首先要定义这个环境在所用语言下的名称：
-% \vspace{-.15\baselineskip}%
-\begin{itemize}
-    \item \lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
-\end{itemize}
-% \vspace{-.15\baselineskip}%
-其中，\meta{language name} 可参阅关于语言设置的小节。当不指定 \meta{language name}时，则会将该名称设置为所有支持语言下的名称。另外，带星号与不带星号的同名环境共用一个名称，因此 \lstinline|\NameTheorem{envname*}{...}| 与 \lstinline|\NameTheorem{envname}{...}| 效果相同。
-
-然后用下面五种方式之一定义这一环境：
-\begin{itemize}
-    \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
-        \begin{itemize}
-            \item 定义不编号的环境 \meta{name of environment}
-        \end{itemize}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}|
-        \begin{itemize}
-            \item 定义编号环境 \meta{name of environment}，按顺序编号
-        \end{itemize}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}[|\meta{numbered like}\lstinline|]|
-        \begin{itemize}
-            \item 定义编号环境 \meta{name of environment}，与 \meta{numbered like} 计数器共用编号
-        \end{itemize}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}<|\meta{numbered within}\lstinline|>|
-        \begin{itemize}
-            \item 定义编号环境 \meta{name of environment}，在 \meta{numbered within} 计数器内编号
-        \end{itemize}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|\\
-    \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|
-        \begin{itemize}
-            \item 将 \meta{name of environment} 与 \meta{existed environment} 或 \meta{existed environment}\lstinline|*| 等同。
-            \item 这种方式通常在两种情况下比较有用：
-                \begin{enumerate}
-                    \item 希望定义更简洁的名称。例如，使用 \lstinline|\CreateTheorem{thm}(theorem)|，便可以直接用名称 \texttt{thm} 来撰写定理。
-                    \item 希望去除某些环境的编号。例如，使用 \lstinline|\CreateTheorem{remark}(remark*)|，便可以去除 \texttt{remark} 环境的编号。
-                \end{enumerate}
-        \end{itemize}
-\end{itemize}
-
-\begin{tip}
-    其内部使用了 \textsf{amsthm}，因此传统的 \texttt{theoremstyle} 对其也是适用的，只需在相关定义前标明即可。
-\end{tip}
-
-% \def\proofideanameCN{思路}
-\NameTheorem[CN]{proofidea}{思路}
-\CreateTheorem*{proofidea*}
-%<lebhart-doc-cn>\CreateTheorem{proofidea}<subsection>
-%<beaulivre-doc-cn>\CreateTheorem{proofidea}<section>
-
-\bigskip
-下面提供一个例子。这三行代码：
-
-\begin{code}
-\NameTheorem[CN]{proofidea}{思路}
-\CreateTheorem*{proofidea*}
-%<lebhart-doc-cn>\CreateTheorem{proofidea}<subsection>
-%<beaulivre-doc-cn>\CreateTheorem{proofidea}<section>
-\end{code}
-%<lebhart-doc-cn>可以分别定义不编号的环境 \lstinline|proofidea*| 和编号的环境 \lstinline|proofidea| (在 subsection 内编号)，它们支持在简体中文语境中使用，效果如下所示:
-%<beaulivre-doc-cn>可以分别定义不编号的环境 \lstinline|proofidea*| 和编号的环境 \lstinline|proofidea| (在 section 内编号)，它们支持在简体中文语境中使用，效果如下所示:
-
-\vspace{-.3\baselineskip}
-\begin{proofidea*}
-    \lstinline|proofidea*| 环境。
-\end{proofidea*}
-\vspace{-.5\baselineskip}
-\begin{proofidea}
-    \lstinline|proofidea| 环境。
-\end{proofidea}
-%</lebhart-doc-cn,beaulivre-doc-cn>
-%
-%<*lebhart-doc-fr,beaulivre-doc-fr>
-\LevelTwoTitle{Définir un nouvel environnement de type théorème}
-
-Si vous avez besoin de définir un nouvel environnement de type théorème, vous devez d'abord définir le nom de l'environnement dans le langage à utiliser :
-\begin{itemize}
-    \item \lstinline|\NameTheorem[|\meta{language name}\lstinline|]{|\meta{name of environment}\lstinline|}{|\meta{name string}\lstinline|}|
-\end{itemize}
-Pour \meta{language name}, veuillez vous référer à la section sur la configuration de la langue. Lorsqu'il n'est pas spécifié, le nom sera défini pour toutes les langues prises en charge. De plus, les environnements avec ou sans astérisque partagent le même nom, donc \lstinline|\NameTheorem{envname*}{...}| a le même effet que \lstinline|\NameTheorem{envname}{...}| .
-
-\medskip
-Ensuite, créez cet environnement de l'une des cinq manières suivantes :
-\begin{itemize}
-    \item \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}|
-        \begin{itemize}
-            \item Définir un environnement \meta{name of environment} non numéroté
-        \end{itemize}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}|
-        \begin{itemize}
-            \item Définir un environnement \meta{name of environment} numéroté dans l'ordre 1, 2, 3, \dots
-        \end{itemize}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}[|\meta{numbered like}\lstinline|]|
-        \begin{itemize}
-            \item Définir un environnement \meta{name of environment} numéroté, qui partage le compteur \meta{numbered like}
-        \end{itemize}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}<|\meta{numbered within}\lstinline|>|
-        \begin{itemize}
-            \item Définir un environnement \meta{name of environment} numéroté dans le compteur \meta{numbered within}
-        \end{itemize}
-    \item \lstinline|\CreateTheorem{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|\\
-    \lstinline|\CreateTheorem*{|\meta{name of environment}\lstinline|}(|\meta{existed environment}\lstinline|)|
-        \begin{itemize}
-            \item Identifiez \meta{name of environment} avec \meta{existed environment} ou \meta{existed environment}\lstinline|*|.
-            \item Cette méthode est généralement utile dans les deux situations suivantes :
-                \begin{enumerate}
-                    \item Pour utiliser un nom plus concis. Par exemple, avec \lstinline|\CreateTheorem{thm}(theorem)|, on peut alors utiliser le nom \texttt{thm} pour écrire le théorème.
-                    \item Pour supprimer la numérotation de certains environnements. Par exemple, on peut supprimer la numérotation de l'environnement \texttt{remark} avec \lstinline|\CreateTheorem{remark}(remark*)|.
-                \end{enumerate}
-        \end{itemize}
-\end{itemize}
-
-\begin{tip}
-    Cette macro utilise la fonctionnalité de \textsf{amsthm} en interne, donc le traditionnel \texttt{theoremstyle} lui est également applicable. Il suffit de déclarer le style avant les définitions pertinentes.
-\end{tip}
-
-\NameTheorem[FR]{proofidea}{Idée}
-\CreateTheorem*{proofidea*}
-%<lebhart-doc-fr>\CreateTheorem{proofidea}<subsection>
-%<beaulivre-doc-fr>\CreateTheorem{proofidea}<section>
-
-\bigskip
-Voici un exemple. Le code suivant :
-
-\begin{code}
-\NameTheorem[FR]{proofidea}{Idée}
-\CreateTheorem*{proofidea*}
-%<lebhart-doc-fr>\CreateTheorem{proofidea}<subsection>
-%<beaulivre-doc-fr>\CreateTheorem{proofidea}<section>
-\end{code}
-%<lebhart-doc-fr>définit un environnement non numéroté \lstinline|proofidea*| et un environnement numéroté \lstinline|proofidea| (numérotés dans la sous-section) respectivement. Ils peuvent être utilisés dans le contexte français. L'effet est le suivant :
-%<beaulivre-doc-fr>définit un environnement non numéroté \lstinline|proofidea*| et un environnement numéroté \lstinline|proofidea| (numérotés dans la section) respectivement. Ils peuvent être utilisés dans le contexte français. L'effet est le suivant :
-
-\vspace{-0.3\baselineskip}
-\begin{proofidea*}
-    La environnement \lstinline|proofidea*| .
-\end{proofidea*}
-
-\vspace{-\baselineskip}
-\begin{proofidea}
-    La environnement \lstinline|proofidea| .
-\end{proofidea}
-%</lebhart-doc-fr,beaulivre-doc-fr>
-
-
-
-%<*colorist-doc,lebhart-doc-en,beaulivre-doc-en>
-%<beaulivre-doc-en>\clearpage
+%<beaulivre-doc-en>% \clearpage
 \LevelTwoTitle{Draft mark}
 
 You can use \lstinline|\dnf| to mark the unfinished part. For example:
 \begin{itemize}
     \item \lstinline|\dnf| or \lstinline|\dnf<...>|. The effect is: \dnf~ or \dnf<...>. \\The prompt text changes according to the current language. For example, it will be displayed as \UseOtherLanguage{French}{\dnf} in French mode.
-\end{itemize}
-
-Similarly, there is \lstinline|\needgraph| : 
-\begin{itemize}
-    \item \lstinline|\needgraph| or \lstinline|\needgraph<...>|. The effect is: \needgraph or \needgraph<...>
-%<colorist-doc>\clearpage
-    The prompt text changes according to the current language. For example, in French mode, it will be displayed as \UseOtherLanguage{French}{\needgraph}
 \end{itemize}
 %</colorist-doc,lebhart-doc-en,beaulivre-doc-en>
 %
@@ -2014,11 +1798,6 @@ Similarly, there is \lstinline|\needgraph| :
 \begin{itemize}
     \item \lstinline|\dnf| 或 \lstinline|\dnf<...>|。效果为：\dnf~或 \dnf<...>。\\其提示文字与当前语言相对应，例如，在法语模式下将会显示为 \UseOtherLanguage{French}{\dnf}。
 \end{itemize}
-
-类似的，还有 \lstinline|\needgraph| ：
-\begin{itemize}
-    \item \lstinline|\needgraph| 或 \lstinline|\needgraph<...>|。效果为：\needgraph~或 \needgraph<...>其提示文字与当前语言相对应，例如，在法语模式下将会显示为 \UseOtherLanguage{French}{\needgraph}
-\end{itemize}
 %</lebhart-doc-cn,beaulivre-doc-cn>
 %
 %<*lebhart-doc-fr,beaulivre-doc-fr>
@@ -2027,11 +1806,6 @@ Similarly, there is \lstinline|\needgraph| :
 Vous pouvez utiliser \lstinline|\dnf| pour marquer la partie inachevée. Par example :
 \begin{itemize}
     \item \lstinline|\dnf| ou \lstinline|\dnf<...>|. L'effet est : \dnf~ ou \dnf<...>. \\Le texte à l'intérieur changera en fonction de la langue actuelle. Par exemple, il sera affiché sous la forme \UseOtherLanguage{English}{\dnf} en mode anglais.
-\end{itemize}
-
-De même, il y a aussi \lstinline|\needgraph| : 
-\begin{itemize}
-    \item \lstinline|\needgraph| ou \lstinline|\needgraph<...>|. L'effet est : \needgraph ou \needgraph<...>Le texte de l'invite change en fonction de la langue actuelle. Par exemple, en mode anglais, il sera affiché sous la forme \UseOtherLanguage{English}{\needgraph}
 \end{itemize}
 %</lebhart-doc-fr,beaulivre-doc-fr>
 
@@ -2075,7 +1849,7 @@ or written in the way of \AmS{} classes:
 \maketitle
 \end{code}
 
-%<lebhart-doc-en>\clearpage
+%<lebhart-doc-en>% \clearpage
 The author information can contain multiple groups, written as:
 
 \begin{code}
@@ -2180,7 +1954,7 @@ ou écrit à la manière des classes \AmS{} :
 \maketitle
 \end{code}
 
-%<lebhart-doc-fr>\clearpage
+%<lebhart-doc-fr>% \clearpage
 Les informations sur l'auteur peuvent contenir plusieurs groupes, écrits comme suit :
 
 \begin{code}
@@ -2200,10 +1974,10 @@ Parmi eux, l'ordre mutuel de \lstinline|\address|, \lstinline|\curraddr|, \lstin
 
 %<*colorist-doc,lebhart-doc-en,beaulivre-doc-en>
 \bigskip
-%<colorist-doc>\clearpage
+%<colorist-doc>% \clearpage
 \LevelOneTitle{Known issues}
 
-\begin{itemize}[itemsep=.6em]
+\begin{itemize}
     \item The font settings are still not perfect.
     \item The TOC design does not look very nice.
     \item Since many features are based on the \ProjLib{} toolkit, \colorist{} (and hence \colorart{}, \lebhart{} and \colorbook{}, \beaulivre{}) inherits all its problems. For details, please refer to the ``Known Issues'' section of the \ProjLib{} documentation.
@@ -2215,7 +1989,7 @@ Parmi eux, l'ordre mutuel de \lstinline|\address|, \lstinline|\curraddr|, \lstin
 %<*lebhart-doc-cn,beaulivre-doc-cn>
 \bigskip
 \LevelOneTitle{目前存在的问题}
-\begin{itemize}[itemsep=.6em]
+\begin{itemize}
     \item 对于字体的设置仍然不够完善。
     \item 目录的设计还不够美观。
     \item 由于很多核心功能建立在 \ProjLib{} 工具箱的基础上，因此 \colorist{} (进而 \colorart{}、\lebhart{} 与 \colorbook{}、\beaulivre{}) 自然继承了其所有问题。详情可以参阅 \ProjLib{} 用户文档的“目前存在的问题”这一小节。
@@ -2228,7 +2002,7 @@ Parmi eux, l'ordre mutuel de \lstinline|\address|, \lstinline|\curraddr|, \lstin
 \bigskip
 \LevelOneTitle{Problèmes connus}
 
-\begin{itemize}[itemsep=.6em]
+\begin{itemize}
     \item Les paramètres de police ne sont pas encore parfaits.
     \item La conception de la table des matières est pas si belle.
     \item Comme de nombreuses fonctionnalités sont basées sur la boîte à outils \ProjLib{}, \colorist{} (et donc \colorart{}, \lebhart{} et \colorbook{}, \beaulivre{}) hérite de tous ses problèmes. Pour plus de détails, veuillez vous référer à la section «~Problèmes connus~» de la documentation de \ProjLib{}.

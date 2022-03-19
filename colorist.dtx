@@ -20,7 +20,7 @@
 %<*colorart>
 \ProvidesExplClass
   {colorart}
-  {2022/03/17} {}
+  {2022/03/19} {}
   {A colorful article style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { article }
@@ -29,7 +29,7 @@
 %<*colorbook>
 \ProvidesExplClass
   {colorbook}
-  {2022/03/17} {}
+  {2022/03/19} {}
   {A colorful book style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { book }
@@ -38,7 +38,7 @@
 %<*lebhart>
 \ProvidesExplClass
   {lebhart}
-  {2022/03/17} {}
+  {2022/03/19} {}
   {A colorful article style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { article }
@@ -47,7 +47,7 @@
 %<*beaulivre>
 \ProvidesExplClass
   {beaulivre}
-  {2022/03/17} {}
+  {2022/03/19} {}
   {A colorful book style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { book }
@@ -56,14 +56,14 @@
 %<*colorist>
 \ProvidesExplPackage
   {colorist}
-  {2022/03/17} {}
+  {2022/03/19} {}
   {A colorful style for articles and books}
 %</colorist>
 %
 %<*colorist-fancy>
 \ProvidesExplPackage
   {colorist-fancy}
-  {2022/03/17} {}
+  {2022/03/19} {}
   {The fancy style of colorist}
 %</colorist-fancy>
 
@@ -1645,7 +1645,7 @@
   {
     enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
     left=3.5mm, right=3.5mm,
-    before=\medskip,
+    before=\par\medskip\noindent,
     colback=main-text!3!paper,
     opacityframe=0.9, colframe=orange, arc=.7mm
   }
@@ -1654,7 +1654,7 @@
   {
     enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
     left=4mm, right=4mm, top=1mm, bottom=1mm,
-    before=\medskip,
+    before=\par\medskip\noindent,
     colback=lightorange!10!paper, boxrule=0pt, frame~hidden,
     borderline~west={1.5mm}{0mm}{forestgreen}, arc=.7mm
   }
@@ -1663,7 +1663,7 @@
   {
     enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
     colback=main-text!5!paper,
-    before=\medskip,
+    before=\par\medskip\noindent,
     boxrule=0pt, frame~hidden, arc=.7mm
   }
 
@@ -1671,7 +1671,7 @@
   {
     enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
     left=3.5mm, right=3.5mm,
-    before=\medskip,
+    before=\par\medskip\noindent,
     colback=main-text!3!paper,
     opacityframe=0.7, colframe=purple, arc=.7mm
   }
@@ -1680,7 +1680,7 @@
   {
     enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
     colback=yellow!25!paper,
-    before=\medskip,
+    before=\par\medskip\noindent,
     boxrule=0pt, frame~hidden, arc=.7mm
   }
 
@@ -1689,7 +1689,7 @@
     enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
     oversize,
     top=0mm, bottom=0mm,
-    before=\medskip,
+    before=\par\medskip\noindent,
     opacityframe=0, opacityback=0
   }
 
@@ -1761,10 +1761,10 @@
         \AfterEnvEnd
           {
             \ScanEnv* { #1 }
-              { \skip_vertical:n { -0.75\baselineskip } }
+              { \skip_vertical:n { -0.9\baselineskip } }
               {
                 \ScanEnv* { #1* }
-                  { \skip_vertical:n { -0.75\baselineskip } }
+                  { \skip_vertical:n { -0.9\baselineskip } }
                   {}
               }
           }

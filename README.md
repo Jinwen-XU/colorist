@@ -1,6 +1,8 @@
-<!-- Copyright (C) 2021 by Jinwen XU -->
+<!-- Copyright (C) 2021-2022 by Jinwen XU -->
 
 # `colorist` bundle: write you documents in a colorful way
+
+**The whole series have been rewritten with `expl3`. Please note that the documentations are not yet up-to-date. The syntax of some commands have been changed since the last version, especially the declaration of theorem-like environments by `\CreateTheorem`. For the moment, you can refer to the documentation of the package `create-theorem`.**
 
 ## Introduction
 
@@ -8,7 +10,8 @@
 with a colorful design. It mainly consists of two parts.
 
 - Main part:
-    - `colorist.sty` : the main style
+    - `colorist.sty` : interface of the main style
+        - `colorist-fancy.sty` : the fancy style
     - `colorart.cls` : class for typesetting articles
     - `colorbook.cls` : class for typesetting books
 
