@@ -935,6 +935,7 @@
     \else
       \fancyfoot[R]
         {
+          \sffamily
           \textcolor { main-text!30!paper } { \small \l_colorist_rightmark_tl }
           \rlap
             {
@@ -1077,8 +1078,10 @@
     }
 
     %% Chapter
-    % Numbered chapter title: \TheChapter{<number>}{<title>}
-    \newcommand{\TheChapter}[2]
+    % Numbered chapter title
+    \cs_new_protected:Nn \colorist_chapter_inner:nn
+      % #1 = number
+      % #2 = title
       {
         \tcbsidebyside[enhanced,sidebyside~adapt=right,sidebyside~align=bottom,
         colback=paper,frame~hidden,
@@ -1089,8 +1092,9 @@
                 -- (segmentation.south);}
         ]{\filleft#2}{\normalfont\textcolor{maintheme}{\scalebox{4}{#1}}}
       }
-    % Numberless chapter title: \TheChapterSingle{<title>}
-    \newcommand{\TheChapterSingle}[1]
+    % Numberless chapter title
+    \cs_new_protected:Nn \colorist_chapter_inner:n
+      % #1 = title
       {
         \begin{tcolorbox}[
             enhanced,
@@ -1111,7 +1115,7 @@
       { \g_colorist_title_font_chapter_tl \scshape\huge} % Format
       {} % Label
       {0mm} % Sep
-      {\TheChapter{\thechapter}{#1}} % Before-code
+      { \colorist_chapter_inner:nn { \thechapter } { #1 } } % Before-code
     \titlespacing*{name=\chapter}
       {0em}{*2}{0em} % {left}{before-sep}{after-sep}
 
@@ -1119,7 +1123,7 @@
       {\filcenter \g_colorist_title_font_chapter_tl \scshape\huge}
       {}
       {0mm}
-      {\TheChapterSingle{#1}}
+      { \colorist_chapter_inner:n { #1 } }
     \titlespacing*{name=\chapter, numberless}
       {0em}{*2}{0em}
 
