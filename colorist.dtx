@@ -909,34 +909,81 @@
 
 \fancypagestyle { fancy }
   {
-    \fancyhf{}
+    \fancyhf { }
     \if@twoside
-      \fancyfoot[RO]{\sffamily\textcolor{main-text!30!paper}{ \small \l_colorist_rightmark_tl }
-        \rlap{\nobreakspace\nobreakspace\nobreakspace\nobreakspace\textcolor{main-text!75!paper}{\textbf{\thepage}}}}
-      \fancyfoot[LE]{\leavevmode\sffamily\llap{\textcolor{main-text!75!paper}{\textbf{\thepage}}
-        \nobreakspace\nobreakspace\nobreakspace\nobreakspace}
-        \textcolor{main-text!30!paper}{ \l_colorist_leftmark_tl }}
+      \fancyfoot[RO]
+        {
+          \sffamily
+          \textcolor { main-text!30!paper } { \small \l_colorist_rightmark_tl }
+          \rlap
+            {
+              \nobreakspace \nobreakspace \nobreakspace \nobreakspace
+              \textcolor { main-text!75!paper } { \colorist_bfseries: \thepage }
+            }
+        }
+      \fancyfoot[LE]
+        {
+          \leavevmode
+          \sffamily
+          \llap
+            {
+              \textcolor { main-text!75!paper } { \colorist_bfseries: \thepage }
+              \nobreakspace \nobreakspace \nobreakspace \nobreakspace
+            }
+          \textcolor { main-text!30!paper } { \l_colorist_leftmark_tl }
+        }
     \else
-      \fancyfoot[R]{\textcolor{main-text!30!paper}{ \l_colorist_rightmark_tl }
-        \rlap{\nobreakspace\nobreakspace\nobreakspace\nobreakspace\textcolor{main-text!75!paper}{\textbf{\thepage}}}}
+      \fancyfoot[R]
+        {
+          \textcolor { main-text!30!paper } { \small \l_colorist_rightmark_tl }
+          \rlap
+            {
+              \nobreakspace \nobreakspace \nobreakspace \nobreakspace
+              \textcolor { main-text!75!paper } { \colorist_bfseries: \thepage }
+            }
+        }
     \fi
-    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand { \headrulewidth } { 0pt }
   }
-\pagestyle{fancy}
+\pagestyle { fancy }
 
 \fancypagestyle { plain }
   {
-    \fancyhf{}
+    \fancyhf { }
     \if@twoside
-      \fancyfoot[RO]{\sffamily
-        \nobreakspace\rlap{\nobreakspace\nobreakspace\nobreakspace\nobreakspace\textcolor{main-text!75!paper}{\textbf{\thepage}}}}
-      \fancyfoot[LE]{\leavevmode\sffamily\llap{\textcolor{main-text!75!paper}{\textbf{\thepage}}
-        \nobreakspace\nobreakspace}}
+      \fancyfoot[RO]
+        {
+          \sffamily
+          \nobreakspace
+          \rlap
+            {
+              \nobreakspace \nobreakspace \nobreakspace \nobreakspace
+              \textcolor { main-text!75!paper } { \colorist_bfseries: \thepage }
+            }
+        }
+      \fancyfoot[LE]
+        {
+          \leavevmode
+          \sffamily
+          \llap
+            {
+              \textcolor { main-text!75!paper } { \colorist_bfseries: \thepage }
+              \nobreakspace \nobreakspace \nobreakspace \nobreakspace
+            }
+        }
     \else
-      \fancyfoot[R]{\sffamily
-        \nobreakspace\nobreakspace\nobreakspace\rlap{\textcolor{main-text!75!paper}{\textbf{\thepage}}}}
+      \fancyfoot[R]
+        {
+          \sffamily
+          \nobreakspace
+          \rlap
+            {
+              \nobreakspace \nobreakspace \nobreakspace \nobreakspace
+              \textcolor { main-text!75!paper } { \colorist_bfseries: \thepage }
+            }
+        }
     \fi
-    \renewcommand{\headrulewidth}{0pt}
+    \renewcommand { \headrulewidth } { 0pt }
   }
 
 \bool_if:NTF \l__colorist_is_book_bool
