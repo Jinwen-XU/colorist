@@ -20,7 +20,7 @@
 %<*colorart>
 \ProvidesExplClass
   {colorart}
-  {2022/03/19} {}
+  {2022/03/28} {}
   {A colorful article style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { article }
@@ -29,7 +29,7 @@
 %<*colorbook>
 \ProvidesExplClass
   {colorbook}
-  {2022/03/19} {}
+  {2022/03/28} {}
   {A colorful book style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { book }
@@ -38,7 +38,7 @@
 %<*lebhart>
 \ProvidesExplClass
   {lebhart}
-  {2022/03/19} {}
+  {2022/03/28} {}
   {A colorful article style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { article }
@@ -47,7 +47,7 @@
 %<*beaulivre>
 \ProvidesExplClass
   {beaulivre}
-  {2022/03/19} {}
+  {2022/03/28} {}
   {A colorful book style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { book }
@@ -56,14 +56,14 @@
 %<*colorist>
 \ProvidesExplPackage
   {colorist}
-  {2022/03/19} {}
+  {2022/03/28} {}
   {A colorful style for articles and books}
 %</colorist>
 %
 %<*colorist-fancy>
 \ProvidesExplPackage
   {colorist-fancy}
-  {2022/03/19} {}
+  {2022/03/28} {}
   {The fancy style of colorist}
 %</colorist-fancy>
 
@@ -1841,69 +1841,91 @@
 \theoremstyle{simple}
 
 
-\bool_if:NF \l__colorist_is_book_bool {
-
 %%================================
 %%  Title block style
 %%================================
+\bool_if:NTF \l__colorist_is_book_bool
+  {
+    \hook_gput_code:nnn { package/projlib-author/after } { colorist }
+      {
+        \tl_gset:Nn \g__projlib_author_font_author_tl      { \normalfont \scshape }
+        \tl_gset:Nn \g__projlib_author_font_institute_tl   { \large \normalfont }
+        \tl_gset:Nn \g__projlib_author_font_address_tl     { \large \normalfont \itshape }
+        \tl_gset:Nn \g__projlib_author_font_curraddr_tl    { \large \normalfont \itshape }
+        \tl_gset:Nn \g__projlib_author_font_email_tl       { \large \normalfont \ttfamily }
+      }
+
+    \RequirePackage { projlib-titlepage }
+    \renewcommand{\maketitle}{
+      \LocallyStopLineNumbers
+      \ProjLibTitlePage
+        {
+          , title  = \@title
+          , author = \@author
+          , date   = \@date
+        }
+      \ResumeLineNumbers
+    }
+  }
+  {
 %<*colorist-fancy>
-\renewcommand{\@maketitle}{
-\begin{center}
-    \color{maintheme}
-    {\Large\sffamily\scshape \colorist_bfseries: \@title}\\\bigskip
-    \color{main-text!80!paper}
-    {\scshape\@author}\par\smallskip
-    {\@date}
-\end{center}
-\ifx\@date\@empty\bigskip\fi
-\medskip
-}
+    \renewcommand{\@maketitle}
+      {
+        \begin{center}
+            \color{maintheme}
+            {\Large\sffamily\scshape \colorist_bfseries: \@title}\\\bigskip
+            \color{main-text!80!paper}
+            {\scshape\@author}\par\smallskip
+            {\@date}
+        \end{center}
+        \ifx\@date\@empty\bigskip\fi
+        \medskip
+      }
 %</colorist-fancy>
 
-\hook_gput_code:nnn { cmd/maketitle/after } { colorist } { \thispagestyle{fancy} }
+    \hook_gput_code:nnn { cmd/maketitle/after } { colorist } { \thispagestyle{fancy} }
 
 %%================================
 %%  Abstract style
 %%================================
 %<*colorist-fancy>
-\renewenvironment{abstract}
-{\small{\centerline{\textsc{ \colorist_bfseries: \sffamily\abstractname}}\vspace{-0.3\baselineskip}}
-    \color{main-text!80!paper}\begin{quotation}}
-{\end{quotation}\medskip}
+    \renewenvironment{abstract}
+    {\small{\centerline{\textsc{ \colorist_bfseries: \sffamily\abstractname}}\vspace{-0.3\baselineskip}}
+        \color{main-text!80!paper}\begin{quotation}}
+    {\end{quotation}\medskip}
 %</colorist-fancy>
 
 %%================================
 %%  Keyword environment
 %%================================
-\DefineMultilingualText { \keywordname }
-  {
-    EN = Keywords                               ,
-    FR = Mots~clés                              ,
-    DE = Schlüsselwörter                        ,
-    IT = Parole~chiave                          ,
-    PT = Palavras~chave                         ,
-    BR = Palavras~chave                         ,
-    ES = Palabras~clave                         ,
-    CN = 关键词                                 ,
-    TC = 關鍵詞                                 ,
-    JP = キーワード                             ,
-    RU = Ключевые~слова                         ,
-  }
+    \DefineMultilingualText { \keywordname }
+      {
+        EN = Keywords                               ,
+        FR = Mots~clés                              ,
+        DE = Schlüsselwörter                        ,
+        IT = Parole~chiave                          ,
+        PT = Palavras~chave                         ,
+        BR = Palavras~chave                         ,
+        ES = Palabras~clave                         ,
+        CN = 关键词                                 ,
+        TC = 關鍵詞                                 ,
+        JP = キーワード                             ,
+        RU = Ключевые~слова                         ,
+      }
 
 %<*colorist-fancy>
-\newenvironment{keyword}
-{\small\centerline{{ \colorist_bfseries: \keywordname}}\vspace{-0.3\baselineskip}
-    \color{main-text!80!paper}\begin{center}}
-{\end{center}\medskip}
+    \newenvironment{keyword}
+    {\small\centerline{{ \colorist_bfseries: \keywordname}}\vspace{-0.3\baselineskip}
+        \color{main-text!80!paper}\begin{center}}
+    {\end{center}\medskip}
 %</colorist-fancy>
+  } % end of \bool_if:NTF \l__colorist_is_book_bool
 
 %%================================
 %%  Simulate features of amsart
 %%================================
 \PassOptionsToPackage { amsfashion } { projlib-author }
 \RequirePackage { projlib-author }
-
-}
 %</style>
 
 \endinput

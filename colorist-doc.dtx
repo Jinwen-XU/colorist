@@ -122,7 +122,7 @@
 %%================================
 \begin{document}
 
-\def\PackageVersion{2022/03/19}
+\def\PackageVersion{2022/03/28}
 
 %<*colorist-doc>
 \title{{\normalfont\bfseries\color{main-text}\colorist{}}\\write your articles or books in a colorful way}
@@ -147,19 +147,16 @@
 %<*beaulivre-doc-en>
 \frontmatter
 
-\begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
-\begin{tikzpicture}[overlay,remember picture]
-    \fill [forestgreen!75!black] ($(current page.south west)$) rectangle ($(current page.north east)+(0,-7)$);
-    \fill [forestgreen!10!yellow!30] ($(current page.south west)$) rectangle ($(current page.north west)+(2.5,-7)$);
-    \fill [forestgreen!75!black] ($(current page.north west)$) rectangle ($(current page.north west)+(2.5,-7)$);
-    \fill [forestgreen!10!yellow!30] ($(current page.north east)$) rectangle ($(current page.north west)+(2.5,-7)$);
-    \node[text width=10cm] at ($(current page.north west)+(8.5,-6)$) {\huge\ProjLib};
-    \node[text width=6cm,text height=3.5cm,scale=2.5] at ($(current page.north west)+(11,-9)$) {\textcolor{forestgreen!10!yellow!30}{\sffamily\beaulivre{}\\[5pt]\footnotesize\textsc{Write your books in \\a colorful way}\\[10pt]\tiny Corresponding to: \texttt{\beaulivre{} \PackageVersion}}};
-    \node[text width=15em] at ($(current page.south)+(5,4)$) {\color{forestgreen!10!yellow!30}\hfill\fontsize{16pt}{0pt}\selectfont{\scshape Jinwen XU}\\[1em]\hfill\fontsize{12pt}{0pt}\selectfont\TheDate{\PackageVersion}[only-year-month], in Paris};
-\end{tikzpicture}%
-\end{titlepage}%
-
-\setcounter{page}{0}
+\TitlePage [ color = { main = forestgreen!75!black, back = forestgreen!10!yellow!30 } ]
+  {
+    , title     = \beaulivre{}
+    , subtitle  = {
+                    \textsc{Write your books in \\a colorful way}\\[10pt]
+                    \tiny Corresponding to: \texttt{\beaulivre{} \PackageVersion}
+                  }
+    , author    = Jinwen XU
+    , date      = {\TheDate{\PackageVersion}[only-year-month], in Paris}
+  }
 %</beaulivre-doc-en>
 %
 %<*lebhart-doc-cn>
@@ -175,19 +172,16 @@
 %<*beaulivre-doc-cn>
 \frontmatter
 
-\begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
-\begin{tikzpicture}[overlay,remember picture]
-    \fill [forestgreen!75!black] ($(current page.south west)$) rectangle ($(current page.north east)+(0,-7)$);
-    \fill [forestgreen!10!yellow!30] ($(current page.south west)$) rectangle ($(current page.north west)+(2.5,-7)$);
-    \fill [forestgreen!75!black] ($(current page.north west)$) rectangle ($(current page.north west)+(2.5,-7)$);
-    \fill [forestgreen!10!yellow!30] ($(current page.north east)$) rectangle ($(current page.north west)+(2.5,-7)$);
-    \node[text width=10cm] at ($(current page.north west)+(8.5,-6)$) {\huge\ProjLib};
-    \node[text width=6cm,text height=3.5cm,scale=2.5] at ($(current page.north west)+(11,-9)$) {\textcolor{forestgreen!10!yellow!30}{\sffamily\beaulivre{}\\[5pt]\footnotesize\hspace*{-.05em}以多彩的方式排版你的图书\\[10pt]\tiny 对应版本. \texttt{\beaulivre{} \PackageVersion}}};
-    \node[text width=15em] at ($(current page.south)+(5,4)$) {\color{forestgreen!10!yellow!30}\hfill\fontsize{16pt}{0pt}\selectfont{许锦文}\\[1em]\hfill\fontsize{12pt}{0pt}\selectfont\TheDate{\PackageVersion}[only-year-month]，巴黎};
-\end{tikzpicture}%
-\end{titlepage}%
-
-\setcounter{page}{0}
+\TitlePage [ color = { main = forestgreen!75!black, back = forestgreen!10!yellow!30 } ]
+  {
+    , title     = \beaulivre{}
+    , subtitle  = {
+                    \textsc{以多彩的方式排版你的图书}\\[10pt]
+                    \tiny 对应版本. \texttt{\beaulivre{} \PackageVersion}
+                  }
+    , author    = 许锦文
+    , date      = {\TheDate{\PackageVersion}[only-year-month]，巴黎}
+  }
 %</beaulivre-doc-cn>
 %
 %<*lebhart-doc-fr>
@@ -203,19 +197,16 @@
 %<*beaulivre-doc-fr>
 \frontmatter
 
-\begin{titlepage} % Suppresses displaying the page number on the title page and the subsequent page counts as page 1
-\begin{tikzpicture}[overlay,remember picture]
-    \fill [forestgreen!75!black] ($(current page.south west)$) rectangle ($(current page.north east)+(0,-7)$);
-    \fill [forestgreen!10!yellow!30] ($(current page.south west)$) rectangle ($(current page.north west)+(2.5,-7)$);
-    \fill [forestgreen!75!black] ($(current page.north west)$) rectangle ($(current page.north west)+(2.5,-7)$);
-    \fill [forestgreen!10!yellow!30] ($(current page.north east)$) rectangle ($(current page.north west)+(2.5,-7)$);
-    \node[text width=10cm] at ($(current page.north west)+(8.5,-6)$) {\huge\ProjLib};
-    \node[text width=6cm,text height=3.5cm,scale=2.5] at ($(current page.north west)+(11,-9)$) {\textcolor{forestgreen!10!yellow!30}{\sffamily\beaulivre{}\\[5pt]\footnotesize\textsc{Écrivez vos livres \\de manière colorée}\\[10pt]\tiny Correspondant à : \texttt{\beaulivre{} \PackageVersion}}};
-    \node[text width=15em] at ($(current page.south)+(5,4)$) {\color{forestgreen!10!yellow!30}\hfill\fontsize{16pt}{0pt}\selectfont{\scshape Jinwen XU}\\[1em]\hfill\fontsize{12pt}{0pt}\selectfont\TheDate{\PackageVersion}[only-year-month], à Paris};
-\end{tikzpicture}%
-\end{titlepage}%
-
-\setcounter{page}{0}
+\TitlePage [ color = { main = forestgreen!75!black, back = forestgreen!10!yellow!30 } ]
+  {
+    , title     = \beaulivre{}
+    , subtitle  = {
+                    \textsc{Écrivez vos livres \\de manière colorée}\\[10pt]
+                    \tiny Correspondant à : \texttt{\beaulivre{} \PackageVersion}
+                  }
+    , author    = Jinwen XU
+    , date      = {\TheDate{\PackageVersion}[only-year-month], à Paris}
+  }
 %</beaulivre-doc-fr>
 
 
