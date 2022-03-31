@@ -1280,8 +1280,8 @@
     , PT = Esta~página~foi~intencionalmente~deixada~em~branco
     , BR = Esta~página~foi~intencionalmente~deixada~em~branco
     , ES = Esta~página~se~ha~dejado~intencionadamente~en~blanco
-    , CN = 此页为有意留为空白
-    , TC = 此頁為有意留為空白
+    , CN = \ziju{0.2} 此页为有意留为空白
+    , TC = \ziju{0.2} 此頁為有意留為空白
     , JP = このページは意図的に空白にしてあります
     , RU = Эта~страница~намеренно~оставлена~пустой
   }
@@ -1307,10 +1307,10 @@
 %%================================
 %% Icons
 %%================================
-%# 小灯泡和问号图案
-%# The ideabulb and questionmark icons
-\RequirePackage{tikz}
-\newcommand{\ideabulb}[2][0.15]
+\RequirePackage { tikz }
+\NewDocumentCommand \colorist_icon_ideabulb:w { O{0.15} m }
+  % #1 = scale
+  % #2 = color
   {
     \scalebox{#1}{
     \begin{tikzpicture}
@@ -1327,7 +1327,9 @@
     \end{tikzpicture}}
   }
 
-\newcommand{\questionmark}[2][0.15]
+\NewDocumentCommand \colorist_icon_questionmark:w { O{0.15} m }
+  % #1 = scale
+  % #2 = color
   {
     \scalebox{#1}{
     \begin{tikzpicture}
@@ -1621,7 +1623,8 @@
         \reversemarginpar
     \fi
     \mparadjust{-.25em}
-    \marginnote{\ideabulb[0.3]{orange}
+    \marginnote{
+      \colorist_icon_ideabulb:w [0.3] {orange}
       \bool_if:NTF \l__colorist_is_book_bool
         {
           \hspace*{-.2em}
@@ -1640,7 +1643,8 @@
         \reversemarginpar
     \fi
     \mparadjust{-.25em}
-    \marginnote{\questionmark[0.3]{purple}
+    \marginnote{
+      \colorist_icon_questionmark:w [0.3] {purple}
       \bool_if:NTF \l__colorist_is_book_bool
         {
           \hspace*{-.2em}
