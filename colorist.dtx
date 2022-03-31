@@ -1299,10 +1299,50 @@
 }
 
 %%================================
+%%  Index
+%%================================
+\RequirePackage { imakeidx }
+\makeindex[intoc]
+
+\RequirePackage { silence }
+\ExplSyntaxOff
+\WarningFilter{latex}{Writing or overwriting file}
+\begin{filecontents*}[overwrite]{\jobname.mst}
+delim_0 "\\IndexDotfill " % Filler between section heading and page number
+delim_1 "\\IndexDotfill " % Filler between subsection heading and page number
+headings_flag 1
+heading_prefix "\\IndexHeading{"
+heading_suffix "}\n"
+\end{filecontents*}
+\ExplSyntaxOn
+
+\newcommand*{\IndexDotfill}
+  {
+    \nobreakspace\nobreakspace
+    \titlerule*[.67em]{\textcolor{main-text!15!paper}{.}}
+    \nobreakspace\nobreakspace
+  }
+\newcommand*{\IndexHeading}[1]
+  {
+    \tikz\node[
+      rounded~corners=5pt,
+      draw=maintheme,
+      fill=maintheme!10,
+      line~width=1pt,
+      inner~sep=5pt,
+      align=center,
+      font=\large\sffamily\colorist_bfseries:,
+      minimum~width=\linewidth-\pgflinewidth,
+    ] {#1};
+    \nopagebreak
+    \par
+    \vspace{2mm}%
+  }
+
+%%================================
 %%  Draft mark
 %%================================
 \RequirePackage { projlib-draft }
-
 
 %%================================
 %% Icons
