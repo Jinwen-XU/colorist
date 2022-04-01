@@ -1293,7 +1293,7 @@
   \hook_gput_next_code:nn { shipout/background }
     {
       \put(0.5\paperwidth,-0.5\paperheight){
-      \makebox[0pt]{\large\color{main-text!10!paper}\bl@nkpagetext}}
+      \makebox[0pt]{\large\color{main-text!10!paper}\g_colorist_title_font_common_tl\bl@nkpagetext}}
     }
   \null\newpage\fi\fi
 }
@@ -1316,6 +1316,21 @@ heading_suffix "}\n"
 \end{filecontents*}
 \ExplSyntaxOn
 
+\projlib_langauge_define_multilingual_text:Nn \index_symbols_name
+  {
+    , EN = Symbols
+    , FR = Symboles
+    , DE = Symbole
+    , IT = Simboli
+    , PT = Símbolos
+    , BR = Símbolos
+    , ES = Símbolos
+    , CN = 符号
+    , TC = 符號
+    , JP = 記号
+    , RU = Символы
+  }
+
 \newcommand*{\IndexDotfill}
   {
     \nobreakspace\nobreakspace
@@ -1324,6 +1339,9 @@ heading_suffix "}\n"
   }
 \newcommand*{\IndexHeading}[1]
   {
+    \str_if_eq:nnTF { #1 } { Symbols }
+      { \tl_set:Nn \l_tmpa_tl { \index_symbols_name } }
+      { \tl_set:Nn \l_tmpa_tl { #1 } }
     \tikz\node[
       rounded~corners=5pt,
       draw=maintheme,
@@ -1333,7 +1351,7 @@ heading_suffix "}\n"
       align=center,
       font=\large\sffamily\colorist_bfseries:,
       minimum~width=\linewidth-\pgflinewidth,
-    ] {#1};
+    ] { \l_tmpa_tl };
     \nopagebreak
     \par
     \vspace{.3\baselineskip}
