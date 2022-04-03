@@ -20,7 +20,7 @@
 %<*colorart>
 \ProvidesExplClass
   {colorart}
-  {2022/03/28} {}
+  {2022/04/03} {}
   {A colorful article style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { article }
@@ -29,7 +29,7 @@
 %<*colorbook>
 \ProvidesExplClass
   {colorbook}
-  {2022/03/28} {}
+  {2022/04/03} {}
   {A colorful book style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { book }
@@ -38,7 +38,7 @@
 %<*lebhart>
 \ProvidesExplClass
   {lebhart}
-  {2022/03/28} {}
+  {2022/04/03} {}
   {A colorful article style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { article }
@@ -47,7 +47,7 @@
 %<*beaulivre>
 \ProvidesExplClass
   {beaulivre}
-  {2022/03/28} {}
+  {2022/04/03} {}
   {A colorful book style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { book }
@@ -56,14 +56,14 @@
 %<*colorist>
 \ProvidesExplPackage
   {colorist}
-  {2022/03/28} {}
+  {2022/04/03} {}
   {A colorful style for articles and books}
 %</colorist>
 %
 %<*colorist-fancy>
 \ProvidesExplPackage
   {colorist-fancy}
-  {2022/03/28} {}
+  {2022/04/03} {}
   {The fancy style of colorist}
 %</colorist-fancy>
 
@@ -1204,8 +1204,8 @@
   {
     \titlecontents{chapter}
       [2em] % i.e., 0em (part) + 2em
-      {\addvspace{1pc}\normalfont\color{maintheme}\sffamily \colorist_bfseries: \scshape }
-      {\contentslabel{2em}}
+      {\addvspace{1pc} \color{maintheme} \normalfont \sffamily \colorist_bfseries: \scshape }
+      {\contentslabel[ \raisebox{-.03\baselineskip}{ \large \normalfont \sffamily \colorist_bfseries: \thecontentslabel } ]{2em}}
       {\hspace*{-2em}}
       {\titlerule*[10pt]{\parbox{3pt}{\hspace*{-.25pt}\textcolor{main-text!15!paper}{.}}}\color{maintheme}\normalfont\sffamily\contentspage}
     \titlecontents{section}
@@ -1230,8 +1230,8 @@
   {
     \titlecontents{section}
       [2em] % i.e., 0em (part) + 2em
-      {\addvspace{.3pc}\normalfont\color{maintheme}\sffamily\scshape}
-      {\contentslabel{1.75em}}
+      {\addvspace{.3pc} \color{maintheme} \normalfont \sffamily \scshape }
+      {\contentslabel[ { \normalfont \sffamily \thecontentslabel } ]{1.75em}}
       {\hspace*{-1.75em}}
       {\titlerule*[10pt]{\parbox{3pt}{\textcolor{main-text!15!paper}{.}}}\color{maintheme}\normalfont\sffamily\contentspage}
     \titlecontents{subsection}
