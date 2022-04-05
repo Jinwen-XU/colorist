@@ -1443,7 +1443,7 @@ heading_suffix "}\n"
       {\normalfont}{}
       {\newline}
       {{\thmname{#1}\nobreakspace\thmnumber{#2}}
-        {\color{main-text!50!paper}\thmnote{\hspace{.4em}\ensuremath{(\text{#3})}}}\smallskip}
+        {\color{main-text!50!paper}\thmnote{\hspace{.4em}$($#3$)$}}\smallskip}
   }
   {
     \newtheoremstyle{simple}
@@ -1452,7 +1452,7 @@ heading_suffix "}\n"
       {\normalfont}{}
       {0pt}
       {{\thmname{#1}\nobreakspace\thmnumber{#2}}
-        {\color{main-text!50!paper}\thmnote{\hspace{.4em}\ensuremath{(\text{#3})}}}\nobreakspace\nobreakspace{\normalfont\textcolor{main-text!27!paper}{---}}\nobreakspace\nobreakspace}
+        {\color{main-text!50!paper}\thmnote{\hspace{.4em}$($#3$)$}}\nobreakspace\nobreakspace{\normalfont\textcolor{main-text!27!paper}{---}}\nobreakspace\nobreakspace}
   }
 
 \renewcommand{\qedsymbol}{
@@ -1797,53 +1797,47 @@ heading_suffix "}\n"
 
 \colorist_add_colorbox:nn { theorem, lemma, proposition, corollary, property, axiom, definition-proposition, definition-theorem }
   {
-    enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
+    enhanced~jigsaw, breakable, lines~before~break=3,
     left=3.5mm, right=3.5mm,
-    before=\par\medskip\noindent,
     colback=main-text!3!paper,
     opacityframe=0.9, colframe=orange, arc=.7mm
   }
 
 \colorist_add_colorbox:nn { definition, assumption, convention, hypothesis, notation }
   {
-    enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
+    enhanced~jigsaw, breakable, lines~before~break=3,
     left=4mm, right=4mm, top=1mm, bottom=1mm,
-    before=\par\medskip\noindent,
     colback=lightorange!10!paper, boxrule=0pt, frame~hidden,
     borderline~west={1.5mm}{0mm}{forestgreen}, arc=.7mm
   }
 
 \colorist_add_colorbox:nn { fact, example }
   {
-    enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
+    enhanced~jigsaw, breakable, lines~before~break=3,
     colback=main-text!5!paper,
-    before=\par\medskip\noindent,
     boxrule=0pt, frame~hidden, arc=.7mm
   }
 
 \colorist_add_colorbox:nn { conjecture }
   {
-    enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
+    enhanced~jigsaw, breakable, lines~before~break=3,
     left=3.5mm, right=3.5mm,
-    before=\par\medskip\noindent,
     colback=main-text!3!paper,
     opacityframe=0.7, colframe=purple, arc=.7mm
   }
 
 \colorist_add_colorbox:nn { problem }
   {
-    enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
+    enhanced~jigsaw, breakable, lines~before~break=3,
     colback=yellow!25!paper,
-    before=\par\medskip\noindent,
     boxrule=0pt, frame~hidden, arc=.7mm
   }
 
 \colorist_add_colorbox:nn { question, exercise, remark, observation }
   {
-    enhanced~jigsaw, pad~at~break*=1mm, breakable, lines~before~break=3,
+    enhanced~jigsaw, breakable, lines~before~break=3,
     oversize,
     top=0mm, bottom=0mm,
-    before=\par\medskip\noindent,
     opacityframe=0, opacityback=0
   }
 
