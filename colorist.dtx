@@ -831,13 +831,16 @@
 %%================================
 \RequirePackage { anyfontsize }
 
+\NewCommandCopy \colorist_original_bfseries: \bfseries
 \bool_if:NTF \l__colorist_use_boldface_bool
   {
-    \cs_new:Nn \colorist_bfseries: { \bfseries \colorlet{colorist-temp-color}{.} \color{colorist-temp-color!90!paper} }
+    \cs_new:Nn \colorist_bfseries: { \colorist_original_bfseries: \colorlet{colorist-temp-color}{.} \color{colorist-temp-color!90!paper} }
   }
   {
     \cs_new:Nn \colorist_bfseries: {}
   }
+\RenewDocumentCommand \bfseries { } { \colorist_bfseries: }
+
 
 \tl_new:N \g_colorist_title_font_common_tl
 
