@@ -1925,6 +1925,23 @@ heading_suffix "}\n"
 
 \theoremstyle{simple}
 
+
+\NewDocumentEnvironment { emphasis } { }
+  {
+    \enlargethispage{2mm}
+    \begin{tcolorbox}
+        [
+          enhanced ~ jigsaw, enforce~breakable, oversize,
+          % nobeforeafter,
+          left = 1em, right=0mm, top=.5mm, bottom=0mm, boxrule=0pt,
+          colback=maintheme!3!paper, frame ~ hidden,
+          borderline ~ west = {.3em} {0mm} {maintheme!90!paper}, arc = 0.2mm,
+        ]
+  }
+  {
+    \end{tcolorbox}
+  }
+
 \hook_gput_code:nnn { env/quote/begin } { colorist } { \small }
 
 %%================================
