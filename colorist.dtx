@@ -834,7 +834,18 @@
 \NewCommandCopy \colorist_original_bfseries: \bfseries
 \bool_if:NTF \l__colorist_use_boldface_bool
   {
-    \cs_new:Nn \colorist_bfseries: { \colorist_original_bfseries: \colorlet{colorist-temp-color}{.} \color{colorist-temp-color!90!paper} }
+    \bool_new:N \l_colorist_is_under_bfseries_bool
+    \bool_set_false:N \l_colorist_is_under_bfseries_bool
+    \cs_new:Nn \colorist_bfseries:
+      {
+        \bool_if:NF \l_colorist_is_under_bfseries_bool
+          {
+            \colorlet{colorist-temp-color}{.}
+            \color{colorist-temp-color!90!paper}
+          }
+        \colorist_original_bfseries:
+        \bool_set_true:N \l_colorist_is_under_bfseries_bool
+      }
   }
   {
     \cs_new:Nn \colorist_bfseries: {}
