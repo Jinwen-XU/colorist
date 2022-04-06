@@ -1527,6 +1527,9 @@ heading_suffix "}\n"
 
 \RequirePackage { projlib-theorem }
 
+\tl_gset:Nn \g_crthm_combined_name_sep_tl { \textcolor{main-text}{-} }
+
+
 \SetTheorem { theorem, lemma, proposition, corollary, property, axiom, definition-theorem, definition-proposition }
   {
     name style = {
@@ -1552,44 +1555,6 @@ heading_suffix "}\n"
   {
     name style = {
       heading style = { \color{purple}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
-    }
-  }
-
-\SetTheorem { definition-proposition }
-  {
-    name = {
-      heading = {
-        , english     = \color{forestgreen}Definition\color{main-text}-\color{orange}Proposition
-        , french      = \color{forestgreen}Définition\color{main-text}-\color{orange}Proposition
-        , ngerman     = \color{forestgreen}Definition\color{main-text}-\color{orange}Proposition
-        , italian     = \color{forestgreen}Definizione\color{main-text}-\color{orange}Proposizione
-        , portuguese  = \color{forestgreen}Definição\color{main-text}-\color{orange}Proposição
-        , brazilian   = \color{forestgreen}Definição\color{main-text}-\color{orange}Proposição
-        , spanish     = \color{forestgreen}Definición\color{main-text}-\color{orange}Proposición
-        , schinese    = \color{forestgreen}定义\color{main-text}-\color{orange}命题
-        , tchinese    = \color{forestgreen}定義\color{main-text}-\color{orange}命題
-        , japanese    = \color{forestgreen}定義\color{main-text}-\color{orange}命題
-        , russian     = \color{forestgreen}Определение\color{main-text}-\color{orange}Предложение
-      }
-    }
-  }
-
-\SetTheorem { definition-theorem }
-  {
-    name = {
-      heading = {
-        , english     = \color{forestgreen}Definition\color{main-text}-\color{orange}Theorem
-        , french      = \color{forestgreen}Définition\color{main-text}-\color{orange}Théorème
-        , ngerman     = \color{forestgreen}Definition\color{main-text}-\color{orange}Satz
-        , italian     = \color{forestgreen}Definizione\color{main-text}-\color{orange}Teorema
-        , portuguese  = \color{forestgreen}Definição\color{main-text}-\color{orange}Teorema
-        , brazilian   = \color{forestgreen}Definição\color{main-text}-\color{orange}Teorema
-        , spanish     = \color{forestgreen}Definición\color{main-text}-\color{orange}Teorema
-        , schinese    = \color{forestgreen}定义\color{main-text}-\color{orange}定理
-        , tchinese    = \color{forestgreen}定義\color{main-text}-\color{orange}定理
-        , japanese    = \color{forestgreen}定義\color{main-text}-\color{orange}定理
-        , russian     = \color{forestgreen}Определение\color{main-text}-\color{orange}Теорема
-      }
     }
   }
 
@@ -1629,70 +1594,6 @@ heading_suffix "}\n"
           , crefname style = { \color{purple}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
           , Crefname style = { \color{purple}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
           , numbering style = { \color{purple}\colorist_bfseries:\g_colorist_title_font_common_tl }
-        }
-      }
-
-    \SetTheorem { definition-proposition }
-      {
-        name = {
-          , crefname =  {
-            , english     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}{\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}
-            , french      = [la]{\color{forestgreen}Définition\color{main-text}-\color{orange}Proposition}[les]{\color{forestgreen}Définition\color{main-text}-\color{orange}Proposition}
-            , ngerman     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}{\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}
-            , italian     = [la]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Proposizione}[le]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Proposizione}
-            , portuguese  = [a]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}[as]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}
-            , brazilian   = [a]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}[as]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}
-            , spanish     = [la]{\color{forestgreen}Definición\color{main-text}-\color{orange}Proposición}[las]{\color{forestgreen}Definición\color{main-text}-\color{orange}Proposición}
-            , schinese    = {\color{forestgreen}定义\color{main-text}-\color{orange}命题}{\color{forestgreen}定义\color{main-text}-\color{orange}命题}
-            , tchinese    = {\color{forestgreen}定義\color{main-text}-\color{orange}命題}{\color{forestgreen}定義\color{main-text}-\color{orange}命題}
-            , japanese    = {\color{forestgreen}定義\color{main-text}-\color{orange}命題}{\color{forestgreen}定義\color{main-text}-\color{orange}命題}
-            , russian     = {\color{forestgreen}Определение\color{main-text}-\color{orange}Предложение}{\color{forestgreen}Определение\color{main-text}-\color{orange}Предложение}
-          }
-          , Crefname =  {
-            , english     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}{\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}
-            , french      = [la]{\color{forestgreen}Définition\color{main-text}-\color{orange}Proposition}[les]{\color{forestgreen}Définition\color{main-text}-\color{orange}Proposition}
-            , ngerman     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}{\color{forestgreen}Definition\color{main-text}-\color{orange}Proposition}
-            , italian     = [la]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Proposizione}[le]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Proposizione}
-            , portuguese  = [a]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}[as]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}
-            , brazilian   = [a]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}[as]{\color{forestgreen}Definição\color{main-text}-\color{orange}Proposição}
-            , spanish     = [la]{\color{forestgreen}Definición\color{main-text}-\color{orange}Proposición}[las]{\color{forestgreen}Definición\color{main-text}-\color{orange}Proposición}
-            , schinese    = {\color{forestgreen}定义\color{main-text}-\color{orange}命题}{\color{forestgreen}定义\color{main-text}-\color{orange}命题}
-            , tchinese    = {\color{forestgreen}定義\color{main-text}-\color{orange}命題}{\color{forestgreen}定義\color{main-text}-\color{orange}命題}
-            , japanese    = {\color{forestgreen}定義\color{main-text}-\color{orange}命題}{\color{forestgreen}定義\color{main-text}-\color{orange}命題}
-            , russian     = {\color{forestgreen}Определение\color{main-text}-\color{orange}Предложение}{\color{forestgreen}Определение\color{main-text}-\color{orange}Предложение}
-          }
-        }
-      }
-
-    \SetTheorem { definition-theorem }
-      {
-        name = {
-          , crefname =  {
-            , english     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Theorem}{\color{forestgreen}Definition\color{main-text}-\color{orange}Theorem}
-            , french      = [la]{\color{forestgreen}Définition\color{main-text}-\color{orange}Théorème}[les]{\color{forestgreen}Définition\color{main-text}-\color{orange}Théorème}
-            , ngerman     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Satz}{\color{forestgreen}Definition\color{main-text}-\color{orange}Satz}
-            , italian     = [la]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Teorema}[le]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Teorema}
-            , portuguese  = [a]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}[as]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}
-            , brazilian   = [a]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}[as]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}
-            , spanish     = [la]{\color{forestgreen}Definición\color{main-text}-\color{orange}Teorema}[las]{\color{forestgreen}Definición\color{main-text}-\color{orange}Teorema}
-            , schinese    = {\color{forestgreen}定义\color{main-text}-\color{orange}定理}{\color{forestgreen}定义\color{main-text}-\color{orange}定理}
-            , tchinese    = {\color{forestgreen}定義\color{main-text}-\color{orange}定理}{\color{forestgreen}定義\color{main-text}-\color{orange}定理}
-            , japanese    = {\color{forestgreen}定義\color{main-text}-\color{orange}定理}{\color{forestgreen}定義\color{main-text}-\color{orange}定理}
-            , russian     = {\color{forestgreen}Определение\color{main-text}-\color{orange}Теорема}{\color{forestgreen}Определение\color{main-text}-\color{orange}Теорема}
-          }
-          , Crefname =  {
-            , english     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Theorem}{\color{forestgreen}Definition\color{main-text}-\color{orange}Theorem}
-            , french      = [La]{\color{forestgreen}Définition\color{main-text}-\color{orange}Théorème}[Les]{\color{forestgreen}Définition\color{main-text}-\color{orange}Théorème}
-            , ngerman     = {\color{forestgreen}Definition\color{main-text}-\color{orange}Satz}{\color{forestgreen}Definition\color{main-text}-\color{orange}Satz}
-            , italian     = [La]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Teorema}[Le]{\color{forestgreen}Definizione\color{main-text}-\color{orange}Teorema}
-            , portuguese  = [A]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}[As]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}
-            , brazilian   = [A]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}[As]{\color{forestgreen}Definição\color{main-text}-\color{orange}Teorema}
-            , spanish     = [La]{\color{forestgreen}Definición\color{main-text}-\color{orange}Teorema}[Las]{\color{forestgreen}Definición\color{main-text}-\color{orange}Teorema}
-            , schinese    = {\color{forestgreen}定义\color{main-text}-\color{orange}定理}{\color{forestgreen}定义\color{main-text}-\color{orange}定理}
-            , tchinese    = {\color{forestgreen}定義\color{main-text}-\color{orange}定理}{\color{forestgreen}定義\color{main-text}-\color{orange}定理}
-            , japanese    = {\color{forestgreen}定義\color{main-text}-\color{orange}定理}{\color{forestgreen}定義\color{main-text}-\color{orange}定理}
-            , russian     = {\color{forestgreen}Определение\color{main-text}-\color{orange}Теорема}{\color{forestgreen}Определение\color{main-text}-\color{orange}Теорема}
-          }
         }
       }
   }
@@ -1806,7 +1707,7 @@ heading_suffix "}\n"
     opacityframe=0.9, colframe=orange, arc=.7mm
   }
 
-\colorist_add_colorbox:nn { definition, assumption, convention, hypothesis, notation }
+  \colorist_add_colorbox:nn { definition, assumption, convention, hypothesis, notation, proposition-definition, theorem-definition }
   {
     enhanced~jigsaw, breakable, lines~before~break=3,
     left=4mm, right=4mm, top=1mm, bottom=1mm,
