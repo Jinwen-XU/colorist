@@ -833,25 +833,25 @@
 \RequirePackage { anyfontsize }
 
 \NewCommandCopy \colorist_original_bfseries: \bfseries
+\bool_new:N \l_colorist_is_under_bfseries_bool
+\bool_set_false:N \l_colorist_is_under_bfseries_bool
+\RenewDocumentCommand \bfseries { }
+  {
+    \bool_if:NF \l_colorist_is_under_bfseries_bool
+      {
+        \colorlet{colorist-temp-color}{.}
+        \color{colorist-temp-color!90!paper}
+      }
+    \colorist_original_bfseries:
+    \bool_set_true:N \l_colorist_is_under_bfseries_bool
+  }
 \bool_if:NTF \l__colorist_use_boldface_bool
   {
-    \bool_new:N \l_colorist_is_under_bfseries_bool
-    \bool_set_false:N \l_colorist_is_under_bfseries_bool
-    \cs_new:Nn \colorist_bfseries:
-      {
-        \bool_if:NF \l_colorist_is_under_bfseries_bool
-          {
-            \colorlet{colorist-temp-color}{.}
-            \color{colorist-temp-color!90!paper}
-          }
-        \colorist_original_bfseries:
-        \bool_set_true:N \l_colorist_is_under_bfseries_bool
-      }
+    \cs_new:Nn \colorist_bfseries: { \bfseries }
   }
   {
     \cs_new:Nn \colorist_bfseries: {}
   }
-\RenewDocumentCommand \bfseries { } { \colorist_bfseries: }
 
 
 \tl_new:N \g_colorist_title_font_common_tl
