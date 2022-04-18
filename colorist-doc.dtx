@@ -27,6 +27,8 @@
 \usepackage{hologo}     % more TeX logo
 \usetikzlibrary{calc}
 
+\usepackage{relsize}
+
 \usepackage{blindtext}
 
 %<colorist-doc,lebhart-doc-en,beaulivre-doc-en>\UseLanguage{English}
@@ -122,7 +124,7 @@
 %%================================
 \begin{document}
 
-\def\PackageVersion{2022/04/03}
+\def\PackageVersion{2022/04/17}
 
 %<*colorist-doc>
 \title{{\normalfont\bfseries\color{main-text}\colorist{}}\\write your articles or books in a colorful way}
@@ -151,8 +153,8 @@
   {
     , title     = \beaulivre{}
     , subtitle  = {
-                    \textsc{Write your books in \\a colorful way}\\[10pt]
-                    \tiny Corresponding to: \texttt{\beaulivre{} \PackageVersion}
+                    \textsc{Write your books in \\a colorful way}\\[20pt]
+                    \smaller[3] Corresponding to: \texttt{\beaulivre{} \PackageVersion}
                   }
     , author    = Jinwen XU
     , date      = {\TheDate{\PackageVersion}[only-year-month], in Paris}
@@ -176,8 +178,8 @@
   {
     , title     = \beaulivre{}
     , subtitle  = {
-                    \textsc{以多彩的方式排版你的图书}\\[10pt]
-                    \tiny 对应版本. \texttt{\beaulivre{} \PackageVersion}
+                    \textsc{以多彩的方式排版你的图书}\\[20pt]
+                    \smaller[3] 对应版本. \texttt{\beaulivre{} \PackageVersion}
                   }
     , author    = 许锦文
     , date      = {\TheDate{\PackageVersion}[only-year-month]，巴黎}
@@ -201,8 +203,8 @@
   {
     , title     = \beaulivre{}
     , subtitle  = {
-                    \textsc{Écrivez vos livres \\de manière colorée}\\[10pt]
-                    \tiny Correspondant à : \texttt{\beaulivre{} \PackageVersion}
+                    \textsc{Écrivez vos livres \\de manière colorée}\\[20pt]
+                    \smaller[3] Correspondant à : \texttt{\beaulivre{} \PackageVersion}
                   }
     , author    = Jinwen XU
     , date      = {\TheDate{\PackageVersion}[only-year-month], à Paris}
