@@ -200,6 +200,7 @@
     total = { 6.500in, 9.130in },
     centering,
     footnotesep = 2em plus 2pt minus 2pt,
+    footskip = .5in,
   }
 
 \bool_if:NT \l__colorclass_b_five_paper_bool
@@ -210,6 +211,7 @@
         total = { 5.535in, 8.160in },
         centering,
         footnotesep = 2em plus 2pt minus 2pt,
+        footskip = .5in,
       }
   }
 
@@ -221,6 +223,7 @@
         total = { 6.500in, 9.685in },
         centering,
         footnotesep = 2em plus 2pt minus 2pt,
+        footskip = .5in,
       }
   }
 
@@ -1458,12 +1461,12 @@ heading_suffix "}\n"
       {}{}
       {\normalfont}{}
       {\normalfont}{}
-      {\newline}
+      {0pt}
       {
         \rlap{\vbox{\hbox{
           {\thmname{#1}\thmnumber{\nobreakspace #2}}
           {\color{main-text!50!paper}\thmnote{\hspace{.4em}$($#3$)$}}
-        }\hbox{\strut}\vskip0pt}}
+        }\hbox{\strut}\vspace{-2\parskip}}}
       }
   }
   {
@@ -1484,13 +1487,15 @@ heading_suffix "}\n"
 \bool_if:NTF \l__colorist_theorem_in_new_line_bool
   {
     \newtheoremstyle{basic}
-      {0pt}{0pt}{\normalfont}{0pt}
-      {}{\;}{\newline}
+      {}{}
+      {\normalfont}{}
+      {}{}
+      {0pt}
       {
         \rlap{\vbox{\hbox{
           {\thmname{#1}\nobreakspace\thmnumber{\textup{#2}}}
           \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace(#3)}
-        }\hbox{\strut}\vskip0pt}}
+        }\hbox{\strut}\vspace{-2\parskip}}}
       }
   }
   {
@@ -1861,7 +1866,8 @@ heading_suffix "}\n"
           % nobeforeafter,
           left = 1em, right=0mm, top=.5mm, bottom=0mm, boxrule=0pt,
           colback=maintheme!3!paper, frame ~ hidden,
-          borderline ~ west = {.3em} {0mm} {maintheme!90!paper}, arc = 0.2mm,
+          borderline ~ west = {.15em} {0mm} {maintheme, double, double ~ distance=.12em},
+          arc = 0.2mm,
         ]
   }
   {
