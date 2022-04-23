@@ -1557,7 +1557,7 @@ heading_suffix "}\n"
 \tl_gset:Nn \g_crthm_combined_name_sep_tl { \textcolor{main-text}{-} }
 
 
-\SetTheorem { theorem, lemma, proposition, corollary, property, axiom, definition-theorem, definition-proposition }
+\SetTheorem { theorem, lemma, proposition, corollary, property, axiom, construction, definition-theorem, definition-proposition }
   {
     name style = {
       heading style = { \color{orange}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
@@ -1571,7 +1571,7 @@ heading_suffix "}\n"
     }
   }
 
-\SetTheorem { application, fact, example, problem, question, exercise }
+\SetTheorem { application, example, exercise, fact, problem, question, recall }
   {
     name style = {
       heading style = { \color{main-text}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
@@ -1588,7 +1588,7 @@ heading_suffix "}\n"
 
 \bool_if:NF \l__projlib_theorem_complexname_bool
   {
-    \SetTheorem { theorem, lemma, proposition, corollary, property, axiom, definition-theorem, definition-proposition }
+    \SetTheorem { theorem, lemma, proposition, corollary, property, axiom, construction, definition-theorem, definition-proposition }
       {
         name style = {
           , crefname style = { \color{orange}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
@@ -1606,7 +1606,7 @@ heading_suffix "}\n"
         }
       }
 
-    \SetTheorem { application, fact, example, problem, question, exercise }
+    \SetTheorem { application, example, exercise, fact, problem, question, recall }
       {
         name style = {
           , crefname style = { \color{main-text}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
@@ -1726,7 +1726,7 @@ heading_suffix "}\n"
     \tcolorboxenvironment { #1 } { #2 }
   }
 
-\colorist_add_colorbox:nn { theorem, lemma, proposition, corollary, property, axiom, definition-proposition, definition-theorem }
+\colorist_add_colorbox:nn { theorem, lemma, proposition, corollary, property, axiom, construction, definition-proposition, definition-theorem }
   {
     enhanced~jigsaw, breakable, lines~before~break=3,
     left=3.5mm, right=3.5mm,
@@ -1742,7 +1742,7 @@ heading_suffix "}\n"
     borderline~west={1.5mm}{0mm}{forestgreen}, arc=.7mm
   }
 
-\colorist_add_colorbox:nn { application, fact, example }
+\colorist_add_colorbox:nn { application, example, fact, recall }
   {
     enhanced~jigsaw, breakable, lines~before~break=3,
     colback=main-text!5!paper,
