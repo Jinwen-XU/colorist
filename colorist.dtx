@@ -1198,7 +1198,7 @@
 
 %% Paragraph
 \titleformat{\paragraph}[runin]
-  { \g_colorist_title_font_paragraph_tl }{\theparagraph}{1em}{#1}
+  {\color{main-text!50!paper} \g_colorist_title_font_paragraph_tl }{\theparagraph}{1em}{#1}
 
 \titlespacing{\section}{0pt}{\baselineskip}{.6\baselineskip}
 \titlespacing{\subsection}{0pt}{.75\baselineskip}{.4\baselineskip}
@@ -1660,7 +1660,14 @@ heading_suffix "}\n"
     \else
         \reversemarginpar
     \fi
-    \mparadjust{-.25em}
+    \bool_if:NTF \l__colorist_theorem_in_new_line_bool
+      {
+        \mparadjust{-.75em}
+        \null
+      }
+      {
+        \mparadjust{-.25em}
+      }
     \marginnote{
       \colorist_icon_questionmark:w [0.3] {purple}
       \bool_if:NTF \l__colorist_is_book_bool
