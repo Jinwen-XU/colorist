@@ -731,6 +731,9 @@
 
 \PassOptionsToPackage { all } { nowidow }
 \RequirePackage { nowidow }
+\setlength { \parfillskip } { 0pt plus\dimexpr\linewidth-2\parindent }
+\setlist* { first* = \setlength { \parfillskip } { 0pt plus\dimexpr\linewidth-3em } }
+
 \RequirePackage { embrac }
 
 %%================================
@@ -1456,8 +1459,12 @@ heading_suffix "}\n"
       {\normalfont}{}
       {\normalfont}{}
       {\newline}
-      {{\thmname{#1}\nobreakspace\thmnumber{#2}}
-        {\color{main-text!50!paper}\thmnote{\hspace{.4em}$($#3$)$}}\smallskip}
+      {
+        \rlap{\vbox{\hbox{
+          {\thmname{#1}\thmnumber{\nobreakspace #2}}
+          {\color{main-text!50!paper}\thmnote{\hspace{.4em}$($#3$)$}}
+        }\hbox{\strut}\vskip0pt}}
+      }
   }
   {
     \newtheoremstyle{simple}
@@ -1479,8 +1486,12 @@ heading_suffix "}\n"
     \newtheoremstyle{basic}
       {0pt}{0pt}{\normalfont}{0pt}
       {}{\;}{\newline}
-      {{\thmname{#1}\nobreakspace\thmnumber{\textup{#2}}}
-      \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace(#3)}\smallskip}
+      {
+        \rlap{\vbox{\hbox{
+          {\thmname{#1}\nobreakspace\thmnumber{\textup{#2}}}
+          \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace(#3)}
+        }\hbox{\strut}\vskip0pt}}
+      }
   }
   {
     \newtheoremstyle{basic}
