@@ -734,8 +734,16 @@
 
 \PassOptionsToPackage { all } { nowidow }
 \RequirePackage { nowidow }
-\setlength { \parfillskip } { 0pt plus\dimexpr\linewidth-2\parindent }
-\setlist* { first* = \setlength { \parfillskip } { 0pt plus\dimexpr\linewidth-3em } }
+
+% https://tex.stackexchange.com/a/641824
+\RequirePackage { regexpatch }
+\skip_new:N \g_colorclass_parfillskip_skip
+\xpatchcmd{\@trivlist}{\@flushglue}{\g_colorclass_parfillskip_skip}{}{}
+\hook_gput_code:nnn { begindocument } { colorclass }
+  {
+    \skip_gset:Nn \g_colorclass_parfillskip_skip { 0pt plus \dim_eval:n { \linewidth - 2\parindent } }
+    \skip_gset_eq:NN \parfillskip \g_colorclass_parfillskip_skip
+  }
 
 \hook_gput_code:nnn { begindocument/before } { colorclass }
   {
@@ -1020,7 +1028,7 @@
 %%================================
 %%  Title format
 %%================================
-\RequirePackage [ explicit, newparttoc, nobottomtitles ] { titlesec }
+\RequirePackage [ explicit, newparttoc, nobottomtitles* ] { titlesec }
 \PassOptionsToPackage { normalem } { ulem }
 \RequirePackage { ulem }
 
@@ -1470,10 +1478,10 @@ heading_suffix "}\n"
       {\normalfont}{}
       {0pt}
       {
-        \rlap{\vbox{\hbox{
+        \rlap{\vbox{\hbox{\parbox{\linewidth}{
           {\thmname{#1}\thmnumber{\nobreakspace #2}}
           {\color{main-text!50!paper}\thmnote{\hspace{.4em}$($#3$)$}}
-        }\hbox{\strut}\vspace{-2\parskip}}}
+        }}\hbox{\strut}\vspace{-2\parskip}}}
       }
   }
   {
@@ -1499,10 +1507,10 @@ heading_suffix "}\n"
       {}{}
       {0pt}
       {
-        \rlap{\vbox{\hbox{
+        \rlap{\vbox{\hbox{\parbox{\linewidth}{
           {\thmname{#1}\nobreakspace\thmnumber{\textup{#2}}}
           \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace(#3)}
-        }\hbox{\strut}\vspace{-2\parskip}}}
+        }}\hbox{\strut}\vspace{-2\parskip}}}
       }
   }
   {
@@ -1635,11 +1643,10 @@ heading_suffix "}\n"
 
 \RequirePackage { marginnote }
 \RequirePackage { ifoddpage }
-\newcommand{\mparadjust}[1]{\renewcommand*{\marginnotevadjust}{#1}}
-\hook_gput_code:nnn { begindocument/before } { colorist }
-{
-  %
-}
+\cs_new_protected:Nn \colorist_mpar_adjust:n
+  {
+    \renewcommand* { \marginnotevadjust } { #1 }
+  }
 \hook_gput_code:nnn { env/remark/begin } { colorist }
   {
     \if@twoside\checkoddpage
@@ -1647,7 +1654,7 @@ heading_suffix "}\n"
     \else
         \reversemarginpar
     \fi
-    \mparadjust{-.25em}
+    \colorist_mpar_adjust:n {-.25em}
     \marginnote{
       \colorist_icon_ideabulb:w [0.3] {orange}
       \bool_if:NTF \l__colorist_is_book_bool
@@ -1669,11 +1676,11 @@ heading_suffix "}\n"
     \fi
     \bool_if:NTF \l__colorist_theorem_in_new_line_bool
       {
-        \mparadjust{-.75em}
+        \colorist_mpar_adjust:n {-.75em}
         \null
       }
       {
-        \mparadjust{-.25em}
+        \colorist_mpar_adjust:n {-.25em}
       }
     \marginnote{
       \colorist_icon_questionmark:w [0.3] {purple}
