@@ -788,11 +788,15 @@
     , use-boldface      .initial:n          = { false }
     , use~boldface      .bool_set:N         = \l__colorist_use_boldface_bool
     , use boldface      .bool_set:N         = \l__colorist_use_boldface_bool
-    , usebf             .bool_set:N         = \l__colorist_use_boldface_bool
-    , allow-boldface    .bool_set:N         = \l__colorist_use_boldface_bool
-    , allow~boldface    .bool_set:N         = \l__colorist_use_boldface_bool
-    , allow boldface    .bool_set:N         = \l__colorist_use_boldface_bool
-    , allowbf           .bool_set:N         = \l__colorist_use_boldface_bool
+
+    , use-scshape       .bool_set:N         = \l__colorist_use_scshape_bool
+    , use-scshape       .initial:n          = { false }
+    , use~scshape       .bool_set:N         = \l__colorist_use_scshape_bool
+    , use scshape       .bool_set:N         = \l__colorist_use_scshape_bool
+    , title-in-scshape  .bool_set:N         = \l__colorist_use_scshape_bool
+    , title~in~scshape  .bool_set:N         = \l__colorist_use_scshape_bool
+    , title in scshape  .bool_set:N         = \l__colorist_use_scshape_bool
+
     , runin             .bool_set:N         = \l__colorist_runin_bool
     , runin             .initial:n          = { false }
 
@@ -874,6 +878,14 @@
   }
   {
     \cs_new:Nn \colorist_bfseries: {}
+  }
+
+\bool_if:NTF \l__colorist_use_scshape_bool
+  {
+    \cs_new:Nn \colorist_scshape: { \scshape }
+  }
+  {
+    \cs_new:Nn \colorist_scshape: {}
   }
 
 
@@ -1035,7 +1047,7 @@
 %%================================
 %%  Title format
 %%================================
-\RequirePackage [ explicit, newparttoc, nobottomtitles* ] { titlesec }
+\RequirePackage [ explicit, newparttoc ] { titlesec }
 \PassOptionsToPackage { normalem } { ulem }
 \RequirePackage { ulem }
 
@@ -1139,7 +1151,7 @@
       }
 
     \titleformat{name=\chapter}
-      { \g_colorist_title_font_chapter_tl \scshape\huge} % Format
+      { \g_colorist_title_font_chapter_tl \colorist_scshape:\huge} % Format
       {} % Label
       {0mm} % Sep
       { \colorist_chapter_inner:nn { \thechapter } { #1 } } % Before-code
@@ -1147,7 +1159,7 @@
       {0em}{*2}{0em} % {left}{before-sep}{after-sep}
 
     \titleformat{name=\chapter, numberless}
-      {\filcenter \g_colorist_title_font_chapter_tl \scshape\huge}
+      {\filcenter \g_colorist_title_font_chapter_tl \colorist_scshape:\huge}
       {}
       {0mm}
       { \colorist_chapter_inner:n { #1 } }
@@ -1190,7 +1202,7 @@
     %% Section
     \titleformat{\section}
       {\color{maintheme} \g_colorist_title_font_section_tl \large}
-      {\thesection}{.75em}{\scshape #1}
+      {\thesection}{.75em}{\colorist_scshape: #1}
 
     %% Subsection
     \titleformat{\subsection}
@@ -1242,7 +1254,7 @@
   {
     \titlecontents{chapter}
       [2em] % i.e., 0em (part) + 2em
-      {\addvspace{1pc} \color{maintheme} \normalfont \sffamily \colorist_bfseries: \scshape }
+      {\addvspace{1pc} \color{maintheme} \normalfont \sffamily \colorist_bfseries: \colorist_scshape: }
       {\contentslabel[ \raisebox{-.03\baselineskip}{ \large \normalfont \sffamily \colorist_bfseries: \thecontentslabel } ]{2em}}
       {\hspace*{-2em}}
       {\titlerule*[10pt]{\parbox{3pt}{\hspace*{-.25pt}\textcolor{main-text!15!paper}{.}}}\color{maintheme}\normalfont\sffamily\contentspage}
@@ -1268,7 +1280,7 @@
   {
     \titlecontents{section}
       [2em] % i.e., 0em (part) + 2em
-      {\addvspace{.3pc} \color{maintheme} \normalfont \sffamily \scshape }
+      {\addvspace{.3pc} \color{maintheme} \normalfont \sffamily \colorist_scshape: }
       {\contentslabel[ { \normalfont \sffamily \thecontentslabel } ]{1.75em}}
       {\hspace*{-1.75em}}
       {\titlerule*[10pt]{\parbox{3pt}{\textcolor{main-text!15!paper}{.}}}\color{maintheme}\normalfont\sffamily\contentspage}
@@ -1911,7 +1923,7 @@ heading_suffix "}\n"
   {
     \hook_gput_code:nnn { package/projlib-author/after } { colorist }
       {
-        \tl_gset:Nn \g__projlib_author_font_author_tl      { \normalfont \scshape }
+        \tl_gset:Nn \g__projlib_author_font_author_tl      { \normalfont \colorist_scshape: }
         \tl_gset:Nn \g__projlib_author_font_institute_tl   { \large \normalfont }
         \tl_gset:Nn \g__projlib_author_font_address_tl     { \large \normalfont \itshape }
         \tl_gset:Nn \g__projlib_author_font_curraddr_tl    { \large \normalfont \itshape }
@@ -1936,9 +1948,9 @@ heading_suffix "}\n"
       {
         \begin{center}
             \color{maintheme}
-            {\Large\sffamily\scshape \colorist_bfseries: \@title}\\\bigskip
+            {\Large\sffamily\colorist_scshape: \colorist_bfseries: \@title}\\\bigskip
             \color{main-text!80!paper}
-            {\scshape\@author}\par\smallskip
+            {\colorist_scshape:\@author}\par\smallskip
             {\@date}
         \end{center}
         \ifx\@date\@empty\bigskip\fi
