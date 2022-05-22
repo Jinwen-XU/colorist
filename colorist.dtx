@@ -782,6 +782,9 @@
 
     , style             .str_set:N          = \l__colorist_style_str
     , style             .initial:n          = { fancy }
+    , use-style         .str_set:N          = \l__colorist_style_str
+    , use~style         .str_set:N          = \l__colorist_style_str
+    , use style         .str_set:N          = \l__colorist_style_str
     , fancy             .meta:n             = { style = fancy }
 
     , use-boldface      .bool_set:N         = \l__colorist_use_boldface_bool
