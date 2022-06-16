@@ -20,7 +20,7 @@
 %<*colorart>
 \ProvidesExplClass
   {colorart}
-  {2022/06/07} {}
+  {2022/06/16} {}
   {A colorful article style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { article }
@@ -29,7 +29,7 @@
 %<*colorbook>
 \ProvidesExplClass
   {colorbook}
-  {2022/06/07} {}
+  {2022/06/16} {}
   {A colorful book style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { book }
@@ -38,7 +38,7 @@
 %<*lebhart>
 \ProvidesExplClass
   {lebhart}
-  {2022/06/07} {}
+  {2022/06/16} {}
   {A colorful article style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { article }
@@ -47,7 +47,7 @@
 %<*beaulivre>
 \ProvidesExplClass
   {beaulivre}
-  {2022/06/07} {}
+  {2022/06/16} {}
   {A colorful book style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { book }
@@ -56,14 +56,14 @@
 %<*colorist>
 \ProvidesExplPackage
   {colorist}
-  {2022/06/07} {}
+  {2022/06/16} {}
   {A colorful style for articles and books}
 %</colorist>
 %
 %<*colorist-fancy>
 \ProvidesExplPackage
   {colorist-fancy}
-  {2022/06/07} {}
+  {2022/06/16} {}
   {The fancy style of colorist}
 %</colorist-fancy>
 
@@ -810,6 +810,12 @@
     , use-boldface      .initial:n          = { false }
     , use~boldface      .bool_set:N         = \l__colorist_use_boldface_bool
     , use boldface      .bool_set:N         = \l__colorist_use_boldface_bool
+    , title-in-boldface .bool_set:N         = \l__colorist_use_boldface_bool
+    , title~in~boldface .bool_set:N         = \l__colorist_use_boldface_bool
+    , title in boldface .bool_set:N         = \l__colorist_use_boldface_bool
+    , title-in-bold     .bool_set:N         = \l__colorist_use_boldface_bool
+    , title~in~bold     .bool_set:N         = \l__colorist_use_boldface_bool
+    , title in bold     .bool_set:N         = \l__colorist_use_boldface_bool
 
     , use-scshape       .bool_set:N         = \l__colorist_use_scshape_bool
     , use-scshape       .initial:n          = { false }
@@ -879,6 +885,7 @@
 %%================================
 %%  Title fonts
 %%================================
+\RequirePackage { relsize }
 \RequirePackage { anyfontsize }
 
 \NewCommandCopy \colorist_original_bfseries: \bfseries
@@ -1112,7 +1119,7 @@
         \end{tikzpicture}
       }
       {1em}
-      {\fontsize{20}{0}\selectfont\MakeUppercase{#1}}
+      {\fontsize{20}{24}\selectfont\MakeUppercase{#1}}
     \titleformat{name=\part,numberless}[display]
       {% \phantomsection\addcontentsline{toc}{part}{#1}%
          \g_colorist_title_font_part_tl \filleft}
@@ -1124,7 +1131,7 @@
         \end{tikzpicture}
       }
       {1em}
-      {\fontsize{20}{0}\selectfont\MakeUppercase{#1}}
+      {\fontsize{20}{24}\selectfont\MakeUppercase{#1}}
     \titlespacing*{\part}{0pt}{5em}{6em}
     %% Text after part
     \newcommand{\parttext}[1]{
@@ -1325,7 +1332,7 @@
 %%================================
 \RequirePackage { enumitem }
 \setlistdepth{10}
-\setlist{noitemsep, topsep=.33\topsep}
+\setlist{noitemsep, topsep=.33\topsep-.5\parskip}
 % \setlist{topsep = .1\baselineskip, parsep=0pt, itemsep=.05\baselineskip}
 \setlist[enumerate]{labelsep=*, leftmargin=*}
 \setlist[enumerate,1]{label=\arabic*$)$,
@@ -1339,8 +1346,8 @@
 \renewlist{itemize}{itemize}{10}
 \setlist[itemize]{leftmargin=*,label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{$\cdot$}}
 \AddLanguageSetting { \setlist[itemize,1]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{$\bullet$}} }
-\AddLanguageSetting [french] { \setlist[itemize,1]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{---}} }
-\setlist[itemize,2]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{--}}
+\AddLanguageSetting [french] { \setlist[itemize,1]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{\rule[.2\baselineskip]{.8em}{.75pt}}} }
+\setlist[itemize,2]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{\rule[.2\baselineskip]{.5em}{.75pt}}}
 % \setlist[itemize,3]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{$\diamond$}}
 \setlist[itemize,3]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{$\circ$}}
 \setlist[itemize,4]{label=\colorlet{currentcolor}{.}\textcolor{currentcolor!27!paper}{$\ast$}}
@@ -1611,7 +1618,7 @@ heading_suffix "}\n"
 \tl_gset:Nn \g_crthm_combined_name_sep_tl { \textcolor{main-text}{-} }
 
 
-\SetTheorem { theorem, lemma, proposition, corollary, property, axiom, construction, definition-theorem, definition-proposition }
+\SetTheorem { theorem, lemma, proposition, corollary, property, axiom, construction, definition-theorem, definition-proposition, theorem-with-name }
   {
     name style = {
       heading style = { \color{orange}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
@@ -1642,7 +1649,7 @@ heading_suffix "}\n"
 
 \bool_if:NF \l__projlib_theorem_complexname_bool
   {
-    \SetTheorem { theorem, lemma, proposition, corollary, property, axiom, construction, definition-theorem, definition-proposition }
+    \SetTheorem { theorem, lemma, proposition, corollary, property, axiom, construction, definition-theorem, definition-proposition, theorem-with-name }
       {
         name style = {
           , crefname style = { \color{orange}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
@@ -1786,7 +1793,7 @@ heading_suffix "}\n"
     \tcolorboxenvironment { #1 } { #2 }
   }
 
-\colorist_add_colorbox:nn { theorem, lemma, proposition, corollary, property, axiom, construction, definition-proposition, definition-theorem }
+\colorist_add_colorbox:nn { theorem, lemma, proposition, corollary, property, axiom, construction, definition-proposition, definition-theorem, theorem-with-name }
   {
     enhanced~jigsaw, breakable, lines~before~break=3,
     left=3.5mm, right=3.5mm,
