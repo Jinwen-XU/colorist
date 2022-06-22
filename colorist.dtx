@@ -14,8 +14,7 @@
 %<*driver>
 \ProvidesFile{colorist.dtx}
 %</driver>
-\NeedsTeXFormat{LaTeX2e}[2020-10-01]
-\RequirePackage{l3keys2e}
+\NeedsTeXFormat{LaTeX2e}[2022-06-01]
 %
 %<*colorart>
 \ProvidesExplClass
@@ -180,7 +179,7 @@
                                                       \PassOptionsToPackage { \CurrentOption } { colorist }
                                                     }
   }
-\ProcessKeysOptions { colorclass }
+\ProcessKeyOptions [ colorclass ]
 
 \LoadClass{\l__colorclass_base_class_tl}
 
@@ -845,7 +844,7 @@
                                                 \PassOptionsToPackage { \CurrentOption } { projlib-theorem }
                                               }
   }
-\ProcessKeysOptions { colorist }
+\ProcessKeyOptions [ colorist ]
 
 \bool_new:N \l__colorist_is_book_bool
 \cs_if_exist:cTF { c@chapter }
