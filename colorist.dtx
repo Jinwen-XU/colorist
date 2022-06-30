@@ -1617,7 +1617,7 @@ heading_suffix "}\n"
 \tl_gset:Nn \g_crthm_combined_name_sep_tl { \textcolor{main-text}{-} }
 
 
-\SetTheorem { theorem, lemma, proposition, corollary, property, axiom, construction, definition-theorem, definition-proposition, theorem-with-name }
+\SetTheorem { theorem, lemma, proposition, corollary, property, axiom, construction, theorem-with-name }
   {
     name style = {
       heading style = { \color{orange}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
@@ -1648,7 +1648,7 @@ heading_suffix "}\n"
 
 \bool_if:NF \l__projlib_theorem_complexname_bool
   {
-    \SetTheorem { theorem, lemma, proposition, corollary, property, axiom, construction, definition-theorem, definition-proposition, theorem-with-name }
+    \SetTheorem { theorem, lemma, proposition, corollary, property, axiom, construction, theorem-with-name }
       {
         name style = {
           , crefname style = { \color{orange}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
@@ -1792,7 +1792,7 @@ heading_suffix "}\n"
     \tcolorboxenvironment { #1 } { #2 }
   }
 
-\colorist_add_colorbox:nn { theorem, lemma, proposition, corollary, property, axiom, construction, definition-proposition, definition-theorem, theorem-with-name }
+\colorist_add_colorbox:nn { theorem, lemma, proposition, corollary, property, axiom, construction, definition-corollary, definition-proposition, definition-theorem, theorem-with-name }
   {
     enhanced~jigsaw, breakable, lines~before~break=3,
     left=3.5mm, right=3.5mm,
@@ -1800,7 +1800,7 @@ heading_suffix "}\n"
     opacityframe=0.9, colframe=orange, arc=.7mm
   }
 
-  \colorist_add_colorbox:nn { definition, assumption, convention, hypothesis, notation, proposition-definition, theorem-definition }
+  \colorist_add_colorbox:nn { definition, assumption, convention, hypothesis, notation, corollary-definition, proposition-definition, theorem-definition }
   {
     enhanced~jigsaw, breakable, lines~before~break=3,
     left=4mm, right=4mm, top=1mm, bottom=1mm,
