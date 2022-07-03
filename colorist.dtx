@@ -238,6 +238,7 @@
 \RequirePackage { colorist }
 
 \raggedbottom
+\emergencystretch=2pt
 \hfuzz=2pt
 \vfuzz=2pt
 
@@ -246,6 +247,15 @@
 %%================================
 \WarningFilter { latexfont } { Font~shape }
 \WarningFilter { latexfont } { Some~font  }
+
+\hook_gput_code:nnn { begindocument/before } { colorclass }
+  {
+    \IfPackageLoadedTF { biblatex }
+      {
+        \PassOptionsToPackage { biblatex } { embrac }
+      } {}
+    \RequirePackage { embrac }
+  }
 
 \cs_new_protected:Nn \__colorclass_load_file_or_config:Nnn
   {
@@ -289,6 +299,12 @@
                 ItalicFont     = *-italic ,
                 BoldItalicFont = *-bolditalic ,
               ]
+          }
+        % Adjusting the kerning of 'embrac' for 'newpxtext'
+        \hook_gput_code:nnn { begindocument/before } { colorclass }
+          {
+            \RenewEmph{[}{]}
+            \RenewEmph{(}{)}
           }
       }
 %</colorart|colorbook>
@@ -348,6 +364,12 @@
               ]
 
             \projlib_language_set_linespacing_latin:n { \setstretch { 1.07 } }
+
+            \hook_gput_code:nnn { begindocument/before } { colorclass }
+              {
+                \RenewEmph{[}{]}
+                \RenewEmph{(}{)}
+              }
           }
       }
 
@@ -768,15 +790,6 @@
         \skip_gset:Nn \g_colorclass_parfillskip_skip { 0pt plus \dim_eval:n { \linewidth - 3em } }
         \skip_gset_eq:NN \parfillskip \g_colorclass_parfillskip_skip
       }
-  }
-
-\hook_gput_code:nnn { begindocument/before } { colorclass }
-  {
-    \IfPackageLoadedTF { biblatex }
-      {
-        \PassOptionsToPackage { biblatex } { embrac }
-      } {}
-    \RequirePackage { embrac }
   }
 
 %%================================
