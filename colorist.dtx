@@ -813,6 +813,20 @@
 \cs_new_protected:Npn · { \ensuremath\cdot }
 %</lebhart|beaulivre>
 
+%%================================
+%%  Graphics
+%%================================
+\RequirePackage { graphicx }
+\graphicspath { { images/ } }
+\RequirePackage { wrapfig }
+\RequirePackage { float }
+\RequirePackage { caption }
+\captionsetup { font = small }
+
+%%================================
+%%  Icing on the cake
+%%================================
+\bool_if:NT \l__colorclass_fast_bool { \endinput }
 
 \sys_if_engine_luatex:TF
   {
@@ -835,16 +849,6 @@
         \skip_gset_eq:NN \parfillskip \g_colorclass_parfillskip_skip
       }
   }
-
-%%================================
-%%  Graphics
-%%================================
-\RequirePackage { graphicx }
-\graphicspath { { images/ } }
-\RequirePackage { wrapfig }
-\RequirePackage { float }
-\RequirePackage { caption }
-\captionsetup { font = small }
 %</class>
 %
 %
