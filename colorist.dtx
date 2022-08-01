@@ -1969,21 +1969,21 @@ heading_suffix "}\n"
   }
 \cs_new_protected:Nn \__colorist_add_scan_env_do:n
   {
-    \tl_const:cn { l__colorist_scan_env_ #1 }
+    \tl_const:cn { l__colorist_scan_env_ #1 _tl }
       {
         \AfterEnvEnd
           {
             \ScanEnv* { #1 }
-              { \skip_vertical:n { -0.9\baselineskip } }
+              { \vspace { -1.15\baselineskip } }
               {
                 \ScanEnv* { #1* }
-                  { \skip_vertical:n { -0.9\baselineskip } }
+                  { \vspace { -1.15\baselineskip } }
                   {}
               }
           }
       }
-    \hook_gput_code:nnn { env/#1/end } { colorist } { \tl_use:c { l__colorist_scan_env_ #1 } }
-    \hook_gput_code:nnn { env/#1*/end } { colorist } { \tl_use:c { l__colorist_scan_env_ #1 } }
+    \hook_gput_code:nnn { env/#1/end } { colorist } { \tl_use:c { l__colorist_scan_env_ #1 _tl } }
+    \hook_gput_code:nnn { env/#1*/end } { colorist } { \tl_use:c { l__colorist_scan_env_ #1 _tl } }
   }
 
 \colorist_add_scan_env:n { definition, assumption, convention, hypothesis, notation }
