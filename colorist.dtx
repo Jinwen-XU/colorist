@@ -19,7 +19,7 @@
 %<*colorart>
 \ProvidesExplClass
   {colorart}
-  {2022/06/16} {}
+  {2022/08/13} {}
   {A colorful article style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { article }
@@ -28,7 +28,7 @@
 %<*colorbook>
 \ProvidesExplClass
   {colorbook}
-  {2022/06/16} {}
+  {2022/08/13} {}
   {A colorful book style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { book }
@@ -37,7 +37,7 @@
 %<*lebhart>
 \ProvidesExplClass
   {lebhart}
-  {2022/06/16} {}
+  {2022/08/13} {}
   {A colorful article style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { article }
@@ -46,7 +46,7 @@
 %<*beaulivre>
 \ProvidesExplClass
   {beaulivre}
-  {2022/06/16} {}
+  {2022/08/13} {}
   {A colorful book style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { book }
@@ -55,14 +55,14 @@
 %<*colorist>
 \ProvidesExplPackage
   {colorist}
-  {2022/06/16} {}
+  {2022/08/13} {}
   {A colorful style for articles and books}
 %</colorist>
 %
 %<*colorist-fancy>
 \ProvidesExplPackage
   {colorist-fancy}
-  {2022/06/16} {}
+  {2022/08/13} {}
   {The fancy style of colorist}
 %</colorist-fancy>
 
@@ -1408,12 +1408,12 @@
 \setlist{noitemsep, topsep=.33\topsep-.5\parskip}
 % \setlist{topsep = .1\baselineskip, parsep=0pt, itemsep=.05\baselineskip}
 \setlist[enumerate]{labelsep=*, leftmargin=*}
-\setlist[enumerate,1]{label=\normalfont\arabic*$)$,
-    ref = \normalfont\arabic*$)$}
-\setlist[enumerate,2]{label=\normalfont\emph{\roman*}$)$,
-    ref = \normalfont\arabic{enumi}.\emph{\roman*}$)$}
-\setlist[enumerate,3]{label=\normalfont\emph{\alph*}$)$,
-    ref = \normalfont\arabic{enumi}.\emph{\roman{enumii}}.\emph{\alph*}$)$}
+\setlist[enumerate,1]{label=\normalfont\arabic*$\mskip-1mu\big)$,
+    ref = \normalfont\arabic*$\mskip-1mu\big)$}
+\setlist[enumerate,2]{label=\normalfont\emph{\roman*}$\mskip-1mu\big)$,
+    ref = \normalfont\arabic{enumi}.\emph{\roman*}$\mskip-1mu\big)$}
+\setlist[enumerate,3]{label=\normalfont\emph{\alph*}$\mskip-1mu\big)$,
+    ref = \normalfont\arabic{enumi}.\emph{\roman{enumii}}.\emph{\alph*}$\mskip-1mu\big)$}
 \setlist[description]{font=\normalfont\colorist_bfseries:}
 
 \renewlist{itemize}{itemize}{10}
@@ -1613,9 +1613,8 @@ heading_suffix "}\n"
         {\color{main-text!50!paper}\thmnote{\hspace{.4em}$($#3$)$}}\nobreakspace\nobreakspace{\normalfont\textcolor{main-text!27!paper}{---}}\nobreakspace\nobreakspace}
   }
 
-\renewcommand{\qedsymbol}{
+\newcommand{\customqedsymbol}{
   \makebox[1em]{\color{main-text!27!paper}\rule[-0.1em]{.95em}{.95em}}}
-\let\qedsymbolOriginal\qedsymbol
 
 % The style of the theorem-like environment that will be wrapped into the color box
 \bool_if:NTF \l__colorist_theorem_in_new_line_bool
@@ -1690,6 +1689,7 @@ heading_suffix "}\n"
 
 \tl_gset:Nn \g_crthm_combined_name_sep_tl { \textcolor{main-text}{-} }
 
+\SetTheorem { proof, proof* } { qed-symbol = { \customqedsymbol } }
 
 \SetTheorem { theorem, lemma, proposition, corollary, property, axiom, construction, theorem-with-name }
   {
