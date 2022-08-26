@@ -1593,6 +1593,9 @@ heading_suffix "}\n"
 % Change equation numbers to gray
 \def\tagform@#1{\maketag@@@{\textcolor{main-text!39!paper}{(\ignorespaces#1\unskip\@@italiccorr)}}}
 
+\PassOptionsToPackage { nopatch = eqnum } { microtype }
+
+
 \bool_if:NTF \l__colorist_theorem_in_new_line_bool
   {
     \newtheoremstyle{simple}
