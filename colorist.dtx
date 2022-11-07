@@ -1134,6 +1134,19 @@
     \fi
   }
 
+\bool_if:NT \l__colorist_is_book_bool
+  {
+    \hook_gput_code:nnn { cmd/frontmatter/before } { colorist }
+      {
+        \renewcommand*{\thefootnote}{\fnsymbol{footnote}}
+      }
+    \hook_gput_code:nnn { cmd/mainmatter/before } { colorist }
+      {
+        \setcounter{footnote}{0}
+        \renewcommand*{\thefootnote}{\arabic{footnote}}
+      }
+  }
+
 %%================================
 %%  Title format
 %%================================
