@@ -1565,6 +1565,14 @@ heading_suffix "}\n"
     \hspace*{20\p@}
   }
 
+\hook_gput_code:nnn { begindocument/before } { colorist }
+  {
+    \bool_if:NF \l__colorist_fast_bool
+      {
+        \hook_gput_code:nnn { cmd/printindex/before } { colorist } { \bookmarksetup{startatroot} }
+      }
+  }
+
 %%================================
 %%  Draft mark
 %%================================
