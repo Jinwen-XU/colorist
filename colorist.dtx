@@ -88,6 +88,15 @@
     , draft                   .initial:n          = { false }
     , fast                    .bool_set:N         = \l__colorclass_fast_bool
 
+    , print                   .bool_set:N         = \l__colorclass_print_mode_bool
+    , print                   .initial:n          = { false }
+    , print mode              .bool_set:N         = \l__colorclass_print_mode_bool
+    , print~mode              .bool_set:N         = \l__colorclass_print_mode_bool
+    , print-mode              .bool_set:N         = \l__colorclass_print_mode_bool
+    , print version           .bool_set:N         = \l__colorclass_print_mode_bool
+    , print~version           .bool_set:N         = \l__colorclass_print_mode_bool
+    , print-version           .bool_set:N         = \l__colorclass_print_mode_bool
+
 %<*none>
     , fancy                   .bool_set:N         = \l__colorclass_fancy_bool
     , fancy                   .initial:n          = { false }
@@ -158,6 +167,20 @@
 \ProcessKeyOptions [ colorclass ]
 
 \LoadClass{\l__colorclass_base_class_tl}
+
+
+\NewDocumentCommand \IfPrintModeTF { m m }
+  {
+    \bool_if:NTF \l__colorclass_print_mode_bool { #1 } { #2 }
+  }
+\NewDocumentCommand \IfPrintModeT { m }
+  {
+    \bool_if:NT \l__colorclass_print_mode_bool { #1 }
+  }
+\NewDocumentCommand \IfPrintModeF { m }
+  {
+    \bool_if:NF \l__colorclass_print_mode_bool { #1 }
+  }
 
 
 %%================================
