@@ -1,4 +1,4 @@
-<!-- Copyright (C) 2021-2022 by Jinwen XU -->
+<!-- Copyright (C) 2021-2023 by Jinwen XU -->
 
 # `lebhart` : write you articles in a colorful way
 
