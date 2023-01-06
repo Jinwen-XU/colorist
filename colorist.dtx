@@ -1735,10 +1735,19 @@ heading_suffix "}\n"
     \renewcommand\Hy@numberline[1]{#1.~}
     % https://tex.stackexchange.com/a/1821
     % Add the bookmark of ToC
-    \hook_gput_code:nnn { cmd/tableofcontents/before } { colorist }
+    \bool_if:NTF \l__colorist_is_book_bool
       {
-        \if@openright\cleardoublepage\else\clearpage\fi
-        \pdfbookmark[0]{\contentsname}{toc}
+        \hook_gput_code:nnn { cmd/tableofcontents/before } { colorist }
+          {
+            \if@openright\cleardoublepage\else\clearpage\fi
+            \pdfbookmark[0]{\contentsname}{toc}
+          }
+      }
+      {
+        \hook_gput_code:nnn { cmd/tableofcontents/before } { colorist }
+          {
+            \pdfbookmark[1]{\contentsname}{toc}
+          }
       }
   }
 
@@ -2157,7 +2166,7 @@ heading_suffix "}\n"
 
 %<*colorist-fancy>
     \newenvironment{keyword}
-    {\small\centerline{{ \colorist_bfseries: \keywordname}}\vspace{-0.3\baselineskip}
+    {\small\centerline{{ \colorist_bfseries: \sffamily\keywordname}}\vspace{-0.3\baselineskip}
         \color{main-text!80!paper}\begin{center}}
     {\end{center}\medskip}
 %</colorist-fancy>
