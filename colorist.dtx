@@ -2127,16 +2127,15 @@ heading_suffix "}\n"
       }
 
     \RequirePackage { projlib-titlepage }
-    \renewcommand{\maketitle}{
-      \LocallyStopLineNumbers
-      \ProjLibTitlePage
-        {
-          , title  = \@title
-          , author = \@author
-          , date   = \@date
-        }
-      \ResumeLineNumbers
-    }
+    \RenewDocumentCommand \maketitle { O{} }
+      {
+        \ProjLibTitlePage[#1]
+          {
+            , title  = \@title
+            , author = \@author
+            , date   = \@date
+          }
+      }
   }
   {
 %<*colorist-fancy>
