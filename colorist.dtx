@@ -19,7 +19,7 @@
 %<*colorart>
 \ProvidesExplClass
   {colorart}
-  {2023/01/05} {}
+  {2023/03/07} {}
   {A colorful article style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { article }
@@ -28,7 +28,7 @@
 %<*colorbook>
 \ProvidesExplClass
   {colorbook}
-  {2023/01/05} {}
+  {2023/03/07} {}
   {A colorful book style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { book }
@@ -37,7 +37,7 @@
 %<*lebhart>
 \ProvidesExplClass
   {lebhart}
-  {2023/01/05} {}
+  {2023/03/07} {}
   {A colorful article style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { article }
@@ -46,7 +46,7 @@
 %<*beaulivre>
 \ProvidesExplClass
   {beaulivre}
-  {2023/01/05} {}
+  {2023/03/07} {}
   {A colorful book style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { book }
@@ -55,14 +55,14 @@
 %<*colorist>
 \ProvidesExplPackage
   {colorist}
-  {2023/01/05} {}
+  {2023/03/07} {}
   {A colorful style for articles and books}
 %</colorist>
 %
 %<*colorist-fancy>
 \ProvidesExplPackage
   {colorist-fancy}
-  {2023/01/05} {}
+  {2023/03/07} {}
   {The fancy style of colorist}
 %</colorist-fancy>
 
@@ -1701,7 +1701,8 @@ heading_suffix "}\n"
 \RequirePackage { amsthm }
 
 % Change equation numbers to gray
-\def\tagform@#1{\maketag@@@{\textcolor{main-text!39!paper}{(\ignorespaces#1\unskip\@@italiccorr)}}}
+% \def\tagform@#1{\maketag@@@{\textcolor{main-text!39!paper}{(\ignorespaces#1\unskip\@@italiccorr)}}}
+\def\tagform@#1{\maketag@@@{\textcolor{.!39!paper}{(\ignorespaces#1\unskip\@@italiccorr)}}}
 
 \PassOptionsToPackage { nopatch = eqnum } { microtype }
 
