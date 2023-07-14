@@ -19,7 +19,7 @@
 %<*colorart>
 \ProvidesExplClass
   {colorart}
-  {2023/03/07} {}
+  {2023/07/14} {}
   {A colorful article style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { article }
@@ -28,7 +28,7 @@
 %<*colorbook>
 \ProvidesExplClass
   {colorbook}
-  {2023/03/07} {}
+  {2023/07/14} {}
   {A colorful book style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { book }
@@ -37,7 +37,7 @@
 %<*lebhart>
 \ProvidesExplClass
   {lebhart}
-  {2023/03/07} {}
+  {2023/07/14} {}
   {A colorful article style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { article }
@@ -46,7 +46,7 @@
 %<*beaulivre>
 \ProvidesExplClass
   {beaulivre}
-  {2023/03/07} {}
+  {2023/07/14} {}
   {A colorful book style}
 
 \tl_const:Nn \l__colorclass_base_class_tl { book }
@@ -55,14 +55,14 @@
 %<*colorist>
 \ProvidesExplPackage
   {colorist}
-  {2023/03/07} {}
+  {2023/07/14} {}
   {A colorful style for articles and books}
 %</colorist>
 %
 %<*colorist-fancy>
 \ProvidesExplPackage
   {colorist-fancy}
-  {2023/03/07} {}
+  {2023/07/14} {}
   {The fancy style of colorist}
 %</colorist-fancy>
 
@@ -2257,6 +2257,20 @@ heading_suffix "}\n"
 %%================================
 \PassOptionsToPackage { amsfashion } { projlib-author }
 \RequirePackage { projlib-author }
+
+%%================================
+%%  Special adjustment
+%%================================
+%<*colorist-fancy>
+\crefformat { chapter } { \nobreak \crefthemark { \crefthe_retrieve_space: } \nobreak #2 \normalfont\textcolor{maintheme} {\larger #1} #3 }
+\labelcrefformat { chapter } { #2 \normalfont\textcolor{maintheme} {\larger #1} #3 }
+\crefformat { section } { \nobreak \crefthemark { \crefthe_retrieve_space: } \nobreak #2 \color{maintheme} \g_colorist_title_font_section_tl {#1} #3 }
+\labelcrefformat { section } { #2 \color{maintheme} \g_colorist_title_font_section_tl {#1} #3 }
+\crefformat { subsection } { \nobreak \crefthemark { \crefthe_retrieve_space: } \nobreak #2 \g_colorist_title_font_subsection_tl {#1} #3 }
+\labelcrefformat { subsection } { #2 \g_colorist_title_font_subsection_tl {#1} #3 }
+\crefformat { subsubsection } { \nobreak \crefthemark { \crefthe_retrieve_space: } \nobreak #2 \color{main-text!70!paper} \g_colorist_title_font_subsubsection_tl {#1} #3 }
+\labelcrefformat { subsubsection } { #2 \color{main-text!70!paper} \g_colorist_title_font_subsubsection_tl {#1} #3 }
+%</colorist-fancy>
 %</style>
 
 \endinput
