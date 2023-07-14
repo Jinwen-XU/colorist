@@ -2,7 +2,7 @@
 
 # `colorist` bundle: write you documents in a colorful way
 
-> **New documentations are being written and are expected to be completed by the end of 2023. In the meantime, only the core code would be included in TeX Live 2023 coming this April (old documentations have been removed from the distribution).**
+> **New documentations are still being written. For now, only the core code is included in TeX Live 2023 (old documentations have been removed from the distribution).**
 
 ## Introduction
 
@@ -33,15 +33,17 @@ It mainly consists of two parts.
     typesetting, and also use more beautiful fonts.
 
 ### How to get these files
-You can get the `.sty` and `.cls` files mentioned above simply by compiling
+You can get the `.sty` and `.cls` files mentioned above by compiling
 `colorist.ins`:
 ```
 latex colorist.ins
 ```
+<!--
 To get the `.tex` source files of the documentation, compile `colorist-doc.ins`:
 ```
 latex colorist-doc.ins
 ```
+-->
 
 ## Features
 
