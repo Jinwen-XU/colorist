@@ -1759,6 +1759,17 @@ heading_suffix "}\n"
   {
     \newtheoremstyle{simple}
       {}{}
+      {\normalfont}{}
+      {\normalfont}{}
+      {0pt}
+      {
+        \rlap{\vbox{\hbox{\parbox{\linewidth}{
+          {\thmname{#1}\thmnumber{\nobreakspace #2}}
+          {\color{main-text!50!paper}\thmnote{\hspace{.4em}$($#3$)$}}
+        }}\hbox{\strut}\vspace{0pt}}}
+      }
+    \newtheoremstyle{simple-var}
+      {}{}
       { \bool_if:NTF \l__colorist_emphasis_theorem_bool { \itshape } { \normalfont } }{}
       {\normalfont}{}
       {0pt}
@@ -1771,6 +1782,13 @@ heading_suffix "}\n"
   }
   {
     \newtheoremstyle{simple}
+      {}{}
+      {\normalfont}{}
+      {\normalfont}{}
+      {0pt}
+      {{\thmname{#1}\nobreakspace\thmnumber{#2}}
+        {\color{main-text!50!paper}\thmnote{\hspace{.4em}$($#3$)$}}\nobreakspace\nobreakspace{\normalfont\textcolor{main-text!27!paper}{---}}\nobreakspace\nobreakspace}
+    \newtheoremstyle{simple-var}
       {}{}
       { \bool_if:NTF \l__colorist_emphasis_theorem_bool { \itshape } { \normalfont } }{}
       {\normalfont}{}
@@ -1788,6 +1806,17 @@ heading_suffix "}\n"
   {
     \newtheoremstyle{basic}
       {}{}
+      {\normalfont}{}
+      {}{}
+      {0pt}
+      {
+        \rlap{\vbox{\hbox{\parbox{\linewidth}{
+          {\thmname{#1}\nobreakspace\thmnumber{\textup{#2}}}
+          \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace(#3)}
+        }}\hbox{\strut}\vspace{0pt}}}
+      }
+    \newtheoremstyle{basic-var}
+      {}{}
       { \bool_if:NTF \l__colorist_emphasis_theorem_bool { \itshape } { \normalfont } }{}
       {}{}
       {0pt}
@@ -1800,6 +1829,12 @@ heading_suffix "}\n"
   }
   {
     \newtheoremstyle{basic}
+      {0pt}{0pt}
+      {\normalfont}{0pt}
+      {}{\;}{0.25em}
+      {{\thmname{#1}\nobreakspace\thmnumber{\textup{#2}}}
+      \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace(#3)}}
+    \newtheoremstyle{basic-var}
       {0pt}{0pt}
       { \bool_if:NTF \l__colorist_emphasis_theorem_bool { \itshape } { \normalfont } }{0pt}
       {}{\;}{0.25em}
@@ -1863,6 +1898,7 @@ heading_suffix "}\n"
     theorem style = {
       , remark = emphasis
       , observation = emphasis
+      , theorem = basic-var, lemma = basic-var, proposition = basic-var, corollary = basic-var, property = basic-var, axiom = basic-var, construction = basic-var, theorem-with-name = basic-var
     }
   }
   { projlib-theorem }
