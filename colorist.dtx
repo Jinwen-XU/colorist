@@ -1751,6 +1751,19 @@ heading_suffix "}\n"
 \RequirePackage { mathtools }
 \RequirePackage { amsthm }
 
+\tl_const:Nn \c_colorist_l_mathparen_latin_tl { $($ }
+\tl_const:Nn \c_colorist_r_mathparen_latin_tl { $)$ }
+\tl_const:Nn \c_colorist_l_mathparen_cjk_tl { \!\,（ }
+\tl_const:Nn \c_colorist_r_mathparen_cjk_tl { ）\!\, }
+\cs_new:Nn \colorist_insert_l_mathparen:
+  {
+    \tl_use:c { c_colorist_l_mathparen_ \l_projlib_language_current_languagetype_tl _tl }
+  }
+\cs_new:Nn \colorist_insert_r_mathparen:
+  {
+    \tl_use:c { c_colorist_r_mathparen_ \l_projlib_language_current_languagetype_tl _tl }
+  }
+
 % Change equation numbers to gray
 % \def\tagform@#1{\maketag@@@{\textcolor{main-text!39!paper}{(\ignorespaces#1\unskip\@@italiccorr)}}}
 \def\tagform@#1{\maketag@@@{\textcolor{.!39!paper}{(\ignorespaces#1\unskip\@@italiccorr)}}}
@@ -1768,7 +1781,7 @@ heading_suffix "}\n"
       {
         \rlap{\vbox{\hbox{\parbox{\linewidth}{
           {\thmname{#1}\thmnumber{\nobreakspace #2}}
-          {\color{main-text!50!paper}\thmnote{\hspace{.4em}$($#3$)$}}
+          {\color{main-text!50!paper}\thmnote{\hspace{.4em} \colorist_insert_l_mathparen: #3 \colorist_insert_r_mathparen: }}
         }}\hbox{\strut}\vspace{0pt}}}
       }
     \newtheoremstyle{simple-var}
@@ -1779,7 +1792,7 @@ heading_suffix "}\n"
       {
         \rlap{\vbox{\hbox{\parbox{\linewidth}{
           {\thmname{#1}\thmnumber{\nobreakspace #2}}
-          {\color{main-text!50!paper}\thmnote{\hspace{.4em}$($#3$)$}}
+          {\color{main-text!50!paper}\thmnote{\hspace{.4em} \colorist_insert_l_mathparen: #3 \colorist_insert_r_mathparen: }}
         }}\hbox{\strut}\vspace{0pt}}}
       }
   }
@@ -1790,14 +1803,14 @@ heading_suffix "}\n"
       {\normalfont}{}
       {0pt}
       {{\thmname{#1}\nobreakspace\thmnumber{#2}}
-        {\color{main-text!50!paper}\thmnote{\hspace{.4em}$($#3$)$}}\nobreakspace\nobreakspace{\normalfont\textcolor{main-text!27!paper}{---}}\nobreakspace\nobreakspace}
+        {\color{main-text!50!paper}\thmnote{\hspace{.4em} \colorist_insert_l_mathparen: #3 \colorist_insert_r_mathparen: }}\nobreakspace\nobreakspace{\normalfont\textcolor{main-text!27!paper}{---}}\nobreakspace\nobreakspace}
     \newtheoremstyle{simple-var}
       {}{}
       { \bool_if:NTF \l__colorist_emphasis_theorem_bool { \itshape } { \normalfont } }{}
       {\normalfont}{}
       {0pt}
       {{\thmname{#1}\nobreakspace\thmnumber{#2}}
-        {\color{main-text!50!paper}\thmnote{\hspace{.4em}$($#3$)$}}\nobreakspace\nobreakspace{\normalfont\textcolor{main-text!27!paper}{---}}\nobreakspace\nobreakspace}
+        {\color{main-text!50!paper}\thmnote{\hspace{.4em} \colorist_insert_l_mathparen: #3 \colorist_insert_r_mathparen: }}\nobreakspace\nobreakspace{\normalfont\textcolor{main-text!27!paper}{---}}\nobreakspace\nobreakspace}
   }
 
 \newcommand{\customqedsymbol}{
@@ -1815,7 +1828,7 @@ heading_suffix "}\n"
       {
         \rlap{\vbox{\hbox{\parbox{\linewidth}{
           {\thmname{#1}\nobreakspace\thmnumber{\textup{#2}}}
-          \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace(#3)}
+          \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace \colorist_insert_l_mathparen: #3 \colorist_insert_r_mathparen: }
         }}\hbox{\strut}\vspace{0pt}}}
       }
     \newtheoremstyle{basic-var}
@@ -1826,7 +1839,7 @@ heading_suffix "}\n"
       {
         \rlap{\vbox{\hbox{\parbox{\linewidth}{
           {\thmname{#1}\nobreakspace\thmnumber{\textup{#2}}}
-          \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace(#3)}
+          \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace \colorist_insert_l_mathparen: #3 \colorist_insert_r_mathparen: }
         }}\hbox{\strut}\vspace{0pt}}}
       }
   }
@@ -1836,13 +1849,13 @@ heading_suffix "}\n"
       {\normalfont}{0pt}
       {}{\;}{0.25em}
       {{\thmname{#1}\nobreakspace\thmnumber{\textup{#2}}}
-      \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace(#3)}}
+      \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace \colorist_insert_l_mathparen: #3 \colorist_insert_r_mathparen: }}
     \newtheoremstyle{basic-var}
       {0pt}{0pt}
       { \bool_if:NTF \l__colorist_emphasis_theorem_bool { \itshape } { \normalfont } }{0pt}
       {}{\;}{0.25em}
       {{\thmname{#1}\nobreakspace\thmnumber{\textup{#2}}}
-      \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace(#3)}}
+      \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace \colorist_insert_l_mathparen: #3 \colorist_insert_r_mathparen: }}
   }
 
 \theoremstyle{basic}
