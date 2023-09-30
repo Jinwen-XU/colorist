@@ -1672,7 +1672,7 @@ heading_suffix "}\n"
     \vspace{2pc plus .5pc minus .3pc}
   }
 
-% Prevent column break before the first sub-entry in the index
+%% Prevent column break before the first sub-entry in the index
 % See https://tex.stackexchange.com/a/132415
 \bool_new:N \l__colorist_if_first_subitem_bool
 \renewcommand*{\@idxitem}
@@ -1764,7 +1764,7 @@ heading_suffix "}\n"
     \tl_use:c { c_colorist_r_mathparen_ \l_projlib_language_current_languagetype_tl _tl }
   }
 
-% Change equation numbers to gray
+%% Change equation numbers to gray
 % \def\tagform@#1{\maketag@@@{\textcolor{main-text!39!paper}{(\ignorespaces#1\unskip\@@italiccorr)}}}
 \def\tagform@#1{\maketag@@@{\textcolor{.!39!paper}{(\ignorespaces#1\unskip\@@italiccorr)}}}
 
@@ -1813,11 +1813,18 @@ heading_suffix "}\n"
         {\color{main-text!50!paper}\thmnote{\hspace{.4em} \colorist_insert_l_mathparen: #3 \colorist_insert_r_mathparen: }}\nobreakspace\nobreakspace{\normalfont\textcolor{main-text!27!paper}{---}}\nobreakspace\nobreakspace}
   }
 
+\def\@endtheorem{\popQED\endtrivlist\@endpefalse}
+
 \newcommand{\customqedsymbol}{
   \makebox[1em]{\color{.!27!paper}\rule[-0.1em]{.95em}{.95em}}}
 \let\qedsymbol\customqedsymbol
 
-% The style of the theorem-like environment that will be wrapped into the color box
+%% Special treatments for the Q.E.D. symbol
+\def\noQED{\let\popQED\relax}
+\let\noqed\noQED
+\def\proofless{\pushQED{\qed}}
+
+%% The style of the theorem-type environment that will be wrapped into the color box
 \bool_if:NTF \l__colorist_theorem_in_new_line_bool
   {
     \newtheoremstyle{basic}
@@ -1860,12 +1867,12 @@ heading_suffix "}\n"
 
 \theoremstyle{basic}
 
-% The style of remark-like environments
+%% The style of remark-type environments
 \newtheoremstyle{emphasis}
     {0pt}{0pt}{\itshape}{0pt}{}{}{0pt}
     {\thmnote{\normalfont\sffamily\color{main-text}#3\hspace*{0.5em}}}
 
-% Custom proof style
+%% Custom proof style
 \renewenvironment{proof}[1][\proofname]{\par
   \pushQED{\qed}
   \normalfont \topsep6\p@\@plus6\p@\relax
@@ -2146,7 +2153,7 @@ heading_suffix "}\n"
     opacityframe=0, opacityback=0
   }
 
-% Connect adjacent definition-like environments
+%% Connect adjacent definition-type environments
 % From https://tex.stackexchange.com/a/587023
 \NewDocumentCommand \AfterEnvEnd { +m }
   { \colorist_after_env_end:nw { #1 } }
