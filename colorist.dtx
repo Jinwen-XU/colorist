@@ -1922,11 +1922,11 @@ heading_suffix "}\n"
 \PassOptionsToPackage
   {
     theorem style = {
-      , remark = emphasis
-      , observation = emphasis
-      , commentary = emphasis
-      , motivation = emphasis
-      , theorem = basic-var, lemma = basic-var, proposition = basic-var, corollary = basic-var, property = basic-var, axiom = basic-var, construction = basic-var, theorem-with-name = basic-var
+      , remark = emphasis, observation = emphasis, commentary = emphasis, motivation = emphasis
+      , remarks = emphasis, observations = emphasis, commentaries = emphasis, motivations = emphasis
+      , theorem = basic-var, lemma = basic-var, proposition = basic-var, corollary = basic-var, property = basic-var, axiom = basic-var, construction = basic-var
+      , theorems = basic-var, lemmas = basic-var, propositions = basic-var, corollaries = basic-var, properties = basic-var, axioms = basic-var, constructions = basic-var
+      , theorem-with-name = basic-var
     }
   }
   { projlib-theorem }
@@ -1937,28 +1937,28 @@ heading_suffix "}\n"
 
 \SetTheorem { proof, proof* } { qed-symbol = { \customqedsymbol } }
 
-\SetTheorem { theorem, lemma, proposition, corollary, property, axiom, construction, theorem-with-name }
+\SetTheorem { theorem, theorems, lemma, lemmas, proposition, propositions, corollary, corollaries, property, properties, axiom, axioms, construction, constructions, theorem-with-name }
   {
     name style = {
       heading style = { \color{orange}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
     }
   }
 
-\SetTheorem { definition, assumption, convention, hypothesis, notation }
+\SetTheorem { definition, definitions, assumption, assumptions, convention, conventions, hypothesis, hypotheses, notation, notations }
   {
     name style = {
       heading style = { \color{forestgreen}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
     }
   }
 
-\SetTheorem { application, claim, example, exercise, fact, problem, question, recall }
+\SetTheorem { application, applications, claim, claims, example, examples, fact, facts, recall, recalls, problem, problems, question, questions }
   {
     name style = {
       heading style = { \color{main-text}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
     }
   }
 
-\SetTheorem { conjecture }
+\SetTheorem { conjecture, conjectures }
   {
     name style = {
       heading style = { \color{purple}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
@@ -1968,7 +1968,7 @@ heading_suffix "}\n"
 
 \bool_if:NF \l__projlib_theorem_complexname_bool
   {
-    \SetTheorem { theorem, lemma, proposition, corollary, property, axiom, construction, theorem-with-name }
+    \SetTheorem { theorem, theorems, lemma, lemmas, proposition, propositions, corollary, corollaries, property, properties, axiom, axioms, construction, constructions, theorem-with-name }
       {
         name style = {
           , crefname style = { \color{orange}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
@@ -1977,7 +1977,7 @@ heading_suffix "}\n"
         }
       }
 
-    \SetTheorem { definition, assumption, convention, hypothesis, notation }
+    \SetTheorem { definition, definitions, assumption, assumptions, convention, conventions, hypothesis, hypotheses, notation, notations }
       {
         name style = {
           , crefname style = { \color{forestgreen}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
@@ -1986,7 +1986,7 @@ heading_suffix "}\n"
         }
       }
 
-    \SetTheorem { application, claim, example, exercise, fact, problem, question, recall }
+    \SetTheorem { application, applications, claim, claims, example, examples, fact, facts, recall, recalls, problem, problems, question, questions }
       {
         name style = {
           , crefname style = { \color{main-text}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
@@ -1995,7 +1995,7 @@ heading_suffix "}\n"
         }
       }
 
-    \SetTheorem { conjecture }
+    \SetTheorem { conjecture, conjectures }
       {
         name style = {
           , crefname style = { \color{purple}\colorist_bfseries:\g_colorist_title_font_common_tl\textsc }
@@ -2115,7 +2115,7 @@ heading_suffix "}\n"
     \tcolorboxenvironment { #1 } { #2 }
   }
 
-\colorist_add_colorbox:nn { theorem, lemma, proposition, corollary, property, axiom, construction, definition-corollary, definition-proposition, definition-theorem, theorem-with-name }
+\colorist_add_colorbox:nn { theorem, theorems, lemma, lemmas, proposition, propositions, corollary, corollaries, property, properties, axiom, axioms, construction, constructions, definition-corollary, definition-proposition, definition-theorem, theorem-with-name }
   {
     enhanced~jigsaw, breakable, lines~before~break=3,
     left=3.5mm, right=3.5mm,
@@ -2123,7 +2123,7 @@ heading_suffix "}\n"
     opacityframe=0.9, colframe=orange, arc=.7mm
   }
 
-  \colorist_add_colorbox:nn { definition, assumption, convention, hypothesis, notation, corollary-definition, proposition-definition, theorem-definition }
+\colorist_add_colorbox:nn { definition, definitions, assumption, assumptions, convention, conventions, hypothesis, hypotheses, notation, notations, corollary-definition, proposition-definition, theorem-definition }
   {
     enhanced~jigsaw, breakable, lines~before~break=3,
     left=4mm, right=4mm, top=1mm, bottom=1mm,
@@ -2131,14 +2131,14 @@ heading_suffix "}\n"
     borderline~west={1.5mm}{0mm}{forestgreen}, arc=.7mm
   }
 
-\colorist_add_colorbox:nn { application, claim, example, fact, recall }
+\colorist_add_colorbox:nn { application, applications, claim, claims, example, examples, fact, facts, recall, recalls }
   {
     enhanced~jigsaw, breakable, lines~before~break=3,
     colback=main-text!5!paper,
     boxrule=0pt, frame~hidden, arc=.7mm
   }
 
-\colorist_add_colorbox:nn { conjecture }
+\colorist_add_colorbox:nn { conjecture, conjectures }
   {
     enhanced~jigsaw, breakable, lines~before~break=3,
     left=3.5mm, right=3.5mm,
@@ -2146,14 +2146,14 @@ heading_suffix "}\n"
     opacityframe=0.7, colframe=purple, arc=.7mm
   }
 
-\colorist_add_colorbox:nn { problem }
+\colorist_add_colorbox:nn { problem, problems }
   {
     enhanced~jigsaw, breakable, lines~before~break=3,
     colback=yellow!25!paper,
     boxrule=0pt, frame~hidden, arc=.7mm
   }
 
-\colorist_add_colorbox:nn { question, exercise, remark, observation, commentary, motivation }
+\colorist_add_colorbox:nn { question, questions, exercise, exercises, remark, remarks, observation, observations, commentary, commentaries, motivation, motivations }
   {
     enhanced~jigsaw, breakable, lines~before~break=3,
     oversize,
