@@ -1924,6 +1924,8 @@ heading_suffix "}\n"
     theorem style = {
       , remark = emphasis
       , observation = emphasis
+      , commentary = emphasis
+      , motivation = emphasis
       , theorem = basic-var, lemma = basic-var, proposition = basic-var, corollary = basic-var, property = basic-var, axiom = basic-var, construction = basic-var, theorem-with-name = basic-var
     }
   }
@@ -2010,25 +2012,28 @@ heading_suffix "}\n"
   {
     \renewcommand* { \marginnotevadjust } { #1 }
   }
-\hook_gput_code:nnn { env/remark/begin } { colorist }
+\clist_map_inline:nn { remark, remark*, observation, observation*, commentary, commentary*, motivation, motivation* }
   {
-    \if@twoside\checkoddpage
-        \ifoddpage\reversemarginpar\fi
-    \else
-        \reversemarginpar
-    \fi
-    \colorist_mpar_adjust:n {-.25em}
-    \marginnote{
-      \colorist_icon_ideabulb:w [0.3] {orange}
-      \bool_if:NTF \l__colorist_is_book_bool
-        {
-          \hspace*{-.2em}
+    \hook_gput_code:nnn { env/#1/begin } { colorist }
+      {
+        \if@twoside\checkoddpage
+            \ifoddpage\reversemarginpar\fi
+        \else
+            \reversemarginpar
+        \fi
+        \colorist_mpar_adjust:n {-.33em}
+        \marginnote{
+          \colorist_icon_ideabulb:w [0.3] {orange}
+          \bool_if:NTF \l__colorist_is_book_bool
+            {
+              \hspace*{-.2em}
+            }
+            {
+              \hspace*{-.5em}
+            }
         }
-        {
-          \hspace*{-.5em}
-        }
-    }
-    \normalmarginpar
+        \normalmarginpar
+      }
   }
 \hook_gput_code:nnn { env/conjecture/begin } { colorist }
   {
@@ -2148,7 +2153,7 @@ heading_suffix "}\n"
     boxrule=0pt, frame~hidden, arc=.7mm
   }
 
-\colorist_add_colorbox:nn { question, exercise, remark, observation }
+\colorist_add_colorbox:nn { question, exercise, remark, observation, commentary, motivation }
   {
     enhanced~jigsaw, breakable, lines~before~break=3,
     oversize,
