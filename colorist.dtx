@@ -1006,10 +1006,10 @@
     , indent lists      .dim_set:N         = \l__colorist_item_indentation_dim
     , indent lists      .default:n         = { \parindent }
 
-    , emphasis-theorems   .bool_set:N       = \l__colorist_emphasis_theorem_bool
-    , emphasis-theorems   .initial:n        = { false }
-    , emphasis~theorems   .bool_set:N       = \l__colorist_emphasis_theorem_bool
-    , emphasis theorems   .bool_set:N       = \l__colorist_emphasis_theorem_bool
+    , emphasize-theorems  .bool_set:N       = \l__colorist_emphasize_theorem_bool
+    , emphasize-theorems  .initial:n        = { false }
+    , emphasize~theorems  .bool_set:N       = \l__colorist_emphasize_theorem_bool
+    , emphasize theorems  .bool_set:N       = \l__colorist_emphasize_theorem_bool
 
     , theorem-in-new-line .bool_set:N       = \l__colorist_theorem_in_new_line_bool
     , theorem-in-new-line .initial:n        = { false }
@@ -1789,7 +1789,7 @@ heading_suffix "}\n"
       }
     \newtheoremstyle{simple-var}
       {}{}
-      { \bool_if:NTF \l__colorist_emphasis_theorem_bool { \itshape } { \normalfont } }{}
+      { \bool_if:NTF \l__colorist_emphasize_theorem_bool { \itshape } { \normalfont } }{}
       {\normalfont}{}
       {0pt}
       {
@@ -1809,7 +1809,7 @@ heading_suffix "}\n"
         {\color{main-text!50!paper}\thmnote{\hspace{.4em} \colorist_insert_l_mathparen: #3 \colorist_insert_r_mathparen: }}\nobreakspace\nobreakspace{\normalfont\textcolor{main-text!27!paper}{---}}\nobreakspace\nobreakspace}
     \newtheoremstyle{simple-var}
       {}{}
-      { \bool_if:NTF \l__colorist_emphasis_theorem_bool { \itshape } { \normalfont } }{}
+      { \bool_if:NTF \l__colorist_emphasize_theorem_bool { \itshape } { \normalfont } }{}
       {\normalfont}{}
       {0pt}
       {{\thmname{#1}\nobreakspace\thmnumber{#2}}
@@ -1843,7 +1843,7 @@ heading_suffix "}\n"
       }
     \newtheoremstyle{basic-var}
       {}{}
-      { \bool_if:NTF \l__colorist_emphasis_theorem_bool { \itshape } { \normalfont } }{}
+      { \bool_if:NTF \l__colorist_emphasize_theorem_bool { \itshape } { \normalfont } }{}
       {}{}
       {0pt}
       {
@@ -1862,7 +1862,7 @@ heading_suffix "}\n"
       \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace \colorist_insert_l_mathparen: #3 \colorist_insert_r_mathparen: }}
     \newtheoremstyle{basic-var}
       {0pt}{0pt}
-      { \bool_if:NTF \l__colorist_emphasis_theorem_bool { \itshape } { \normalfont } }{0pt}
+      { \bool_if:NTF \l__colorist_emphasize_theorem_bool { \itshape } { \normalfont } }{0pt}
       {}{\;}{0.25em}
       {{\thmname{#1}\nobreakspace\thmnumber{\textup{#2}}}
       \thmnote{\normalfont\sffamily\color{main-text}\nobreakspace \colorist_insert_l_mathparen: #3 \colorist_insert_r_mathparen: }}
