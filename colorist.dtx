@@ -2021,15 +2021,15 @@ heading_suffix "}\n"
         \else
             \reversemarginpar
         \fi
-        \colorist_mpar_adjust:n {-.33em}
+        \colorist_mpar_adjust:n {\dimexpr.5em-8pt\relax}
         \marginnote{
           \colorist_icon_ideabulb:w [0.3] {orange}
           \bool_if:NTF \l__colorist_is_book_bool
             {
-              \hspace*{-.2em}
+              \hspace*{-2pt}
             }
             {
-              \hspace*{-.5em}
+              \hspace*{-5pt}
             }
         }
         \normalmarginpar
