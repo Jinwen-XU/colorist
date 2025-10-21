@@ -729,7 +729,7 @@
                   ]
                 \setmathfont { texgyrepagella-math.otf }
                   [
-                    range = { `(, `), `/, \setminus } ,
+                    range = { `(, `), `/, \setminus, `| } ,
                     Scale = 1.10
                   ]
                 \setmathfont { texgyrepagella-math.otf }
@@ -1472,6 +1472,8 @@
     \titlespacing{\subsubsection}{0pt}{.5\baselineskip plus .2\baselineskip minus .1\baselineskip}{.3\baselineskip plus .2\baselineskip minus .1\baselineskip}
   }
 
+\titlespacing{\paragraph}{0pt}{.3\baselineskip plus .2\baselineskip minus .1\baselineskip}{1em}
+
 %%================================
 %%  ToC format
 %%================================
@@ -1825,7 +1827,9 @@ heading_suffix "}\n"
 %% Special treatments for the Q.E.D. symbol
 \def\noQED{\let\popQED\relax}
 \let\noqed\noQED
-\def\proofless{\pushQED{\qed}}
+% Temporary fix so that when nested, the outside level would still have a QED symbol (should be sufficient in most cases, but is certainly not a reliable approach)
+\def\proofless{\pushQED{\qed}\AddToHookNext{env/\@currenvir/after}{\pushQED{\qed}}}
+% \def\proofless{\pushQED{\qed}}
 
 %% The style of the theorem-type environment that will be wrapped into the color box
 \bool_if:NTF \l__colorist_theorem_in_new_line_bool
